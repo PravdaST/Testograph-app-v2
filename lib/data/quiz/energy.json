@@ -1,0 +1,740 @@
+{
+  "quiz_metadata": {
+    "category": "energy",
+    "category_name": "Енергия и Фокус",
+    "version": "2.1",
+    "total_questions": 25,
+    "max_score": 210,
+    "estimated_time_minutes": 8,
+    "language": "bg"
+  },
+  "questions": [
+    {
+      "id": "eng_age",
+      "number": 1,
+      "section": "demographics",
+      "question": "Каква е Вашата възраст?",
+      "description": "Помага ни да персонализираме програмата според възрастовите Ви нужди.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "age_25_35",
+          "text": "А) 25-35 години",
+          "points": 0,
+          "age": 30,
+          "description": "Оптимална възраст за изграждане на навици"
+        },
+        {
+          "id": "age_36_45",
+          "text": "Б) 36-45 години",
+          "points": 0,
+          "age": 40,
+          "description": "Важна възраст за превенция и поддържане"
+        },
+        {
+          "id": "age_46_55",
+          "text": "В) 46-55 години",
+          "points": 0,
+          "age": 50,
+          "description": "Критична възраст за оптимизация"
+        },
+        {
+          "id": "age_56_plus",
+          "text": "Г) 56+ години",
+          "points": 0,
+          "age": 60,
+          "description": "Фокус върху поддържане и възстановяване"
+        }
+      ]
+    },
+    {
+      "id": "eng_main_problem",
+      "number": 2,
+      "section": "symptoms",
+      "question": "Кой от следните проблеми, свързани с енергията Ви, Ви тревожи най-много?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "problem_fatigue",
+          "text": "А) Постоянна умора през деня.",
+          "points": 5
+        },
+        {
+          "id": "problem_brain_fog",
+          "text": "Б) Мозъчна мъгла и липса на концентрация.",
+          "points": 5
+        },
+        {
+          "id": "problem_motivation",
+          "text": "В) Липса на мотивация и желание за действие.",
+          "points": 5
+        },
+        {
+          "id": "problem_endurance",
+          "text": "Г) Ниска физическа издръжливост.",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "eng_name",
+      "number": 3,
+      "section": "demographics",
+      "question": "Как да се обръщаме към Вас?",
+      "description": "Искаме да персонализираме съветите, които ще получите.",
+      "type": "text_input",
+      "required": false,
+      "placeholder": "Напр. Иван, Георги, Петър...",
+      "validation": {
+        "min_length": 2,
+        "max_length": 50
+      }
+    },
+    {
+      "id": "eng_profession",
+      "number": 4,
+      "section": "demographics",
+      "question": "С какво се занимавате професионално?",
+      "description": "Вашата професия често влияе на нивата на стрес и физическа активност.",
+      "type": "text_input",
+      "required": false,
+      "placeholder": "Напр. мениджър, програмист, инженер...",
+      "validation": {
+        "min_length": 2,
+        "max_length": 100
+      }
+    },
+    {
+      "id": "eng_work_stress",
+      "number": 5,
+      "section": "lifestyle",
+      "question": "Доколко е стресираща Вашата работа?",
+      "description": "Хроничният стрес е сред основните причини за изчерпване на енергийните резерви.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "stress_low",
+          "text": "А) Ниско - работата ми е спокойна и приятна.",
+          "points": 10
+        },
+        {
+          "id": "stress_moderate",
+          "text": "Б) Умерено - има стресови моменти, но успявам да се справя.",
+          "points": 7
+        },
+        {
+          "id": "stress_high",
+          "text": "В) Високо - често се чувствам претоварен.",
+          "points": 3
+        },
+        {
+          "id": "stress_extreme",
+          "text": "Г) Екстремно - работата ме изтощава физически и психически.",
+          "points": 0
+        }
+      ]
+    },
+    {
+      "id": "eng_transition_body_metrics",
+      "number": 6,
+      "section": "demographics",
+      "question": "Разбирам. Нека сега разгледаме Вашите телесни показатели.",
+      "description": "Те ще ни помогнат да разберем връзката между теглото, мазнините и енергийните Ви нива.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": []
+    },
+    {
+      "id": "eng_height",
+      "number": 7,
+      "section": "demographics",
+      "question": "Каква е Вашата височина?",
+      "description": "Необходима за изчисляване на оптимално тегло и индекс на телесна маса (BMI).",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "height_160_170",
+          "text": "А) 160-170 см",
+          "points": 0,
+          "height": 165
+        },
+        {
+          "id": "height_171_180",
+          "text": "Б) 171-180 см",
+          "points": 0,
+          "height": 175
+        },
+        {
+          "id": "height_181_190",
+          "text": "В) 181-190 см",
+          "points": 0,
+          "height": 185
+        },
+        {
+          "id": "height_191_plus",
+          "text": "Г) 191+ см",
+          "points": 0,
+          "height": 195
+        }
+      ]
+    },
+    {
+      "id": "eng_weight",
+      "number": 8,
+      "section": "demographics",
+      "question": "Какво е Вашето тегло?",
+      "description": "Необходимо за персонализиране на хранителния и тренировъчния план.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "weight_60_75",
+          "text": "А) 60-75 кг",
+          "points": 0,
+          "weight": 67
+        },
+        {
+          "id": "weight_76_85",
+          "text": "Б) 76-85 кг",
+          "points": 0,
+          "weight": 80
+        },
+        {
+          "id": "weight_86_95",
+          "text": "В) 86-95 кг",
+          "points": 0,
+          "weight": 90
+        },
+        {
+          "id": "weight_96_110",
+          "text": "Г) 96-110 кг",
+          "points": 0,
+          "weight": 103
+        },
+        {
+          "id": "weight_111_plus",
+          "text": "Д) 111+ кг",
+          "points": 0,
+          "weight": 120
+        }
+      ]
+    },
+    {
+      "id": "eng_body_fat",
+      "number": 9,
+      "section": "demographics",
+      "question": "Приблизително какъв е процентът на Вашите подкожни мазнини?",
+      "description": "Високите нива на мазнини водят до възпалителни процеси и по-ниска енергия.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "bf_8_12",
+          "text": "А) 8-12% - Атлетична физика, коремните мускули са видими.",
+          "points": 10,
+          "note": "Оптимално за енергия"
+        },
+        {
+          "id": "bf_13_17",
+          "text": "Б) 13-17% - Добра форма, лека дефиниция.",
+          "points": 9
+        },
+        {
+          "id": "bf_18_22",
+          "text": "В) 18-22% - Средно телосложение, малко мазнини в областта на корема.",
+          "points": 6
+        },
+        {
+          "id": "bf_23_27",
+          "text": "Г) 23-27% - Наднормено тегло, видими мазнини.",
+          "points": 3
+        },
+        {
+          "id": "bf_28_plus",
+          "text": "Д) 28%+ - Затлъстяване.",
+          "points": 0,
+          "note": "Критично за метаболизма"
+        }
+      ]
+    },
+    {
+      "id": "eng_transition_timeline",
+      "number": 10,
+      "section": "demographics",
+      "question": "Добре. Ето очакваната траектория на Вашето възстановяване:",
+      "description": "Базирано на хиляди случаи като Вашия, това е реалистичната прогноза за подобрение на енергийните нива.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [],
+      "ai_image_prompt": {
+        "prompt": "Clean medical-style line graph chart, horizontal X-axis labeled 0-30-60-90 days, vertical Y-axis labeled 0%-100% 'Индекс на Енергийните Нива', smooth curved line starting at 40% rising to 90%, green gradient fill (#10B981 to #D1FAE5) under curve, current position marked with red dot at day 0, white background, minimal grid lines, professional clinical design, sans-serif labels, Bulgarian text 'Очакван Прогрес на Енергийното Възстановяване' as title, 800x400px, high contrast",
+        "style": "clinical",
+        "size": "800x400px"
+      }
+    },
+    {
+      "id": "eng_nutrition_regime",
+      "number": 11,
+      "section": "nutrition",
+      "question": "Какъв е Вашият хранителен режим?",
+      "description": "Балансът между протеини, мазнини и въглехидрати влияе директно на енергийните Ви нива.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "nutrition_high_protein_fat",
+          "text": "А) Високопротеинов, богат на полезни мазнини (месо, яйца, риба, авокадо, ядки).",
+          "points": 10,
+          "note": "Оптимално за стабилна енергия"
+        },
+        {
+          "id": "nutrition_balanced",
+          "text": "Б) Балансиран - консумирам от всичко по малко.",
+          "points": 7
+        },
+        {
+          "id": "nutrition_high_carb",
+          "text": "В) Високовъглехидратен - предимно паста, ориз, хляб.",
+          "points": 4
+        },
+        {
+          "id": "nutrition_low_fat",
+          "text": "Г) Нискомазнинен - целенасочено избягвам мазнините.",
+          "points": 1,
+          "note": "Негативно за енергията"
+        },
+        {
+          "id": "nutrition_irregular",
+          "text": "Д) Нередовен - храня се с каквото намеря.",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": "eng_smoking",
+      "number": 12,
+      "section": "lifestyle",
+      "question": "Пушите ли?",
+      "description": "Тютюнопушенето намалява кислорода в клетките и директно потиска производството на енергия.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "smoke_never",
+          "text": "А) Не, никога не съм пушил.",
+          "points": 10
+        },
+        {
+          "id": "smoke_quit",
+          "text": "Б) Не, отказах ги преди повече от година.",
+          "points": 9
+        },
+        {
+          "id": "smoke_occasional",
+          "text": "В) Понякога, в компания или при стрес.",
+          "points": 5
+        },
+        {
+          "id": "smoke_regular",
+          "text": "Г) Да, редовно (до 10 цигари на ден).",
+          "points": 2
+        },
+        {
+          "id": "smoke_heavy",
+          "text": "Д) Да, редовно (над 10 цигари на ден).",
+          "points": 0,
+          "note": "Критично влияние върху енергията"
+        }
+      ]
+    },
+    {
+      "id": "eng_alcohol",
+      "number": 13,
+      "section": "lifestyle",
+      "question": "Колко често консумирате алкохол?",
+      "description": "Редовната консумация на алкохол влошава качеството на съня и изчерпва енергията.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "alcohol_never",
+          "text": "А) Никога или изключително рядко.",
+          "points": 10
+        },
+        {
+          "id": "alcohol_occasional",
+          "text": "Б) Инцидентно, в компания (1-2 пъти месечно).",
+          "points": 8
+        },
+        {
+          "id": "alcohol_weekly",
+          "text": "В) Редовно (1-2 пъти седмично).",
+          "points": 5
+        },
+        {
+          "id": "alcohol_frequent",
+          "text": "Г) Често (3-4 пъти седмично).",
+          "points": 2
+        },
+        {
+          "id": "alcohol_daily",
+          "text": "Д) Ежедневно.",
+          "points": 0,
+          "note": "Сериозно влияние върху енергията"
+        }
+      ]
+    },
+    {
+      "id": "eng_sleep_hours",
+      "number": 14,
+      "section": "sleep_recovery",
+      "question": "Колко часа спите средно на денонощие?",
+      "description": "7-9 часа качествен сън са критични за възстановяването на енергията.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "sleep_optimal",
+          "text": "А) 7-9 часа - събуждам се отпочинал.",
+          "points": 10,
+          "note": "Оптимално"
+        },
+        {
+          "id": "sleep_6_7",
+          "text": "Б) 6-7 часа - понякога се чувствам уморен.",
+          "points": 6
+        },
+        {
+          "id": "sleep_less_6",
+          "text": "В) По-малко от 6 часа - страдам от хронична липса на сън.",
+          "points": 2,
+          "note": "Критично за енергията"
+        },
+        {
+          "id": "sleep_more_9",
+          "text": "Г) Повече от 9 часа, но пак съм уморен.",
+          "points": 5,
+          "note": "Проверете качеството на съня"
+        },
+        {
+          "id": "sleep_irregular",
+          "text": "Д) Спя нередовно, по различно време.",
+          "points": 4,
+          "note": "Нуждаете се от изграждане на рутина"
+        }
+      ]
+    },
+    {
+      "id": "eng_transition_habits",
+      "number": 15,
+      "section": "lifestyle",
+      "question": "Благодаря Ви за откровеността.",
+      "description": "Вече имаме ясна картина на Вашето ежедневие и как то влияе на енергийните Ви нива.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [
+        {
+          "condition": "unhealthy_habits",
+          "text": "Виждам, че ежедневието Ви оказва сериозен натиск върху тялото. Добрата новина? Тези навици директно потискат енергията, което означава, че промяната им може драстично да подобри Вашата виталност."
+        },
+        {
+          "condition": "average_habits",
+          "text": "Опитвате се да поддържате баланс, което е добър знак. Но дори при умерени навици, хроничният стрес и лошият сън могат тихо да подкопават енергийните Ви нива."
+        },
+        {
+          "condition": "healthy_habits",
+          "text": "Навиците Ви са на солидно ниво. Ако все още изпитвате проблеми с енергията, това означава, че причината може да не е в начина на живот, а в по-дълбок метаболитен или хормонален дисбаланс."
+        }
+      ]
+    },
+    {
+      "id": "eng_tired_time",
+      "number": 16,
+      "section": "symptoms",
+      "question": "През коя част от деня се чувствате най-уморен?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "tired_morning",
+          "text": "А) Сутрин след събуждане - трудно ставам от леглото.",
+          "points": 10
+        },
+        {
+          "id": "tired_afternoon",
+          "text": "Б) Следобед (между 14:00 и 16:00) - усещам рязък спад в енергията.",
+          "points": 7
+        },
+        {
+          "id": "tired_evening",
+          "text": "В) Вечер - умората е нормална за края на деня.",
+          "points": 4
+        },
+        {
+          "id": "tired_all_day",
+          "text": "Г) През целия ден - постоянно съм изморен.",
+          "points": 1
+        }
+      ]
+    },
+    {
+      "id": "eng_energy_level",
+      "number": 17,
+      "section": "symptoms",
+      "question": "Как бихте оценили енергийното си ниво през деня по скала от 1 до 10?",
+      "description": "Важен индикатор за метаболитно здраве и функцията на надбъбречната жлеза.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "energy_excellent",
+          "text": "А) 8-10/10 - Пълен съм с енергия и мотивация.",
+          "points": 10,
+          "description": "Отлично състояние"
+        },
+        {
+          "id": "energy_good",
+          "text": "Б) 6-7/10 - Добре съм, но има какво да се желае.",
+          "points": 8,
+          "description": "Добро състояние"
+        },
+        {
+          "id": "energy_moderate",
+          "text": "В) 4-5/10 - Средно ниво, често се чувствам отпаднал.",
+          "points": 5,
+          "description": "Нуждае се от оптимизация"
+        },
+        {
+          "id": "energy_low",
+          "text": "Г) 2-3/10 - Ниска енергия, трудно се справям със задачите.",
+          "points": 2,
+          "description": "Сериозна нужда от подобрение"
+        },
+        {
+          "id": "energy_very_low",
+          "text": "Д) 0-1/10 - Постоянно съм изтощен.",
+          "points": 0,
+          "description": "Критично състояние"
+        }
+      ]
+    },
+    {
+      "id": "eng_frustration",
+      "number": 18,
+      "section": "symptoms",
+      "question": "Какво Ви разочарова най-много, свързано с ниската Ви енергия?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "frustration_work",
+          "text": "А) Не мога да бъда ефективен и продуктивен в работата си.",
+          "points": 5
+        },
+        {
+          "id": "frustration_hobbies",
+          "text": "Б) Нямам енергия за хобита и любимите си занимания.",
+          "points": 5
+        },
+        {
+          "id": "frustration_social",
+          "text": "В) Вечно съм твърде уморен за социални контакти и събирания.",
+          "points": 5
+        },
+        {
+          "id": "frustration_focus",
+          "text": "Г) Трудно ми е да се концентрирам и да бъда пълноценен.",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "eng_change_one_thing",
+      "number": 19,
+      "section": "symptoms",
+      "question": "Ако можехте да промените едно нещо, свързано с енергията си, какво би било то?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "change_morning_energy",
+          "text": "А) Да се събуждам с енергия и желание за новия ден.",
+          "points": 5
+        },
+        {
+          "id": "change_sustained_energy",
+          "text": "Б) Да имам стабилна енергия през целия ден, без спадове.",
+          "points": 5
+        },
+        {
+          "id": "change_mental_clarity",
+          "text": "В) Да имам бистър ум и остър фокус.",
+          "points": 5
+        },
+        {
+          "id": "change_motivation",
+          "text": "Г) Да възвърна своята мотивация и устрем.",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "eng_transition_social_proof",
+      "number": 20,
+      "section": "symptoms",
+      "question": "Разбирам. Не сте сам в това.",
+      "description": "Хиляди мъже в България преминават през същото – и намират решение.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [
+        {
+          "condition": "high_frustration",
+          "text": "Знам, че може да изглежда непреодолимо. Но досега над 8,000 мъже са използвали тази система, за да възстановят своята енергия и виталност. Вие можете да бъдете следващият."
+        },
+        {
+          "condition": "moderate_frustration",
+          "text": "Добрата новина е, че вече правите правилната стъпка - търсите ясна и работеща система. Не догадки. Не експерименти. А реални резултати."
+        }
+      ]
+    },
+    {
+      "id": "eng_tried_solutions",
+      "number": 21,
+      "section": "context",
+      "question": "Опитвали ли сте вече някакви решения за подобряване на енергията?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "tried_supplements",
+          "text": "А) Да - добавки (кофеин, витамини, адаптогени и др.).",
+          "points": 5
+        },
+        {
+          "id": "tried_lifestyle",
+          "text": "Б) Да - промени в начина на живот (диета, тренировки).",
+          "points": 5
+        },
+        {
+          "id": "tried_medical",
+          "text": "В) Да - медицински изследвания и консултации.",
+          "points": 5
+        },
+        {
+          "id": "tried_nothing",
+          "text": "Г) Не - това е първият ми сериозен опит.",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "eng_important_factor",
+      "number": 22,
+      "section": "context",
+      "question": "Какво е най-важно за Вас при избора на решение?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "factor_natural",
+          "text": "А) Да е естествено и безопасно - без странични ефекти.",
+          "points": 5
+        },
+        {
+          "id": "factor_proven",
+          "text": "Б) Да е с доказана ефективност - базирано на наука и реални резултати.",
+          "points": 5
+        },
+        {
+          "id": "factor_simple",
+          "text": "В) Да е лесно за прилагане - без сложни и объркващи режими.",
+          "points": 5
+        },
+        {
+          "id": "factor_fast",
+          "text": "Г) Да работи бързо - с видими резултати в рамките на седмици.",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "eng_vision",
+      "number": 23,
+      "section": "context",
+      "question": "Представете си, че след 30 дни проблемът е напълно решен. Как изглежда животът Ви?",
+      "description": "",
+      "type": "text_input",
+      "required": true,
+      "placeholder": "Опиши как изглежда животът ти с пълна енергия...",
+      "points": 5
+    },
+    {
+      "id": "eng_transition_trust",
+      "number": 24,
+      "section": "context",
+      "question": "Почти приключихме.",
+      "description": "Вече имам пълна картина за Вашето състояние и от какво се нуждаете.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [
+        {
+          "condition": "high_need",
+          "text": "Виждам, че нуждата е спешна. Системата, която ще получите, е създадена точно за случаи като Вашия - където няма време за губене и резултатите са задължителни."
+        },
+        {
+          "condition": "moderate_need",
+          "text": "Добрата новина е, че сте в идеалната позиция за трансформация. Не е твърде късно, но е важно да се действа сега, преди проблемът да се задълбочи."
+        },
+        {
+          "condition": "preventive",
+          "text": "Впечатлен съм. Малко хора вземат превантивни мерки, преди проблемът да стане сериозен. Този подход ще Ви спести години на разочарование."
+        }
+      ]
+    },
+    {
+      "id": "eng_workout_location",
+      "number": 25,
+      "section": "training",
+      "question": "Къде предпочитате да тренирате?",
+      "description": "Ще персонализираме тренировъчния Ви план според наличното оборудване.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "location_home",
+          "text": "А) Вкъщи (с минимално оборудване)",
+          "points": 0,
+          "note": "workout_location:home",
+          "description": "Тренировки с тегло на тялото и основно оборудване"
+        },
+        {
+          "id": "location_gym",
+          "text": "Б) Фитнес зала",
+          "points": 0,
+          "note": "workout_location:gym",
+          "description": "Пълен достъп до професионално оборудване"
+        }
+      ]
+    },
+    {
+      "id": "eng_transition_results",
+      "number": 26,
+      "section": "context",
+      "question": "Готов ли сте да видите своите резултати?",
+      "description": "На базата на Вашите отговори, създадох персонализиран план за оптимизация на енергията и виталността.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": []
+    }
+  ]
+}

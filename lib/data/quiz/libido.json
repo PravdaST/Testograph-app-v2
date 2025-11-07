@@ -1,0 +1,740 @@
+{
+  "quiz_metadata": {
+    "category": "libido",
+    "category_name": "Либидо и Сексуално Здраве",
+    "version": "2.1",
+    "total_questions": 25,
+    "max_score": 210,
+    "estimated_time_minutes": 8,
+    "language": "bg"
+  },
+  "questions": [
+    {
+      "id": "lib_age",
+      "number": 1,
+      "section": "demographics",
+      "question": "Каква е Вашата възраст?",
+      "description": "Помага ни да персонализираме програмата според възрастовите Ви нужди.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "age_25_35",
+          "text": "А) 25-35 години",
+          "points": 0,
+          "age": 30,
+          "description": "Оптимална възраст за изграждане на навици"
+        },
+        {
+          "id": "age_36_45",
+          "text": "Б) 36-45 години",
+          "points": 0,
+          "age": 40,
+          "description": "Важна възраст за превенция и поддържане"
+        },
+        {
+          "id": "age_46_55",
+          "text": "В) 46-55 години",
+          "points": 0,
+          "age": 50,
+          "description": "Критична възраст за оптимизация"
+        },
+        {
+          "id": "age_56_plus",
+          "text": "Г) 56+ години",
+          "points": 0,
+          "age": 60,
+          "description": "Фокус върху поддържане и възстановяване"
+        }
+      ]
+    },
+    {
+      "id": "lib_main_problem",
+      "number": 2,
+      "section": "symptoms",
+      "question": "Кой от следните проблеми, свързани със сексуалното Ви здраве, Ви тревожи най-много?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "problem_performance",
+          "text": "А) Представянето в спалнята и страхът от провал.",
+          "points": 5
+        },
+        {
+          "id": "problem_relationship",
+          "text": "Б) Връзката с партньорката ми - усещам, че се отдалечаваме.",
+          "points": 5
+        },
+        {
+          "id": "problem_shame",
+          "text": "В) Срамът и чувството, че съм \"неспособен\".",
+          "points": 5
+        },
+        {
+          "id": "problem_confidence",
+          "text": "Г) Загубата на увереност - не се чувствам \"мъж\" както преди.",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "lib_name",
+      "number": 3,
+      "section": "demographics",
+      "question": "Как да се обръщаме към Вас?",
+      "description": "Искаме да персонализираме съветите, които ще получите.",
+      "type": "text_input",
+      "required": false,
+      "placeholder": "Напр. Иван, Георги, Петър...",
+      "validation": {
+        "min_length": 2,
+        "max_length": 50
+      }
+    },
+    {
+      "id": "lib_profession",
+      "number": 4,
+      "section": "demographics",
+      "question": "С какво се занимавате професионално?",
+      "description": "Вашата професия често влияе на нивата на стрес и физическа активност.",
+      "type": "text_input",
+      "required": false,
+      "placeholder": "Напр. мениджър, програмист, инженер...",
+      "validation": {
+        "min_length": 2,
+        "max_length": 100
+      }
+    },
+    {
+      "id": "lib_work_stress",
+      "number": 5,
+      "section": "lifestyle",
+      "question": "Доколко е стресираща Вашата работа?",
+      "description": "Хроничният стрес директно потиска тестостерона и либидото.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "stress_low",
+          "text": "А) Ниско - работата ми е спокойна и приятна.",
+          "points": 10
+        },
+        {
+          "id": "stress_moderate",
+          "text": "Б) Умерено - има стресови моменти, но успявам да се справя.",
+          "points": 7
+        },
+        {
+          "id": "stress_high",
+          "text": "В) Високо - често се чувствам претоварен.",
+          "points": 3
+        },
+        {
+          "id": "stress_extreme",
+          "text": "Г) Екстремно - работата ме изтощава физически и психически.",
+          "points": 0
+        }
+      ]
+    },
+    {
+      "id": "lib_transition_body_metrics",
+      "number": 6,
+      "section": "demographics",
+      "question": "Разбирам. Нека сега разгледаме Вашите телесни показатели.",
+      "description": "Те ще ни помогнат да разберем връзката между теглото, мазнините и хормоналното Ви здраве.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": []
+    },
+    {
+      "id": "lib_height",
+      "number": 7,
+      "section": "demographics",
+      "question": "Каква е Вашата височина?",
+      "description": "Необходима за изчисляване на оптимално тегло и индекс на телесна маса (BMI).",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "height_160_170",
+          "text": "А) 160-170 см",
+          "points": 0,
+          "height": 165
+        },
+        {
+          "id": "height_171_180",
+          "text": "Б) 171-180 см",
+          "points": 0,
+          "height": 175
+        },
+        {
+          "id": "height_181_190",
+          "text": "В) 181-190 см",
+          "points": 0,
+          "height": 185
+        },
+        {
+          "id": "height_191_plus",
+          "text": "Г) 191+ см",
+          "points": 0,
+          "height": 195
+        }
+      ]
+    },
+    {
+      "id": "lib_weight",
+      "number": 8,
+      "section": "demographics",
+      "question": "Какво е Вашето тегло?",
+      "description": "Необходимо за персонализиране на хранителния и тренировъчния план.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "weight_60_75",
+          "text": "А) 60-75 кг",
+          "points": 0,
+          "weight": 67
+        },
+        {
+          "id": "weight_76_85",
+          "text": "Б) 76-85 кг",
+          "points": 0,
+          "weight": 80
+        },
+        {
+          "id": "weight_86_95",
+          "text": "В) 86-95 кг",
+          "points": 0,
+          "weight": 90
+        },
+        {
+          "id": "weight_96_110",
+          "text": "Г) 96-110 кг",
+          "points": 0,
+          "weight": 103
+        },
+        {
+          "id": "weight_111_plus",
+          "text": "Д) 111+ кг",
+          "points": 0,
+          "weight": 120
+        }
+      ]
+    },
+    {
+      "id": "lib_body_fat",
+      "number": 9,
+      "section": "demographics",
+      "question": "Приблизително какъв е процентът на Вашите подкожни мазнини?",
+      "description": "Високите нива на мазнини водят до повишен естроген и по-нисък тестостерон.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "bf_8_12",
+          "text": "А) 8-12% - Атлетична физика, коремните мускули са видими.",
+          "points": 10,
+          "note": "Оптимално за тестостерон"
+        },
+        {
+          "id": "bf_13_17",
+          "text": "Б) 13-17% - Добра форма, лека дефиниция.",
+          "points": 9
+        },
+        {
+          "id": "bf_18_22",
+          "text": "В) 18-22% - Средно телосложение, малко мазнини в областта на корема.",
+          "points": 6
+        },
+        {
+          "id": "bf_23_27",
+          "text": "Г) 23-27% - Наднормено тегло, видими мазнини.",
+          "points": 3
+        },
+        {
+          "id": "bf_28_plus",
+          "text": "Д) 28%+ - Затлъстяване.",
+          "points": 0,
+          "note": "Критично за хормоналния баланс"
+        }
+      ]
+    },
+    {
+      "id": "lib_transition_timeline",
+      "number": 10,
+      "section": "demographics",
+      "question": "Добре. Ето очакваната траектория на Вашето възстановяване:",
+      "description": "Базирано на хиляди случаи като Вашия, това е реалистичната прогноза за подобрение на тестостероновите нива.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [],
+      "ai_image_prompt": {
+        "prompt": "Clean medical-style line graph chart, horizontal X-axis labeled 0-30-60-90 days, vertical Y-axis labeled 0%-100% 'Индекс на Тестостерон', smooth curved line starting at 40% rising to 90%, blue gradient fill (#4A90E2 to #E3F2FD) under curve, current position marked with red dot at day 0, white background, minimal grid lines, professional clinical design, sans-serif labels, Bulgarian text 'Очакван Прогрес на Тестостероновото Възстановяване' as title, 800x400px, high contrast",
+        "style": "clinical",
+        "size": "800x400px"
+      }
+    },
+    {
+      "id": "lib_nutrition_regime",
+      "number": 11,
+      "section": "nutrition",
+      "question": "Какъв е Вашият хранителен режим?",
+      "description": "Балансът между протеини, мазнини и въглехидрати влияе директно на производството на тестостерон.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "nutrition_high_protein_fat",
+          "text": "А) Високопротеинов, богат на полезни мазнини (месо, яйца, риба, авокадо, ядки).",
+          "points": 10,
+          "note": "Оптимално за тестостерон"
+        },
+        {
+          "id": "nutrition_balanced",
+          "text": "Б) Балансиран - консумирам от всичко по малко.",
+          "points": 7
+        },
+        {
+          "id": "nutrition_high_carb",
+          "text": "В) Високовъглехидратен - предимно паста, ориз, хляб.",
+          "points": 4
+        },
+        {
+          "id": "nutrition_low_fat",
+          "text": "Г) Нискомазнинен - целенасочено избягвам мазнините.",
+          "points": 1,
+          "note": "Негативно за хормоните"
+        },
+        {
+          "id": "nutrition_irregular",
+          "text": "Д) Нередовен - храня се с каквото намеря.",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": "lib_smoking",
+      "number": 12,
+      "section": "lifestyle",
+      "question": "Пушите ли?",
+      "description": "Тютюнопушенето влошава кръвообращението и директно потиска еректилната функция.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "smoke_never",
+          "text": "А) Не, никога не съм пушил.",
+          "points": 10
+        },
+        {
+          "id": "smoke_quit",
+          "text": "Б) Не, отказах ги преди повече от година.",
+          "points": 9
+        },
+        {
+          "id": "smoke_occasional",
+          "text": "В) Понякога, в компания или при стрес.",
+          "points": 5
+        },
+        {
+          "id": "smoke_regular",
+          "text": "Г) Да, редовно (до 10 цигари на ден).",
+          "points": 2
+        },
+        {
+          "id": "smoke_heavy",
+          "text": "Д) Да, редовно (над 10 цигари на ден).",
+          "points": 0,
+          "note": "Критично влияние върху ерекциите"
+        }
+      ]
+    },
+    {
+      "id": "lib_alcohol",
+      "number": 13,
+      "section": "lifestyle",
+      "question": "Колко често консумирате алкохол?",
+      "description": "Редовната консумация на алкохол намалява тестостерона и увеличава естрогена.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "alcohol_never",
+          "text": "А) Никога или изключително рядко.",
+          "points": 10
+        },
+        {
+          "id": "alcohol_occasional",
+          "text": "Б) Инцидентно, в компания (1-2 пъти месечно).",
+          "points": 8
+        },
+        {
+          "id": "alcohol_weekly",
+          "text": "В) Редовно (1-2 пъти седмично).",
+          "points": 5
+        },
+        {
+          "id": "alcohol_frequent",
+          "text": "Г) Често (3-4 пъти седмично).",
+          "points": 2
+        },
+        {
+          "id": "alcohol_daily",
+          "text": "Д) Ежедневно.",
+          "points": 0,
+          "note": "Сериозно влияние върху хормоните"
+        }
+      ]
+    },
+    {
+      "id": "lib_sleep_hours",
+      "number": 14,
+      "section": "sleep_recovery",
+      "question": "Колко часа спите средно на денонощие?",
+      "description": "7-9 часа качествен сън са критични за производството на тестостерон и либидото.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "sleep_optimal",
+          "text": "А) 7-9 часа - събуждам се отпочинал.",
+          "points": 10,
+          "note": "Оптимално"
+        },
+        {
+          "id": "sleep_6_7",
+          "text": "Б) 6-7 часа - понякога се чувствам уморен.",
+          "points": 6
+        },
+        {
+          "id": "sleep_less_6",
+          "text": "В) По-малко от 6 часа - страдам от хронична липса на сън.",
+          "points": 2,
+          "note": "Критично за хормоните"
+        },
+        {
+          "id": "sleep_more_9",
+          "text": "Г) Повече от 9 часа, но пак съм уморен.",
+          "points": 5,
+          "note": "Проверете качеството на съня"
+        },
+        {
+          "id": "sleep_irregular",
+          "text": "Д) Спя нередовно, по различно време.",
+          "points": 4,
+          "note": "Нуждаете се от изграждане на рутина"
+        }
+      ]
+    },
+    {
+      "id": "lib_transition_habits",
+      "number": 15,
+      "section": "lifestyle",
+      "question": "Благодаря Ви за откровеността.",
+      "description": "Вече имаме ясна картина на Вашето ежедневие и как то влияе на тялото Ви.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [
+        {
+          "condition": "unhealthy_habits",
+          "text": "Виждам, че ежедневието Ви оказва сериозен натиск върху тялото. Добрата новина? Тези навици директно потискат тестостерона, което означава, че промяната им може драстично да подобри представянето Ви."
+        },
+        {
+          "condition": "average_habits",
+          "text": "Опитвате се да поддържате баланс, което е добър знак. Но дори при умерени навици, хроничният стрес и възрастта могат тихо да подкопават тестостероновите Ви нива."
+        },
+        {
+          "condition": "healthy_habits",
+          "text": "Навиците Ви са на солидно ниво. Ако все още изпитвате проблеми с представянето, това означава, че причината може да не е в начина на живот, а в по-дълбок хормонален дисбаланс."
+        }
+      ]
+    },
+    {
+      "id": "lib_sex_frequency",
+      "number": 16,
+      "section": "symptoms",
+      "question": "Колко често правите секс?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "sex_weekly_plus",
+          "text": "А) Повече от веднъж седмично.",
+          "points": 10
+        },
+        {
+          "id": "sex_weekly",
+          "text": "Б) Около веднъж седмично.",
+          "points": 7
+        },
+        {
+          "id": "sex_monthly",
+          "text": "В) Веднъж или два пъти месечно.",
+          "points": 4
+        },
+        {
+          "id": "sex_rarely",
+          "text": "Г) По-рядко или почти никога.",
+          "points": 1
+        }
+      ]
+    },
+    {
+      "id": "lib_morning_erections",
+      "number": 17,
+      "section": "symptoms",
+      "question": "Какви са сутрешните Ви ерекции?",
+      "description": "Важен индикатор за здравословни нива на тестостерон и добро кръвообращение.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "erections_daily",
+          "text": "А) Ежедневни и силни.",
+          "points": 10,
+          "description": "Отлично състояние"
+        },
+        {
+          "id": "erections_often",
+          "text": "Б) Чести - 4-6 пъти седмично.",
+          "points": 8,
+          "description": "Много добро състояние"
+        },
+        {
+          "id": "erections_sometimes",
+          "text": "В) Понякога - 2-3 пъти седмично.",
+          "points": 5,
+          "description": "Средно състояние"
+        },
+        {
+          "id": "erections_rarely",
+          "text": "Г) Рядко - веднъж седмично или по-малко.",
+          "points": 2,
+          "description": "Нуждае се от оптимизация"
+        },
+        {
+          "id": "erections_never",
+          "text": "Д) Липсват - отдавна не съм имал.",
+          "points": 0,
+          "description": "Сериозна нужда от подобрение"
+        }
+      ]
+    },
+    {
+      "id": "lib_frustration",
+      "number": 18,
+      "section": "symptoms",
+      "question": "Кое Ви разочарова най-много в момента?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "frustration_trying",
+          "text": "А) Опитвал съм много неща, но нищо не дава резултат.",
+          "points": 5
+        },
+        {
+          "id": "frustration_confused",
+          "text": "Б) Не знам откъде да започна - информацията е твърде много.",
+          "points": 5
+        },
+        {
+          "id": "frustration_time",
+          "text": "В) Нямам време за сложни диети и режими.",
+          "points": 5
+        },
+        {
+          "id": "frustration_motivation",
+          "text": "Г) Започвам с ентусиазъм, но бързо губя мотивация.",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "lib_change_one_thing",
+      "number": 19,
+      "section": "symptoms",
+      "question": "Ако можехте да промените едно нещо в сексуалния си живот, какво би било то?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "change_spontaneity",
+          "text": "А) Да се чувствам спонтанен и уверен, без да се притеснявам за представянето си.",
+          "points": 5
+        },
+        {
+          "id": "change_desire",
+          "text": "Б) Да изпитвам силно и истинско желание отново.",
+          "points": 5
+        },
+        {
+          "id": "change_performance",
+          "text": "В) Да се представям както преди - силно и продължително.",
+          "points": 5
+        },
+        {
+          "id": "change_connection",
+          "text": "Г) Да възстановя интимната връзка с партньорката си.",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "lib_transition_social_proof",
+      "number": 20,
+      "section": "symptoms",
+      "question": "Разбирам. Не сте сам в това.",
+      "description": "Хиляди мъже в България преминават през същото – и намират решение.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [
+        {
+          "condition": "high_frustration",
+          "text": "Знам, че може да изглежда непреодолимо. Но досега над 8,000 мъже са използвали тази система, за да възстановят своя тестостерон и увереност. Вие можете да бъдете следващият."
+        },
+        {
+          "condition": "moderate_frustration",
+          "text": "Добрата новина е, че вече правите правилната стъпка - търсите ясна и работеща система. Не догадки. Не експерименти. А реални резултати."
+        }
+      ]
+    },
+    {
+      "id": "lib_tried_solutions",
+      "number": 21,
+      "section": "context",
+      "question": "Опитвали ли сте вече някакви решения за подобряване на либидото/ерекцията?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "tried_supplements",
+          "text": "А) Да - добавки (цинк, магнезий, ашваганда и др.).",
+          "points": 5
+        },
+        {
+          "id": "tried_lifestyle",
+          "text": "Б) Да - промени в начина на живот (диета, тренировки).",
+          "points": 5
+        },
+        {
+          "id": "tried_medical",
+          "text": "В) Да - медицински решения (Виагра, Сиалис и др.).",
+          "points": 5
+        },
+        {
+          "id": "tried_nothing",
+          "text": "Г) Не - това е първият ми сериозен опит.",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "lib_important_factor",
+      "number": 22,
+      "section": "context",
+      "question": "Какво е най-важно за Вас при избора на решение?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "factor_natural",
+          "text": "А) Да е естествено и безопасно - без странични ефекти.",
+          "points": 5
+        },
+        {
+          "id": "factor_proven",
+          "text": "Б) Да е с доказана ефективност - базирано на наука и реални резултати.",
+          "points": 5
+        },
+        {
+          "id": "factor_simple",
+          "text": "В) Да е лесно за прилагане - без сложни и объркващи режими.",
+          "points": 5
+        },
+        {
+          "id": "factor_fast",
+          "text": "Г) Да работи бързо - с видими резултати в рамките на седмици.",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "lib_vision",
+      "number": 23,
+      "section": "context",
+      "question": "Представете си, че след 30 дни проблемът е напълно решен. Как изглежда животът Ви?",
+      "description": "",
+      "type": "text_input",
+      "required": true,
+      "placeholder": "Опиши как изглежда животът ти с върнатата увереност...",
+      "points": 5
+    },
+    {
+      "id": "lib_transition_trust",
+      "number": 24,
+      "section": "context",
+      "question": "Почти приключихме.",
+      "description": "Вече имам пълна картина за Вашето състояние и от какво се нуждаете.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [
+        {
+          "condition": "high_need",
+          "text": "Виждам, че нуждата е спешна. Системата, която ще получите, е създадена точно за случаи като Вашия - където няма време за губене и резултатите са задължителни."
+        },
+        {
+          "condition": "moderate_need",
+          "text": "Добрата новина е, че сте в идеалната позиция за трансформация. Не е твърде късно, но е важно да се действа сега, преди проблемът да се задълбочи."
+        },
+        {
+          "condition": "preventive",
+          "text": "Впечатлен съм. Малко хора вземат превантивни мерки, преди проблемът да стане сериозен. Този подход ще Ви спести години на разочарование."
+        }
+      ]
+    },
+    {
+      "id": "lib_workout_location",
+      "number": 25,
+      "section": "training",
+      "question": "Къде предпочитате да тренирате?",
+      "description": "Ще персонализираме тренировъчния Ви план според наличното оборудване.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "location_home",
+          "text": "А) Вкъщи (с минимално оборудване)",
+          "points": 0,
+          "note": "workout_location:home",
+          "description": "Тренировки с тегло на тялото и основно оборудване"
+        },
+        {
+          "id": "location_gym",
+          "text": "Б) Фитнес зала",
+          "points": 0,
+          "note": "workout_location:gym",
+          "description": "Пълен достъп до професионално оборудване"
+        }
+      ]
+    },
+    {
+      "id": "lib_transition_results",
+      "number": 26,
+      "section": "context",
+      "question": "Готов ли сте да видите своите резултати?",
+      "description": "На базата на Вашите отговори, създадох персонализиран план за оптимизация на тестостерона и сексуалното здраве.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": []
+    }
+  ]
+}

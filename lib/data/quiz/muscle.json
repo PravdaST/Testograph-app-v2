@@ -1,0 +1,741 @@
+{
+  "quiz_metadata": {
+    "category": "muscle",
+    "category_name": "Мускулна Маса и Сила",
+    "version": "2.1",
+    "total_questions": 25,
+    "max_score": 210,
+    "estimated_time_minutes": 8,
+    "language": "bg"
+  },
+  "questions": [
+    {
+      "id": "mus_age",
+      "number": 1,
+      "section": "demographics",
+      "question": "Каква е Вашата възраст?",
+      "description": "Помага ни да персонализираме програмата според възрастовите Ви нужди.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "age_25_35",
+          "text": "А) 25-35 години",
+          "points": 0,
+          "age": 30,
+          "description": "Оптимална възраст за изграждане на навици"
+        },
+        {
+          "id": "age_36_45",
+          "text": "Б) 36-45 години",
+          "points": 0,
+          "age": 40,
+          "description": "Важна възраст за превенция и поддържане"
+        },
+        {
+          "id": "age_46_55",
+          "text": "В) 46-55 години",
+          "points": 0,
+          "age": 50,
+          "description": "Критична възраст за оптимизация"
+        },
+        {
+          "id": "age_56_plus",
+          "text": "Г) 56+ години",
+          "points": 0,
+          "age": 60,
+          "description": "Фокус върху поддържане и възстановяване"
+        }
+      ]
+    },
+    {
+      "id": "mus_main_problem",
+      "number": 2,
+      "section": "symptoms",
+      "question": "Кой от следните проблеми, свързани с мускулната маса, Ви тревожи най-много?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "problem_cant_gain",
+          "text": "А) Трудно покачвам мускулна маса, въпреки усилията.",
+          "points": 5
+        },
+        {
+          "id": "problem_losing",
+          "text": "Б) Губя мускули и сила с напредването на възрастта.",
+          "points": 5
+        },
+        {
+          "id": "problem_strength",
+          "text": "В) Имам ниска сила и издръжливост по време на тренировка.",
+          "points": 5
+        },
+        {
+          "id": "problem_recovery",
+          "text": "Г) Възстановявам се много бавно след тренировка.",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "mus_name",
+      "number": 3,
+      "section": "demographics",
+      "question": "Как да се обръщаме към Вас?",
+      "description": "Искаме да персонализираме съветите, които ще получите.",
+      "type": "text_input",
+      "required": false,
+      "placeholder": "Напр. Иван, Георги, Петър...",
+      "validation": {
+        "min_length": 2,
+        "max_length": 50
+      }
+    },
+    {
+      "id": "mus_profession",
+      "number": 4,
+      "section": "demographics",
+      "question": "С какво се занимавате професионално?",
+      "description": "Вашата професия често влияе на нивата на стрес и физическа активност.",
+      "type": "text_input",
+      "required": false,
+      "placeholder": "Напр. мениджър, програмист, инженер...",
+      "validation": {
+        "min_length": 2,
+        "max_length": 100
+      }
+    },
+    {
+      "id": "mus_work_stress",
+      "number": 5,
+      "section": "lifestyle",
+      "question": "Доколко е стресираща Вашата работа?",
+      "description": "Хроничният стрес директно потиска тестостерона и мускулния растеж.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "stress_low",
+          "text": "А) Ниско - работата ми е спокойна и приятна.",
+          "points": 10
+        },
+        {
+          "id": "stress_moderate",
+          "text": "Б) Умерено - има стресови моменти, но успявам да се справя.",
+          "points": 7
+        },
+        {
+          "id": "stress_high",
+          "text": "В) Високо - често се чувствам претоварен.",
+          "points": 3
+        },
+        {
+          "id": "stress_extreme",
+          "text": "Г) Екстремно - работата ме изтощава физически и психически.",
+          "points": 0
+        }
+      ]
+    },
+    {
+      "id": "mus_transition_body_metrics",
+      "number": 6,
+      "section": "demographics",
+      "question": "Разбирам. Нека сега разгледаме Вашите телесни показатели.",
+      "description": "Те ще ни помогнат да разберем връзката между теглото, мазнините и потенциала Ви за мускулен растеж.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": []
+    },
+    {
+      "id": "mus_height",
+      "number": 7,
+      "section": "demographics",
+      "question": "Каква е Вашата височина?",
+      "description": "Необходима за изчисляване на оптимално тегло и индекс на телесна маса (BMI).",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "height_160_170",
+          "text": "А) 160-170 см",
+          "points": 0,
+          "height": 165
+        },
+        {
+          "id": "height_171_180",
+          "text": "Б) 171-180 см",
+          "points": 0,
+          "height": 175
+        },
+        {
+          "id": "height_181_190",
+          "text": "В) 181-190 см",
+          "points": 0,
+          "height": 185
+        },
+        {
+          "id": "height_191_plus",
+          "text": "Г) 191+ см",
+          "points": 0,
+          "height": 195
+        }
+      ]
+    },
+    {
+      "id": "mus_weight",
+      "number": 8,
+      "section": "demographics",
+      "question": "Какво е Вашето тегло?",
+      "description": "Необходимо за персонализиране на хранителния и тренировъчния план.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "weight_60_75",
+          "text": "А) 60-75 кг",
+          "points": 0,
+          "weight": 67
+        },
+        {
+          "id": "weight_76_85",
+          "text": "Б) 76-85 кг",
+          "points": 0,
+          "weight": 80
+        },
+        {
+          "id": "weight_86_95",
+          "text": "В) 86-95 кг",
+          "points": 0,
+          "weight": 90
+        },
+        {
+          "id": "weight_96_110",
+          "text": "Г) 96-110 кг",
+          "points": 0,
+          "weight": 103
+        },
+        {
+          "id": "weight_111_plus",
+          "text": "Д) 111+ кг",
+          "points": 0,
+          "weight": 120
+        }
+      ]
+    },
+    {
+      "id": "mus_body_fat",
+      "number": 9,
+      "section": "demographics",
+      "question": "Приблизително какъв е процентът на Вашите подкожни мазнини?",
+      "description": "Високите нива на мазнини водят до повишен естроген и по-нисък тестостерон.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "bf_8_12",
+          "text": "А) 8-12% - Атлетична физика, коремните мускули са видими.",
+          "points": 10,
+          "note": "Оптимално за тестостерон"
+        },
+        {
+          "id": "bf_13_17",
+          "text": "Б) 13-17% - Добра форма, лека дефиниция.",
+          "points": 9
+        },
+        {
+          "id": "bf_18_22",
+          "text": "В) 18-22% - Средно телосложение, малко мазнини в областта на корема.",
+          "points": 6
+        },
+        {
+          "id": "bf_23_27",
+          "text": "Г) 23-27% - Наднормено тегло, видими мазнини.",
+          "points": 3
+        },
+        {
+          "id": "bf_28_plus",
+          "text": "Д) 28%+ - Затлъстяване.",
+          "points": 0,
+          "note": "Критично за хормоналния баланс"
+        }
+      ]
+    },
+    {
+      "id": "mus_transition_timeline",
+      "number": 10,
+      "section": "demographics",
+      "question": "Добре. Ето очакваната траектория на Вашия мускулен растеж:",
+      "description": "Базирано на хиляди случаи като Вашия, това е реалистичната прогноза за подобрение на мускулната маса и сила.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [],
+      "ai_image_prompt": {
+        "prompt": "Clean medical-style line graph chart, horizontal X-axis labeled 0-30-60-90 days, vertical Y-axis labeled 0%-100% 'Индекс на Мускулна Маса', smooth curved line starting at 40% rising to 90%, orange gradient fill (#F97316 to #FED7AA) under curve, current position marked with red dot at day 0, white background, minimal grid lines, professional clinical design, sans-serif labels, Bulgarian text 'Очакван Прогрес на Мускулната Маса' as title, 800x400px, high contrast",
+        "style": "clinical",
+        "size": "800x400px"
+      }
+    },
+    {
+      "id": "mus_nutrition_regime",
+      "number": 11,
+      "section": "nutrition",
+      "question": "Какъв е Вашият хранителен режим?",
+      "description": "Приемът на достатъчно протеин е ключов за изграждането на мускулна маса.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "nutrition_high_protein_fat",
+          "text": "А) Високопротеинов, богат на полезни мазнини (месо, яйца, риба, авокадо, ядки).",
+          "points": 10,
+          "note": "Оптимално за мускулен растеж"
+        },
+        {
+          "id": "nutrition_balanced",
+          "text": "Б) Балансиран - консумирам от всичко по малко.",
+          "points": 7
+        },
+        {
+          "id": "nutrition_high_carb",
+          "text": "В) Високовъглехидратен - предимно паста, ориз, хляб.",
+          "points": 4
+        },
+        {
+          "id": "nutrition_low_fat",
+          "text": "Г) Нискомазнинен - целенасочено избягвам мазнините.",
+          "points": 1,
+          "note": "Негативно за хормоните"
+        },
+        {
+          "id": "nutrition_irregular",
+          "text": "Д) Нередовен - храня се с каквото намеря.",
+          "points": 2
+        }
+      ]
+    },
+    {
+      "id": "mus_smoking",
+      "number": 12,
+      "section": "lifestyle",
+      "question": "Пушите ли?",
+      "description": "Тютюнопушенето влошава кръвообращението и възстановяването, което пречи на мускулния растеж.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "smoke_never",
+          "text": "А) Не, никога не съм пушил.",
+          "points": 10
+        },
+        {
+          "id": "smoke_quit",
+          "text": "Б) Не, отказах ги преди повече от година.",
+          "points": 9
+        },
+        {
+          "id": "smoke_occasional",
+          "text": "В) Понякога, в компания или при стрес.",
+          "points": 5
+        },
+        {
+          "id": "smoke_regular",
+          "text": "Г) Да, редовно (до 10 цигари на ден).",
+          "points": 2
+        },
+        {
+          "id": "smoke_heavy",
+          "text": "Д) Да, редовно (над 10 цигари на ден).",
+          "points": 0,
+          "note": "Критично влияние върху мускулния растеж"
+        }
+      ]
+    },
+    {
+      "id": "mus_alcohol",
+      "number": 13,
+      "section": "lifestyle",
+      "question": "Колко често консумирате алкохол?",
+      "description": "Редовната консумация на алкохол намалява тестостерона и пречи на възстановяването.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "alcohol_never",
+          "text": "А) Никога или изключително рядко.",
+          "points": 10
+        },
+        {
+          "id": "alcohol_occasional",
+          "text": "Б) Инцидентно, в компания (1-2 пъти месечно).",
+          "points": 8
+        },
+        {
+          "id": "alcohol_weekly",
+          "text": "В) Редовно (1-2 пъти седмично).",
+          "points": 5
+        },
+        {
+          "id": "alcohol_frequent",
+          "text": "Г) Често (3-4 пъти седмично).",
+          "points": 2
+        },
+        {
+          "id": "alcohol_daily",
+          "text": "Д) Ежедневно.",
+          "points": 0,
+          "note": "Сериозно влияние върху хормоните"
+        }
+      ]
+    },
+    {
+      "id": "mus_sleep_hours",
+      "number": 14,
+      "section": "sleep_recovery",
+      "question": "Колко часа спите средно на денонощие?",
+      "description": "7-9 часа качествен сън са критични за производството на тестостерон и мускулното възстановяване.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "sleep_optimal",
+          "text": "А) 7-9 часа - събуждам се отпочинал.",
+          "points": 10,
+          "note": "Оптимално"
+        },
+        {
+          "id": "sleep_6_7",
+          "text": "Б) 6-7 часа - понякога се чувствам уморен.",
+          "points": 6
+        },
+        {
+          "id": "sleep_less_6",
+          "text": "В) По-малко от 6 часа - страдам от хронична липса на сън.",
+          "points": 2,
+          "note": "Критично за мускулния растеж"
+        },
+        {
+          "id": "sleep_more_9",
+          "text": "Г) Повече от 9 часа, но пак съм уморен.",
+          "points": 5,
+          "note": "Проверете качеството на съня"
+        },
+        {
+          "id": "sleep_irregular",
+          "text": "Д) Спя нередовно, по различно време.",
+          "points": 4,
+          "note": "Нуждаете се от изграждане на рутина"
+        }
+      ]
+    },
+    {
+      "id": "mus_transition_habits",
+      "number": 15,
+      "section": "lifestyle",
+      "question": "Благодаря Ви за откровеността.",
+      "description": "Вече имаме ясна картина на Вашето ежедневие и как то влияе на потенциала Ви за мускулен растеж.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [
+        {
+          "condition": "unhealthy_habits",
+          "text": "Виждам, че ежедневието Ви оказва сериозен натиск върху тялото. Добрата новина? Тези навици директно потискат мускулния растеж, което означава, че промяната им може драстично да подобри резултатите Ви."
+        },
+        {
+          "condition": "average_habits",
+          "text": "Опитвате се да поддържате баланс, което е добър знак. Но дори при умерени навици, хроничният стрес и възрастта могат тихо да ограничават мускулния Ви прогрес."
+        },
+        {
+          "condition": "healthy_habits",
+          "text": "Навиците Ви са на солидно ниво. Но ако все още изпитвате проблеми с мускулния растеж, това означава, че причината може да не е в начина на живот, а в по-дълбок хормонален дисбаланс или неефективна тренировъчна стратегия."
+        }
+      ]
+    },
+    {
+      "id": "mus_training_frequency",
+      "number": 16,
+      "section": "training",
+      "question": "Колко пъти седмично тренирате със тежести?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "train_0_1",
+          "text": "А) 0-1 пъти.",
+          "points": 1
+        },
+        {
+          "id": "train_2_3",
+          "text": "Б) 2-3 пъти.",
+          "points": 8
+        },
+        {
+          "id": "train_4_5",
+          "text": "В) 4-5 пъти.",
+          "points": 10
+        },
+        {
+          "id": "train_6_plus",
+          "text": "Г) 6+ пъти.",
+          "points": 6,
+          "note": "Възможно е да претренирате"
+        }
+      ]
+    },
+    {
+      "id": "mus_progress_rating",
+      "number": 17,
+      "section": "symptoms",
+      "question": "Как бихте оценили прогреса си в мускулна маса и сила през последните 6 месеца?",
+      "description": "Важен индикатор за ефективността на тренировъчния и хранителен план.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "progress_excellent",
+          "text": "А) 8-10: Отличен прогрес, видимо по-силен и мускулест.",
+          "points": 10,
+          "description": "Отлично състояние"
+        },
+        {
+          "id": "progress_good",
+          "text": "Б) 6-7: Добър, но бавен прогрес.",
+          "points": 8,
+          "description": "Много добро състояние"
+        },
+        {
+          "id": "progress_average",
+          "text": "В) 4-5: Има известен прогрес, но е минимален.",
+          "points": 5,
+          "description": "Средно състояние"
+        },
+        {
+          "id": "progress_poor",
+          "text": "Г) 2-3: Много слаб прогрес, почти никакъв.",
+          "points": 2,
+          "description": "Нуждае се от оптимизация"
+        },
+        {
+          "id": "progress_none",
+          "text": "Д) 0-1: Никакъв прогрес или регрес.",
+          "points": 0,
+          "description": "Сериозна нужда от подобрение"
+        }
+      ]
+    },
+    {
+      "id": "mus_frustration",
+      "number": 18,
+      "section": "symptoms",
+      "question": "Кое Ви разочарова най-много, свързано с Вашата мускулна маса?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "frustration_no_results",
+          "text": "А) Тренирам усилено, но не виждам резултати в огледалото.",
+          "points": 5
+        },
+        {
+          "id": "frustration_losing",
+          "text": "Б) Усещам, че губя мускули с напредването на възрастта.",
+          "points": 5
+        },
+        {
+          "id": "frustration_weak",
+          "text": "В) Чувствам се слаб в сравнение с другите в залата.",
+          "points": 5
+        },
+        {
+          "id": "frustration_strength_loss",
+          "text": "Г) Вече не мога да вдигам тежестите, които вдигах преди.",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "mus_change_one_thing",
+      "number": 19,
+      "section": "symptoms",
+      "question": "Ако можехте да промените едно нещо във физиката си, какво би било то?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "change_gain_mass",
+          "text": "А) Да започна да виждам реален мускулен растеж.",
+          "points": 5
+        },
+        {
+          "id": "change_strength",
+          "text": "Б) Да увелича силата си значително.",
+          "points": 5
+        },
+        {
+          "id": "change_definition",
+          "text": "В) Да постигна релефна и атлетична физика.",
+          "points": 5
+        },
+        {
+          "id": "change_confidence",
+          "text": "Г) Да се чувствам уверен и силен в собственото си тяло.",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "mus_transition_social_proof",
+      "number": 20,
+      "section": "symptoms",
+      "question": "Разбирам. Не сте сам в това.",
+      "description": "Хиляди мъже в България преминават през същото – и намират решение.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [
+        {
+          "condition": "high_frustration",
+          "text": "Знам, че може да изглежда непреодолимо. Но досега над 8,000 мъже са използвали тази система, за да оптимизират своя тестостерон и мускулен растеж. Вие можете да бъдете следващият."
+        },
+        {
+          "condition": "moderate_frustration",
+          "text": "Добрата новина е, че вече правите правилната стъпка - търсите ясна и работеща система. Не догадки. Не експерименти. А реални резултати."
+        }
+      ]
+    },
+    {
+      "id": "mus_tried_solutions",
+      "number": 21,
+      "section": "context",
+      "question": "Опитвали ли сте вече някакви решения за подобряване на мускулната маса?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "tried_supplements",
+          "text": "А) Да - добавки (протеин, креатин, BCAA и др.).",
+          "points": 5
+        },
+        {
+          "id": "tried_lifestyle",
+          "text": "Б) Да - промени в хранителния режим.",
+          "points": 5
+        },
+        {
+          "id": "tried_programs",
+          "text": "В) Да - различни тренировъчни програми.",
+          "points": 5
+        },
+        {
+          "id": "tried_nothing",
+          "text": "Г) Не - това е първият ми сериозен опит.",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "mus_important_factor",
+      "number": 22,
+      "section": "context",
+      "question": "Какво е най-важно за Вас при избора на решение?",
+      "description": "",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "factor_natural",
+          "text": "А) Да е естествено и безопасно - без странични ефекти.",
+          "points": 5
+        },
+        {
+          "id": "factor_proven",
+          "text": "Б) Да е с доказана ефективност - базирано на наука и реални резултати.",
+          "points": 5
+        },
+        {
+          "id": "factor_simple",
+          "text": "В) Да е лесно за прилагане - без сложни и объркващи режими.",
+          "points": 5
+        },
+        {
+          "id": "factor_fast",
+          "text": "Г) Да работи бързо - с видими резултати в рамките на седмици.",
+          "points": 5
+        }
+      ]
+    },
+    {
+      "id": "mus_vision",
+      "number": 23,
+      "section": "context",
+      "question": "Представете си, че след 30 дни проблемът е напълно решен. Как изглежда животът Ви?",
+      "description": "",
+      "type": "text_input",
+      "required": true,
+      "placeholder": "Опиши как изглежда животът ти с новата мускулна маса...",
+      "points": 5
+    },
+    {
+      "id": "mus_transition_trust",
+      "number": 24,
+      "section": "context",
+      "question": "Почти приключихме.",
+      "description": "Вече имам пълна картина за Вашето състояние и от какво се нуждаете.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [
+        {
+          "condition": "high_need",
+          "text": "Виждам, че нуждата е спешна. Системата, която ще получите, е създадена точно за случаи като Вашия - където няма време за губене и резултатите са задължителни."
+        },
+        {
+          "condition": "moderate_need",
+          "text": "Добрата новина е, че сте в идеалната позиция за трансформация. Не е твърде късно, но е важно да се действа сега, преди проблемът да се задълбочи."
+        },
+        {
+          "condition": "preventive",
+          "text": "Впечатлен съм. Малко хора вземат превантивни мерки, преди проблемът да стане сериозен. Този подход ще Ви спести години на разочарование."
+        }
+      ]
+    },
+    {
+      "id": "mus_workout_location",
+      "number": 25,
+      "section": "training",
+      "question": "Къде предпочитате да тренирате?",
+      "description": "Ще персонализираме тренировъчния Ви план според наличното оборудване.",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "location_home",
+          "text": "А) Вкъщи (с минимално оборудване)",
+          "points": 0,
+          "note": "workout_location:home",
+          "description": "Тренировки с тегло на тялото и основно оборудване"
+        },
+        {
+          "id": "location_gym",
+          "text": "Б) Фитнес зала",
+          "points": 0,
+          "note": "workout_location:gym",
+          "description": "Пълен достъп до професионално оборудване"
+        }
+      ]
+    },
+    {
+      "id": "mus_transition_results",
+      "number": 26,
+      "section": "context",
+      "question": "Готов ли сте да видите своите резултати?",
+      "description": "На базата на Вашите отговори, създадох персонализиран план за оптимизация на тестостерона и мускулния растеж.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": []
+    }
+  ]
+}
