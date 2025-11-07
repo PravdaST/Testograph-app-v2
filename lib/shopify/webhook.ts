@@ -60,19 +60,26 @@ export function parseShopifyOrder(payload: Record<string, unknown>): ShopifyOrde
       return null
     }
 
+    const customer = payload.customer as Record<string, unknown> | undefined
+
     return {
-      id: payload.id,
-      order_number: payload.order_number || payload.name,
-      email: payload.email,
+      id: payload.id as number,
+      order_number: (payload.order_number || payload.name) as string,
+      email: payload.email as string,
       customer: {
-        first_name: payload.customer?.first_name || '',
-        last_name: payload.customer?.last_name || '',
-        email: payload.email,
+        first_name: (customer?.first_name as string) || '',
+        last_name: (customer?.last_name as string) || '',
+        email: payload.email as string,
       },
-      line_items: payload.line_items || [],
-      total_price: payload.total_price || '0.00',
-      financial_status: payload.financial_status || 'pending',
-      created_at: payload.created_at,
+      line_items: (payload.line_items || []) as Array<{
+        name: string
+        sku?: string
+        quantity: number
+        price: string
+      }>,
+      total_price: (payload.total_price || '0.00') as string,
+      financial_status: (payload.financial_status || 'pending') as string,
+      created_at: payload.created_at as string,
     }
   } catch (error) {
     console.error('Error parsing Shopify order:', error)
