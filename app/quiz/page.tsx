@@ -27,26 +27,26 @@ export default function QuizLandingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset">
-      <div className="container-mobile py-8 space-y-8">
+    <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset flex flex-col">
+      <div className="container-mobile py-4 space-y-4 flex-1 flex flex-col">
         {/* Header */}
-        <div className="text-center space-y-4">
-          <h1 className="text-4xl font-bold">
+        <div className="text-center space-y-2">
+          <h1 className="text-2xl font-bold leading-tight">
             Безплатен тест за{' '}
             <span className="text-primary">тестостерон</span>
           </h1>
-          <p className="text-lg text-muted-foreground">
-            Открий къде е проблемът и получи персонализирана 28-дневна програма
+          <p className="text-sm text-muted-foreground">
+            Открий къде е проблемът и получи персонализирана програма
           </p>
         </div>
 
         {/* Category Selection */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-center">
+        <div className="space-y-3 flex-1">
+          <h2 className="text-base font-semibold text-center">
             Избери фокусна област
           </h2>
 
-          <div className="space-y-3">
+          <div className="space-y-2">
             {categories.map((category) => (
               <CategoryCard
                 key={category.id}
@@ -64,33 +64,11 @@ export default function QuizLandingPage() {
           fullWidth
           onClick={handleStart}
           disabled={!selectedCategory}
-          className="group"
+          className="group mt-auto"
         >
           Започни теста
           <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
         </Button>
-
-        {/* Trust Signals */}
-        <div className="pt-6 border-t border-border space-y-3">
-          <div className="flex items-start gap-3">
-            <CheckCircle2 className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
-            <p className="text-sm text-muted-foreground">
-              13 научно базирани въпроса - 5 минути
-            </p>
-          </div>
-          <div className="flex items-start gap-3">
-            <CheckCircle2 className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
-            <p className="text-sm text-muted-foreground">
-              Персонализирана оценка според възраст и цели
-            </p>
-          </div>
-          <div className="flex items-start gap-3">
-            <CheckCircle2 className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
-            <p className="text-sm text-muted-foreground">
-              Безплатен детайлен PDF отчет
-            </p>
-          </div>
-        </div>
       </div>
     </div>
   )
@@ -109,21 +87,21 @@ function CategoryCard({
     <button
       onClick={onSelect}
       className={`
-        w-full p-5 rounded-xl border-2 transition-all text-left
+        w-full p-3 rounded-lg border-2 transition-all text-left
         ${
           isSelected
-            ? 'border-primary bg-primary/5 scale-[1.02]'
+            ? 'border-primary bg-primary/5'
             : 'border-border hover:border-primary/50 hover:bg-accent/5'
         }
       `}
       style={{
-        boxShadow: isSelected ? `0 0 0 3px ${category.color}20` : 'none',
+        boxShadow: isSelected ? `0 0 0 2px ${category.color}20` : 'none',
       }}
     >
-      <div className="flex items-start gap-4">
+      <div className="flex items-center gap-3">
         {/* Emoji Icon */}
         <div
-          className="text-4xl p-3 rounded-lg"
+          className="text-2xl p-2 rounded-lg flex-shrink-0"
           style={{
             backgroundColor: isSelected ? `${category.color}20` : 'transparent',
           }}
@@ -132,33 +110,17 @@ function CategoryCard({
         </div>
 
         {/* Content */}
-        <div className="flex-1">
-          <h3 className="text-lg font-bold mb-1">{category.name}</h3>
-          <p className="text-sm text-muted-foreground mb-3">
+        <div className="flex-1 min-w-0">
+          <h3 className="text-base font-bold mb-0.5">{category.name}</h3>
+          <p className="text-xs text-muted-foreground line-clamp-1">
             {category.description}
           </p>
-
-          {/* Focus Areas */}
-          <div className="flex flex-wrap gap-2">
-            {category.focusAreas.map((area, idx) => (
-              <span
-                key={idx}
-                className="text-xs px-2 py-1 rounded-full bg-muted"
-                style={{
-                  color: isSelected ? category.color : undefined,
-                  backgroundColor: isSelected ? `${category.color}15` : undefined,
-                }}
-              >
-                {area}
-              </span>
-            ))}
-          </div>
         </div>
 
         {/* Checkmark */}
         {isSelected && (
           <CheckCircle2
-            className="w-6 h-6 flex-shrink-0"
+            className="w-5 h-5 flex-shrink-0"
             style={{ color: category.color }}
           />
         )}
