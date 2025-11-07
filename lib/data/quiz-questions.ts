@@ -10,7 +10,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   // ========== PHYSICAL QUESTIONS (30% weight) ==========
 
   {
-    id: 1,
+    id: '1',
     type: 'slider',
     category: 'physical' as QuizCategory,
     weight: 3,
@@ -22,7 +22,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   },
 
   {
-    id: 2,
+    id: '2',
     type: 'choice',
     category: 'physical' as QuizCategory,
     weight: 5,
@@ -52,7 +52,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   },
 
   {
-    id: 3,
+    id: '3',
     type: 'choice',
     category: 'physical' as QuizCategory,
     weight: 5,
@@ -82,7 +82,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   },
 
   {
-    id: 4,
+    id: '4',
     type: 'choice',
     category: 'physical' as QuizCategory,
     weight: 4,
@@ -114,7 +114,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   // ========== LIFESTYLE QUESTIONS (40% weight) ==========
 
   {
-    id: 5,
+    id: '5',
     type: 'slider',
     category: 'lifestyle' as QuizCategory,
     weight: 5,
@@ -126,7 +126,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   },
 
   {
-    id: 6,
+    id: '6',
     type: 'choice',
     category: 'lifestyle' as QuizCategory,
     weight: 6,
@@ -156,7 +156,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   },
 
   {
-    id: 7,
+    id: '7',
     type: 'choice',
     category: 'lifestyle' as QuizCategory,
     weight: 6,
@@ -186,7 +186,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   },
 
   {
-    id: 8,
+    id: '8',
     type: 'choice',
     category: 'lifestyle' as QuizCategory,
     weight: 5,
@@ -216,7 +216,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   },
 
   {
-    id: 9,
+    id: '9',
     type: 'choice',
     category: 'lifestyle' as QuizCategory,
     weight: 4,
@@ -246,7 +246,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   },
 
   {
-    id: 10,
+    id: '10',
     type: 'yesno',
     category: 'lifestyle' as QuizCategory,
     weight: 4,
@@ -268,7 +268,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   // ========== LIBIDO QUESTIONS (30% weight) ==========
 
   {
-    id: 11,
+    id: '11',
     type: 'choice',
     category: 'libido' as QuizCategory,
     weight: 6,
@@ -298,7 +298,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   },
 
   {
-    id: 12,
+    id: '12',
     type: 'choice',
     category: 'libido' as QuizCategory,
     weight: 5,
@@ -330,7 +330,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   // ========== PREFERENCE QUESTIONS (не влияят на скора) ==========
 
   {
-    id: 13,
+    id: '13',
     type: 'choice',
     category: 'lifestyle' as QuizCategory,
     weight: 0, // Не влияе на скора - само предпочитание
