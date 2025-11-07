@@ -4,15 +4,14 @@
  * Categories: Physical (30%), Lifestyle (40%), Libido (30%)
  */
 
-import type { QuizQuestion, QuizCategory } from '@/lib/data/quiz/types'
-
-export const QUIZ_QUESTIONS: QuizQuestion[] = [
+// Legacy quiz questions structure (not using new CategoryQuiz types)
+export const QUIZ_QUESTIONS = [
   // ========== PHYSICAL QUESTIONS (30% weight) ==========
 
   {
     id: '1',
     type: 'scale',
-    category: 'physical' as QuizCategory,
+    category: 'physical',
     weight: 3,
     question: 'Каква е вашата възраст?',
     min: 18,
@@ -24,7 +23,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: '2',
     type: 'single_choice',
-    category: 'physical' as QuizCategory,
+    category: 'physical',
     weight: 5,
     question: 'Как бихте описали нивото си на физическа активност?',
     options: [
@@ -54,7 +53,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: '3',
     type: 'single_choice',
-    category: 'physical' as QuizCategory,
+    category: 'physical',
     weight: 5,
     question: 'Наблюдавате ли някои от следните симптоми?',
     options: [
@@ -84,7 +83,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: '4',
     type: 'single_choice',
-    category: 'physical' as QuizCategory,
+    category: 'physical',
     weight: 4,
     question: 'Как бихте описали текущото си телосложение?',
     options: [
@@ -116,7 +115,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: '5',
     type: 'scale',
-    category: 'lifestyle' as QuizCategory,
+    category: 'lifestyle',
     weight: 5,
     question: 'Колко часа сън имате средно на нощ?',
     min: 3,
@@ -128,7 +127,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: '6',
     type: 'single_choice',
-    category: 'lifestyle' as QuizCategory,
+    category: 'lifestyle',
     weight: 6,
     question: 'Как оценявате качеството на съня си?',
     options: [
@@ -158,7 +157,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: '7',
     type: 'single_choice',
-    category: 'lifestyle' as QuizCategory,
+    category: 'lifestyle',
     weight: 6,
     question: 'Как оценявате нивата си на стрес?',
     options: [
@@ -188,7 +187,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: '8',
     type: 'single_choice',
-    category: 'lifestyle' as QuizCategory,
+    category: 'lifestyle',
     weight: 5,
     question: 'Как бихте описали храненето си?',
     options: [
@@ -218,7 +217,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: '9',
     type: 'single_choice',
-    category: 'lifestyle' as QuizCategory,
+    category: 'lifestyle',
     weight: 4,
     question: 'Каква е седмичната Ви консумация на алкохол?',
     options: [
@@ -248,7 +247,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: '10',
     type: 'yesno',
-    category: 'lifestyle' as QuizCategory,
+    category: 'lifestyle',
     weight: 4,
     question: 'Правите ли силови тренировки редовно?',
     options: [
@@ -270,7 +269,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: '11',
     type: 'single_choice',
-    category: 'libido' as QuizCategory,
+    category: 'libido',
     weight: 6,
     question: 'Как оценявате Вашето либидо (сексуално желание)?',
     options: [
@@ -300,7 +299,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: '12',
     type: 'single_choice',
-    category: 'libido' as QuizCategory,
+    category: 'libido',
     weight: 5,
     question: 'Забелязвате ли промяна в сутрешните ерекции?',
     options: [
@@ -332,7 +331,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
   {
     id: '13',
     type: 'single_choice',
-    category: 'lifestyle' as QuizCategory,
+    category: 'lifestyle',
     weight: 0, // Не влияе на скора - само предпочитание
     question: 'Къде предпочитате да тренирате?',
     options: [
