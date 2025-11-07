@@ -10,10 +10,15 @@ import { useRouter } from 'next/navigation'
 import { ShoppingBag, Package, CheckCircle, ArrowRight, LogOut } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 
+interface AccessData {
+  capsulesRemaining?: number
+  [key: string]: unknown
+}
+
 export default function NoAccessPage() {
   const router = useRouter()
   const [email, setEmail] = useState<string>('')
-  const [accessData, setAccessData] = useState<Record<string, unknown> | null>(null)
+  const [accessData, setAccessData] = useState<AccessData | null>(null)
 
   useEffect(() => {
     const userEmail = localStorage.getItem('quizEmail')
@@ -131,11 +136,11 @@ export default function NoAccessPage() {
                   <div>
                     <p className="text-slate-400">Капсули</p>
                     <p className="text-2xl font-bold text-amber-500">
-                      {accessData.capsulesRemaining || 0}
+                      {accessData.capsulesRemaining ?? 0}
                     </p>
                   </div>
                 </div>
-                {accessData.capsulesRemaining > 0 ? (
+                {(accessData.capsulesRemaining ?? 0) > 0 ? (
                   <p className="mt-4 text-sm text-amber-400">
                     Имаш капсули! Опресни страницата за достъп.
                   </p>
