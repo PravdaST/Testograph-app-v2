@@ -4,7 +4,7 @@
  * Categories: Physical (30%), Lifestyle (40%), Libido (30%)
  */
 
-import type { QuizQuestion, QuizCategory } from '@/types'
+import type { QuizQuestion, QuizCategory } from '@/lib/data/quiz/types'
 
 export const QUIZ_QUESTIONS: QuizQuestion[] = [
   // ========== PHYSICAL QUESTIONS (30% weight) ==========
