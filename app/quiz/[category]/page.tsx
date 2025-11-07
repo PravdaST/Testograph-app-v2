@@ -435,7 +435,7 @@ export default function CategoryQuizPage({ params }: PageProps) {
           ) : currentQuestion.type === 'bmi_input' ? (
             // BMI Input (height + weight = BMI)
             <BMIInput
-              value={responses[currentQuestion.id] as { height: number; weight: number; bmi: number } | null}
+              value={responses[currentQuestion.id] as unknown as { height: number; weight: number; bmi: number } | null}
               onChange={(bmiData) => handleAnswer(bmiData as unknown as number)}
             />
           ) : currentQuestion.type === 'scale' && currentQuestion.scale ? (
