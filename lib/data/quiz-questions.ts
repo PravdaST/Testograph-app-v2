@@ -11,7 +11,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 
   {
     id: '1',
-    type: 'slider',
+    type: 'scale',
     category: 'physical' as QuizCategory,
     weight: 3,
     question: 'Каква е вашата възраст?',
@@ -23,7 +23,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 
   {
     id: '2',
-    type: 'choice',
+    type: 'single_choice',
     category: 'physical' as QuizCategory,
     weight: 5,
     question: 'Как бихте описали нивото си на физическа активност?',
@@ -53,7 +53,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 
   {
     id: '3',
-    type: 'choice',
+    type: 'single_choice',
     category: 'physical' as QuizCategory,
     weight: 5,
     question: 'Наблюдавате ли някои от следните симптоми?',
@@ -83,7 +83,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 
   {
     id: '4',
-    type: 'choice',
+    type: 'single_choice',
     category: 'physical' as QuizCategory,
     weight: 4,
     question: 'Как бихте описали текущото си телосложение?',
@@ -115,7 +115,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 
   {
     id: '5',
-    type: 'slider',
+    type: 'scale',
     category: 'lifestyle' as QuizCategory,
     weight: 5,
     question: 'Колко часа сън имате средно на нощ?',
@@ -127,7 +127,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 
   {
     id: '6',
-    type: 'choice',
+    type: 'single_choice',
     category: 'lifestyle' as QuizCategory,
     weight: 6,
     question: 'Как оценявате качеството на съня си?',
@@ -157,7 +157,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 
   {
     id: '7',
-    type: 'choice',
+    type: 'single_choice',
     category: 'lifestyle' as QuizCategory,
     weight: 6,
     question: 'Как оценявате нивата си на стрес?',
@@ -187,7 +187,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 
   {
     id: '8',
-    type: 'choice',
+    type: 'single_choice',
     category: 'lifestyle' as QuizCategory,
     weight: 5,
     question: 'Как бихте описали храненето си?',
@@ -217,7 +217,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 
   {
     id: '9',
-    type: 'choice',
+    type: 'single_choice',
     category: 'lifestyle' as QuizCategory,
     weight: 4,
     question: 'Каква е седмичната Ви консумация на алкохол?',
@@ -269,7 +269,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 
   {
     id: '11',
-    type: 'choice',
+    type: 'single_choice',
     category: 'libido' as QuizCategory,
     weight: 6,
     question: 'Как оценявате Вашето либидо (сексуално желание)?',
@@ -299,7 +299,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 
   {
     id: '12',
-    type: 'choice',
+    type: 'single_choice',
     category: 'libido' as QuizCategory,
     weight: 5,
     question: 'Забелязвате ли промяна в сутрешните ерекции?',
@@ -331,7 +331,7 @@ export const QUIZ_QUESTIONS: QuizQuestion[] = [
 
   {
     id: '13',
-    type: 'choice',
+    type: 'single_choice',
     category: 'lifestyle' as QuizCategory,
     weight: 0, // Не влияе на скора - само предпочитание
     question: 'Къде предпочитате да тренирате?',
