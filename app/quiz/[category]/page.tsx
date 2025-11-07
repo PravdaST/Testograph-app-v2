@@ -348,8 +348,8 @@ export default function CategoryQuizPage({ params }: PageProps) {
     <div className="min-h-screen bg-background flex flex-col safe-area-inset">
       {/* Progress Bar */}
       <div className="sticky top-0 z-10 bg-background border-b border-border">
-        <div className="container-mobile py-4">
-          <div className="flex items-center justify-between mb-2">
+        <div className="container-mobile py-3">
+          <div className="flex items-center justify-between mb-1.5">
             <span className="text-sm text-muted-foreground">
               Въпрос {currentStep + 1} от {totalSteps}
             </span>
@@ -368,8 +368,8 @@ export default function CategoryQuizPage({ params }: PageProps) {
       </div>
 
       {/* Question Content */}
-      <div className="flex-1 container-mobile py-8">
-        <div className="space-y-8">
+      <div className="flex-1 container-mobile py-4">
+        <div className="space-y-4">
           {/* Section Badge */}
           <div className="inline-block px-3 py-1 rounded-full bg-accent text-xs font-medium">
             {currentQuestion.section === 'symptoms' && 'Симптоми'}
@@ -381,28 +381,20 @@ export default function CategoryQuizPage({ params }: PageProps) {
 
           {/* Question Text */}
           <div>
-            <h2 className="text-2xl font-bold leading-tight mb-2">
+            <h2 className="text-lg font-bold leading-tight mb-1.5">
               {currentQuestion.question}
             </h2>
             {(currentQuestion.description || currentQuestion.dynamic_copy) && (
-              <p className="text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 {getDynamicCopy(currentQuestion)}
               </p>
             )}
           </div>
 
-          {/* AI Generated Image (if prompt exists) */}
+          {/* AI Generated Image - hidden on mobile for space */}
           {currentQuestion.ai_image_prompt && (
-            <div className="rounded-lg border-2 border-dashed border-border p-8 text-center">
-              <div className="inline-block p-4 rounded-full bg-accent mb-3">
-                <Sparkles className="w-8 h-8 text-muted-foreground" />
-              </div>
-              <p className="text-sm text-muted-foreground">
-                AI-генерирана визуализация
-              </p>
-              <p className="text-xs text-muted-foreground mt-1">
-                {currentQuestion.ai_image_prompt.style} стил
-              </p>
+            <div className="hidden">
+              {/* Reserved for future AI image generation */}
             </div>
           )}
 
@@ -414,18 +406,32 @@ export default function CategoryQuizPage({ params }: PageProps) {
               <p className="text-lg font-medium">Продължаваме напред!</p>
             </div>
           ) : currentQuestion.type === 'text_input' ? (
-            // Text input (name, profession, etc.)
+            // Text input with inline submit button
             <div className="space-y-2">
-              <input
-                type="text"
-                placeholder={currentQuestion.placeholder || 'Въведи отговор...'}
-                value={(responses[currentQuestion.id] as string) || ''}
-                onChange={(e) => handleAnswer(e.target.value)}
-                className={`w-full px-4 py-3 rounded-lg border-2 bg-background
-                         focus:outline-none transition-colors text-lg
-                         ${hasValidationError ? 'border-destructive focus:border-destructive' : 'border-border focus:border-primary'}`}
-                autoFocus
-              />
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder={currentQuestion.placeholder || 'Въведи отговор...'}
+                  value={(responses[currentQuestion.id] as string) || ''}
+                  onChange={(e) => handleAnswer(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' && hasAnswer && !hasValidationError) {
+                      handleNext()
+                    }
+                  }}
+                  className={`w-full px-4 py-3 pr-14 rounded-lg border-2 bg-background
+                           focus:outline-none transition-colors text-base
+                           ${hasValidationError ? 'border-destructive focus:border-destructive' : 'border-border focus:border-primary'}`}
+                  autoFocus
+                />
+                <button
+                  onClick={handleNext}
+                  disabled={!hasAnswer || hasValidationError}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-md bg-primary text-primary-foreground disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:bg-primary/90"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
               {hasValidationError && (
                 <p className="text-sm text-destructive">
                   {textInputErrors[currentQuestion.id]}
@@ -445,16 +451,24 @@ export default function CategoryQuizPage({ params }: PageProps) {
               step={1}
               value={responses[currentQuestion.id] as number | null}
               unit=""
-              onChange={handleAnswer}
+              onChange={(value) => {
+                handleAnswer(value)
+                // Auto-advance after slider selection with slightly longer delay
+                setTimeout(handleNext, 600)
+              }}
             />
           ) : currentQuestion.type === 'single_choice' && currentQuestion.options ? (
-            <div className="space-y-3">
+            <div className="space-y-2">
               {currentQuestion.options.map((option) => (
                 <button
                   key={option.id}
-                  onClick={() => handleAnswer(option.id)}
+                  onClick={() => {
+                    handleAnswer(option.id)
+                    // Auto-advance after selection with small delay for visual feedback
+                    setTimeout(handleNext, 400)
+                  }}
                   className={`
-                    w-full p-4 text-left rounded-lg border-2 transition-all
+                    w-full p-2.5 text-left rounded-lg border-2 transition-all
                     ${
                       responses[currentQuestion.id] === option.id
                         ? 'border-primary bg-primary/5'
@@ -462,14 +476,14 @@ export default function CategoryQuizPage({ params }: PageProps) {
                     }
                   `}
                 >
-                  <p className="font-medium">{option.text}</p>
+                  <p className="text-sm font-medium">{option.text}</p>
                   {option.description && (
-                    <p className="text-sm text-muted-foreground mt-1">
+                    <p className="text-xs text-muted-foreground mt-0.5">
                       {option.description}
                     </p>
                   )}
                   {option.note && responses[currentQuestion.id] === option.id && (
-                    <p className="text-xs text-primary mt-2">
+                    <p className="text-xs text-primary mt-1">
                       💡 {option.note}
                     </p>
                   )}
@@ -480,30 +494,6 @@ export default function CategoryQuizPage({ params }: PageProps) {
         </div>
       </div>
 
-      {/* Navigation Buttons */}
-      <div className="sticky bottom-0 bg-background border-t border-border">
-        <div className="container-mobile py-4 flex gap-3">
-          {!isFirstQuestion && (
-            <Button
-              variant="outline"
-              size="lg"
-              onClick={handlePrevious}
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </Button>
-          )}
-
-          <Button
-            size="lg"
-            fullWidth
-            onClick={handleNext}
-            disabled={!hasAnswer}
-          >
-            Напред
-            <ArrowRight className="ml-2 w-5 h-5" />
-          </Button>
-        </div>
-      </div>
     </div>
   )
 }
