@@ -63,12 +63,17 @@ export default function CategoryQuizPage({ params }: PageProps) {
   const handleAnswer = (value: number | string) => {
     if (!currentQuestion) return
 
-    // Validate text inputs
+    // Always save the value first
+    setResponses((prev) => ({
+      ...prev,
+      [currentQuestion.id]: value,
+    }))
+
+    // Then validate text inputs and show errors (but don't block input)
     if (currentQuestion.type === 'text_input' && typeof value === 'string') {
       const error = validateTextInput(value, currentQuestion.id)
       if (error) {
         setTextInputErrors((prev) => ({ ...prev, [currentQuestion.id]: error }))
-        return // Don't save invalid input
       } else {
         // Clear error if valid
         setTextInputErrors((prev) => {
@@ -78,11 +83,6 @@ export default function CategoryQuizPage({ params }: PageProps) {
         })
       }
     }
-
-    setResponses((prev) => ({
-      ...prev,
-      [currentQuestion.id]: value,
-    }))
   }
 
   // Validate text input fields
