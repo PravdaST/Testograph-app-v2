@@ -396,10 +396,19 @@ export default function CategoryQuizPage({ params }: PageProps) {
 
           {/* Answer Input */}
           {currentQuestion.type === 'transition_message' ? (
-            // Transition message - no input needed
-            <div className="bg-accent/20 rounded-lg p-6 text-center">
-              <Sparkles className="w-12 h-12 mx-auto mb-4 text-primary" />
-              <p className="text-lg font-medium">Продължаваме напред!</p>
+            // Transition message - show button to continue
+            <div className="space-y-4">
+              <div className="bg-accent/20 rounded-lg p-6 text-center">
+                <Sparkles className="w-12 h-12 mx-auto mb-4 text-primary" />
+                <p className="text-lg font-medium">Продължаваме напред!</p>
+              </div>
+              <button
+                onClick={handleNext}
+                className="w-full p-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all font-medium flex items-center justify-center gap-2"
+              >
+                Напред
+                <ArrowRight className="w-5 h-5" />
+              </button>
             </div>
           ) : currentQuestion.type === 'text_input' ? (
             // Text input with inline submit button
