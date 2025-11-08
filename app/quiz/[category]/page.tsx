@@ -91,10 +91,6 @@ export default function CategoryQuizPage({ params }: PageProps) {
       return 'Полето е задължително'
     }
 
-    if (value.trim().length < 2) {
-      return 'Минимум 2 символа'
-    }
-
     if (value.trim().length > 50) {
       return 'Максимум 50 символа'
     }
