@@ -30,7 +30,8 @@ export async function checkUserAccess(email: string): Promise<UserAccess> {
     .single()
 
   const capsulesRemaining = inventory?.capsules_remaining || 0
-  const hasAccess = userAccess?.has_active_access || false
+  // Access is granted if user has capsules remaining
+  const hasAccess = capsulesRemaining > 0
   const accessEndDate = userAccess?.access_end_date || null
 
   // Calculate days remaining
