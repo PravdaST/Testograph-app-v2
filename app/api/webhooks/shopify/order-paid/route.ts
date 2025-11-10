@@ -93,14 +93,16 @@ export async function POST(request: NextRequest) {
     // Get current inventory
     const { data: currentInventory } = await supabase
       .from('testoup_inventory')
-      .select('capsules_remaining, bottles_purchased')
+      .select('capsules_remaining, bottles_purchased, total_capsules')
       .eq('email', customerEmail)
       .maybeSingle()
 
     const currentCapsules = currentInventory?.capsules_remaining || 0
     const currentBottles = currentInventory?.bottles_purchased || 0
+    const currentTotalCapsules = currentInventory?.total_capsules || 0
     const newCapsulesTotal = currentCapsules + totalCapsules
     const newBottlesTotal = currentBottles + totalBottles
+    const newTotalCapsules = currentTotalCapsules + totalCapsules
 
     // Upsert inventory
     const { error: upsertError } = await supabase
@@ -108,7 +110,7 @@ export async function POST(request: NextRequest) {
       .upsert(
         {
           email: customerEmail,
-          total_capsules: newBottlesTotal * 60,
+          total_capsules: newTotalCapsules,
           capsules_remaining: newCapsulesTotal,
           bottles_purchased: newBottlesTotal,
           last_refill_date: new Date().toISOString(),
@@ -146,7 +148,7 @@ export async function POST(request: NextRequest) {
     }
 
     console.log(`✅ Successfully added ${totalCapsules} capsules to ${customerEmail}`)
-    console.log(`   New total: ${newCapsulesTotal} capsules (${newBottlesTotal} bottles)`)
+    console.log(`   Capsules remaining: ${newCapsulesTotal}, Total received: ${newTotalCapsules} (${newBottlesTotal} bottles)`)
 
     return NextResponse.json({
       success: true,
