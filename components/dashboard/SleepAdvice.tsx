@@ -169,7 +169,7 @@ export function SleepAdvice({
           {/* Helper Text */}
           {!isLocked && !isCompleted && (
             <p className="text-xs text-muted-foreground text-center mt-3">
-              Маркирай след като се събудиш и натисни "Потвърди сън"
+              Маркирай след като се събудиш и натисни &quot;Потвърди сън&quot;
             </p>
           )}
         </div>

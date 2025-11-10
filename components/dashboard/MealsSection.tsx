@@ -126,7 +126,7 @@ export function MealsSection({
       {/* Helper Text */}
       {!isLocked && completedMeals.length === 0 && (
         <p className="text-xs text-muted-foreground text-center">
-          Маркирай хранения след като ги приемеш и натисни "Потвърди хранене"
+          Маркирай хранения след като ги приемеш и натисни &quot;Потвърди хранене&quot;
         </p>
       )}
     </div>
