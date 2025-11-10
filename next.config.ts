@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         hostname: 'v2.exercisedb.io',
         pathname: '/image/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'mrpsaqtmucxpawajfxfn.supabase.co',
+        pathname: '/storage/v1/object/public/**',
+      },
     ],
   },
   turbopack: {
