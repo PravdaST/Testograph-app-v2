@@ -19,6 +19,8 @@ export default function NoAccessPage() {
   const router = useRouter()
   const [email, setEmail] = useState<string>('')
   const [accessData, setAccessData] = useState<AccessData | null>(null)
+  const [isChecking, setIsChecking] = useState(false)
+  const [isRedirecting, setIsRedirecting] = useState(false)
 
   useEffect(() => {
     const userEmail = localStorage.getItem('quizEmail')
@@ -32,7 +34,16 @@ export default function NoAccessPage() {
     // Fetch access details
     fetch(`/api/user/access?email=${encodeURIComponent(userEmail)}`)
       .then(res => res.json())
-      .then(data => setAccessData(data))
+      .then(data => {
+        setAccessData(data)
+
+        // Auto-redirect to app if user has capsules
+        if (data.capsulesRemaining && data.capsulesRemaining > 0) {
+          console.log('User has capsules, redirecting to /app...')
+          setIsRedirecting(true)
+          setTimeout(() => router.push('/app'), 500)
+        }
+      })
   }, [router])
 
   const handleLogout = async () => {
@@ -40,6 +51,21 @@ export default function NoAccessPage() {
     await supabase.auth.signOut()
     localStorage.clear()
     router.push('/login')
+  }
+
+  // Show redirecting state
+  if (isRedirecting) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 text-white safe-area-inset flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-green-500/20 rounded-full mb-4 animate-pulse">
+            <CheckCircle className="w-8 h-8 text-green-500" />
+          </div>
+          <h2 className="text-xl font-bold mb-2">Успешно!</h2>
+          <p className="text-slate-300">Пренасочване към приложението...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -165,10 +191,14 @@ export default function NoAccessPage() {
             </a>
 
             <button
-              onClick={() => window.location.reload()}
-              className="flex items-center justify-center gap-1.5 bg-slate-700 hover:bg-slate-600 text-white px-4 py-2.5 rounded-xl transition-colors text-xs"
+              onClick={() => {
+                setIsChecking(true)
+                window.location.reload()
+              }}
+              disabled={isChecking}
+              className="flex items-center justify-center gap-1.5 bg-slate-700 hover:bg-slate-600 disabled:bg-slate-800 disabled:cursor-not-allowed text-white px-4 py-2.5 rounded-xl transition-colors text-xs"
             >
-              Опресни страницата (ако вече си закупил)
+              {isChecking ? 'Проверявам...' : 'Провери отново (ако вече си закупил)'}
             </button>
           </div>
         </div>
