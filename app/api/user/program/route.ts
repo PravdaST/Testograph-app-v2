@@ -42,6 +42,7 @@ export async function GET(request: NextRequest) {
     // Return program data
     return NextResponse.json({
       email: quizResult.email,
+      first_name: quizResult.first_name,
       category: quizResult.category,
       level: quizResult.determined_level,
       total_score: quizResult.total_score,

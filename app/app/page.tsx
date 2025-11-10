@@ -250,6 +250,15 @@ export default function DashboardPage() {
         const data = await response.json()
         setUserProgram(data)
 
+        // Set user name from quiz first_name (fallback to email if not available)
+        if (data.first_name) {
+          setUserName(data.first_name)
+        } else {
+          // Fallback to email username if no first_name
+          const emailUsername = email.split('@')[0]
+          setUserName(emailUsername)
+        }
+
         // Fetch TestoUp inventory
         const inventoryResponse = await fetch(`/api/testoup/inventory?email=${encodeURIComponent(email)}`)
         if (inventoryResponse.ok) {
