@@ -1,4 +1,4 @@
-import { createClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/server'
 
 export interface UserAccess {
   hasAccess: boolean
@@ -13,7 +13,8 @@ export interface UserAccess {
  * Access is based on TestoUp capsules inventory
  */
 export async function checkUserAccess(email: string): Promise<UserAccess> {
-  const supabase = await createClient()
+  // Use service client to bypass RLS for inventory checks
+  const supabase = createServiceClient()
 
   // Get user access info from quiz_results
   const { data: userAccess } = await supabase
