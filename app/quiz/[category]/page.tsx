@@ -39,9 +39,34 @@ export default function CategoryQuizPage({ params }: PageProps) {
         return
       }
       setCategory(cat)
+
+      // Restore quiz progress from localStorage
+      const savedProgress = localStorage.getItem(`quiz_progress_${cat}`)
+      if (savedProgress) {
+        try {
+          const { currentStep: savedStep, responses: savedResponses } = JSON.parse(savedProgress)
+          setCurrentStep(savedStep || 0)
+          setResponses(savedResponses || {})
+        } catch (e) {
+          console.error('Error restoring quiz progress:', e)
+        }
+      }
+
       setIsLoading(false)
     })
   }, [params, router])
+
+  // Save quiz progress to localStorage whenever responses or currentStep changes
+  useEffect(() => {
+    if (!category || isLoading) return
+
+    const progress = {
+      currentStep,
+      responses,
+    }
+
+    localStorage.setItem(`quiz_progress_${category}`, JSON.stringify(progress))
+  }, [category, currentStep, responses, isLoading])
 
   if (isLoading || !category) {
     return (
@@ -234,6 +259,9 @@ export default function CategoryQuizPage({ params }: PageProps) {
 
       // Save email to localStorage for future use
       localStorage.setItem('quizEmail', email)
+
+      // Clear quiz progress from localStorage (quiz completed successfully)
+      localStorage.removeItem(`quiz_progress_${category}`)
 
       // Navigate to results
       router.push(`/results?category=${category}`)
@@ -498,6 +526,24 @@ export default function CategoryQuizPage({ params }: PageProps) {
           ) : null}
         </div>
       </div>
+
+      {/* Bottom Navigation - Back Button */}
+      {!isFirstQuestion && (
+        <div className="sticky bottom-0 bg-background border-t border-border safe-area-inset-bottom">
+          <div className="container-mobile py-3">
+            <Button
+              type="button"
+              variant="outline"
+              size="lg"
+              onClick={handlePrevious}
+              fullWidth
+            >
+              <ArrowLeft className="mr-2 w-5 h-5" />
+              Назад
+            </Button>
+          </div>
+        </div>
+      )}
 
     </div>
   )

@@ -284,13 +284,10 @@ export default function DashboardPage() {
         if (!hasSeenWelcome) {
           setShowWelcome(true)
 
-          // Try to get user name from metadata or quiz responses
-          // For now, extract from email or use generic name
-          const storedEmail = localStorage.getItem('quizEmail')
-          if (storedEmail) {
-            // Simple name extraction from email
-            const namePart = storedEmail.split('@')[0]
-            setUserName(namePart)
+          // Get user name from Supabase auth metadata
+          const { data: { user } } = await supabase.auth.getUser()
+          if (user?.user_metadata?.full_name) {
+            setUserName(user.user_metadata.full_name)
           }
         } else {
           // Check if feedback is due

@@ -58,6 +58,10 @@ export async function POST(request: NextRequest) {
       }
     }
 
+    // Extract user name from responses before saving
+    const nameResponse = result.responses.find((r) => r.question_id.includes('name'))
+    const firstName = nameResponse && typeof nameResponse.answer === 'string' ? nameResponse.answer : 'User'
+
     // Save quiz result
     const { data: quizResultData, error: resultError } = await supabase
       .from('quiz_results_v2')
@@ -65,6 +69,7 @@ export async function POST(request: NextRequest) {
         {
           session_id: session_id || null,
           email,
+          first_name: firstName,
           category: result.category,
           total_score: result.total_score,
           determined_level: result.determined_level,
@@ -90,10 +95,6 @@ export async function POST(request: NextRequest) {
     }
 
     const result_id = quizResultData.id
-
-    // Extract user name from responses for quiz_results table
-    const nameResponse = result.responses.find((r) => r.question_id.includes('name'))
-    const firstName = nameResponse && typeof nameResponse.answer === 'string' ? nameResponse.answer : 'User'
 
     // Check if user already has capsules from previous purchase
     const { data: existingInventory } = await supabase
