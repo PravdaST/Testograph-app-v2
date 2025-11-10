@@ -159,7 +159,7 @@ export default function DashboardPage() {
 
   // State for tracking completion (in real app, this comes from database)
   const [testoUpTracking, setTestoUpTracking] = useState<
-    Record<string, { morning: boolean; evening: boolean }>
+    Record<string, { morning: boolean; evening: boolean; locked_until?: string }>
   >({})
 
   const [completedMeals, setCompletedMeals] = useState<
@@ -413,15 +413,29 @@ export default function DashboardPage() {
     evening: false,
   }
 
-  const handleTestoUpToggle = async (timeOfDay: 'morning' | 'evening') => {
+  // Check if TestoUp is locked (until midnight)
+  const isTestoUpLocked = () => {
+    if (!testoUpTracking[dateKey]?.locked_until) return false
+    const lockedUntil = new Date(testoUpTracking[dateKey].locked_until!)
+    return new Date() < lockedUntil
+  }
+
+  const handleTestoUpConfirm = async (morning: boolean, evening: boolean) => {
     const email = localStorage.getItem('quizEmail')
     if (!email) return
 
-    const isCurrentlyTaken = testoUpTracking[dateKey]?.[timeOfDay]
+    try {
+      // Send both morning and evening status in a single request
+      const updates = []
+      if (morning && !testoUpTracking[dateKey]?.morning) {
+        updates.push({ period: 'morning' })
+      }
+      if (evening && !testoUpTracking[dateKey]?.evening) {
+        updates.push({ period: 'evening' })
+      }
 
-    // Only track if marking as taken (not untaking)
-    if (!isCurrentlyTaken) {
-      try {
+      // Track each period that was marked
+      for (const update of updates) {
         const response = await fetch('/api/testoup/track', {
           method: 'POST',
           headers: {
@@ -430,39 +444,38 @@ export default function DashboardPage() {
           body: JSON.stringify({
             email,
             date: dateKey,
-            period: timeOfDay,
+            period: update.period,
           }),
         })
 
-        if (response.ok) {
-          // Update local tracking state
-          setTestoUpTracking((prev) => ({
-            ...prev,
-            [dateKey]: {
-              ...prev[dateKey],
-              [timeOfDay]: true,
-            },
-          }))
-
-          // Refresh inventory after tracking
-          const inventoryResponse = await fetch(`/api/testoup/inventory?email=${encodeURIComponent(email)}`)
-          if (inventoryResponse.ok) {
-            const inventoryData = await inventoryResponse.json()
-            setTestoUpInventory(inventoryData)
-          }
+        if (!response.ok) {
+          console.error(`Error tracking ${update.period} TestoUp`)
         }
-      } catch (error) {
-        console.error('Error tracking TestoUp:', error)
       }
-    } else {
-      // Allow untoggling without API call
+
+      // Calculate locked_until (midnight Bulgarian time)
+      const now = new Date()
+      const midnight = new Date(now)
+      midnight.setHours(24, 0, 0, 0) // Next midnight
+
+      // Update local tracking state with locked status
       setTestoUpTracking((prev) => ({
         ...prev,
         [dateKey]: {
-          ...prev[dateKey],
-          [timeOfDay]: false,
+          morning,
+          evening,
+          locked_until: midnight.toISOString(),
         },
       }))
+
+      // Refresh inventory after tracking
+      const inventoryResponse = await fetch(`/api/testoup/inventory?email=${encodeURIComponent(email)}`)
+      if (inventoryResponse.ok) {
+        const inventoryData = await inventoryResponse.json()
+        setTestoUpInventory(inventoryData)
+      }
+    } catch (error) {
+      console.error('Error confirming TestoUp:', error)
     }
   }
 
@@ -638,7 +651,8 @@ export default function DashboardPage() {
             testoUpMorning={testoUpForDay.morning}
             testoUpEvening={testoUpForDay.evening}
             testoUpInventory={testoUpInventory}
-            onTestoUpToggle={handleTestoUpToggle}
+            testoUpLocked={isTestoUpLocked()}
+            onTestoUpConfirm={handleTestoUpConfirm}
             onTestoUpRefill={handleTestoUpRefill}
             onMealComplete={handleMealComplete}
             completedMeals={completedMeals[dateKey] || []}

@@ -44,7 +44,8 @@ interface DayCardProps {
     days_remaining: number
     percentage_remaining: number
   } | null
-  onTestoUpToggle: (timeOfDay: 'morning' | 'evening') => void
+  testoUpLocked?: boolean
+  onTestoUpConfirm: (morning: boolean, evening: boolean) => void
   onTestoUpRefill?: () => void
   onMealComplete?: (mealNumber: number) => void
   completedMeals?: number[]
@@ -63,7 +64,8 @@ export function DayCard({
   testoUpMorning,
   testoUpEvening,
   testoUpInventory,
-  onTestoUpToggle,
+  testoUpLocked = false,
+  onTestoUpConfirm,
   onTestoUpRefill,
   onMealComplete,
   completedMeals = [],
@@ -145,7 +147,8 @@ export function DayCard({
           morningCompleted={testoUpMorning}
           eveningCompleted={testoUpEvening}
           inventory={testoUpInventory}
-          onToggle={onTestoUpToggle}
+          isLocked={testoUpLocked}
+          onConfirm={onTestoUpConfirm}
           onRefill={onTestoUpRefill}
         />
       </div>

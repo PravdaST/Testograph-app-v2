@@ -49,6 +49,8 @@ export default function WorkoutHistoryPage() {
   const [stats, setStats] = useState<WorkoutStats | null>(null)
   const [loading, setLoading] = useState(true)
   const [email, setEmail] = useState<string>()
+  const [userName, setUserName] = useState<string>()
+  const [profilePictureUrl, setProfilePictureUrl] = useState<string>()
 
   useEffect(() => {
     const loadHistory = async () => {
@@ -61,6 +63,17 @@ export default function WorkoutHistoryPage() {
         }
 
         setEmail(storedEmail)
+
+        // Fetch user program data for name and profile picture
+        const programResponse = await fetch(
+          `/api/user/program?email=${encodeURIComponent(storedEmail)}`
+        )
+
+        if (programResponse.ok) {
+          const programData = await programResponse.json()
+          setUserName(programData.first_name || storedEmail.split('@')[0])
+          setProfilePictureUrl(programData.profile_picture_url)
+        }
 
         // Fetch workout history
         const response = await fetch(
@@ -114,7 +127,11 @@ export default function WorkoutHistoryPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted">
-      <TopNav programName="История на тренировки" userName={email?.split('@')[0]} />
+      <TopNav
+        programName="История на тренировки"
+        userName={userName}
+        profilePictureUrl={profilePictureUrl}
+      />
 
       <div className="container-mobile py-6 pb-24 space-y-6">
         {/* Back Button */}

@@ -2,10 +2,11 @@
 
 /**
  * TestoUpTracker Component
- * Tracks morning and evening TestoUp intake
+ * Tracks morning and evening TestoUp intake with confirmation
  */
 
-import { Pill, Sun, Moon, CheckCircle2, AlertTriangle, RefreshCw } from 'lucide-react'
+import { useState, useEffect } from 'react'
+import { Pill, Sun, Moon, CheckCircle2, AlertTriangle, RefreshCw, Lock } from 'lucide-react'
 
 interface TestoUpTrackerProps {
   morningCompleted: boolean
@@ -17,18 +18,48 @@ interface TestoUpTrackerProps {
     bottles_purchased?: number
     bottles_remaining?: number
   } | null
-  onToggle: (timeOfDay: 'morning' | 'evening') => void
+  onConfirm: (morning: boolean, evening: boolean) => void
   onRefill?: () => void
+  isLocked?: boolean
 }
 
 export function TestoUpTracker({
   morningCompleted,
   eveningCompleted,
   inventory,
-  onToggle,
+  onConfirm,
   onRefill,
+  isLocked = false,
 }: TestoUpTrackerProps) {
+  // Local state for pending selections
+  const [pendingMorning, setPendingMorning] = useState(morningCompleted)
+  const [pendingEvening, setPendingEvening] = useState(eveningCompleted)
+
+  // Update pending state when props change
+  useEffect(() => {
+    setPendingMorning(morningCompleted)
+    setPendingEvening(eveningCompleted)
+  }, [morningCompleted, eveningCompleted])
+
   const bothCompleted = morningCompleted && eveningCompleted
+  const hasChanges = (pendingMorning !== morningCompleted) || (pendingEvening !== eveningCompleted)
+  const canConfirm = !isLocked && hasChanges && (pendingMorning || pendingEvening)
+
+  const handleToggle = (timeOfDay: 'morning' | 'evening') => {
+    if (isLocked) return
+
+    if (timeOfDay === 'morning') {
+      setPendingMorning(!pendingMorning)
+    } else {
+      setPendingEvening(!pendingEvening)
+    }
+  }
+
+  const handleConfirm = () => {
+    if (canConfirm) {
+      onConfirm(pendingMorning, pendingEvening)
+    }
+  }
 
   return (
     <div
@@ -59,19 +90,21 @@ export function TestoUpTracker({
       <div className="grid grid-cols-2 gap-3">
         {/* Morning */}
         <button
-          onClick={() => onToggle('morning')}
+          onClick={() => handleToggle('morning')}
+          disabled={isLocked}
           className={`
-            p-4 rounded-xl border-2 transition-all
+            p-4 rounded-xl border-2 transition-all relative
             ${
-              morningCompleted
+              pendingMorning
                 ? 'bg-success/10 border-success text-success'
                 : 'bg-muted/30 border-border hover:border-primary'
             }
+            ${isLocked ? 'opacity-60 cursor-not-allowed' : ''}
           `}
         >
           <div className="flex flex-col items-center gap-2">
             <Sun
-              className={`w-6 h-6 ${morningCompleted ? 'text-success' : 'text-muted-foreground'}`}
+              className={`w-6 h-6 ${pendingMorning ? 'text-success' : 'text-muted-foreground'}`}
             />
             <div className="text-center">
               <div className="text-sm font-semibold">Сутрин</div>
@@ -79,7 +112,7 @@ export function TestoUpTracker({
                 след закуска
               </div>
             </div>
-            {morningCompleted && (
+            {pendingMorning && (
               <div className="w-5 h-5 rounded-full bg-success flex items-center justify-center">
                 <svg
                   className="w-3 h-3 text-white"
@@ -96,24 +129,29 @@ export function TestoUpTracker({
                 </svg>
               </div>
             )}
+            {isLocked && morningCompleted && (
+              <Lock className="w-4 h-4 absolute top-2 right-2 text-muted-foreground" />
+            )}
           </div>
         </button>
 
         {/* Evening */}
         <button
-          onClick={() => onToggle('evening')}
+          onClick={() => handleToggle('evening')}
+          disabled={isLocked}
           className={`
-            p-4 rounded-xl border-2 transition-all
+            p-4 rounded-xl border-2 transition-all relative
             ${
-              eveningCompleted
+              pendingEvening
                 ? 'bg-success/10 border-success text-success'
                 : 'bg-muted/30 border-border hover:border-primary'
             }
+            ${isLocked ? 'opacity-60 cursor-not-allowed' : ''}
           `}
         >
           <div className="flex flex-col items-center gap-2">
             <Moon
-              className={`w-6 h-6 ${eveningCompleted ? 'text-success' : 'text-muted-foreground'}`}
+              className={`w-6 h-6 ${pendingEvening ? 'text-success' : 'text-muted-foreground'}`}
             />
             <div className="text-center">
               <div className="text-sm font-semibold">Вечер</div>
@@ -121,7 +159,7 @@ export function TestoUpTracker({
                 след вечеря
               </div>
             </div>
-            {eveningCompleted && (
+            {pendingEvening && (
               <div className="w-5 h-5 rounded-full bg-success flex items-center justify-center">
                 <svg
                   className="w-3 h-3 text-white"
@@ -138,14 +176,37 @@ export function TestoUpTracker({
                 </svg>
               </div>
             )}
+            {isLocked && eveningCompleted && (
+              <Lock className="w-4 h-4 absolute top-2 right-2 text-muted-foreground" />
+            )}
           </div>
         </button>
       </div>
 
+      {/* Confirm Button */}
+      {canConfirm && (
+        <button
+          onClick={handleConfirm}
+          className="mt-3 w-full py-3 px-4 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all"
+        >
+          Потвърди приемане
+        </button>
+      )}
+
+      {/* Locked Message */}
+      {isLocked && bothCompleted && (
+        <div className="mt-3 p-3 rounded-lg bg-muted/50 border border-border">
+          <p className="text-xs text-muted-foreground text-center flex items-center justify-center gap-2">
+            <Lock className="w-3 h-3" />
+            Заключено до полунощ (00:00)
+          </p>
+        </div>
+      )}
+
       {/* Reminder Text */}
-      {!bothCompleted && (
+      {!bothCompleted && !isLocked && (
         <p className="text-xs text-muted-foreground text-center mt-3">
-          Маркирай след приемане
+          Маркирай и потвърди след приемане
         </p>
       )}
 
