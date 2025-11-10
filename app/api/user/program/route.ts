@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/server'
 
 /**
  * GET /api/user/program
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    const supabase = await createClient()
+    const supabase = createServiceClient()
 
     // Get latest quiz result for this email
     const { data: quizResult, error } = await supabase

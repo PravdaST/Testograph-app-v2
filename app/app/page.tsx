@@ -72,6 +72,7 @@ interface UserProgram {
   level: string
   total_score: number
   workout_location?: 'home' | 'gym'
+  profile_picture_url?: string
 }
 
 const CATEGORY_NAMES = {
@@ -565,7 +566,11 @@ export default function DashboardPage() {
       )}
 
       {/* Top Navigation */}
-      <TopNav programName={programName} userName={userName} />
+      <TopNav
+        programName={programName}
+        userName={userName}
+        profilePictureUrl={userProgram?.profile_picture_url}
+      />
 
       {/* Main Content with bottom padding for nav */}
       <div className="container-mobile py-6 pb-24 space-y-6">
