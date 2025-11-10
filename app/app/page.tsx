@@ -13,6 +13,7 @@ import { WelcomeGuide } from '@/components/dashboard/WelcomeGuide'
 import { FeedbackModal } from '@/components/feedback/FeedbackModal'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
+import { createClient } from '@/lib/supabase/client'
 // Meal Plan Imports - LOW level
 import { ENERGY_LOW_MEAL_PLAN } from '@/lib/data/mock-meal-plan-energy-low'
 import { LIBIDO_LOW_MEAL_PLAN } from '@/lib/data/mock-meal-plan-libido-low'
@@ -285,6 +286,7 @@ export default function DashboardPage() {
           setShowWelcome(true)
 
           // Get user name from Supabase auth metadata
+          const supabase = createClient()
           const { data: { user } } = await supabase.auth.getUser()
           if (user?.user_metadata?.full_name) {
             setUserName(user.user_metadata.full_name)
