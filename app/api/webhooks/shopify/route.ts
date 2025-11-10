@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/server'
 import { verifyShopifyWebhook, parseShopifyOrder, findTestoUpProducts } from '@/lib/shopify/webhook'
 
 /**
@@ -87,8 +87,8 @@ export async function POST(request: NextRequest) {
     })
     console.log(`  Total: ${totalBottles} items, ${totalCapsules} capsules`)
 
-    // Update inventory in database
-    const supabase = await createClient()
+    // Update inventory in database (using service role to bypass RLS)
+    const supabase = createServiceClient()
 
     // Get current inventory
     const { data: currentInventory } = await supabase
