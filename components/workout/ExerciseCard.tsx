@@ -30,8 +30,8 @@ export function ExerciseCard({
   const [gifError, setGifError] = useState(false)
   const [imageLoaded, setImageLoaded] = useState(false)
 
-  // List of known missing GIF IDs
-  const knownMissingGifs = ['walking', '1jXLYEw', 'rjiM4L3']
+  // List of known missing GIF IDs (5 exercises out of 90)
+  const knownMissingGifs = ['walking', 'eL6Lz0v', 'Fey3oVx', 'K5TldTr', 'W74bXnw']
   const hasKnownMissingGif = knownMissingGifs.includes(exercise.exercisedb_id)
 
   // Calculate progress
