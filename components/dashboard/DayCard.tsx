@@ -6,7 +6,7 @@
  */
 
 import { useRouter } from 'next/navigation'
-import { MealCard } from './MealCard'
+import { MealsSection } from './MealsSection'
 import { TestoUpTracker } from './TestoUpTracker'
 import { SleepAdvice } from './SleepAdvice'
 import { Calendar, TrendingUp, Dumbbell, ChevronRight } from 'lucide-react'
@@ -47,7 +47,8 @@ interface DayCardProps {
   testoUpLocked?: boolean
   onTestoUpConfirm: (morning: boolean, evening: boolean) => void
   onTestoUpRefill?: () => void
-  onMealComplete?: (mealNumber: number) => void
+  mealsLocked?: boolean
+  onMealsConfirm: (mealNumbers: number[]) => void
   completedMeals?: number[]
   category: 'energy' | 'libido' | 'muscle'
   mealsRef?: React.RefObject<HTMLDivElement | null>
@@ -67,7 +68,8 @@ export function DayCard({
   testoUpLocked = false,
   onTestoUpConfirm,
   onTestoUpRefill,
-  onMealComplete,
+  mealsLocked = false,
+  onMealsConfirm,
   completedMeals = [],
   category,
   mealsRef,
@@ -154,35 +156,13 @@ export function DayCard({
       </div>
 
       {/* Meals Section */}
-      <div ref={mealsRef} className="space-y-4">
-        <h3 className="text-lg font-bold flex items-center gap-2">
-          <span>Хранителен план</span>
-          <span className="text-sm font-normal text-muted-foreground">
-            ({meals.length} хранения)
-          </span>
-        </h3>
-
-        <div className="space-y-3">
-          {meals.map((meal) => (
-            <MealCard
-              key={meal.meal_number}
-              mealNumber={meal.meal_number}
-              time={meal.time}
-              name={meal.name}
-              calories={meal.calories}
-              protein={meal.protein}
-              carbs={meal.carbs}
-              fats={meal.fats}
-              ingredients={meal.ingredients}
-              isCompleted={completedMeals.includes(meal.meal_number)}
-              onToggleComplete={
-                onMealComplete
-                  ? () => onMealComplete(meal.meal_number)
-                  : undefined
-              }
-            />
-          ))}
-        </div>
+      <div ref={mealsRef}>
+        <MealsSection
+          meals={meals}
+          completedMeals={completedMeals}
+          isLocked={mealsLocked}
+          onConfirm={onMealsConfirm}
+        />
       </div>
 
       {/* Workout Section */}

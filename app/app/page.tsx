@@ -163,7 +163,7 @@ export default function DashboardPage() {
   >({})
 
   const [completedMeals, setCompletedMeals] = useState<
-    Record<string, number[]>
+    Record<string, { meals: number[]; locked_until?: string }>
   >({})
 
   const [testoUpInventory, setTestoUpInventory] = useState<{
@@ -420,6 +420,13 @@ export default function DashboardPage() {
     return new Date() < lockedUntil
   }
 
+  // Check if Meals are locked (until midnight)
+  const isMealsLocked = () => {
+    if (!completedMeals[dateKey]?.locked_until) return false
+    const lockedUntil = new Date(completedMeals[dateKey].locked_until!)
+    return new Date() < lockedUntil
+  }
+
   const handleTestoUpConfirm = async (morning: boolean, evening: boolean) => {
     const email = localStorage.getItem('quizEmail')
     if (!email) return
@@ -505,50 +512,45 @@ export default function DashboardPage() {
     }
   }
 
-  const handleMealComplete = async (mealNumber: number) => {
+  const handleMealsConfirm = async (mealNumbers: number[]) => {
     const email = localStorage.getItem('quizEmail')
     if (!email) return
 
-    // Optimistic update
-    setCompletedMeals((prev) => {
-      const dayMeals = prev[dateKey] || []
-      const isCompleted = dayMeals.includes(mealNumber)
-
-      return {
-        ...prev,
-        [dateKey]: isCompleted
-          ? dayMeals.filter((m) => m !== mealNumber)
-          : [...dayMeals, mealNumber],
-      }
-    })
-
-    // Save to database
     try {
-      await fetch('/api/meals/complete', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email,
-          date: dateKey,
-          mealNumber,
-        }),
-      })
-    } catch (error) {
-      console.error('Error saving meal completion:', error)
-      // Revert optimistic update on error
-      setCompletedMeals((prev) => {
-        const dayMeals = prev[dateKey] || []
-        const isCompleted = dayMeals.includes(mealNumber)
-
-        return {
-          ...prev,
-          [dateKey]: isCompleted
-            ? dayMeals.filter((m) => m !== mealNumber)
-            : [...dayMeals, mealNumber],
+      // Save each meal completion to database
+      for (const mealNumber of mealNumbers) {
+        // Only track if newly completed
+        const currentMeals = completedMeals[dateKey]?.meals || []
+        if (!currentMeals.includes(mealNumber)) {
+          await fetch('/api/meals/complete', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email,
+              date: dateKey,
+              mealNumber,
+            }),
+          })
         }
-      })
+      }
+
+      // Calculate locked_until (midnight Bulgarian time)
+      const now = new Date()
+      const midnight = new Date(now)
+      midnight.setHours(24, 0, 0, 0) // Next midnight
+
+      // Update local state with lock
+      setCompletedMeals((prev) => ({
+        ...prev,
+        [dateKey]: {
+          meals: mealNumbers,
+          locked_until: midnight.toISOString(),
+        },
+      }))
+    } catch (error) {
+      console.error('Error confirming meals:', error)
     }
   }
 
@@ -654,8 +656,9 @@ export default function DashboardPage() {
             testoUpLocked={isTestoUpLocked()}
             onTestoUpConfirm={handleTestoUpConfirm}
             onTestoUpRefill={handleTestoUpRefill}
-            onMealComplete={handleMealComplete}
-            completedMeals={completedMeals[dateKey] || []}
+            mealsLocked={isMealsLocked()}
+            onMealsConfirm={handleMealsConfirm}
+            completedMeals={completedMeals[dateKey]?.meals || []}
             category={userProgram.category}
             mealsRef={mealsRef}
             workoutRef={workoutRef}

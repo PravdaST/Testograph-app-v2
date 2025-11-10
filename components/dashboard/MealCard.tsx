@@ -6,7 +6,7 @@
  */
 
 import { useState } from 'react'
-import { ChevronDown, ChevronUp, Clock, Flame, Drumstick, Wheat, Droplet } from 'lucide-react'
+import { ChevronDown, ChevronUp, Clock, Flame, Drumstick, Wheat, Droplet, Lock } from 'lucide-react'
 
 interface Ingredient {
   name: string
@@ -24,6 +24,7 @@ interface MealCardProps {
   fats: number
   ingredients: Ingredient[]
   isCompleted?: boolean
+  isLocked?: boolean
   onToggleComplete?: () => void
 }
 
@@ -37,6 +38,7 @@ export function MealCard({
   fats,
   ingredients,
   isCompleted = false,
+  isLocked = false,
   onToggleComplete,
 }: MealCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
@@ -44,12 +46,13 @@ export function MealCard({
   return (
     <div
       className={`
-        rounded-xl border-2 transition-all
+        rounded-xl border-2 transition-all relative
         ${
           isCompleted
             ? 'bg-success/5 border-success/20'
             : 'bg-background border-border'
         }
+        ${isLocked ? 'opacity-80' : ''}
       `}
     >
       {/* Meal Header */}
@@ -71,6 +74,7 @@ export function MealCard({
           {onToggleComplete && (
             <button
               onClick={onToggleComplete}
+              disabled={isLocked}
               className={`
                 w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all
                 ${
@@ -78,6 +82,7 @@ export function MealCard({
                     ? 'bg-success border-success text-white'
                     : 'border-muted-foreground/30 hover:border-primary'
                 }
+                ${isLocked ? 'cursor-not-allowed opacity-60' : ''}
               `}
               aria-label={isCompleted ? 'Отмаркирай' : 'Маркирай като завършено'}
             >
@@ -97,6 +102,10 @@ export function MealCard({
                 </svg>
               )}
             </button>
+          )}
+
+          {isLocked && isCompleted && (
+            <Lock className="w-3 h-3 absolute top-2 right-10 text-muted-foreground" />
           )}
         </div>
 
