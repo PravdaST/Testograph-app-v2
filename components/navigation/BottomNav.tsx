@@ -6,6 +6,7 @@
  */
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Utensils, Dumbbell, Moon, Pill } from 'lucide-react'
 
 interface BottomNavProps {
@@ -13,10 +14,19 @@ interface BottomNavProps {
 }
 
 export function BottomNav({ onNavigate }: BottomNavProps) {
+  const router = useRouter()
   const [activeTab, setActiveTab] = useState<string>('meals')
 
   const handleClick = (tab: 'meals' | 'workout' | 'sleep' | 'supplement') => {
     setActiveTab(tab)
+
+    // Special handling for workout - navigate to workout history page
+    if (tab === 'workout') {
+      router.push('/app/workout/history')
+      return
+    }
+
+    // For other tabs, use the callback if provided
     onNavigate?.(tab)
   }
 
