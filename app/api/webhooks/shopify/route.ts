@@ -3,7 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { verifyShopifyWebhook, parseShopifyOrder, findTestoUpProducts } from '@/lib/shopify/webhook'
 
 /**
- * POST /api/webhooks/shopify/order-paid
+ * POST /api/webhooks/shopify
  * Shopify webhook for paid orders (Orders/Paid event)
  * Automatically adds TestoUp capsules to user inventory when purchased
  */
