@@ -162,10 +162,40 @@ export default function WorkoutPage() {
     })
   }
 
-  const handleFinishWorkout = () => {
-    // TODO: Save workout completion to database
-    alert('Браво! Тренировката е завършена успешно! 💪')
-    router.push('/app')
+  const handleFinishWorkout = async () => {
+    try {
+      const email = localStorage.getItem('quizEmail')
+      if (!email) return
+
+      // Save workout completion to database
+      const response = await fetch('/api/workout/complete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          day_of_week: dayOfWeek,
+          workout_name: workout?.name || '',
+          target_duration_minutes: workout?.duration || 0,
+          completed_sets: completedSets,
+        }),
+      })
+
+      if (response.ok) {
+        alert('Браво! Тренировката е завършена успешно! 💪')
+
+        // Clear local storage for this workout
+        localStorage.removeItem(`workout-${dayOfWeek}`)
+
+        router.push('/app')
+      } else {
+        alert('Възникна грешка при записване на тренировката')
+      }
+    } catch (error) {
+      console.error('Error finishing workout:', error)
+      alert('Възникна грешка при записване на тренировката')
+    }
   }
 
   // Show loading state

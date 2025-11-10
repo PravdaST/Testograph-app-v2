@@ -50,6 +50,9 @@ interface DayCardProps {
   mealsLocked?: boolean
   onMealsConfirm: (mealNumbers: number[]) => void
   completedMeals?: number[]
+  sleepCompleted?: boolean
+  sleepLocked?: boolean
+  onSleepConfirm?: (completed: boolean) => void
   category: 'energy' | 'libido' | 'muscle'
   mealsRef?: React.RefObject<HTMLDivElement | null>
   workoutRef?: React.RefObject<HTMLDivElement | null>
@@ -71,6 +74,9 @@ export function DayCard({
   mealsLocked = false,
   onMealsConfirm,
   completedMeals = [],
+  sleepCompleted = false,
+  sleepLocked = false,
+  onSleepConfirm,
   category,
   mealsRef,
   workoutRef,
@@ -190,7 +196,12 @@ export function DayCard({
 
       {/* Sleep & Recovery Section */}
       <div ref={sleepRef}>
-        <SleepAdvice category={category} />
+        <SleepAdvice
+          category={category}
+          isCompleted={sleepCompleted}
+          isLocked={sleepLocked}
+          onConfirm={onSleepConfirm}
+        />
       </div>
     </div>
   )

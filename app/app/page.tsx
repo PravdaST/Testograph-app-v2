@@ -166,6 +166,10 @@ export default function DashboardPage() {
     Record<string, { meals: number[]; locked_until?: string }>
   >({})
 
+  const [sleepTracking, setSleepTracking] = useState<
+    Record<string, { completed: boolean; locked_until?: string }>
+  >({})
+
   const [testoUpInventory, setTestoUpInventory] = useState<{
     capsules_remaining: number
     days_remaining: number
@@ -427,6 +431,13 @@ export default function DashboardPage() {
     return new Date() < lockedUntil
   }
 
+  // Check if Sleep is locked (until midnight)
+  const isSleepLocked = () => {
+    if (!sleepTracking[dateKey]?.locked_until) return false
+    const lockedUntil = new Date(sleepTracking[dateKey].locked_until!)
+    return new Date() < lockedUntil
+  }
+
   const handleTestoUpConfirm = async (morning: boolean, evening: boolean) => {
     const email = localStorage.getItem('quizEmail')
     if (!email) return
@@ -554,6 +565,43 @@ export default function DashboardPage() {
     }
   }
 
+  const handleSleepConfirm = async (completed: boolean) => {
+    const email = localStorage.getItem('quizEmail')
+    if (!email) return
+
+    try {
+      // Save sleep completion to database
+      if (completed) {
+        await fetch('/api/sleep/complete', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            date: dateKey,
+          }),
+        })
+      }
+
+      // Calculate locked_until (midnight Bulgarian time)
+      const now = new Date()
+      const midnight = new Date(now)
+      midnight.setHours(24, 0, 0, 0) // Next midnight
+
+      // Update local state with lock
+      setSleepTracking((prev) => ({
+        ...prev,
+        [dateKey]: {
+          completed,
+          locked_until: midnight.toISOString(),
+        },
+      }))
+    } catch (error) {
+      console.error('Error confirming sleep:', error)
+    }
+  }
+
   // Show loading state
   if (loading) {
     return (
@@ -659,6 +707,9 @@ export default function DashboardPage() {
             mealsLocked={isMealsLocked()}
             onMealsConfirm={handleMealsConfirm}
             completedMeals={completedMeals[dateKey]?.meals || []}
+            sleepCompleted={sleepTracking[dateKey]?.completed || false}
+            sleepLocked={isSleepLocked()}
+            onSleepConfirm={handleSleepConfirm}
             category={userProgram.category}
             mealsRef={mealsRef}
             workoutRef={workoutRef}
