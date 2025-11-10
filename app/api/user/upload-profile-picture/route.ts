@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/server'
 
 /**
  * POST /api/user/upload-profile-picture
@@ -36,12 +36,12 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const supabase = await createClient()
+    const supabase = createServiceClient()
 
     // Create unique filename
     const fileExt = file.name.split('.').pop()
     const fileName = `${email.replace('@', '_').replace(/\./g, '_')}_${Date.now()}.${fileExt}`
-    const filePath = `profile-pictures/${fileName}`
+    const filePath = fileName // Don't add 'profile-pictures/' - bucket already has that name
 
     // Convert File to ArrayBuffer then to Buffer
     const arrayBuffer = await file.arrayBuffer()
@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
 
     // Update user's profile_picture_url in quiz_results
     const { error: updateError } = await supabase
-      .from('quiz_results')
+      .from('quiz_results_v2')
       .update({ profile_picture_url: publicUrl })
       .eq('email', email)
 
@@ -113,11 +113,11 @@ export async function DELETE(request: NextRequest) {
       )
     }
 
-    const supabase = await createClient()
+    const supabase = createServiceClient()
 
     // Get current profile picture URL
     const { data: userData } = await supabase
-      .from('quiz_results')
+      .from('quiz_results_v2')
       .select('profile_picture_url')
       .eq('email', email)
       .single()
@@ -127,7 +127,7 @@ export async function DELETE(request: NextRequest) {
       const url = new URL(userData.profile_picture_url)
       const pathParts = url.pathname.split('/profile-pictures/')
       if (pathParts.length > 1) {
-        const filePath = `profile-pictures/${pathParts[1]}`
+        const filePath = pathParts[1] // Just the filename, bucket already named 'profile-pictures'
 
         // Delete from storage
         await supabase.storage
@@ -138,7 +138,7 @@ export async function DELETE(request: NextRequest) {
 
     // Update user record to remove profile picture URL
     const { error: updateError } = await supabase
-      .from('quiz_results')
+      .from('quiz_results_v2')
       .update({ profile_picture_url: null })
       .eq('email', email)
 
