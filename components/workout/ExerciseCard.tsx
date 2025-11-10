@@ -27,6 +27,12 @@ export function ExerciseCard({
 
   // Use local GIFs from public/exercises folder
   const gifUrl = `/exercises/${exercise.exercisedb_id}.gif`
+  const [gifError, setGifError] = useState(false)
+  const [imageLoaded, setImageLoaded] = useState(false)
+
+  // List of known missing GIF IDs
+  const knownMissingGifs = ['walking', '1jXLYEw', 'rjiM4L3']
+  const hasKnownMissingGif = knownMissingGifs.includes(exercise.exercisedb_id)
 
   // Calculate progress
   const totalSets = exercise.sets
@@ -96,15 +102,29 @@ export function ExerciseCard({
         )}
       </div>
 
-      {/* GIF Demo */}
-      <div className="relative aspect-video bg-muted">
-        <Image
-          src={gifUrl}
-          alt={exercise.name_bg}
-          fill
-          className="object-contain"
-          unoptimized // ExerciseDB returns GIFs
-        />
+      {/* GIF Demo or Placeholder */}
+      <div className="relative aspect-video bg-muted overflow-hidden">
+        {!hasKnownMissingGif && !gifError ? (
+          <img
+            src={gifUrl}
+            alt={exercise.name_bg}
+            className="absolute inset-0 w-full h-full object-contain"
+            onError={() => setGifError(true)}
+            onLoad={() => setImageLoaded(true)}
+          />
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+            <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mb-3">
+              <Timer className="w-8 h-8 text-primary" />
+            </div>
+            <p className="text-sm font-medium text-foreground mb-1">
+              {exercise.name_bg}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Анимацията скоро ще бъде добавена
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Set Checkboxes */}
