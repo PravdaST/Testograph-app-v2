@@ -6,7 +6,9 @@
  */
 
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { getAllCategories, type CategoryInfo } from '@/lib/data/quiz'
+import { LogIn } from 'lucide-react'
 
 export default function QuizLandingPage() {
   const router = useRouter()
@@ -41,6 +43,17 @@ export default function QuizLandingPage() {
               />
             ))}
           </div>
+        </div>
+
+        {/* Login Link */}
+        <div className="text-center pt-2">
+          <Link
+            href="/login"
+            className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
+          >
+            <LogIn className="w-4 h-4" />
+            Вече имам акаунт
+          </Link>
         </div>
       </div>
     </div>

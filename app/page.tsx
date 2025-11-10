@@ -24,8 +24,16 @@ function HomePageContent() {
       // Desktop detected - redirect to mobile-only page
       router.push('/mobile-only')
     } else {
-      // Mobile detected - redirect to quiz (entry point)
-      router.push('/quiz')
+      // Mobile detected - check if user is already logged in
+      const quizEmail = localStorage.getItem('quizEmail')
+
+      if (quizEmail) {
+        // User has completed quiz and logged in - redirect to app
+        router.push('/app')
+      } else {
+        // New user - redirect to quiz
+        router.push('/quiz')
+      }
     }
   }, [router, searchParams])
 

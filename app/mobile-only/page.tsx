@@ -1,4 +1,5 @@
 import { Smartphone } from 'lucide-react'
+import QRCode from 'react-qr-code'
 
 export default function MobileOnlyPage() {
   return (
@@ -35,14 +36,19 @@ export default function MobileOnlyPage() {
           </div>
         </div>
 
-        {/* QR Code Placeholder */}
-        <div className="p-8 bg-white rounded-lg border-2 border-dashed border-border">
-          <div className="aspect-square bg-muted rounded-lg flex items-center justify-center">
-            <p className="text-xs text-muted-foreground">
-              QR код за бърз достъп<br />
-              (ще бъде добавен скоро)
+        {/* QR Code */}
+        <div className="p-6 bg-white rounded-lg shadow-lg">
+          <div className="mb-3">
+            <p className="text-sm font-semibold text-slate-900">
+              Сканирай с камерата на телефона
             </p>
           </div>
+          <QRCode
+            value="https://app.testograph.eu/"
+            size={256}
+            style={{ height: 'auto', maxWidth: '100%', width: '100%' }}
+            viewBox={`0 0 256 256`}
+          />
         </div>
 
         {/* Footer */}
