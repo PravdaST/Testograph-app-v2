@@ -75,7 +75,7 @@ export async function sendWelcomeEmail({
     </div>
 
     <div style="text-align: center; margin: 30px 0;">
-      <a href="${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3010'}/login"
+      <a href="https://app.testograph.eu/login"
          style="display: inline-block; background: #667eea; color: white; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
         Влез в Акаунта
       </a>
@@ -118,7 +118,7 @@ ${greeting}благодарим за завършването на теста!
 - Дневен график за оптимални резултати
 - Проследяване на прогреса
 
-Влезте в акаунта си тук: ${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3010'}/login
+Влезте в акаунта си тук: https://app.testograph.eu/login
 
 💡 Следващи стъпки: За да получите пълен достъп и TestoUP добавката, посетете магазина и използвайте вашата отстъпка.
 
