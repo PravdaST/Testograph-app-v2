@@ -28,11 +28,6 @@ export function ExerciseCard({
   // Use local GIFs from public/exercises folder
   const gifUrl = `/exercises/${exercise.exercisedb_id}.gif`
   const [gifError, setGifError] = useState(false)
-  const [imageLoaded, setImageLoaded] = useState(false)
-
-  // List of known missing GIF IDs (5 exercises out of 90)
-  const knownMissingGifs = ['walking', 'eL6Lz0v', 'Fey3oVx', 'K5TldTr', 'W74bXnw']
-  const hasKnownMissingGif = knownMissingGifs.includes(exercise.exercisedb_id)
 
   // Calculate progress
   const totalSets = exercise.sets
@@ -104,13 +99,12 @@ export function ExerciseCard({
 
       {/* GIF Demo or Placeholder */}
       <div className="relative aspect-video bg-muted overflow-hidden">
-        {!hasKnownMissingGif && !gifError ? (
+        {!gifError ? (
           <img
             src={gifUrl}
             alt={exercise.name_bg}
             className="absolute inset-0 w-full h-full object-contain"
             onError={() => setGifError(true)}
-            onLoad={() => setImageLoaded(true)}
           />
         ) : (
           <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
