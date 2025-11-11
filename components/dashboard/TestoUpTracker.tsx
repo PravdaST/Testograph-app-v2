@@ -6,7 +6,7 @@
  */
 
 import { useState, useEffect } from 'react'
-import { Pill, Sun, Moon, CheckCircle2, AlertTriangle, ShoppingCart, Lock } from 'lucide-react'
+import { Pill, Sun, Moon, CheckCircle2, AlertTriangle, ShoppingCart, Lock, Clock } from 'lucide-react'
 
 interface TestoUpTrackerProps {
   morningCompleted: boolean
@@ -34,12 +34,34 @@ export function TestoUpTracker({
   // Local state for pending selections
   const [pendingMorning, setPendingMorning] = useState(morningCompleted)
   const [pendingEvening, setPendingEvening] = useState(eveningCompleted)
+  const [timeUntilReset, setTimeUntilReset] = useState('')
 
   // Update pending state when props change
   useEffect(() => {
     setPendingMorning(morningCompleted)
     setPendingEvening(eveningCompleted)
   }, [morningCompleted, eveningCompleted])
+
+  // Countdown timer to midnight (00:00 Bulgarian time)
+  useEffect(() => {
+    const updateTimer = () => {
+      const now = new Date()
+      const midnight = new Date(now)
+      midnight.setHours(24, 0, 0, 0) // Next midnight
+
+      const diff = midnight.getTime() - now.getTime()
+      const hours = Math.floor(diff / (1000 * 60 * 60))
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000)
+
+      setTimeUntilReset(`${hours}ч ${minutes}м ${seconds}с`)
+    }
+
+    updateTimer()
+    const interval = setInterval(updateTimer, 1000)
+
+    return () => clearInterval(interval)
+  }, [])
 
   const bothCompleted = morningCompleted && eveningCompleted
 
@@ -81,6 +103,12 @@ export function TestoUpTracker({
         <div className="flex-1">
           <h3 className="font-bold">TestoUp приемане</h3>
           <p className="text-sm text-muted-foreground">2× дневно</p>
+          {/* Bottles Info - Minimalistic */}
+          {inventory && inventory.bottles_purchased && inventory.bottles_purchased > 0 && (
+            <p className="text-xs text-primary/70 mt-1">
+              {inventory.bottles_purchased} {inventory.bottles_purchased === 1 ? 'опаковка' : 'опаковки'} • {inventory.bottles_purchased * 60} капсули
+            </p>
+          )}
         </div>
         {bothCompleted && (
           <CheckCircle2 className="w-6 h-6 text-success" />
@@ -184,43 +212,25 @@ export function TestoUpTracker({
         </button>
       </div>
 
-      {/* Locked Message */}
-      {isLocked && bothCompleted && (
+      {/* Locked Message with Countdown */}
+      {bothCompleted && (
         <div className="mt-3 p-3 rounded-lg bg-muted/50 border border-border">
-          <p className="text-xs text-muted-foreground text-center flex items-center justify-center gap-2">
-            <Lock className="w-3 h-3" />
-            Заключено до полунощ (00:00)
-          </p>
+          <div className="flex items-center justify-between">
+            <p className="text-xs text-muted-foreground flex items-center gap-2">
+              <Lock className="w-3 h-3" />
+              Заключено до полунощ
+            </p>
+            <div className="flex items-center gap-1.5 text-xs font-medium text-primary">
+              <Clock className="w-3 h-3" />
+              {timeUntilReset}
+            </div>
+          </div>
         </div>
-      )}
-
-      {/* Reminder Text */}
-      {!bothCompleted && !isLocked && (
-        <p className="text-xs text-muted-foreground text-center mt-3">
-          Маркирай и потвърди след приемане
-        </p>
       )}
 
       {/* Inventory Display */}
       {inventory && (
         <div className="mt-4 pt-4 border-t border-border">
-          {/* Bottles Purchased */}
-          {inventory.bottles_purchased && inventory.bottles_purchased > 1 && (
-            <div className="mb-3 p-3 rounded-lg bg-primary/5 border border-primary/20">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <Pill className="w-4 h-4 text-primary" />
-                  <span className="text-sm font-semibold text-primary">
-                    Закупени опаковки: {inventory.bottles_purchased}
-                  </span>
-                </div>
-                <span className="text-sm font-medium text-primary">
-                  {inventory.bottles_purchased * 60} капсули общо
-                </span>
-              </div>
-            </div>
-          )}
-
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Pill className="w-4 h-4 text-muted-foreground" />
