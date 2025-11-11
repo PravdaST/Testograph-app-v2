@@ -20,9 +20,16 @@ export function BottomNav({ onNavigate }: BottomNavProps) {
   const handleClick = (tab: 'meals' | 'workout' | 'sleep' | 'supplement') => {
     setActiveTab(tab)
 
-    // Special handling for workout - navigate to workout history page
+    // Special handling for workout - navigate to today's workout
     if (tab === 'workout') {
-      router.push('/app/workout/history')
+      // Get today's day of week (0=Sunday, 1=Monday, ..., 6=Saturday)
+      const today = new Date()
+      let dayOfWeek = today.getDay()
+
+      // Convert Sunday (0) to 7 to match our 1-7 system
+      if (dayOfWeek === 0) dayOfWeek = 7
+
+      router.push(`/app/workout/${dayOfWeek}`)
       return
     }
 
