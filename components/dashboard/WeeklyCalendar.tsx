@@ -142,13 +142,15 @@ export function WeeklyCalendar({
                   {day.getDate()}
                 </span>
 
-                {/* Program Day Number - Only show from program start onwards */}
-                {!isBeforeProgramStart && dayNumber > 0 && dayNumber <= 30 && !isDayFuture && (
+                {/* Program Day Number - Show from program start onwards (past, today, and future) */}
+                {!isBeforeProgramStart && dayNumber > 0 && dayNumber <= 30 && (
                   <span
                     className={`text-xs ${
                       isSelected
                         ? 'text-primary-foreground/80'
-                        : 'text-muted-foreground'
+                        : isDayFuture
+                          ? 'text-muted-foreground/60'
+                          : 'text-muted-foreground'
                     }`}
                   >
                     Ден {dayNumber}
