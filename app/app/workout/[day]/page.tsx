@@ -12,6 +12,8 @@ import Link from 'next/link'
 import { ExerciseCard } from '@/components/workout/ExerciseCard'
 import { WorkoutTimer } from '@/components/workout/WorkoutTimer'
 import { Button } from '@/components/ui/Button'
+import { TopNav } from '@/components/navigation/TopNav'
+import { BottomNav } from '@/components/navigation/BottomNav'
 
 // Workout Imports - ENERGY
 import { ENERGY_LOW_HOME_WORKOUTS } from '@/lib/data/mock-workouts-energy-low-home'
@@ -41,6 +43,14 @@ interface UserProgram {
   category: 'energy' | 'libido' | 'muscle'
   level: string
   workout_location?: 'home' | 'gym'
+  first_name?: string
+  profile_picture_url?: string
+}
+
+const CATEGORY_NAMES = {
+  energy: 'Енергия и Виталност',
+  libido: 'Либидо и Сексуално здраве',
+  muscle: 'Мускулна маса и сила',
 }
 
 // Helper function to get workout plan based on category, level, and location
@@ -82,6 +92,7 @@ export default function WorkoutPage() {
 
   const [userProgram, setUserProgram] = useState<UserProgram | null>(null)
   const [loading, setLoading] = useState(true)
+  const [userName, setUserName] = useState<string>()
 
   // Fetch user program to determine correct workout
   useEffect(() => {
@@ -99,8 +110,18 @@ export default function WorkoutPage() {
           setUserProgram({
             category: data.category,
             level: data.level,
-            workout_location: data.workout_location || 'gym'
+            workout_location: data.workout_location || 'gym',
+            first_name: data.first_name,
+            profile_picture_url: data.profile_picture_url
           })
+
+          // Set user name from first_name or email fallback
+          if (data.first_name) {
+            setUserName(data.first_name)
+          } else {
+            const emailUsername = email.split('@')[0]
+            setUserName(emailUsername)
+          }
         }
       } catch (error) {
         console.error('Error fetching user program:', error)
@@ -201,20 +222,40 @@ export default function WorkoutPage() {
   // Show loading state
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Зареждане...</p>
+      <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset">
+        {/* Top Navigation - Loading State */}
+        <TopNav
+          programName="Зареждане..."
+          userName={userName}
+        />
+
+        <div className="flex items-center justify-center py-20">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Зареждане...</p>
+          </div>
         </div>
+
+        {/* Bottom Navigation */}
+        <BottomNav onNavigate={() => router.push('/app')} />
       </div>
     )
   }
 
   // If no workout found or rest day
   if (!workout || workout.duration === 0) {
+    const programName = userProgram ? CATEGORY_NAMES[userProgram.category] : ''
+
     return (
       <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset">
-        <div className="container-mobile py-6">
+        {/* Top Navigation */}
+        <TopNav
+          programName={programName}
+          userName={userName}
+          profilePictureUrl={userProgram?.profile_picture_url}
+        />
+
+        <div className="container-mobile py-6 pb-24">
           <button
             onClick={() => router.push('/app')}
             className="flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6"
@@ -232,6 +273,9 @@ export default function WorkoutPage() {
             </p>
           </div>
         </div>
+
+        {/* Bottom Navigation */}
+        <BottomNav onNavigate={() => router.push('/app')} />
       </div>
     )
   }
@@ -247,9 +291,18 @@ export default function WorkoutPage() {
     (totalSetsCompleted / totalSetsNeeded) * 100
   )
 
+  const programName = userProgram ? CATEGORY_NAMES[userProgram.category] : ''
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset">
-      <div className="container-mobile py-6 space-y-6">
+      {/* Top Navigation */}
+      <TopNav
+        programName={programName}
+        userName={userName}
+        profilePictureUrl={userProgram?.profile_picture_url}
+      />
+
+      <div className="container-mobile py-6 pb-24 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <button
@@ -342,6 +395,9 @@ export default function WorkoutPage() {
           </div>
         )}
       </div>
+
+      {/* Bottom Navigation */}
+      <BottomNav onNavigate={() => router.push('/app')} />
     </div>
   )
 }
