@@ -3,7 +3,7 @@
     "category": "energy",
     "category_name": "Енергия и Фокус",
     "version": "2.1",
-    "total_questions": 25,
+    "total_questions": 27,
     "max_score": 210,
     "estimated_time_minutes": 8,
     "language": "bg"
@@ -327,7 +327,7 @@
     },
     {
       "id": "eng_smoking",
-      "number": 12,
+      "number": 13,
       "section": "lifestyle",
       "question": "Пушите ли?",
       "description": "Тютюнопушенето намалява кислорода в клетките и директно потиска производството на енергия.",
@@ -364,7 +364,7 @@
     },
     {
       "id": "eng_alcohol",
-      "number": 13,
+      "number": 14,
       "section": "lifestyle",
       "question": "Колко често консумирате алкохол?",
       "description": "Редовната консумация на алкохол влошава качеството на съня и изчерпва енергията.",
@@ -401,7 +401,7 @@
     },
     {
       "id": "eng_sleep_hours",
-      "number": 14,
+      "number": 15,
       "section": "sleep_recovery",
       "question": "Колко часа спите средно на денонощие?",
       "description": "7-9 часа качествен сън са критични за възстановяването на енергията.",
@@ -441,7 +441,7 @@
     },
     {
       "id": "eng_transition_habits",
-      "number": 15,
+      "number": 16,
       "section": "lifestyle",
       "question": "Благодаря Ви за откровеността.",
       "description": "Вече имаме ясна картина на Вашето ежедневие и как то влияе на енергийните Ви нива.",
@@ -464,7 +464,7 @@
     },
     {
       "id": "eng_transition_symptoms",
-      "number": 16,
+      "number": 17,
       "section": "symptoms",
       "question": "Благодаря за откровеността.",
       "description": "Нека сега да навлезем по-дълбоко в симптомите които изпитвате.",
@@ -474,7 +474,7 @@
     },
     {
       "id": "eng_tired_time",
-      "number": 17,
+      "number": 18,
       "section": "symptoms",
       "question": "През коя част от деня се чувствате най-уморен?",
       "description": "",
@@ -505,7 +505,7 @@
     },
     {
       "id": "eng_energy_level",
-      "number": 17,
+      "number": 19,
       "section": "symptoms",
       "question": "Как бихте оценили енергийното си ниво през деня по скала от 1 до 10?",
       "description": "Важен индикатор за метаболитно здраве и функцията на надбъбречната жлеза.",
@@ -546,7 +546,7 @@
     },
     {
       "id": "eng_frustration",
-      "number": 18,
+      "number": 20,
       "section": "symptoms",
       "question": "Какво Ви разочарова най-много, свързано с ниската Ви енергия?",
       "description": "",
@@ -577,7 +577,7 @@
     },
     {
       "id": "eng_change_one_thing",
-      "number": 19,
+      "number": 21,
       "section": "symptoms",
       "question": "Ако можехте да промените едно нещо, свързано с енергията си, какво би било то?",
       "description": "",
@@ -608,7 +608,7 @@
     },
     {
       "id": "eng_transition_social_proof",
-      "number": 20,
+      "number": 22,
       "section": "symptoms",
       "question": "Разбирам. Не сте сам в това.",
       "description": "Хиляди мъже в България преминават през същото – и намират решение.",
@@ -627,7 +627,7 @@
     },
     {
       "id": "eng_tried_solutions",
-      "number": 21,
+      "number": 23,
       "section": "context",
       "question": "Опитвали ли сте вече някакви решения за подобряване на енергията?",
       "description": "",
@@ -658,7 +658,7 @@
     },
     {
       "id": "eng_important_factor",
-      "number": 22,
+      "number": 24,
       "section": "context",
       "question": "Какво е най-важно за Вас при избора на решение?",
       "description": "",
@@ -689,7 +689,7 @@
     },
     {
       "id": "eng_vision",
-      "number": 23,
+      "number": 25,
       "section": "context",
       "question": "Представете си, че след 30 дни проблемът е напълно решен. Как изглежда животът Ви?",
       "description": "",
@@ -700,7 +700,7 @@
     },
     {
       "id": "eng_workout_location",
-      "number": 25,
+      "number": 26,
       "section": "training",
       "question": "Къде предпочитате да тренирате?",
       "description": "Ще персонализираме тренировъчния Ви план според наличното оборудване.",
@@ -725,7 +725,7 @@
     },
     {
       "id": "eng_transition_results",
-      "number": 26,
+      "number": 27,
       "section": "context",
       "question": "Отлична работа!",
       "description": "Вече имам пълна картина за Вашето състояние. Готов ли сте да видите персонализираните резултати?",
