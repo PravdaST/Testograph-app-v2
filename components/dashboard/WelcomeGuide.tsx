@@ -79,11 +79,11 @@ export function WelcomeGuide({ userName, onComplete }: WelcomeGuideProps) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div className="relative w-full max-w-lg bg-background rounded-2xl shadow-2xl border border-border overflow-hidden">
+      <div className="relative w-full max-w-lg bg-background rounded-2xl shadow-2xl border border-border overflow-hidden shimmer-effect spotlight-effect animate-fade-in">
         {/* Close button */}
         <button
           onClick={handleSkip}
-          className="absolute top-4 right-4 p-2 rounded-lg hover:bg-muted transition-colors"
+          className="absolute top-4 right-4 p-2 rounded-lg hover:bg-muted transition-colors hover-lift ripple-effect"
         >
           <X className="w-5 h-5" />
         </button>
@@ -141,12 +141,12 @@ export function WelcomeGuide({ userName, onComplete }: WelcomeGuideProps) {
               <Button
                 variant="outline"
                 onClick={handleSkip}
-                className="flex-1"
+                className="flex-1 hover-lift ripple-effect"
               >
                 Пропусни
               </Button>
             )}
-            <Button onClick={handleNext} className="flex-1">
+            <Button onClick={handleNext} className="flex-1 hover-lift ripple-effect">
               {isLastStep ? 'Започни' : 'Напред'}
             </Button>
           </div>

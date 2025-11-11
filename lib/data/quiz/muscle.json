@@ -86,7 +86,7 @@
       "question": "Как да се обръщаме към Вас?",
       "description": "Искаме да персонализираме съветите, които ще получите.",
       "type": "text_input",
-      "required": false,
+      "required": true,
       "placeholder": "Напр. Иван, Георги, Петър...",
       "validation": {
         "min_length": 2,

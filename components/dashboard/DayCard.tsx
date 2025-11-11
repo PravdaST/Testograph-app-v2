@@ -103,7 +103,7 @@ export function DayCard({
   return (
     <div className="space-y-6">
       {/* Day Header */}
-      <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20">
+      <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20 shimmer-effect spotlight-effect">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="text-2xl font-bold mb-1">{dayName}</h2>
@@ -131,19 +131,19 @@ export function DayCard({
         {/* Daily Totals */}
         <div className="grid grid-cols-4 gap-3">
           <div className="text-center p-2 bg-background/50 rounded-lg">
-            <div className="text-lg font-bold">{dailyTotals.calories}</div>
+            <div className="text-lg font-bold animate-count-up">{dailyTotals.calories}</div>
             <div className="text-xs text-muted-foreground">kcal</div>
           </div>
           <div className="text-center p-2 bg-background/50 rounded-lg">
-            <div className="text-lg font-bold">{dailyTotals.protein}г</div>
+            <div className="text-lg font-bold animate-count-up">{dailyTotals.protein}г</div>
             <div className="text-xs text-muted-foreground">Протеин</div>
           </div>
           <div className="text-center p-2 bg-background/50 rounded-lg">
-            <div className="text-lg font-bold">{dailyTotals.carbs}г</div>
+            <div className="text-lg font-bold animate-count-up">{dailyTotals.carbs}г</div>
             <div className="text-xs text-muted-foreground">Въгл.</div>
           </div>
           <div className="text-center p-2 bg-background/50 rounded-lg">
-            <div className="text-lg font-bold">{dailyTotals.fats}г</div>
+            <div className="text-lg font-bold animate-count-up">{dailyTotals.fats}г</div>
             <div className="text-xs text-muted-foreground">Мазнини</div>
           </div>
         </div>
@@ -176,7 +176,7 @@ export function DayCard({
         <div ref={workoutRef}>
           <button
             onClick={() => router.push(`/app/workout/${dayOfWeek}`)}
-            className="w-full bg-background rounded-2xl p-6 border-2 border-border hover:border-primary transition-all text-left"
+            className="w-full bg-background rounded-2xl p-6 border-2 border-border hover:border-primary transition-all text-left hover-lift ripple-effect shimmer-effect"
           >
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-lg bg-primary/10">

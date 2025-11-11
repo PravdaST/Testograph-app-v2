@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { createPortal } from 'react-dom'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import {
@@ -17,7 +18,9 @@ import {
   Flame,
   Award,
   ArrowLeft,
-  Activity
+  Activity,
+  Info,
+  X
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -51,6 +54,7 @@ export default function WorkoutHistoryPage() {
   const [email, setEmail] = useState<string>()
   const [userName, setUserName] = useState<string>()
   const [profilePictureUrl, setProfilePictureUrl] = useState<string>()
+  const [activeTooltip, setActiveTooltip] = useState<'hero' | 'total' | 'streak' | null>(null)
 
   useEffect(() => {
     const loadHistory = async () => {
@@ -143,74 +147,219 @@ export default function WorkoutHistoryPage() {
           Назад към Dashboard
         </Link>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 gap-4">
-          {/* Total Workouts */}
-          <div className="bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl p-6 border-2 border-primary/30">
-            <div className="flex items-center gap-2 mb-2">
-              <Dumbbell className="w-5 h-5 text-primary" />
-              <span className="text-sm text-muted-foreground">Общо тренировки</span>
+        {/* Hero Section */}
+        <div
+          className="relative bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl p-6 border-2 border-primary/30 animate-fade-in"
+          style={{ animationDelay: '0.1s', animationFillMode: 'both' }}
+        >
+          <div className="flex items-start gap-4">
+            <div className="p-3 rounded-xl bg-primary/20">
+              <TrendingUp className="w-6 h-6 text-primary" />
             </div>
-            <div className="text-3xl font-bold text-primary">
-              {stats?.totalWorkouts || 0}
-            </div>
-          </div>
-
-          {/* Total Time */}
-          <div className="bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl p-6 border-2 border-primary/30">
-            <div className="flex items-center gap-2 mb-2">
-              <Clock className="w-5 h-5 text-primary" />
-              <span className="text-sm text-muted-foreground">Общо минути</span>
-            </div>
-            <div className="text-3xl font-bold text-primary">
-              {stats?.totalMinutes || 0}
+            <div className="flex-1">
+              <h1 className="text-2xl font-bold mb-1">История на тренировки</h1>
+              <p className="text-sm text-muted-foreground">
+                Преглед на твоя прогрес и статистики
+              </p>
             </div>
           </div>
-
-          {/* Current Streak */}
-          <div className="bg-gradient-to-br from-orange-500/20 to-orange-500/10 rounded-2xl p-6 border-2 border-orange-500/30">
-            <div className="flex items-center gap-2 mb-2">
-              <Flame className="w-5 h-5 text-orange-500" />
-              <span className="text-sm text-muted-foreground">Текуща серия</span>
-            </div>
-            <div className="text-3xl font-bold text-orange-500">
-              {stats?.currentStreak || 0}
-            </div>
-            <div className="text-xs text-muted-foreground mt-1">последователни дни</div>
-          </div>
-
-          {/* Longest Streak */}
-          <div className="bg-gradient-to-br from-amber-500/20 to-amber-500/10 rounded-2xl p-6 border-2 border-amber-500/30">
-            <div className="flex items-center gap-2 mb-2">
-              <Award className="w-5 h-5 text-amber-500" />
-              <span className="text-sm text-muted-foreground">Най-дълга серия</span>
-            </div>
-            <div className="text-3xl font-bold text-amber-500">
-              {stats?.longestStreak || 0}
-            </div>
-            <div className="text-xs text-muted-foreground mt-1">последователни дни</div>
-          </div>
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              setActiveTooltip(activeTooltip === 'hero' ? null : 'hero')
+            }}
+            className="absolute top-4 right-4 p-1 rounded-md hover:bg-muted/50 transition-colors z-10"
+          >
+            <Info className="w-3 h-3 text-muted-foreground" />
+          </button>
+          {activeTooltip === 'hero' && typeof window !== 'undefined' && createPortal(
+            <>
+              <div
+                className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setActiveTooltip(null)
+                }}
+              />
+              <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <div className="text-sm font-bold text-foreground">История на тренировки</div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setActiveTooltip(null)
+                    }}
+                    className="p-1 hover:bg-muted rounded-md transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Детайлна статистика за всички твои тренировки - общо тренировки, изминали минути, серии и прогрес.
+                </p>
+              </div>
+            </>,
+            document.body
+          )}
         </div>
 
-        {/* Average Duration */}
+        {/* Bento Grid - Stats */}
         {stats && stats.totalWorkouts > 0 && (
-          <div className="bg-background rounded-2xl p-6 border border-border">
-            <div className="flex items-center gap-2 mb-4">
-              <Activity className="w-5 h-5 text-primary" />
-              <h2 className="text-lg font-bold">Средна продължителност</h2>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="text-4xl font-bold text-primary">
-                {stats.averageDuration}
+          <div className="grid grid-cols-4 gap-3 md:gap-4">
+          {/* Total Workouts (2x2) */}
+          <div
+            className="relative col-span-2 row-span-2 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl p-6 border-2 border-primary/30 animate-fade-in"
+            style={{ animationDelay: '0.2s', animationFillMode: 'both' }}
+          >
+            <div className="flex flex-col items-center justify-center h-full text-center">
+              <Dumbbell className="w-12 h-12 text-primary mb-4" />
+              <div className="text-6xl font-bold text-primary mb-2">
+                {stats?.totalWorkouts || 0}
               </div>
-              <div className="text-sm text-muted-foreground">минути на тренировка</div>
+              <span className="text-sm text-muted-foreground">Общо тренировки</span>
             </div>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setActiveTooltip(activeTooltip === 'total' ? null : 'total')
+              }}
+              className="absolute top-3 right-3 p-1 rounded-md hover:bg-muted/50 transition-colors z-10"
+            >
+              <Info className="w-3 h-3 text-muted-foreground" />
+            </button>
+            {activeTooltip === 'total' && typeof window !== 'undefined' && createPortal(
+              <>
+                <div
+                  className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setActiveTooltip(null)
+                  }}
+                />
+                <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <div className="text-sm font-bold text-foreground">Общо тренировки</div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setActiveTooltip(null)
+                      }}
+                      className="p-1 hover:bg-muted rounded-md transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Брой на всички завършени тренировки от началото на програмата. Всяка завършена тренировка те приближава към целта.
+                  </p>
+                </div>
+              </>,
+              document.body
+            )}
+          </div>
+
+          {/* Total Time (1x1) */}
+          <div
+            className="bg-background rounded-2xl p-4 border border-border animate-fade-in"
+            style={{ animationDelay: '0.3s', animationFillMode: 'both' }}
+          >
+            <Clock className="w-5 h-5 text-primary mb-2" />
+            <div className="text-3xl font-bold text-primary mb-1">
+              {stats?.totalMinutes || 0}
+            </div>
+            <div className="text-xs text-muted-foreground">Общо минути</div>
+          </div>
+
+          {/* Average Duration (1x1) */}
+          <div
+            className="bg-background rounded-2xl p-4 border border-border animate-fade-in"
+            style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
+          >
+            <Activity className="w-5 h-5 text-primary mb-2" />
+            <div className="text-3xl font-bold text-primary mb-1">
+              {stats?.averageDuration || 0}
+            </div>
+            <div className="text-xs text-muted-foreground">Средна мин</div>
+          </div>
+
+          {/* Current Streak (2x1) */}
+          <div
+            className="relative col-span-2 bg-gradient-to-br from-orange-500/20 to-orange-500/10 rounded-2xl p-5 border-2 border-orange-500/30 animate-fade-in"
+            style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
+          >
+            <div className="flex items-center gap-3">
+              <Flame className="w-8 h-8 text-orange-500" />
+              <div className="flex-1">
+                <div className="text-4xl font-bold text-orange-500 mb-1">
+                  {stats?.currentStreak || 0}
+                </div>
+                <div className="text-xs text-muted-foreground">Текуща серия (дни)</div>
+              </div>
+            </div>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setActiveTooltip(activeTooltip === 'streak' ? null : 'streak')
+              }}
+              className="absolute top-3 right-3 p-1 rounded-md hover:bg-muted/50 transition-colors z-10"
+            >
+              <Info className="w-3 h-3 text-muted-foreground" />
+            </button>
+            {activeTooltip === 'streak' && typeof window !== 'undefined' && createPortal(
+              <>
+                <div
+                  className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setActiveTooltip(null)
+                  }}
+                />
+                <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <div className="text-sm font-bold text-foreground">Текуща серия</div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setActiveTooltip(null)
+                      }}
+                      className="p-1 hover:bg-muted rounded-md transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Брой последователни дни с поне една завършена тренировка. Поддържай серията си за максимални резултати!
+                  </p>
+                </div>
+              </>,
+              document.body
+            )}
+          </div>
+
+          {/* Longest Streak (2x1) */}
+          <div
+            className="col-span-2 bg-gradient-to-br from-amber-500/20 to-amber-500/10 rounded-2xl p-5 border-2 border-amber-500/30 animate-fade-in"
+            style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
+          >
+            <div className="flex items-center gap-3">
+              <Award className="w-8 h-8 text-amber-500" />
+              <div className="flex-1">
+                <div className="text-4xl font-bold text-amber-500 mb-1">
+                  {stats?.longestStreak || 0}
+                </div>
+                <div className="text-xs text-muted-foreground">Най-дълга серия (дни)</div>
+              </div>
+            </div>
+          </div>
           </div>
         )}
 
         {/* Workouts by Day of Week */}
         {stats && stats.totalWorkouts > 0 && (
-          <div className="bg-background rounded-2xl p-6 border border-border">
+          <div
+            className="bg-background rounded-2xl p-6 border border-border animate-fade-in"
+            style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
+          >
             <div className="flex items-center gap-2 mb-4">
               <Calendar className="w-5 h-5 text-primary" />
               <h2 className="text-lg font-bold">Тренировки по дни от седмицата</h2>
@@ -241,16 +390,20 @@ export default function WorkoutHistoryPage() {
 
         {/* Recent Workouts */}
         {stats && stats.recentWorkouts.length > 0 && (
-          <div className="bg-background rounded-2xl p-6 border border-border">
+          <div
+            className="bg-background rounded-2xl p-6 border border-border animate-fade-in"
+            style={{ animationDelay: '0.7s', animationFillMode: 'both' }}
+          >
             <div className="flex items-center gap-2 mb-4">
               <TrendingUp className="w-5 h-5 text-primary" />
               <h2 className="text-lg font-bold">Последни тренировки</h2>
             </div>
             <div className="space-y-3">
-              {stats.recentWorkouts.map((workout) => (
+              {stats.recentWorkouts.map((workout, index) => (
                 <div
                   key={workout.id}
-                  className="p-4 rounded-xl bg-muted/30 border border-border"
+                  className="p-4 rounded-xl bg-muted/30 border border-border animate-fade-in"
+                  style={{ animationDelay: `${0.8 + index * 0.05}s`, animationFillMode: 'both' }}
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div>

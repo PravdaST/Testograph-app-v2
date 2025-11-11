@@ -43,7 +43,12 @@ export function BottomNav({ onNavigate }: BottomNavProps) {
       return
     }
 
-    // For sleep (not yet implemented), use callback or scroll
+    if (tab === 'sleep') {
+      router.push('/app/sleep')
+      return
+    }
+
+    // Fallback for any other navigation
     onNavigate?.(tab)
   }
 

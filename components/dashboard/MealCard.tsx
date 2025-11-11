@@ -2,11 +2,12 @@
 
 /**
  * MealCard Component
- * Displays a single meal with expandable ingredients
+ * Displays a single meal with expandable ingredients and image
  */
 
 import { useState } from 'react'
-import { ChevronDown, ChevronUp, Clock, Flame, Drumstick, Wheat, Droplet, Lock } from 'lucide-react'
+import Image from 'next/image'
+import { ChevronDown, ChevronUp, Clock, Flame, Drumstick, Wheat, Droplet, Lock, ImageIcon } from 'lucide-react'
 
 interface Ingredient {
   name: string
@@ -26,6 +27,7 @@ interface MealCardProps {
   isCompleted?: boolean
   isLocked?: boolean
   onToggleComplete?: () => void
+  imageUrl?: string
 }
 
 export function MealCard({
@@ -40,13 +42,14 @@ export function MealCard({
   isCompleted = false,
   isLocked = false,
   onToggleComplete,
+  imageUrl,
 }: MealCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
     <div
       className={`
-        rounded-xl border-2 transition-all relative
+        rounded-xl border-2 transition-all relative shimmer-effect hover-lift spotlight-effect overflow-hidden
         ${
           isCompleted
             ? 'bg-success/5 border-success/20'
@@ -55,6 +58,23 @@ export function MealCard({
         ${isLocked ? 'opacity-80' : ''}
       `}
     >
+      {/* Meal Image */}
+      {imageUrl ? (
+        <div className="relative w-full h-40">
+          <Image
+            src={imageUrl}
+            alt={name}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+        </div>
+      ) : (
+        <div className="relative w-full h-40 bg-muted/30 flex items-center justify-center">
+          <ImageIcon className="w-12 h-12 text-muted-foreground/30" />
+        </div>
+      )}
+
       {/* Meal Header */}
       <div className="p-4 space-y-3">
         <div className="flex items-start justify-between">
@@ -76,7 +96,7 @@ export function MealCard({
               onClick={onToggleComplete}
               disabled={isLocked}
               className={`
-                w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all
+                w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ripple-effect
                 ${
                   isCompleted
                     ? 'bg-success border-success text-white'
@@ -113,25 +133,25 @@ export function MealCard({
         <div className="grid grid-cols-4 gap-2">
           <div className="flex flex-col items-center p-2 rounded-lg bg-muted/50">
             <Flame className="w-4 h-4 text-orange-500 mb-1" />
-            <span className="text-xs font-bold">{calories}</span>
+            <span className="text-xs font-bold animate-count-up">{calories}</span>
             <span className="text-xs text-muted-foreground">kcal</span>
           </div>
 
           <div className="flex flex-col items-center p-2 rounded-lg bg-muted/50">
             <Drumstick className="w-4 h-4 text-red-500 mb-1" />
-            <span className="text-xs font-bold">{protein}г</span>
+            <span className="text-xs font-bold animate-count-up">{protein}г</span>
             <span className="text-xs text-muted-foreground">Протеин</span>
           </div>
 
           <div className="flex flex-col items-center p-2 rounded-lg bg-muted/50">
             <Wheat className="w-4 h-4 text-yellow-600 mb-1" />
-            <span className="text-xs font-bold">{carbs}г</span>
+            <span className="text-xs font-bold animate-count-up">{carbs}г</span>
             <span className="text-xs text-muted-foreground">Въгл.</span>
           </div>
 
           <div className="flex flex-col items-center p-2 rounded-lg bg-muted/50">
             <Droplet className="w-4 h-4 text-blue-500 mb-1" />
-            <span className="text-xs font-bold">{fats}г</span>
+            <span className="text-xs font-bold animate-count-up">{fats}г</span>
             <span className="text-xs text-muted-foreground">Мазнини</span>
           </div>
         </div>

@@ -87,10 +87,10 @@ export function TestoUpTracker({
   return (
     <div
       className={`
-        rounded-2xl p-6 border-2 transition-all
+        rounded-2xl p-6 border-2 transition-all shimmer-effect spotlight-effect
         ${
           bothCompleted
-            ? 'bg-success/5 border-success/30'
+            ? 'bg-success/5 border-success/30 glow-border'
             : 'bg-background border-border'
         }
       `}
@@ -122,7 +122,7 @@ export function TestoUpTracker({
           onClick={() => handleToggle('morning')}
           disabled={isLocked}
           className={`
-            p-4 rounded-xl border-2 transition-all relative
+            p-4 rounded-xl border-2 transition-all relative hover-lift ripple-effect
             ${
               pendingMorning
                 ? 'bg-success/10 border-success text-success'
@@ -169,7 +169,7 @@ export function TestoUpTracker({
           onClick={() => handleToggle('evening')}
           disabled={isLocked}
           className={`
-            p-4 rounded-xl border-2 transition-all relative
+            p-4 rounded-xl border-2 transition-all relative hover-lift ripple-effect
             ${
               pendingEvening
                 ? 'bg-success/10 border-success text-success'
@@ -235,7 +235,7 @@ export function TestoUpTracker({
             <div className="flex items-center gap-2">
               <Pill className="w-4 h-4 text-muted-foreground" />
               <span className="text-sm font-semibold">
-                {inventory.capsules_remaining} капсули останали
+                <span className="animate-count-up inline-block">{inventory.capsules_remaining}</span> капсули останали
               </span>
             </div>
             <div className="flex items-center gap-2">
@@ -247,7 +247,7 @@ export function TestoUpTracker({
                   ? 'text-destructive'
                   : 'text-muted-foreground'
               }`}>
-                {inventory.days_remaining} {inventory.days_remaining === 1 ? 'ден' : 'дни'}
+                <span className="animate-count-up inline-block">{inventory.days_remaining}</span> {inventory.days_remaining === 1 ? 'ден' : 'дни'}
               </span>
             </div>
           </div>

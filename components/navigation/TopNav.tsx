@@ -21,14 +21,14 @@ export function TopNav({ programName, userName, profilePictureUrl }: TopNavProps
       <div className="container-mobile py-3 px-4">
         <div className="flex items-center justify-between gap-3">
           {/* Left: Branding + Program Name */}
-          <div className="flex-1 min-w-0">
-            <h1 className="text-sm font-semibold text-muted-foreground truncate">
+          <Link href="/app" className="flex-1 min-w-0 hover:opacity-80 transition-opacity">
+            <h1 className="text-sm font-semibold text-foreground truncate">
               Testograph
             </h1>
             <p className="text-xs text-muted-foreground truncate">
               {programName}
             </p>
-          </div>
+          </Link>
 
           {/* Right: User Name + Profile Picture */}
           <Link

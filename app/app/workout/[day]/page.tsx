@@ -7,14 +7,15 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter, useParams } from 'next/navigation'
-import { ArrowLeft, Dumbbell, CheckCircle2, TrendingUp, History } from 'lucide-react'
+import { createPortal } from 'react-dom'
+import { ArrowLeft, Dumbbell, CheckCircle2, TrendingUp, History, Sparkles, Utensils, Moon, Timer, Info, X } from 'lucide-react'
 import Link from 'next/link'
 import { ExerciseCard } from '@/components/workout/ExerciseCard'
 import { WorkoutTimer } from '@/components/workout/WorkoutTimer'
-import { WorkoutWeekCalendar } from '@/components/workout/WorkoutWeekCalendar'
 import { Button } from '@/components/ui/Button'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
+import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 
 // Workout Imports - ENERGY
 import { ENERGY_LOW_HOME_WORKOUTS } from '@/lib/data/mock-workouts-energy-low-home'
@@ -46,6 +47,7 @@ interface UserProgram {
   workout_location?: 'home' | 'gym'
   first_name?: string
   profile_picture_url?: string
+  program_start_date?: string
 }
 
 const CATEGORY_NAMES = {
@@ -94,7 +96,30 @@ export default function WorkoutPage() {
   const [userProgram, setUserProgram] = useState<UserProgram | null>(null)
   const [loading, setLoading] = useState(true)
   const [userName, setUserName] = useState<string>()
+  const [programStartDate, setProgramStartDate] = useState<Date>(new Date())
   const [completedDays, setCompletedDays] = useState<Record<number, boolean>>({})
+
+  // Initialize selectedDate based on dayOfWeek parameter
+  const getDateForDayOfWeek = (dow: number) => {
+    const today = new Date()
+    const currentDayOfWeek = today.getDay() === 0 ? 7 : today.getDay() // Convert Sunday from 0 to 7
+    const diff = dow - currentDayOfWeek
+    const targetDate = new Date(today)
+    targetDate.setDate(today.getDate() + diff)
+    return targetDate
+  }
+
+  const [selectedDate, setSelectedDate] = useState(getDateForDayOfWeek(dayOfWeek))
+  const [activeTooltip, setActiveTooltip] = useState<'hero' | null>(null)
+
+  // Handle date change from calendar
+  const handleDateChange = (date: Date) => {
+    setSelectedDate(date)
+    // Convert date to day of week (1-7, where 1=Monday, 7=Sunday)
+    const dow = date.getDay() === 0 ? 7 : date.getDay()
+    // Navigate to the workout page for that day
+    router.push(`/app/workout/${dow}`)
+  }
 
   // Fetch user program to determine correct workout
   useEffect(() => {
@@ -114,7 +139,8 @@ export default function WorkoutPage() {
             level: data.level,
             workout_location: data.workout_location || 'gym',
             first_name: data.first_name,
-            profile_picture_url: data.profile_picture_url
+            profile_picture_url: data.profile_picture_url,
+            program_start_date: data.program_start_date
           })
 
           // Set user name from first_name or email fallback
@@ -123,6 +149,11 @@ export default function WorkoutPage() {
           } else {
             const emailUsername = email.split('@')[0]
             setUserName(emailUsername)
+          }
+
+          // Set program start date
+          if (data.program_start_date) {
+            setProgramStartDate(new Date(data.program_start_date))
           }
         }
 
@@ -284,23 +315,193 @@ export default function WorkoutPage() {
             <span>Назад</span>
           </button>
 
-          <div className="bg-background rounded-2xl p-8 text-center border border-border">
-            <div className="text-6xl mb-4">🛌</div>
-            <h2 className="text-2xl font-bold mb-2">Почивка</h2>
-            <p className="text-muted-foreground">
-              Днес е ден за възстановяване. Използвай го за активна почивка або
-              лека разходка.
-            </p>
+          {/* Hero Section - Rest Day */}
+          <div
+            className="bg-gradient-to-r from-success/20 to-success/10 rounded-2xl p-6 border-2 border-success/30 animate-fade-in shimmer-effect spotlight-effect"
+            style={{ animationDelay: '0.1s', animationFillMode: 'both' }}
+          >
+            <div className="flex items-start gap-4">
+              <div className="p-3 rounded-xl bg-success/20">
+                <Sparkles className="w-6 h-6 text-success" />
+              </div>
+              <div className="flex-1">
+                <h1 className="text-2xl font-bold mb-1">Ден за възстановяване</h1>
+                <p className="text-sm text-muted-foreground">
+                  Почивката е също толкова важна, колкото тренировката. Използвай този ден разумно!
+                </p>
+              </div>
+            </div>
           </div>
 
-          {/* Weekly Workout Calendar */}
-          <div className="bg-background rounded-2xl p-6 border border-border">
-            <WorkoutWeekCalendar
-              workouts={workouts}
-              currentDayOfWeek={dayOfWeek}
-              completedDays={completedDays}
+          {/* Weekly Calendar */}
+          <div className="animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
+            <WeeklyCalendar
+              programStartDate={programStartDate}
+              selectedDate={selectedDate}
+              onDateSelect={handleDateChange}
             />
           </div>
+
+          {/* Bento Grid - Recovery Activities */}
+          <div className="grid grid-cols-2 gap-3 md:gap-4">
+            {/* Active Recovery (2x1) */}
+            <div
+              className="col-span-2 bg-background rounded-2xl p-5 border border-border hover:border-primary/50 transition-all shimmer-effect hover-lift animate-fade-in"
+              style={{ animationDelay: '0.3s', animationFillMode: 'both' }}
+            >
+              <div className="flex items-start gap-3">
+                <div className="p-2 rounded-lg bg-primary/10">
+                  <TrendingUp className="w-5 h-5 text-primary" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold mb-1">Активна почивка</h3>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Лека разходка 20-30 минути или динамичен стречинг
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-lg">
+                      Разходка
+                    </span>
+                    <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-lg">
+                      Стречинг
+                    </span>
+                    <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-lg">
+                      Йога
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Hydration (1x1) */}
+            <div
+              className="bg-background rounded-xl p-4 border border-border hover:border-primary/50 transition-all shimmer-effect hover-lift animate-fade-in"
+              style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
+            >
+              <div className="mb-3">
+                <div className="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-2">
+                  <span className="text-2xl">💧</span>
+                </div>
+                <h3 className="font-bold text-sm mb-1">Хидратация</h3>
+                <p className="text-xs text-muted-foreground">
+                  Изпий минимум 2-3 литра вода
+                </p>
+              </div>
+            </div>
+
+            {/* Sleep (1x1) */}
+            <div
+              className="bg-background rounded-xl p-4 border border-border hover:border-primary/50 transition-all shimmer-effect hover-lift animate-fade-in"
+              style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
+            >
+              <div className="mb-3">
+                <div className="w-10 h-10 rounded-lg bg-purple-500/10 flex items-center justify-center mb-2">
+                  <Moon className="w-5 h-5 text-purple-500" />
+                </div>
+                <h3 className="font-bold text-sm mb-1">Качествен сън</h3>
+                <p className="text-xs text-muted-foreground">
+                  8+ часа за пълно възстановяване
+                </p>
+              </div>
+            </div>
+
+            {/* Nutrition (2x1) */}
+            <div
+              className="col-span-2 bg-background rounded-2xl p-5 border border-border hover:border-primary/50 transition-all shimmer-effect hover-lift animate-fade-in"
+              style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
+            >
+              <div className="flex items-start gap-3">
+                <div className="p-2 rounded-lg bg-orange-500/10">
+                  <Utensils className="w-5 h-5 text-orange-500" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-bold mb-1">Хранене</h3>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Следвай хранителния си план - протеините са ключови за възстановяване
+                  </p>
+                  <div className="grid grid-cols-3 gap-2 text-center">
+                    <div className="p-2 rounded-lg bg-muted/50">
+                      <p className="text-xs text-muted-foreground mb-1">Протеин</p>
+                      <p className="text-sm font-bold">Висок</p>
+                    </div>
+                    <div className="p-2 rounded-lg bg-muted/50">
+                      <p className="text-xs text-muted-foreground mb-1">Въглехидрати</p>
+                      <p className="text-sm font-bold">Умерени</p>
+                    </div>
+                    <div className="p-2 rounded-lg bg-muted/50">
+                      <p className="text-xs text-muted-foreground mb-1">Мазнини</p>
+                      <p className="text-sm font-bold">Здравословни</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Relaxation (1x1) */}
+            <div
+              className="bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl p-4 border border-primary/20 hover:border-primary/50 transition-all shimmer-effect hover-lift animate-fade-in"
+              style={{ animationDelay: '0.7s', animationFillMode: 'both' }}
+            >
+              <div className="mb-3">
+                <div className="w-10 h-10 rounded-lg bg-primary/20 flex items-center justify-center mb-2">
+                  <Sparkles className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="font-bold text-sm mb-1">Релакс</h3>
+                <p className="text-xs text-muted-foreground">
+                  Медитация, четене, или hobby
+                </p>
+              </div>
+            </div>
+
+            {/* Mobility (1x1) */}
+            <div
+              className="bg-gradient-to-br from-success/10 to-success/5 rounded-xl p-4 border border-success/20 hover:border-success/50 transition-all shimmer-effect hover-lift animate-fade-in"
+              style={{ animationDelay: '0.8s', animationFillMode: 'both' }}
+            >
+              <div className="mb-3">
+                <div className="w-10 h-10 rounded-lg bg-success/20 flex items-center justify-center mb-2">
+                  <TrendingUp className="w-5 h-5 text-success" />
+                </div>
+                <h3 className="font-bold text-sm mb-1">Мобилност</h3>
+                <p className="text-xs text-muted-foreground">
+                  10-15 мин стречинг
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Weekly Progress Card */}
+          {completedDays && Object.keys(completedDays).length > 0 && (
+            <div
+              className="bg-background rounded-2xl p-5 border border-border animate-fade-in"
+              style={{ animationDelay: '0.9s', animationFillMode: 'both' }}
+            >
+              <div className="flex items-center gap-2 mb-4">
+                <CheckCircle2 className="w-5 h-5 text-success" />
+                <h3 className="font-bold">Седмичен прогрес</h3>
+              </div>
+              <div className="grid grid-cols-7 gap-2">
+                {[1, 2, 3, 4, 5, 6, 7].map((day) => {
+                  const isCompleted = completedDays[day]
+                  const isRestDay = day === 2 || day === 5 // Example rest days
+                  return (
+                    <div
+                      key={day}
+                      className={`aspect-square rounded-lg flex items-center justify-center text-xs font-medium transition-all ${
+                        isCompleted
+                          ? 'bg-success text-white'
+                          : isRestDay
+                            ? 'bg-muted/50 text-muted-foreground'
+                            : 'bg-muted/30 text-muted-foreground'
+                      }`}
+                    >
+                      {isRestDay ? '💤' : day}
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Bottom Navigation */}
@@ -350,69 +551,151 @@ export default function WorkoutPage() {
           </Link>
         </div>
 
-        {/* Weekly Workout Calendar */}
-        <WorkoutWeekCalendar
-          workouts={workouts}
-          currentDayOfWeek={dayOfWeek}
-          completedDays={completedDays}
-        />
+        {/* Weekly Calendar */}
+        <div className="animate-fade-in" style={{ animationDelay: '0.05s', animationFillMode: 'both' }}>
+          <WeeklyCalendar
+            programStartDate={programStartDate}
+            selectedDate={selectedDate}
+            onDateSelect={handleDateChange}
+          />
+        </div>
 
-        {/* Workout Info Card */}
-        <div className="bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl p-6 border-2 border-primary/30">
+        {/* Hero Section - Workout Info */}
+        <div
+          className="relative bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl p-6 border-2 border-primary/30 animate-fade-in shimmer-effect spotlight-effect"
+          style={{ animationDelay: '0.1s', animationFillMode: 'both' }}
+        >
           <div className="flex items-start gap-4">
             <div className="p-3 rounded-xl bg-primary/20">
               <Dumbbell className="w-6 h-6 text-primary" />
             </div>
             <div className="flex-1">
               <h1 className="text-2xl font-bold mb-1">{workout.name}</h1>
-              <p className="text-sm text-muted-foreground mb-3">
+              <p className="text-sm text-muted-foreground">
                 {workout.duration} минути • {totalExercises} упражнения
               </p>
-
-              {/* Progress Bar */}
-              <div className="space-y-2">
-                <div className="flex items-center justify-between text-sm">
-                  <span className="font-medium">Прогрес</span>
-                  <span className="font-bold text-primary">
-                    {progressPercentage}%
-                  </span>
+            </div>
+          </div>
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              setActiveTooltip(activeTooltip === 'hero' ? null : 'hero')
+            }}
+            className="absolute top-4 right-4 p-1 rounded-md hover:bg-muted/50 transition-colors z-10"
+          >
+            <Info className="w-3 h-3 text-muted-foreground" />
+          </button>
+          {activeTooltip === 'hero' && typeof window !== 'undefined' && createPortal(
+            <>
+              <div
+                className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setActiveTooltip(null)
+                }}
+              />
+              <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <div className="text-sm font-bold text-foreground">Тренировка</div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setActiveTooltip(null)
+                    }}
+                    className="p-1 hover:bg-muted rounded-md transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
                 </div>
-                <div className="h-2 bg-muted rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-primary transition-all duration-300"
-                    style={{ width: `${progressPercentage}%` }}
-                  />
-                </div>
-                <p className="text-xs text-muted-foreground">
-                  {totalSetsCompleted} от {totalSetsNeeded} серии завършени
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Специално подбрани упражнения за повишаване на тестостерона. Следвай техниката във видеата и маркирай всяка серия като завършена.
                 </p>
               </div>
+            </>,
+            document.body
+          )}
+        </div>
+
+        {/* Bento Grid - Workout Stats */}
+        <div className="grid grid-cols-4 gap-3 md:gap-4">
+          {/* Progress (2x1) */}
+          <div
+            className="col-span-2 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl p-5 border-2 border-primary/30 animate-fade-in shimmer-effect hover-lift"
+            style={{ animationDelay: '0.15s', animationFillMode: 'both' }}
+          >
+            <div className="flex items-center gap-2 mb-3">
+              <TrendingUp className="w-5 h-5 text-primary" />
+              <h3 className="font-bold">Прогрес</h3>
             </div>
+            <div className="text-4xl font-bold text-primary mb-2 animate-count-up">
+              {progressPercentage}%
+            </div>
+            <div className="text-xs text-muted-foreground mb-3">
+              {totalSetsCompleted} от {totalSetsNeeded} серии
+            </div>
+            <div className="h-2 bg-background/50 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-primary transition-all duration-300"
+                style={{ width: `${progressPercentage}%` }}
+              />
+            </div>
+          </div>
+
+          {/* Target Time (1x1) */}
+          <div
+            className="bg-background rounded-2xl p-4 border border-border animate-fade-in shimmer-effect hover-lift"
+            style={{ animationDelay: '0.2s', animationFillMode: 'both' }}
+          >
+            <Timer className="w-5 h-5 text-primary mb-2" />
+            <div className="text-3xl font-bold text-primary mb-1 animate-count-up">{workout.duration}</div>
+            <div className="text-xs text-muted-foreground">минути</div>
+          </div>
+
+          {/* Exercises Count (1x1) */}
+          <div
+            className="bg-background rounded-2xl p-4 border border-border animate-fade-in shimmer-effect hover-lift"
+            style={{ animationDelay: '0.25s', animationFillMode: 'both' }}
+          >
+            <Dumbbell className="w-5 h-5 text-primary mb-2" />
+            <div className="text-3xl font-bold text-primary mb-1 animate-count-up">{totalExercises}</div>
+            <div className="text-xs text-muted-foreground">упражнения</div>
           </div>
         </div>
 
         {/* Workout Timer */}
-        <WorkoutTimer
-          workoutName={workout.name}
-          targetDuration={workout.duration}
-          dayOfWeek={dayOfWeek}
-          onWorkoutComplete={(duration) => {
-            console.log('Workout completed in', duration, 'minutes')
-          }}
-        />
+        <div className="animate-fade-in" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
+          <WorkoutTimer
+            workoutName={workout.name}
+            targetDuration={workout.duration}
+            dayOfWeek={dayOfWeek}
+            onWorkoutComplete={(duration) => {
+              console.log('Workout completed in', duration, 'minutes')
+            }}
+          />
+        </div>
 
         {/* Exercise List */}
         <div className="space-y-4">
-          <h2 className="text-lg font-bold">Упражнения</h2>
+          <h2
+            className="text-lg font-bold animate-fade-in"
+            style={{ animationDelay: '0.3s', animationFillMode: 'both' }}
+          >
+            Упражнения
+          </h2>
 
           {workout.exercises.map((exercise, index) => (
-            <ExerciseCard
+            <div
               key={index}
-              exercise={exercise}
-              exerciseNumber={index + 1}
-              completedSets={completedSets[index] || []}
-              onSetToggle={(setNum) => handleSetToggle(index, setNum)}
-            />
+              className="animate-fade-in"
+              style={{ animationDelay: `${0.4 + index * 0.05}s`, animationFillMode: 'both' }}
+            >
+              <ExerciseCard
+                exercise={exercise}
+                exerciseNumber={index + 1}
+                completedSets={completedSets[index] || []}
+                onSetToggle={(setNum) => handleSetToggle(index, setNum)}
+              />
+            </div>
           ))}
         </div>
 

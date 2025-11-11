@@ -1,15 +1,18 @@
 'use client'
 
 /**
- * Nutrition Page
- * Full meal plan and tracking page
+ * Nutrition Page - Bento Grid Layout
+ * Modern meal plan tracking with Bento Grid design
  */
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Utensils, CheckCircle2, Clock, Flame } from 'lucide-react'
+import { createPortal } from 'react-dom'
+import { Utensils, CheckCircle2, Clock, Flame, TrendingUp, Award, Info, X } from 'lucide-react'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
+import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
+import { MealCard } from '@/components/dashboard/MealCard'
 
 // Meal Plan Imports - LOW level
 import { ENERGY_LOW_MEAL_PLAN } from '@/lib/data/mock-meal-plan-energy-low'
@@ -31,6 +34,7 @@ interface UserProgram {
   level: string
   first_name?: string
   profile_picture_url?: string
+  program_start_date?: string
 }
 
 const CATEGORY_NAMES = {
@@ -38,8 +42,6 @@ const CATEGORY_NAMES = {
   libido: 'Либидо и Сексуално здраве',
   muscle: 'Мускулна маса и сила',
 }
-
-const DAY_NAMES = ['Нед', 'Пон', 'Вто', 'Сря', 'Чет', 'Пет', 'Съб']
 
 // Helper function to get meal plan based on category and level
 function getMealPlanForCategory(
@@ -68,8 +70,10 @@ export default function NutritionPage() {
   const [userProgram, setUserProgram] = useState<UserProgram | null>(null)
   const [loading, setLoading] = useState(true)
   const [userName, setUserName] = useState<string>()
+  const [programStartDate, setProgramStartDate] = useState<Date>(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [completedMeals, setCompletedMeals] = useState<Record<string, number[]>>({})
+  const [activeTooltip, setActiveTooltip] = useState<'hero' | 'progress' | 'calories' | 'protein' | null>(null)
 
   // Load user program
   useEffect(() => {
@@ -91,6 +95,11 @@ export default function NutritionPage() {
           } else {
             const emailUsername = email.split('@')[0]
             setUserName(emailUsername)
+          }
+
+          // Set program start date
+          if (data.program_start_date) {
+            setProgramStartDate(new Date(data.program_start_date))
           }
         }
 
@@ -114,6 +123,26 @@ export default function NutritionPage() {
 
     loadUserProgram()
   }, [router])
+
+  // Load meals for selected date
+  useEffect(() => {
+    const loadMealsForDate = async () => {
+      const email = localStorage.getItem('quizEmail')
+      if (!email) return
+
+      const dateKey = selectedDate.toISOString().split('T')[0]
+      const mealsResponse = await fetch(`/api/meals/complete?email=${encodeURIComponent(email)}&date=${dateKey}`)
+      if (mealsResponse.ok) {
+        const mealsData = await mealsResponse.json()
+        setCompletedMeals({
+          ...completedMeals,
+          [dateKey]: mealsData.completedMeals || []
+        })
+      }
+    }
+
+    loadMealsForDate()
+  }, [selectedDate])
 
   const handleMealToggle = async (mealNumber: number) => {
     const email = localStorage.getItem('quizEmail')
@@ -180,6 +209,17 @@ export default function NutritionPage() {
   const dateKey = selectedDate.toISOString().split('T')[0]
   const completedToday = completedMeals[dateKey] || []
 
+  // Calculate total calories and protein
+  const totalCalories = mealsForDay
+    .filter(meal => completedToday.includes(meal.meal_number))
+    .reduce((sum, meal) => sum + meal.calories, 0)
+
+  const totalProtein = mealsForDay
+    .filter(meal => completedToday.includes(meal.meal_number))
+    .reduce((sum, meal) => sum + meal.protein, 0)
+
+  const isToday = selectedDate.toDateString() === new Date().toDateString()
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset">
       <TopNav
@@ -188,9 +228,12 @@ export default function NutritionPage() {
         profilePictureUrl={userProgram?.profile_picture_url}
       />
 
-      <div className="container-mobile py-6 pb-24 space-y-6">
-        {/* Page Header */}
-        <div className="bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl p-6 border-2 border-primary/30">
+      <div className="container-mobile py-6 pb-24 space-y-4">
+        {/* Hero Section */}
+        <div
+          className="relative bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl p-6 border-2 border-primary/30 animate-fade-in"
+          style={{ animationDelay: '0.1s', animationFillMode: 'both' }}
+        >
           <div className="flex items-start gap-4">
             <div className="p-3 rounded-xl bg-primary/20">
               <Utensils className="w-6 h-6 text-primary" />
@@ -202,107 +245,248 @@ export default function NutritionPage() {
               </p>
             </div>
           </div>
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              setActiveTooltip(activeTooltip === 'hero' ? null : 'hero')
+            }}
+            className="absolute top-4 right-4 p-1 rounded-md hover:bg-muted/50 transition-colors"
+          >
+            <Info className="w-3 h-3 text-muted-foreground" />
+          </button>
+          {activeTooltip === 'hero' && typeof window !== 'undefined' && createPortal(
+            <>
+              <div
+                className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setActiveTooltip(null)
+                }}
+              />
+              <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <div className="text-sm font-bold text-foreground">Хранителен план</div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setActiveTooltip(null)
+                    }}
+                    className="p-1 hover:bg-muted rounded-md transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Персонализиран хранителен план според твоята цел и ниво. Всеки ден получаваш балансирани хранения с точни калории и макрос.
+                </p>
+              </div>
+            </>,
+            document.body
+          )}
         </div>
 
         {/* Weekly Calendar */}
-        <div className="bg-background rounded-2xl p-4 border border-border">
-          <h3 className="text-sm font-semibold mb-3">Седмица</h3>
-          <div className="flex gap-2 overflow-x-auto pb-2">
-            {[-3, -2, -1, 0, 1, 2, 3].map((offset) => {
-              const date = new Date()
-              date.setDate(date.getDate() + offset)
-              const isSelected = date.toDateString() === selectedDate.toDateString()
-              const isToday = date.toDateString() === new Date().toDateString()
-
-              return (
-                <button
-                  key={offset}
-                  onClick={() => setSelectedDate(date)}
-                  className={`flex-shrink-0 w-14 rounded-xl p-2 transition-all ${
-                    isSelected
-                      ? 'bg-primary text-primary-foreground shadow-lg scale-105'
-                      : isToday
-                        ? 'bg-primary/10 border-2 border-primary text-primary'
-                        : 'bg-muted hover:bg-muted/70'
-                  }`}
-                >
-                  <div className="text-xs font-medium">
-                    {DAY_NAMES[date.getDay()]}
-                  </div>
-                  <div className="text-lg font-bold">{date.getDate()}</div>
-                </button>
-              )
-            })}
-          </div>
+        <div className="animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
+          <WeeklyCalendar
+            programStartDate={programStartDate}
+            selectedDate={selectedDate}
+            onDateSelect={setSelectedDate}
+          />
         </div>
 
-        {/* Meals List */}
-        <div className="space-y-3">
-          {mealsForDay.map((meal) => {
-            const isCompleted = completedToday.includes(meal.meal_number)
-
-            return (
-              <button
-                key={meal.meal_number}
-                onClick={() => handleMealToggle(meal.meal_number)}
-                className={`w-full text-left rounded-2xl p-5 border-2 transition-all ${
-                  isCompleted
-                    ? 'bg-success/10 border-success/30'
-                    : 'bg-background border-border hover:border-primary/50'
-                }`}
-              >
-                <div className="flex items-start gap-4">
-                  <div className={`p-2 rounded-lg ${isCompleted ? 'bg-success/20' : 'bg-primary/10'}`}>
-                    <Utensils className={`w-5 h-5 ${isCompleted ? 'text-success' : 'text-primary'}`} />
-                  </div>
-
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="font-bold">{meal.meal_name}</h3>
-                      {isCompleted && (
-                        <CheckCircle2 className="w-5 h-5 text-success" />
-                      )}
-                    </div>
-
-                    <p className="text-sm text-muted-foreground mb-3">
-                      {meal.description}
-                    </p>
-
-                    <div className="flex items-center gap-4 text-xs">
-                      <div className="flex items-center gap-1">
-                        <Clock className="w-3 h-3" />
-                        <span>{meal.time}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Flame className="w-3 h-3" />
-                        <span>{meal.calories} kcal</span>
-                      </div>
-                      <span className="text-muted-foreground">
-                        {meal.protein}g protein
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </button>
-            )
-          })}
-        </div>
-
-        {/* Stats */}
-        <div className="bg-background rounded-2xl p-5 border border-border">
-          <h3 className="font-bold mb-3">Днес</h3>
-          <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Изядени хранения</span>
-              <span className="font-medium">{completedToday.length}/{mealsForDay.length}</span>
+        {/* Bento Grid - Stats */}
+        <div className="grid grid-cols-4 gap-3 md:gap-4">
+          {/* Meals Progress (2x1) */}
+          <div
+            className="relative col-span-2 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl p-5 border-2 border-primary/30 animate-fade-in"
+            style={{ animationDelay: '0.3s', animationFillMode: 'both' }}
+          >
+            <div className="flex items-center gap-2 mb-3">
+              <TrendingUp className="w-5 h-5 text-primary" />
+              <h3 className="font-bold">Прогрес</h3>
             </div>
-            <div className="h-2 bg-muted rounded-full overflow-hidden">
+
+            <div className="text-4xl font-bold text-primary mb-2">
+              {completedToday.length}/{mealsForDay.length}
+            </div>
+            <div className="text-xs text-muted-foreground mb-3">Изядени хранения</div>
+
+            <div className="h-2 bg-background/50 rounded-full overflow-hidden">
               <div
                 className="h-full bg-primary transition-all"
                 style={{ width: `${(completedToday.length / mealsForDay.length) * 100}%` }}
               />
             </div>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setActiveTooltip(activeTooltip === 'progress' ? null : 'progress')
+              }}
+              className="absolute top-3 right-3 p-1 rounded-md hover:bg-muted/50 transition-colors"
+            >
+              <Info className="w-3 h-3 text-muted-foreground" />
+            </button>
+            {activeTooltip === 'progress' && typeof window !== 'undefined' && createPortal(
+              <>
+                <div
+                  className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setActiveTooltip(null)
+                  }}
+                />
+                <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <div className="text-sm font-bold text-foreground">Прогрес на хранения</div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setActiveTooltip(null)
+                      }}
+                      className="p-1 hover:bg-muted rounded-md transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Проследи колко хранения си завършил за избрания ден. Маркирай всяко хранене като завършено, за да следиш прогреса си.
+                  </p>
+                </div>
+              </>,
+              document.body
+            )}
           </div>
+
+          {/* Calories (1x1) */}
+          <div
+            className="relative bg-background rounded-2xl p-4 border border-border animate-fade-in"
+            style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
+          >
+            <Flame className="w-5 h-5 text-primary mb-2" />
+            <div className="text-3xl font-bold text-primary mb-1">{totalCalories}</div>
+            <div className="text-xs text-muted-foreground">Калории</div>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setActiveTooltip(activeTooltip === 'calories' ? null : 'calories')
+              }}
+              className="absolute top-2 right-2 p-1 rounded-md hover:bg-muted/50 transition-colors"
+            >
+              <Info className="w-3 h-3 text-muted-foreground" />
+            </button>
+            {activeTooltip === 'calories' && typeof window !== 'undefined' && createPortal(
+              <>
+                <div
+                  className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setActiveTooltip(null)
+                  }}
+                />
+                <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <div className="text-sm font-bold text-foreground">Дневни калории</div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setActiveTooltip(null)
+                      }}
+                      className="p-1 hover:bg-muted rounded-md transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Общ брой калории от завършените хранения за избрания ден. Помага ти да поддържаш енергийния си баланс.
+                  </p>
+                </div>
+              </>,
+              document.body
+            )}
+          </div>
+
+          {/* Protein (1x1) */}
+          <div
+            className="relative bg-background rounded-2xl p-4 border border-border animate-fade-in"
+            style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
+          >
+            <Award className="w-5 h-5 text-primary mb-2" />
+            <div className="text-3xl font-bold text-primary mb-1">{totalProtein}g</div>
+            <div className="text-xs text-muted-foreground">Протеин</div>
+            <button
+              onClick={(e) => {
+                e.stopPropagation()
+                setActiveTooltip(activeTooltip === 'protein' ? null : 'protein')
+              }}
+              className="absolute top-2 right-2 p-1 rounded-md hover:bg-muted/50 transition-colors"
+            >
+              <Info className="w-3 h-3 text-muted-foreground" />
+            </button>
+            {activeTooltip === 'protein' && typeof window !== 'undefined' && createPortal(
+              <>
+                <div
+                  className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setActiveTooltip(null)
+                  }}
+                />
+                <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <div className="text-sm font-bold text-foreground">Дневен протеин</div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setActiveTooltip(null)
+                      }}
+                      className="p-1 hover:bg-muted rounded-md transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    Общо грамове протеин от завършените хранения. Протеинът е ключов за производството на тестостерон и мускулната маса.
+                  </p>
+                </div>
+              </>,
+              document.body
+            )}
+          </div>
+        </div>
+
+        {/* Meals List */}
+        <div className="space-y-3">
+          <h3
+            className="font-bold text-lg px-1 animate-fade-in"
+            style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
+          >
+            Твоите хранения
+          </h3>
+
+          {mealsForDay.map((meal, index) => {
+            const isCompleted = completedToday.includes(meal.meal_number)
+
+            return (
+              <div
+                key={meal.meal_number}
+                className="animate-fade-in"
+                style={{ animationDelay: `${0.7 + index * 0.1}s`, animationFillMode: 'both' }}
+              >
+                <MealCard
+                  mealNumber={meal.meal_number}
+                  time={meal.time}
+                  name={meal.name}
+                  calories={meal.calories}
+                  protein={meal.protein}
+                  carbs={meal.carbs}
+                  fats={meal.fats}
+                  ingredients={meal.ingredients}
+                  isCompleted={isCompleted}
+                  onToggleComplete={() => handleMealToggle(meal.meal_number)}
+                />
+              </div>
+            )
+          })}
         </div>
       </div>
 

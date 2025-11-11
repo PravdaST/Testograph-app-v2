@@ -48,7 +48,7 @@ export function SleepAdvice({
   }
 
   return (
-    <div className="bg-background rounded-2xl p-6 border-2 border-border">
+    <div className="bg-background rounded-2xl p-6 border-2 border-border shimmer-effect spotlight-effect hover-lift">
       {/* Header */}
       <div className="flex items-center gap-3 mb-4">
         <div className="p-2 rounded-lg bg-primary/10">
@@ -110,7 +110,7 @@ export function SleepAdvice({
             onClick={handleToggle}
             disabled={isLocked}
             className={`
-              w-full p-4 rounded-xl border-2 transition-all flex items-center justify-between
+              w-full p-4 rounded-xl border-2 transition-all flex items-center justify-between ripple-effect
               ${
                 pendingCompleted
                   ? 'bg-success/10 border-success'
@@ -150,7 +150,7 @@ export function SleepAdvice({
           {canConfirm && (
             <button
               onClick={handleConfirm}
-              className="mt-3 w-full py-3 px-4 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all"
+              className="mt-3 w-full py-3 px-4 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all ripple-effect hover-lift"
             >
               Потвърди сън
             </button>

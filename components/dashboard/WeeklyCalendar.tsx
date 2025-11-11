@@ -60,7 +60,7 @@ export function WeeklyCalendar({
       <div className="flex items-center justify-between">
         <button
           onClick={handlePreviousWeek}
-          className="p-2 rounded-lg hover:bg-muted transition-colors"
+          className="p-2 rounded-lg hover:bg-muted transition-colors ripple-effect hover-lift"
           aria-label="Предишна седмица"
         >
           <ChevronLeft className="w-5 h-5" />
@@ -68,14 +68,14 @@ export function WeeklyCalendar({
 
         <button
           onClick={handleToday}
-          className="px-4 py-2 text-sm font-medium rounded-lg hover:bg-muted transition-colors"
+          className="px-4 py-2 text-sm font-medium rounded-lg hover:bg-muted transition-colors ripple-effect hover-lift"
         >
           Днес
         </button>
 
         <button
           onClick={handleNextWeek}
-          className="p-2 rounded-lg hover:bg-muted transition-colors"
+          className="p-2 rounded-lg hover:bg-muted transition-colors ripple-effect hover-lift"
           aria-label="Следваща седмица"
         >
           <ChevronRight className="w-5 h-5" />
@@ -103,7 +103,7 @@ export function WeeklyCalendar({
               key={day.toISOString()}
               onClick={() => onDateSelect(day)}
               className={`
-                flex-shrink-0 w-16 rounded-xl p-3 transition-all
+                flex-shrink-0 w-16 rounded-xl p-3 transition-all hover-lift ripple-effect
                 ${
                   isSelected
                     ? 'bg-primary text-primary-foreground shadow-lg scale-105'

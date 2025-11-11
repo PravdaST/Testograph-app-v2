@@ -1,16 +1,22 @@
 'use client'
 
 /**
- * Profile Page
- * Shows user profile information and feedback history
+ * Profile Page - Bento Grid Layout
+ * Modern profile overview with stats and settings
  */
 
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
+import { createPortal } from 'react-dom'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { FeedbackHistory } from '@/components/profile/FeedbackHistory'
-import { User, Mail, Calendar, TrendingUp, ArrowLeft, Camera, Target, Edit2, Check, X, Loader2, Trash2 } from 'lucide-react'
+import {
+  User, Mail, Calendar, TrendingUp, ArrowLeft, Camera, Target, Edit2,
+  Check, X, Loader2, Trash2, Settings, LogOut, Home,
+  Dumbbell as DumbbellIcon, AlertTriangle, Utensils, Moon, Pill,
+  BarChart3, Award, ChevronRight, Info
+} from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -23,6 +29,7 @@ interface UserProgram {
   profile_picture_url?: string
   goal?: string
   program_end_date?: string
+  first_name?: string
   breakdown?: {
     symptoms: number
     nutrition: number
@@ -30,6 +37,15 @@ interface UserProgram {
     sleep_recovery: number
     context: number
   }
+}
+
+interface UserStats {
+  mealsCompleted: number
+  workoutsCompleted: number
+  averageSleepHours: number
+  testoUpCompliance: number
+  daysInProgram: number
+  periodDays: number
 }
 
 interface FeedbackSubmission {
@@ -48,12 +64,6 @@ const CATEGORY_NAMES = {
   muscle: 'Мускулна маса и сила',
 }
 
-const LEVEL_NAMES = {
-  low: 'Начинаещ',
-  normal: 'Напреднал',
-  high: 'Експерт',
-}
-
 const LOCATION_NAMES = {
   home: 'Вкъщи',
   gym: 'Фитнес зала',
@@ -62,15 +72,21 @@ const LOCATION_NAMES = {
 export default function ProfilePage() {
   const router = useRouter()
   const [userProgram, setUserProgram] = useState<UserProgram | null>(null)
-  const [feedbackHistory, setFeedbackHistory] = useState<FeedbackSubmission[]>([])
+  const [userStats, setUserStats] = useState<UserStats | null>(null)
+  const [feedbackHistory, setFeedbackHistory] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
   const [email, setEmail] = useState<string>()
   const [userName, setUserName] = useState<string>()
+  const [firstName, setFirstName] = useState<string>('')
+  const [isEditingName, setIsEditingName] = useState(false)
+  const [nameText, setNameText] = useState('')
+  const [isSavingName, setIsSavingName] = useState(false)
   const [isEditingGoal, setIsEditingGoal] = useState(false)
   const [goalText, setGoalText] = useState('')
   const [isSavingGoal, setIsSavingGoal] = useState(false)
   const [isUploadingPicture, setIsUploadingPicture] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [activeTooltip, setActiveTooltip] = useState<'hero' | null>(null)
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -84,10 +100,6 @@ export default function ProfilePage() {
 
         setEmail(storedEmail)
 
-        // Extract username from email
-        const namePart = storedEmail.split('@')[0]
-        setUserName(namePart)
-
         // Fetch user's program
         const programResponse = await fetch(
           `/api/user/program?email=${encodeURIComponent(storedEmail)}`
@@ -97,6 +109,18 @@ export default function ProfilePage() {
           const programData = await programResponse.json()
           setUserProgram(programData)
           setGoalText(programData.goal || '')
+
+          // Set firstName and userName for TopNav
+          if (programData.first_name) {
+            setFirstName(programData.first_name)
+            setNameText(programData.first_name)
+            setUserName(programData.first_name)
+          } else {
+            const namePart = storedEmail.split('@')[0]
+            setUserName(namePart)
+            setFirstName('')
+            setNameText('')
+          }
         }
 
         // Fetch feedback history
@@ -108,6 +132,16 @@ export default function ProfilePage() {
           const feedbackData = await feedbackResponse.json()
           setFeedbackHistory(feedbackData.submissions || [])
         }
+
+        // Fetch user statistics
+        const statsResponse = await fetch(
+          `/api/user/stats?email=${encodeURIComponent(storedEmail)}`
+        )
+
+        if (statsResponse.ok) {
+          const statsData = await statsResponse.json()
+          setUserStats(statsData)
+        }
       } catch (error) {
         console.error('Error loading profile:', error)
       } finally {
@@ -118,9 +152,27 @@ export default function ProfilePage() {
     loadProfile()
   }, [router])
 
-  const handleNavigation = (section: 'meals' | 'workout' | 'sleep' | 'supplement') => {
-    // Navigate back to dashboard with section
-    router.push('/app')
+  const handleSaveName = async () => {
+    if (!email || !nameText.trim()) return
+
+    setIsSavingName(true)
+    try {
+      const response = await fetch('/api/user/update-name', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, first_name: nameText.trim() })
+      })
+
+      if (response.ok) {
+        setFirstName(nameText.trim())
+        setUserName(nameText.trim())
+        setIsEditingName(false)
+      }
+    } catch (error) {
+      console.error('Error saving name:', error)
+    } finally {
+      setIsSavingName(false)
+    }
   }
 
   const handleSaveGoal = async () => {
@@ -176,7 +228,6 @@ export default function ProfilePage() {
       alert('Failed to upload profile picture')
     } finally {
       setIsUploadingPicture(false)
-      // Reset file input
       if (fileInputRef.current) {
         fileInputRef.current.value = ''
       }
@@ -233,6 +284,68 @@ export default function ProfilePage() {
     return Math.min(Math.round((daysPassed / totalDays) * 100), 100)
   }
 
+  const handleLogout = () => {
+    if (confirm('Сигурни ли сте, че искате да излезете от профила?')) {
+      localStorage.removeItem('quizEmail')
+      router.push('/quiz')
+    }
+  }
+
+  const handleChangeWorkoutLocation = async () => {
+    if (!email || !userProgram) return
+
+    const newLocation = userProgram.workout_location === 'home' ? 'gym' : 'home'
+
+    try {
+      const response = await fetch('/api/user/update-workout-location', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, workout_location: newLocation })
+      })
+
+      if (response.ok) {
+        setUserProgram(prev => prev ? { ...prev, workout_location: newLocation } : null)
+      } else {
+        alert('Грешка при промяна на локацията')
+      }
+    } catch (error) {
+      console.error('Error changing workout location:', error)
+      alert('Грешка при промяна на локацията')
+    }
+  }
+
+  const handleDeleteAccount = async () => {
+    if (!email) return
+
+    const confirmText = 'Наистина ли искате да изтриете профила си? Това действие е необратимо и ще изтрие всички ваши данни.'
+
+    if (!confirm(confirmText)) return
+
+    const doubleConfirm = prompt('Моля, напишете "ИЗТРИЙ" за потвърждение:')
+
+    if (doubleConfirm !== 'ИЗТРИЙ') {
+      alert('Изтриването е отменено')
+      return
+    }
+
+    try {
+      const response = await fetch(`/api/user/delete-account?email=${encodeURIComponent(email)}`, {
+        method: 'DELETE',
+      })
+
+      if (response.ok) {
+        localStorage.removeItem('quizEmail')
+        alert('Профилът е изтрит успешно')
+        router.push('/quiz')
+      } else {
+        alert('Грешка при изтриване на профила')
+      }
+    } catch (error) {
+      console.error('Error deleting account:', error)
+      alert('Грешка при изтриване на профила')
+    }
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -255,7 +368,7 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted">
-      <TopNav programName={programName} userName={userName} />
+      <TopNav programName={programName} userName={userName} profilePictureUrl={userProgram?.profile_picture_url} />
 
       <div className="container-mobile py-6 pb-24 space-y-6">
         {/* Back Button */}
@@ -267,12 +380,50 @@ export default function ProfilePage() {
           Назад към Dashboard
         </Link>
 
-        {/* Profile Header */}
-        <div className="bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl p-6 border-2 border-primary/30">
+        {/* Hero Section - Profile Picture + Name */}
+        <div className="relative bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl p-6 border-2 border-primary/30">
+          <button
+            onClick={(e) => {
+              e.stopPropagation()
+              setActiveTooltip(activeTooltip === 'hero' ? null : 'hero')
+            }}
+            className="absolute top-4 right-4 p-1 rounded-md hover:bg-muted/50 transition-colors z-10"
+          >
+            <Info className="w-3 h-3 text-muted-foreground" />
+          </button>
+          {activeTooltip === 'hero' && typeof window !== 'undefined' && createPortal(
+            <>
+              <div
+                className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setActiveTooltip(null)
+                }}
+              />
+              <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                <div className="flex items-start justify-between gap-2 mb-2">
+                  <div className="text-sm font-bold text-foreground">Профил</div>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setActiveTooltip(null)
+                    }}
+                    className="p-1 hover:bg-muted rounded-md transition-colors"
+                  >
+                    <X className="w-4 h-4" />
+                  </button>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  Проследи своя прогрес и персонализирай профила си. Виж Quiz резултатите, статистики и историята на обратната връзка.
+                </p>
+              </div>
+            </>,
+            document.body
+          )}
           <div className="flex items-start gap-4">
             {/* Profile Picture */}
             <div className="relative">
-              <div className="w-20 h-20 rounded-xl overflow-hidden bg-primary/20 flex items-center justify-center">
+              <div className="w-20 h-20 rounded-full overflow-hidden bg-primary/20 flex items-center justify-center ring-4 ring-primary/10">
                 {userProgram?.profile_picture_url ? (
                   <Image
                     src={userProgram.profile_picture_url}
@@ -299,7 +450,7 @@ export default function ProfilePage() {
               <button
                 onClick={handleProfilePictureClick}
                 disabled={isUploadingPicture}
-                className="absolute -bottom-1 -right-1 p-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50"
+                className="absolute -bottom-1 -right-1 p-1.5 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50 shadow-lg"
               >
                 {isUploadingPicture ? (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -308,86 +459,132 @@ export default function ProfilePage() {
                 )}
               </button>
 
-              {/* Delete Button (only show when picture exists) */}
+              {/* Delete Button */}
               {userProgram?.profile_picture_url && !isUploadingPicture && (
                 <button
                   onClick={handleDeleteProfilePicture}
-                  className="absolute -top-1 -right-1 p-1.5 rounded-full bg-destructive text-destructive-foreground hover:bg-destructive/90 transition-colors"
+                  className="absolute -top-1 -right-1 p-1.5 rounded-full bg-destructive text-destructive-foreground hover:bg-destructive/90 transition-colors shadow-lg"
                 >
                   <Trash2 className="w-3.5 h-3.5" />
                 </button>
               )}
             </div>
 
+            {/* Name + Email */}
             <div className="flex-1">
-              <h1 className="text-2xl font-bold mb-2">Профил</h1>
-
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-sm">
-                  <Mail className="w-4 h-4 text-muted-foreground" />
-                  <span>{email}</span>
+              {isEditingName ? (
+                <div className="space-y-2">
+                  <input
+                    type="text"
+                    value={nameText}
+                    onChange={(e) => setNameText(e.target.value)}
+                    placeholder="Твоето име..."
+                    className="w-full px-3 py-2 rounded-lg border border-border bg-background/50 focus:outline-none focus:ring-2 focus:ring-primary text-sm"
+                  />
+                  <div className="flex gap-2">
+                    <button
+                      onClick={handleSaveName}
+                      disabled={isSavingName}
+                      className="flex items-center gap-1 px-3 py-1 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 disabled:opacity-50 text-xs"
+                    >
+                      <Check className="w-3 h-3" />
+                      {isSavingName ? 'Запазва...' : 'Запази'}
+                    </button>
+                    <button
+                      onClick={() => {
+                        setIsEditingName(false)
+                        setNameText(firstName)
+                      }}
+                      className="flex items-center gap-1 px-3 py-1 border border-border rounded-lg hover:bg-muted text-xs"
+                    >
+                      <X className="w-3 h-3" />
+                      Отказ
+                    </button>
+                  </div>
                 </div>
-
-                <div className="flex items-center gap-2 text-sm">
-                  <TrendingUp className="w-4 h-4 text-muted-foreground" />
-                  <span>{programName}</span>
+              ) : (
+                <div className="flex items-center gap-2">
+                  <h1 className="text-2xl font-bold">
+                    {firstName || userName || 'Потребител'}
+                  </h1>
+                  <button
+                    onClick={() => setIsEditingName(true)}
+                    className="p-1.5 hover:bg-background/50 rounded-lg transition-colors"
+                  >
+                    <Edit2 className="w-4 h-4" />
+                  </button>
                 </div>
+              )}
 
-                <div className="flex items-center gap-2 text-sm">
-                  <Calendar className="w-4 h-4 text-muted-foreground" />
-                  <span>Започнато на {startDate}</span>
-                </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
+                <Mail className="w-3.5 h-3.5" />
+                <span>{email}</span>
+              </div>
+
+              <div className="flex items-center gap-2 text-sm text-muted-foreground mt-1">
+                <TrendingUp className="w-3.5 h-3.5" />
+                <span>{programName}</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Program Progress */}
-        {userProgram && daysRemaining !== null && (
-          <div className="bg-background rounded-2xl p-6 border border-border">
-            <div className="flex items-center gap-2 mb-4">
-              <Calendar className="w-5 h-5 text-primary" />
-              <h2 className="text-lg font-bold">Прогрес на програмата</h2>
+        {/* Bento Grid - Stats */}
+        <div className="grid grid-cols-2 gap-3 md:gap-4">
+          {/* Quiz Score (1x1) */}
+          <div className="bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl p-5 border-2 border-primary/30 animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
+            <Award className="w-6 h-6 text-primary mb-2" />
+            <div className="text-4xl font-bold text-primary mb-1">
+              {userProgram?.total_score || 0}
+            </div>
+            <div className="text-xs text-muted-foreground">Quiz Score</div>
+          </div>
+
+          {/* Program Progress (1x1) */}
+          <div className="bg-background rounded-2xl p-5 border border-border animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
+            <Calendar className="w-6 h-6 text-primary mb-2" />
+            <div className="text-4xl font-bold mb-1">{programProgress}%</div>
+            <div className="text-xs text-muted-foreground">
+              {daysRemaining && daysRemaining > 0 ? `${daysRemaining} дни остават` : 'Прогрес'}
+            </div>
+          </div>
+        </div>
+
+        {/* Stats Grid (4 tiles) */}
+        {userStats && (
+          <div className="grid grid-cols-4 gap-3">
+            <div className="col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 transition-all animate-fade-in" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
+              <Utensils className="w-4 h-4 text-primary mb-2" />
+              <div className="text-xl font-bold">{userStats.mealsCompleted}</div>
+              <div className="text-xs text-muted-foreground">хранения</div>
             </div>
 
-            <div className="space-y-4">
-              <div>
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-muted-foreground">
-                    {daysRemaining > 0 ? `Остават ${daysRemaining} дни` : 'Програмата приключи!'}
-                  </span>
-                  <span className="text-sm font-semibold text-primary">
-                    {programProgress}%
-                  </span>
-                </div>
-                <div className="h-3 bg-muted rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-primary transition-all duration-300"
-                    style={{ width: `${programProgress}%` }}
-                  />
-                </div>
-              </div>
+            <div className="col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 transition-all animate-fade-in" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
+              <DumbbellIcon className="w-4 h-4 text-primary mb-2" />
+              <div className="text-xl font-bold">{userStats.workoutsCompleted}</div>
+              <div className="text-xs text-muted-foreground">тренировки</div>
+            </div>
 
-              {daysRemaining <= 0 && (
-                <div className="p-4 rounded-lg bg-primary/10 border border-primary/30">
-                  <p className="text-sm font-medium">
-                    🎉 Честито! Завършихте 30-дневната програма!
-                  </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Можете да започнете нов цикъл за да продължите прогреса си
-                  </p>
-                </div>
-              )}
+            <div className="col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 transition-all animate-fade-in" style={{ animationDelay: '0.5s', animationFillMode: 'both' }}>
+              <Moon className="w-4 h-4 text-primary mb-2" />
+              <div className="text-xl font-bold">{userStats.averageSleepHours}ч</div>
+              <div className="text-xs text-muted-foreground">сън</div>
+            </div>
+
+            <div className="col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 transition-all animate-fade-in" style={{ animationDelay: '0.6s', animationFillMode: 'both' }}>
+              <Pill className="w-4 h-4 text-primary mb-2" />
+              <div className="text-xl font-bold">{userStats.testoUpCompliance}%</div>
+              <div className="text-xs text-muted-foreground">TestoUp</div>
             </div>
           </div>
         )}
 
         {/* Goal Section */}
-        <div className="bg-background rounded-2xl p-6 border border-border">
-          <div className="flex items-center justify-between mb-4">
+        <div className="bg-background rounded-2xl p-5 border border-border">
+          <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <Target className="w-5 h-5 text-primary" />
-              <h2 className="text-lg font-bold">Моята цел за 30 дни</h2>
+              <h2 className="font-bold">Моята цел за 30 дни</h2>
             </div>
             {!isEditingGoal && (
               <button
@@ -442,138 +639,78 @@ export default function ProfilePage() {
           )}
         </div>
 
-        {/* Program Stats */}
-        {userProgram && (
-          <div className="bg-background rounded-2xl p-6 border border-border">
-            <h2 className="text-lg font-bold mb-4">Начален резултат от теста</h2>
-            <div className="grid grid-cols-2 gap-4 mb-6">
-              <div className="p-4 rounded-xl bg-muted/30">
-                <p className="text-sm text-muted-foreground mb-1">
-                  Общ резултат
-                </p>
-                <p className="text-2xl font-bold text-primary">
-                  {userProgram.total_score}
-                </p>
-              </div>
-              <div className="p-4 rounded-xl bg-muted/30">
-                <p className="text-sm text-muted-foreground mb-1">Ниво</p>
-                <p className="text-2xl font-bold">
-                  {LEVEL_NAMES[userProgram.level as keyof typeof LEVEL_NAMES] || userProgram.level}
-                </p>
-              </div>
-            </div>
+        {/* Settings & Actions */}
+        <div className="bg-background rounded-2xl p-5 border border-border">
+          <div className="flex items-center gap-2 mb-4">
+            <Settings className="w-5 h-5 text-primary" />
+            <h2 className="font-bold">Настройки</h2>
+          </div>
 
+          <div className="space-y-2">
             {/* Workout Location */}
-            {userProgram.workout_location && (
-              <div className="mb-6">
-                <p className="text-sm text-muted-foreground mb-2">
-                  Тренировъчна локация
-                </p>
-                <div className="p-4 rounded-xl bg-muted/30">
-                  <p className="font-semibold">
-                    {LOCATION_NAMES[userProgram.workout_location]}
+            {userProgram?.workout_location && (
+              <button
+                onClick={handleChangeWorkoutLocation}
+                className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
+              >
+                <div className="flex items-center gap-3">
+                  {userProgram.workout_location === 'home' ? (
+                    <Home className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  ) : (
+                    <DumbbellIcon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  )}
+                  <div className="text-left">
+                    <p className="text-sm font-medium">Тренировъчна локация</p>
+                    <p className="text-xs text-muted-foreground">
+                      Текуща: {LOCATION_NAMES[userProgram.workout_location]}
+                    </p>
+                  </div>
+                </div>
+                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+              </button>
+            )}
+
+            {/* Logout */}
+            <button
+              onClick={handleLogout}
+              className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
+            >
+              <div className="flex items-center gap-3">
+                <LogOut className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                <div className="text-left">
+                  <p className="text-sm font-medium">Излез от профила</p>
+                  <p className="text-xs text-muted-foreground">
+                    Ще можете да влезете отново с имейла си
                   </p>
                 </div>
               </div>
-            )}
+              <ChevronRight className="w-4 h-4 text-muted-foreground" />
+            </button>
 
-            {/* Score Breakdown */}
-            {userProgram.breakdown && (
-              <div>
-                <p className="text-sm text-muted-foreground mb-3">
-                  Детайлна разбивка на резултата
-                </p>
-                <div className="space-y-3">
-                  {/* Symptoms */}
-                  <div className="p-3 rounded-lg bg-muted/30">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium">Симптоми</span>
-                      <span className="text-sm font-semibold text-primary">
-                        {userProgram.breakdown.symptoms}/10
-                      </span>
-                    </div>
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-primary transition-all duration-300"
-                        style={{ width: `${(userProgram.breakdown.symptoms / 10) * 100}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Nutrition */}
-                  <div className="p-3 rounded-lg bg-muted/30">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium">Хранене</span>
-                      <span className="text-sm font-semibold text-primary">
-                        {userProgram.breakdown.nutrition}/10
-                      </span>
-                    </div>
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-primary transition-all duration-300"
-                        style={{ width: `${(userProgram.breakdown.nutrition / 10) * 100}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Training */}
-                  <div className="p-3 rounded-lg bg-muted/30">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium">Тренировки</span>
-                      <span className="text-sm font-semibold text-primary">
-                        {userProgram.breakdown.training}/10
-                      </span>
-                    </div>
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-primary transition-all duration-300"
-                        style={{ width: `${(userProgram.breakdown.training / 10) * 100}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Sleep & Recovery */}
-                  <div className="p-3 rounded-lg bg-muted/30">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium">Сън и Възстановяване</span>
-                      <span className="text-sm font-semibold text-primary">
-                        {userProgram.breakdown.sleep_recovery}/10
-                      </span>
-                    </div>
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-primary transition-all duration-300"
-                        style={{ width: `${(userProgram.breakdown.sleep_recovery / 10) * 100}%` }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Context */}
-                  <div className="p-3 rounded-lg bg-muted/30">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium">Контекст</span>
-                      <span className="text-sm font-semibold text-primary">
-                        {userProgram.breakdown.context}/10
-                      </span>
-                    </div>
-                    <div className="h-2 bg-muted rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-primary transition-all duration-300"
-                        style={{ width: `${(userProgram.breakdown.context / 10) * 100}%` }}
-                      />
-                    </div>
-                  </div>
+            {/* Delete Account */}
+            <button
+              onClick={handleDeleteAccount}
+              className="w-full flex items-center justify-between p-4 rounded-xl bg-destructive/10 hover:bg-destructive/20 transition-colors border border-destructive/30 group"
+            >
+              <div className="flex items-center gap-3">
+                <AlertTriangle className="w-5 h-5 text-destructive" />
+                <div className="text-left">
+                  <p className="text-sm font-medium text-destructive">Изтрий профила</p>
+                  <p className="text-xs text-muted-foreground">
+                    Необратимо изтриване на всички данни
+                  </p>
                 </div>
               </div>
-            )}
+              <ChevronRight className="w-4 h-4 text-destructive" />
+            </button>
           </div>
-        )}
+        </div>
 
         {/* Feedback History */}
         <FeedbackHistory submissions={feedbackHistory} />
       </div>
 
-      <BottomNav onNavigate={handleNavigation} />
+      <BottomNav onNavigate={() => router.push('/app')} />
     </div>
   )
 }
