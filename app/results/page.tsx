@@ -85,8 +85,8 @@ export default function ResultsPage() {
   const criticalSections = sections.filter((s) => result.breakdown[s as keyof typeof result.breakdown] < 6)
 
   // Shopify prefilled cart links
-  const sampleCartUrl = `https://shop.testograph.eu/cart/48869670977847:1?attributes[email]=${encodeURIComponent(email)}${userName ? `&attributes[name]=${encodeURIComponent(userName)}` : ''}`
-  const fullCartUrl = `https://shop.testograph.eu/cart/48761451774263:1?attributes[email]=${encodeURIComponent(email)}${userName ? `&attributes[name]=${encodeURIComponent(userName)}` : ''}`
+  const sampleCartUrl = `https://shop.testograph.eu/cart/62500534092125:1?attributes[email]=${encodeURIComponent(email)}${userName ? `&attributes[name]=${encodeURIComponent(userName)}` : ''}`
+  const fullCartUrl = `https://shop.testograph.eu/cart/58614184051037:1?attributes[email]=${encodeURIComponent(email)}${userName ? `&attributes[name]=${encodeURIComponent(userName)}` : ''}`
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset">
