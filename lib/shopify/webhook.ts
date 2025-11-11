@@ -93,6 +93,7 @@ export function parseShopifyOrder(payload: Record<string, unknown>): ShopifyOrde
 export const PRODUCT_CONFIG = {
   'TUP-S14': { capsules: 14, type: 'sample' as const }, // Sample pack (7 days)
   'TESTOUP-60': { capsules: 60, type: 'full' as const }, // Full bottle (30 days)
+  'TESTOUP-30D-001': { capsules: 90, type: 'full' as const }, // 3 months pack (90 days)
   'TESTOUP': { capsules: 60, type: 'full' as const }, // Generic TestoUp
 }
 
