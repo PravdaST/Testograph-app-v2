@@ -20,7 +20,12 @@ export function BottomNav({ onNavigate }: BottomNavProps) {
   const handleClick = (tab: 'meals' | 'workout' | 'sleep' | 'supplement') => {
     setActiveTab(tab)
 
-    // Special handling for workout - navigate to today's workout
+    // Navigate to dedicated pages
+    if (tab === 'meals') {
+      router.push('/app/nutrition')
+      return
+    }
+
     if (tab === 'workout') {
       // Get today's day of week (0=Sunday, 1=Monday, ..., 6=Saturday)
       const today = new Date()
@@ -33,7 +38,12 @@ export function BottomNav({ onNavigate }: BottomNavProps) {
       return
     }
 
-    // For other tabs, use the callback if provided
+    if (tab === 'supplement') {
+      router.push('/app/supplement')
+      return
+    }
+
+    // For sleep (not yet implemented), use callback or scroll
     onNavigate?.(tab)
   }
 
