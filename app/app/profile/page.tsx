@@ -73,7 +73,7 @@ export default function ProfilePage() {
   const router = useRouter()
   const [userProgram, setUserProgram] = useState<UserProgram | null>(null)
   const [userStats, setUserStats] = useState<UserStats | null>(null)
-  const [feedbackHistory, setFeedbackHistory] = useState<any[]>([])
+  const [feedbackHistory, setFeedbackHistory] = useState<FeedbackSubmission[]>([])
   const [loading, setLoading] = useState(true)
   const [email, setEmail] = useState<string>()
   const [userName, setUserName] = useState<string>()
