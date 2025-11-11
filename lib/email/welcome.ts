@@ -12,6 +12,7 @@ interface WelcomeEmailParams {
   userName?: string
   category: string
   result: QuizResult
+  hasExistingCapsules?: boolean
 }
 
 export async function sendWelcomeEmail({
@@ -20,6 +21,7 @@ export async function sendWelcomeEmail({
   userName,
   category,
   result,
+  hasExistingCapsules = false,
 }: WelcomeEmailParams): Promise<boolean> {
   const resendApiKey = process.env.RESEND_API_KEY
 
@@ -87,6 +89,23 @@ export async function sendWelcomeEmail({
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   `
 
+  // Conditional CTA based on existing capsules
+  const ctaButton = hasExistingCapsules
+    ? {
+        text: 'Влез в Акаунта',
+        url: 'https://app.testograph.eu/login',
+        color: '#667eea',
+      }
+    : {
+        text: 'Виж Офертата',
+        url: 'https://shop.testograph.eu',
+        color: '#10B981',
+      }
+
+  const nextStepsMessage = hasExistingCapsules
+    ? '🎉 <strong>Отлично!</strong> Вече имате достъп до програмата! Влезте в акаунта си и започнете веднага.'
+    : '💡 <strong>Следващи стъпки:</strong> За да получите пълен достъп и TestoUP добавката, посетете магазина и използвайте вашата отстъпка.'
+
   const htmlContent = `
 <!DOCTYPE html>
 <html>
@@ -132,15 +151,15 @@ export async function sendWelcomeEmail({
     </div>
 
     <div style="text-align: center; margin: 30px 0;">
-      <a href="https://app.testograph.eu/login"
-         style="display: inline-block; background: #667eea; color: white; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
-        Влез в Акаунта
+      <a href="${ctaButton.url}"
+         style="display: inline-block; background: ${ctaButton.color}; color: white; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
+        ${ctaButton.text}
       </a>
     </div>
 
     <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 8px; margin: 20px 0;">
       <p style="margin: 0; font-size: 14px; color: #856404;">
-        💡 <strong>Следващи стъпки:</strong> За да получите пълен достъп и TestoUP добавката, посетете магазина и използвайте вашата отстъпка.
+        ${nextStepsMessage}
       </p>
     </div>
 
@@ -177,9 +196,12 @@ ${resultsText}
 - Дневен график за оптимални резултати
 - Проследяване на прогреса
 
-Влезте в акаунта си тук: https://app.testograph.eu/login
+${ctaButton.text}: ${ctaButton.url}
 
-💡 Следващи стъпки: За да получите пълен достъп и TestoUP добавката, посетете магазина и използвайте вашата отстъпка.
+${hasExistingCapsules
+  ? '🎉 Отлично! Вече имате достъп до програмата! Влезте в акаунта си и започнете веднага.'
+  : '💡 Следващи стъпки: За да получите пълен достъп и TestoUP добавката, посетете магазина и използвайте вашата отстъпка.'
+}
 
 Ако имате въпроси, свържете се с нас на support@testograph.eu
 `

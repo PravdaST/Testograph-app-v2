@@ -226,12 +226,14 @@ export async function POST(request: NextRequest) {
           console.log('🔑 Password:', generatedPassword)
 
           // Send welcome email with credentials
+          const hasExistingCapsules = !!(existingInventory && existingInventory.capsules_remaining > 0)
           const emailSent = await sendWelcomeEmail({
             email,
             password: generatedPassword,
             userName,
             category: result.category,
             result,
+            hasExistingCapsules,
           })
 
           if (!emailSent) {
