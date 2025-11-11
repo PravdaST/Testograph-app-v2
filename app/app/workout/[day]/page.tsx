@@ -275,10 +275,10 @@ export default function WorkoutPage() {
           profilePictureUrl={userProgram?.profile_picture_url}
         />
 
-        <div className="container-mobile py-6 pb-24">
+        <div className="container-mobile py-6 pb-24 space-y-6">
           <button
             onClick={() => router.push('/app')}
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6"
+            className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="w-5 h-5" />
             <span>Назад</span>
@@ -288,9 +288,18 @@ export default function WorkoutPage() {
             <div className="text-6xl mb-4">🛌</div>
             <h2 className="text-2xl font-bold mb-2">Почивка</h2>
             <p className="text-muted-foreground">
-              Днес е ден за възстановяване. Използвай го за активна почивка или
+              Днес е ден за възстановяване. Използвай го за активна почивка або
               лека разходка.
             </p>
+          </div>
+
+          {/* Weekly Workout Calendar */}
+          <div className="bg-background rounded-2xl p-6 border border-border">
+            <WorkoutWeekCalendar
+              workouts={workouts}
+              currentDayOfWeek={dayOfWeek}
+              completedDays={completedDays}
+            />
           </div>
         </div>
 
