@@ -11,6 +11,7 @@ import { ArrowLeft, Dumbbell, CheckCircle2, TrendingUp, History } from 'lucide-r
 import Link from 'next/link'
 import { ExerciseCard } from '@/components/workout/ExerciseCard'
 import { WorkoutTimer } from '@/components/workout/WorkoutTimer'
+import { WorkoutWeekCalendar } from '@/components/workout/WorkoutWeekCalendar'
 import { Button } from '@/components/ui/Button'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
@@ -93,6 +94,7 @@ export default function WorkoutPage() {
   const [userProgram, setUserProgram] = useState<UserProgram | null>(null)
   const [loading, setLoading] = useState(true)
   const [userName, setUserName] = useState<string>()
+  const [completedDays, setCompletedDays] = useState<Record<number, boolean>>({})
 
   // Fetch user program to determine correct workout
   useEffect(() => {
@@ -122,6 +124,15 @@ export default function WorkoutPage() {
             const emailUsername = email.split('@')[0]
             setUserName(emailUsername)
           }
+        }
+
+        // Fetch completed workouts for this week
+        const historyResponse = await fetch(
+          `/api/workout/history/week?email=${encodeURIComponent(email)}`
+        )
+        if (historyResponse.ok) {
+          const historyData = await historyResponse.json()
+          setCompletedDays(historyData.completedByDayOfWeek || {})
         }
       } catch (error) {
         console.error('Error fetching user program:', error)
@@ -208,6 +219,15 @@ export default function WorkoutPage() {
 
         // Clear local storage for this workout
         localStorage.removeItem(`workout-${dayOfWeek}`)
+
+        // Refresh completed days
+        const historyResponse = await fetch(
+          `/api/workout/history/week?email=${encodeURIComponent(email)}`
+        )
+        if (historyResponse.ok) {
+          const historyData = await historyResponse.json()
+          setCompletedDays(historyData.completedByDayOfWeek || {})
+        }
 
         router.push('/app')
       } else {
@@ -320,6 +340,13 @@ export default function WorkoutPage() {
             <span className="text-sm font-medium">История</span>
           </Link>
         </div>
+
+        {/* Weekly Workout Calendar */}
+        <WorkoutWeekCalendar
+          workouts={workouts}
+          currentDayOfWeek={dayOfWeek}
+          completedDays={completedDays}
+        />
 
         {/* Workout Info Card */}
         <div className="bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl p-6 border-2 border-primary/30">
