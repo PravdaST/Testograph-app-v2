@@ -301,7 +301,7 @@ export default function CategoryQuizPage({ params }: PageProps) {
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold mb-2">Къде да изпратим резултатите?</h2>
               <p className="text-muted-foreground">
-                Получи персонализирания PDF отчет и достъп до програмата
+                Получи резултатите от теста и достъп до програмата
               </p>
             </div>
 
@@ -329,7 +329,7 @@ export default function CategoryQuizPage({ params }: PageProps) {
             <div className="bg-accent/30 rounded-lg p-4 space-y-2 text-sm">
               <p className="font-medium">Ще получиш:</p>
               <ul className="space-y-1 text-muted-foreground">
-                <li>• Детайлен PDF отчет с резултатите</li>
+                <li>• Резултатите от теста по имейл</li>
                 <li>• Персонализирани препоръки</li>
                 <li>• Специална отстъпка за програмата</li>
               </ul>

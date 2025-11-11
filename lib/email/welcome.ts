@@ -3,11 +3,15 @@
  * Uses Resend API
  */
 
+import type { QuizResult } from '@/lib/data/quiz/types'
+import { getSectionLabel, getScoreLevelDisplay } from '@/lib/utils/quiz-scoring'
+
 interface WelcomeEmailParams {
   email: string
   password: string
   userName?: string
   category: string
+  result: QuizResult
 }
 
 export async function sendWelcomeEmail({
@@ -15,6 +19,7 @@ export async function sendWelcomeEmail({
   password,
   userName,
   category,
+  result,
 }: WelcomeEmailParams): Promise<boolean> {
   const resendApiKey = process.env.RESEND_API_KEY
 
@@ -31,6 +36,56 @@ export async function sendWelcomeEmail({
 
   const programName = categoryNames[category] || 'Testograph'
   const greeting = userName ? `${userName}, ` : ''
+
+  // Format quiz results
+  const levelDisplay = getScoreLevelDisplay(result.total_score)
+  const levelText = {
+    low: 'Ниско ниво - Нужда от подобрение',
+    normal: 'Средно ниво - Добро състояние',
+    high: 'Високо ниво - Отлично състояние',
+  }[result.determined_level]
+
+  const resultsHTML = `
+    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border: 2px solid ${levelDisplay.color};">
+      <h3 style="margin: 0 0 15px 0; font-size: 18px; color: ${levelDisplay.color};">📊 Вашите резултати от теста</h3>
+
+      <div style="margin-bottom: 15px;">
+        <p style="margin: 5px 0;"><strong>Категория:</strong> ${programName}</p>
+        <p style="margin: 5px 0;"><strong>Обща оценка:</strong> ${result.total_score}/100</p>
+        <p style="margin: 5px 0; color: ${levelDisplay.color}; font-weight: bold;"><strong>Ниво:</strong> ${levelText}</p>
+      </div>
+
+      <div style="background: #f9f9f9; padding: 15px; border-radius: 6px;">
+        <p style="margin: 0 0 10px 0; font-weight: bold;">Детайлна разбивка:</p>
+        <ul style="margin: 0; padding-left: 20px; list-style: none;">
+          <li style="margin: 5px 0;">• ${getSectionLabel('symptoms')}: ${result.breakdown.symptoms}/10</li>
+          <li style="margin: 5px 0;">• ${getSectionLabel('nutrition')}: ${result.breakdown.nutrition}/10</li>
+          <li style="margin: 5px 0;">• ${getSectionLabel('training')}: ${result.breakdown.training}/10</li>
+          <li style="margin: 5px 0;">• ${getSectionLabel('sleep_recovery')}: ${result.breakdown.sleep_recovery}/10</li>
+          <li style="margin: 5px 0;">• ${getSectionLabel('context')}: ${result.breakdown.context}/10</li>
+        </ul>
+      </div>
+    </div>
+  `
+
+  const resultsText = `
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 ВАШИТЕ РЕЗУЛТАТИ ОТ ТЕСТА
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Категория: ${programName}
+Обща оценка: ${result.total_score}/100
+Ниво: ${levelText}
+
+Детайлна разбивка:
+• ${getSectionLabel('symptoms')}: ${result.breakdown.symptoms}/10
+• ${getSectionLabel('nutrition')}: ${result.breakdown.nutrition}/10
+• ${getSectionLabel('training')}: ${result.breakdown.training}/10
+• ${getSectionLabel('sleep_recovery')}: ${result.breakdown.sleep_recovery}/10
+• ${getSectionLabel('context')}: ${result.breakdown.context}/10
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  `
 
   const htmlContent = `
 <!DOCTYPE html>
@@ -53,6 +108,8 @@ export async function sendWelcomeEmail({
     <p style="font-size: 16px; margin-bottom: 20px;">
       Вашият акаунт е създаден и имате достъп до персонализираната програма <strong>${programName}</strong>.
     </p>
+
+    ${resultsHTML}
 
     <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea;">
       <p style="margin: 0 0 10px 0; font-weight: bold;">Вашите данни за вход:</p>
@@ -105,6 +162,8 @@ export async function sendWelcomeEmail({
 ${greeting}благодарим за завършването на теста!
 
 Вашият акаунт е създаден и имате достъп до персонализираната програма ${programName}.
+
+${resultsText}
 
 Вашите данни за вход:
 Имейл: ${email}

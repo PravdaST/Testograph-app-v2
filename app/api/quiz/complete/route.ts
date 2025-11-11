@@ -231,6 +231,7 @@ export async function POST(request: NextRequest) {
             password: generatedPassword,
             userName,
             category: result.category,
+            result,
           })
 
           if (!emailSent) {
