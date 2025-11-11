@@ -151,9 +151,8 @@ export default function DashboardPage() {
   const sleepRef = useRef<HTMLDivElement>(null)
   const supplementRef = useRef<HTMLDivElement>(null)
 
-  // Mock program start date (today - 5 days for demo)
-  const programStartDate = new Date()
-  programStartDate.setDate(programStartDate.getDate() - 5)
+  // Program start date from database (when user completed quiz)
+  const [programStartDate, setProgramStartDate] = useState<Date>(new Date())
 
   const [selectedDate, setSelectedDate] = useState(new Date())
 
@@ -177,12 +176,12 @@ export default function DashboardPage() {
   } | null>(null)
 
   // Check if feedback is due for current day
-  const checkFeedbackDue = async (email: string) => {
+  const checkFeedbackDue = async (email: string, startDate: Date) => {
     try {
       // Calculate current program day
       const today = new Date()
       const daysSinceStart = Math.floor(
-        (today.getTime() - programStartDate.getTime()) / (1000 * 60 * 60 * 24)
+        (today.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
       )
       const currentDay = daysSinceStart + 1
 
@@ -254,6 +253,11 @@ export default function DashboardPage() {
         const data = await response.json()
         setUserProgram(data)
 
+        // Set program start date from database
+        if (data.program_start_date) {
+          setProgramStartDate(new Date(data.program_start_date))
+        }
+
         // Set user name from quiz first_name (fallback to email if not available)
         if (data.first_name) {
           setUserName(data.first_name)
@@ -307,7 +311,9 @@ export default function DashboardPage() {
           }
         } else {
           // Check if feedback is due
-          await checkFeedbackDue(email)
+          if (data.program_start_date) {
+            await checkFeedbackDue(email, new Date(data.program_start_date))
+          }
         }
       } catch (error) {
         console.error('Error loading program:', error)
@@ -328,7 +334,7 @@ export default function DashboardPage() {
     // After welcome, check for feedback
     const email = localStorage.getItem('quizEmail')
     if (email) {
-      checkFeedbackDue(email)
+      checkFeedbackDue(email, programStartDate)
     }
   }
 
