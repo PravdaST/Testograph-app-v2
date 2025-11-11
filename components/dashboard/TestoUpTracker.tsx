@@ -42,22 +42,23 @@ export function TestoUpTracker({
   }, [morningCompleted, eveningCompleted])
 
   const bothCompleted = morningCompleted && eveningCompleted
-  const hasChanges = (pendingMorning !== morningCompleted) || (pendingEvening !== eveningCompleted)
-  const canConfirm = !isLocked && hasChanges && (pendingMorning || pendingEvening)
 
   const handleToggle = (timeOfDay: 'morning' | 'evening') => {
-    if (isLocked) return
+    // Check if specific dose is already completed (locked individually)
+    if (timeOfDay === 'morning' && morningCompleted) return
+    if (timeOfDay === 'evening' && eveningCompleted) return
 
+    // Instant confirmation when toggling
     if (timeOfDay === 'morning') {
-      setPendingMorning(!pendingMorning)
+      const newValue = !pendingMorning
+      setPendingMorning(newValue)
+      // Immediately confirm the change
+      onConfirm(newValue, eveningCompleted)
     } else {
-      setPendingEvening(!pendingEvening)
-    }
-  }
-
-  const handleConfirm = () => {
-    if (canConfirm) {
-      onConfirm(pendingMorning, pendingEvening)
+      const newValue = !pendingEvening
+      setPendingEvening(newValue)
+      // Immediately confirm the change
+      onConfirm(morningCompleted, newValue)
     }
   }
 
@@ -182,16 +183,6 @@ export function TestoUpTracker({
           </div>
         </button>
       </div>
-
-      {/* Confirm Button */}
-      {canConfirm && (
-        <button
-          onClick={handleConfirm}
-          className="mt-3 w-full py-3 px-4 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all"
-        >
-          Потвърди приемане
-        </button>
-      )}
 
       {/* Locked Message */}
       {isLocked && bothCompleted && (
