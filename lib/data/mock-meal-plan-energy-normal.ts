@@ -6,7 +6,7 @@
 
 export const ENERGY_NORMAL_MEAL_PLAN = {
   program_id: 'energy',
-  program_name: 'Енергия и Виталност',
+  program_name: 'Енергия и Жизненост',
 
   // Week meals (repeating every 7 days)
   meals: [

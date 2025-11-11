@@ -7,7 +7,7 @@
 
 export const ENERGY_HIGH_MEAL_PLAN = {
   program_id: 'energy-high',
-  program_name: 'Енергия и Виталност - Напреднало ниво',
+  program_name: 'Енергия и Жизненост - Напреднало ниво',
 
   meals: [
     // Monday

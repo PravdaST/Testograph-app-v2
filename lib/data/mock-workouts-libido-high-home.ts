@@ -91,7 +91,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
   // Tuesday - Upper Body + Core
   {
     day_of_week: 2,
-    name: 'Горна част + Кор',
+    name: 'Горна част + Корем',
     duration: 55,
     exercises: [
       {
@@ -270,7 +270,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
   // Saturday - HIIT + Core (Week 3-4)
   {
     day_of_week: 6,
-    name: 'HIIT + Кор',
+    name: 'HIIT + Корем',
     duration: 45,
     exercises: [
       {

@@ -141,7 +141,7 @@ export const LIBIDO_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 5,
         reps: '5-6',
         rest_seconds: 150,
-        notes: 'КРАЛ на упражненията! Най-висок тестостеронов отговор.',
+        notes: 'КРАЛЯТ на упражненията! Най-висок тестостеронов отговор.',
       },
       {
         exercisedb_id: 'TUZLh71',

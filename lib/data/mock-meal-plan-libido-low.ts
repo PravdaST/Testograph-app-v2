@@ -192,14 +192,14 @@ export const LIBIDO_LOW_MEAL_PLAN = {
         {
           meal_number: 2,
           time: '10:30',
-          name: 'Бразилски орехи и финики',
+          name: 'Бразилски орехи и фурми',
           calories: 280,
           protein: 6,
           carbs: 32,
           fats: 16,
           ingredients: [
             { name: 'Бразилски орехи', quantity: '20г', calories: 132 },
-            { name: 'Финики', quantity: '40г', calories: 111 },
+            { name: 'Фурми', quantity: '40г', calories: 111 },
           ],
         },
         {
@@ -509,14 +509,14 @@ export const LIBIDO_LOW_MEAL_PLAN = {
         {
           meal_number: 2,
           time: '11:30',
-          name: 'Бадеми и фундък',
+          name: 'Бадеми и лешници',
           calories: 280,
           protein: 10,
           carbs: 18,
           fats: 22,
           ingredients: [
             { name: 'Бадеми', quantity: '25г', calories: 145 },
-            { name: 'Фундък', quantity: '20г', calories: 126 },
+            { name: 'Лешници', quantity: '20г', calories: 126 },
           ],
         },
         {

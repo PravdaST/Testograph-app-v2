@@ -522,14 +522,14 @@ export const MUSCLE_HIGH_MEAL_PLAN = {
         {
           meal_number: 2,
           time: '10:00',
-          name: 'Смесени ядки и финики',
+          name: 'Смесени ядки и фурми',
           calories: 500,
           protein: 16,
           carbs: 62,
           fats: 24,
           ingredients: [
             { name: 'Микс ядки', quantity: '50г', calories: 300 },
-            { name: 'Финики', quantity: '60г', calories: 167 },
+            { name: 'Фурми', quantity: '60г', calories: 167 },
           ],
         },
         {
@@ -558,7 +558,7 @@ export const MUSCLE_HIGH_MEAL_PLAN = {
           ingredients: [
             { name: 'Овесени ядки', quantity: '60г', calories: 228 },
             { name: 'Протеинов прах', quantity: '35г', calories: 140 },
-            { name: 'Финики', quantity: '50г', calories: 139 },
+            { name: 'Фурми', quantity: '50г', calories: 139 },
             { name: 'Бадемово масло', quantity: '20г', calories: 124 },
           ],
         },

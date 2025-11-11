@@ -1,0 +1,384 @@
+
+📋 СПИСЪК НА ВСИЧКИ 94 УПРАЖНЕНИЯ:
+
+════════════════════════════════════════════════════════════════════════════════
+  1. Австралийски лост
+     └─ EN: inverted row
+     └─ ID: lBDjFxJ
+
+  2. Австралийски лост (маса)
+     └─ EN: inverted row
+     └─ ID: bZGHsAZ
+
+  3. Барбел клекове (умерен товар)
+     └─ EN: barbell squat
+     └─ ID: 1gFNTZV
+
+  4. Барбел клийн (лек)
+     └─ EN: barbell clean
+     └─ ID: SGY8Zui
+
+  5. Барбел къръл
+     └─ EN: barbell curl
+     └─ ID: 25GPyDY
+
+  6. Бенч прес
+     └─ EN: bench press
+     └─ ID: W9pFVv1
+
+  7. Бицепсово сгъване с дъмбели
+     └─ EN: dumbbell biceps curl
+     └─ ID: NbVPDMW
+
+  8. Бърпита
+     └─ EN: burpee
+     └─ ID: dK9394r
+
+  9. Вдигане на крака
+     └─ EN: leg raise
+     └─ ID: Hgs6Nl1
+
+ 10. Взривни опори
+     └─ EN: explosive push-up
+     └─ ID: I4hDWkc
+
+ 11. Високи колене
+     └─ EN: high knees
+     └─ ID: eL6Lz0v
+
+ 12. Глутеус мост (изометричен)
+     └─ EN: isometric glute bridge
+     └─ ID: GibBPPg
+
+ 13. Глутеус мост на един крак
+     └─ EN: single leg bridge with outstretched leg
+     └─ ID: rmEukuS
+
+ 14. Гребане (интервали)
+     └─ EN: rowing intervals
+     └─ ID: dmgMp3n
+
+ 15. Гребане на кабел седнал
+     └─ EN: seated cable row
+     └─ ID: fUBheHs
+
+ 16. Гребане с дъмбели
+     └─ EN: dumbbell bent over row
+     └─ ID: BJ0Hz5L
+
+ 17. Гребане с кърпа (едноръчно)
+     └─ EN: single arm towel row
+     └─ ID: bKWbrTA
+
+ 18. Диамантени лицеви опори
+     └─ EN: diamond push-up
+     └─ ID: soIB2rj
+
+ 19. Дипс (напреднал)
+     └─ EN: advanced dips
+     └─ ID: 7aVz15j
+
+ 20. Дъмбел къръл
+     └─ EN: dumbbell curl
+     └─ ID: qAmNMJY
+
+ 21. Дъмбел флай
+     └─ EN: dumbbell fly
+     └─ ID: yz9nUhF
+
+ 22. Едноръчно гребане с дъмбел
+     └─ EN: single arm dumbbell row
+     └─ ID: 7vG5o25
+
+ 23. Елиптична машина
+     └─ EN: elliptical
+     └─ ID: rjtuP6X
+
+ 24. Йога флоу
+     └─ EN: yoga flow
+     └─ ID: bWlZvXh
+
+ 25. Кабел гребане
+     └─ EN: cable row
+     └─ ID: PQStVXH
+
+ 26. Кабел коремни
+     └─ EN: cable crunch
+     └─ ID: q2ADGqV
+
+ 27. Кабел упражнения (леки)
+     └─ EN: cable exercises
+     └─ ID: 0rHfvy9
+
+ 28. Кабел флай
+     └─ EN: cable fly
+     └─ ID: FVmZVhk
+
+ 29. Кетълбел суинг
+     └─ EN: kettlebell swing
+     └─ ID: UHJlbu3
+
+ 30. Клекове на един крак
+     └─ EN: pistol squat
+     └─ ID: 5bpPTHv
+
+ 31. Клекове с темп
+     └─ EN: tempo squat
+     └─ ID: TUZLh71
+
+ 32. Колело коремни
+     └─ EN: bicycle crunch
+     └─ ID: tZkGYZ9
+
+ 33. Кръстосани изтегляния на кабели
+     └─ EN: cable crossover
+     └─ ID: j7XMAyn
+
+ 34. Къдрене с дъмбели на пейка
+     └─ EN: incline dumbbell curl
+     └─ ID: W74bXnw
+
+ 35. Лат пулдаун
+     └─ EN: lat pulldown
+     └─ ID: 4IKbhHV
+
+ 36. Лег екстеншън
+     └─ EN: leg extension
+     └─ ID: my33uHU
+
+ 37. Лег къръл
+     └─ EN: leg curl
+     └─ ID: 17lJ1kr
+
+ 38. Лег прес (лек товар)
+     └─ EN: leg press
+     └─ ID: 7zdxRTl
+
+ 39. Лицеви опори с наклон надолу
+     └─ EN: decline push-up
+     └─ ID: i5cEhka
+
+ 40. Лост широк захват
+     └─ EN: wide grip pull-up
+     └─ ID: Qqi7bko
+
+ 41. Мост на един крак
+     └─ EN: single leg glute bridge
+     └─ ID: aWedzZX
+
+ 42. Мъртва тяга
+     └─ EN: barbell deadlift
+     └─ ID: ila4NZS
+
+ 43. Мъртва тяга
+     └─ EN: deadlift
+     └─ ID: GUT8I22
+
+ 44. Набирания с неутрален хват
+     └─ EN: pull up (neutral grip)
+     └─ ID: 0V2YQjW
+
+ 45. Наклонена лежанка с дъмбели
+     └─ EN: incline dumbbell press
+     └─ ID: yaMIo4D
+
+ 46. Наклонена прес с дъмбели
+     └─ EN: incline dumbbell press
+     └─ ID: ns0SIbU
+
+ 47. Наклонени опори (ръце на повдигната повърхност)
+     └─ EN: incline push-up
+     └─ ID: F7vjXqT
+
+ 48. Негативи на лост (бицепс)
+     └─ EN: chin-up negative
+     └─ ID: T2mxWqc
+
+ 49. Обърнато гребане със сгънати колене
+     └─ EN: inverted row bent knees
+     └─ ID: VPPtusI
+
+ 50. Пайк опори
+     └─ EN: pike push-up
+     └─ ID: sVvXT5J
+
+ 51. Планински катерач
+     └─ EN: mountain climber
+     └─ ID: Fey3oVx
+
+ 52. Планински катерач
+     └─ EN: mountain climber
+     └─ ID: RJgzwny
+
+ 53. Планк на TRX
+     └─ EN: TRX plank
+     └─ ID: VBAWRPG
+
+ 54. Планк странично
+     └─ EN: side plank
+     └─ ID: RRWFUcw
+
+ 55. Повдигане на крака на лост
+     └─ EN: hanging leg raise
+     └─ ID: I3tsCnC
+
+ 56. Прасци (тежки)
+     └─ EN: heavy calf raise
+     └─ ID: IeDEXTe
+
+ 57. Предни махове
+     └─ EN: front raise
+     └─ ID: TFA88iB
+
+ 58. Прийчър къръл
+     └─ EN: preacher curl
+     └─ ID: b6hQYMb
+
+ 59. Пушдаун с въже
+     └─ EN: rope pushdown
+     └─ ID: dU605di
+
+ 60. Пътека спринтове
+     └─ EN: treadmill sprint
+     └─ ID: rjiM4L3
+
+ 61. Разгъване за трицепс на пода
+     └─ EN: bodyweight tricep extension
+     └─ ID: U3ffHlY
+
+ 62. Разперки за задни рамене
+     └─ EN: rear delt fly
+     └─ ID: XUUD0Fs
+
+ 63. Разперки с дъмбели
+     └─ EN: dumbbell fly
+     └─ ID: K5TldTr
+
+ 64. Раменна прес стоеща
+     └─ EN: overhead press
+     └─ ID: u4bAmKp
+
+ 65. Раменни преси
+     └─ EN: dumbbell shoulder press
+     └─ ID: znQUdHY
+
+ 66. Румънска мъртва тяга
+     └─ EN: barbell romanian deadlift
+     └─ ID: wQ2c4XD
+
+ 67. Руски завъртания
+     └─ EN: russian twist
+     └─ ID: XVDdcoj
+
+ 68. Свиване на рамене
+     └─ EN: shrugs
+     └─ ID: trmte8s
+
+ 69. Скапуларни лицеви опори
+     └─ EN: scapular push-up
+     └─ ID: uTBt1HV
+
+ 70. Скокове на кутия
+     └─ EN: box jump
+     └─ ID: iPm26QU
+
+ 71. Скокове на прасци
+     └─ EN: calf jump
+     └─ ID: 2ORFMoR
+
+ 72. Скокови клекове
+     └─ EN: jump squat
+     └─ ID: LIlE5Tn
+
+ 73. Скокови напади
+     └─ EN: jumping lunge
+     └─ ID: PM1PZjg
+
+ 74. Странични махове
+     └─ EN: lateral raise
+     └─ ID: goJ6ezq
+
+ 75. Странични махове (бутилки)
+     └─ EN: bottle lateral raise
+     └─ ID: AQ0mC4Y
+
+ 76. Странично ходене в планк
+     └─ EN: lateral plank walk
+     └─ ID: KhHJ338
+
+ 77. Стречинг
+     └─ EN: stretching
+     └─ ID: 1jXLYEw
+
+ 78. Супермен (темпо)
+     └─ EN: tempo superman
+     └─ ID: 4GqRrAk
+
+ 79. Сled push (ако има)
+     └─ EN: sled push
+     └─ ID: yn2lLSI
+
+ 80. Тесен хват бенч
+     └─ EN: close grip bench press
+     └─ ID: WcHl7ru
+
+ 81. Трицепс пушдаун
+     └─ EN: tricep pushdown
+     └─ ID: qRZ5S1N
+
+ 82. Трицепсово разгъване с дъмбели
+     └─ EN: dumbbell lying triceps extension
+     └─ ID: mpKZGWz
+
+ 83. Удари с медицинска топка
+     └─ EN: medicine ball slam
+     └─ ID: oHg8eop
+
+ 84. Фейс пул
+     └─ EN: face pull
+     └─ ID: G61cXLk
+
+ 85. Фермер ход
+     └─ EN: farmer walk
+     └─ ID: qPEzJjA
+
+ 86. Флътър кикс
+     └─ EN: flutter kick
+     └─ ID: UVo2Qs2
+
+ 87. Фоам ролер
+     └─ EN: foam rolling
+     └─ ID: YUYAMEj
+
+ 88. Френска прес
+     └─ EN: overhead extension
+     └─ ID: 5uFK1xr
+
+ 89. Ходене на място
+     └─ EN: walking in place
+     └─ ID: walking
+
+ 90. Ходещи напади
+     └─ EN: walking lunge
+     └─ ID: IZVHb27
+
+ 91. Чук къръл
+     └─ EN: hammer curl
+     └─ ID: slDvUAU
+
+ 92. Assault bike (табата)
+     └─ EN: assault bike tabata
+     └─ ID: 1ZFqTDN
+
+ 93. Battle ropes (вълни)
+     └─ EN: battle ropes waves
+     └─ ID: RJa4tCo
+
+ 94. Handstand hold (на стена)
+     └─ EN: wall handstand hold
+     └─ ID: XooAdhl
+
+════════════════════════════════════════════════════════════════════════════════
+
+ОБЩО: 94 уникални упражнения
+

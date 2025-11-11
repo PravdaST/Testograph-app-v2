@@ -66,7 +66,7 @@ export const MUSCLE_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '7aVz15j',
-        name_bg: 'Паралелки на стол',
+        name_bg: 'Кофички на стол',
         name_en: 'chair dips',
         sets: 4,
         reps: '15-20',
@@ -205,7 +205,7 @@ export const MUSCLE_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
   // Thursday - Рамене + Кор
   {
     day_of_week: 4,
-    name: 'Рамене + Кор (Bodyweight)',
+    name: 'Рамене + Корем (Bodyweight)',
     duration: 45,
     exercises: [
       {
@@ -322,7 +322,7 @@ export const MUSCLE_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
   // Saturday - Ръце + Кор
   {
     day_of_week: 6,
-    name: 'Ръце + Кор',
+    name: 'Ръце + Корем',
     duration: 40,
     exercises: [
       {
@@ -336,7 +336,7 @@ export const MUSCLE_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '7aVz15j',
-        name_bg: 'Паралелки на стол',
+        name_bg: 'Кофички на стол',
         name_en: 'chair dips',
         sets: 4,
         reps: '15-20',
@@ -350,7 +350,7 @@ export const MUSCLE_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
         sets: 4,
         reps: '5-8',
         rest_seconds: 75,
-        notes: 'Ако имаш лост, правете негативи (скачаш горе, бавно надолу).',
+        notes: 'Ако имате лост, правете негативи (скачаш горе, бавно надолу).',
       },
       {
         exercisedb_id: 'VBAWRPG',

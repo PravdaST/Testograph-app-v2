@@ -1,0 +1,1978 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Проверка на всички упражнения - Testograph</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f5f5f5;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .summary {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .summary h2 {
+      color: #2563eb;
+      margin-bottom: 10px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 20px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .exercise-number {
+      min-width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #2563eb;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .exercise-info {
+      flex: 1;
+    }
+
+    .exercise-name-bg {
+      font-size: 18px;
+      font-weight: bold;
+      color: #111;
+      margin-bottom: 4px;
+    }
+
+    .exercise-name-en {
+      font-size: 14px;
+      color: #666;
+    }
+
+    .exercise-id {
+      font-size: 12px;
+      color: #999;
+      font-family: 'Courier New', monospace;
+      margin-top: 4px;
+    }
+
+    .gif-container {
+      width: 100%;
+      aspect-ratio: 1;
+      background: #f9fafb;
+      border-radius: 8px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #e5e7eb;
+    }
+
+    .gif-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .gif-missing {
+      background: #fee;
+      border-color: #f87171;
+    }
+
+    .missing-text {
+      color: #dc2626;
+      font-size: 14px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    .status-ok {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .status-missing {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    .instructions {
+      max-width: 1400px;
+      margin: 0 auto 30px;
+      padding: 20px;
+      background: #fff3cd;
+      border: 2px solid #ffc107;
+      border-radius: 12px;
+    }
+
+    .instructions h3 {
+      color: #856404;
+      margin-bottom: 10px;
+    }
+
+    .instructions p {
+      color: #856404;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <h1>🏋️ Проверка на всички упражнения</h1>
+
+  <div class="summary">
+    <h2>Общо: 94 упражнения</h2>
+    <p>✅ С GIF: 94 | ❌ Липсващи: 0</p>
+  </div>
+
+  <div class="instructions">
+    <h3>📋 Инструкции за проверка:</h3>
+    <p>
+      Прегледай всяко упражнение и провери дали GIF анимацията съответства на името и описанието на упражнението.
+      Обърни внимание дали движенията са правилни и дали използва правилния инвентар (дъмбели, тяло, машини и т.н.).
+    </p>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">1</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Кабел упражнения (леки)</div>
+          <div class="exercise-name-en">cable exercises</div>
+          <div class="exercise-id">ID: 0rHfvy9</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/0rHfvy9.gif" alt="Кабел упражнения (леки)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">2</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Набирания с неутрален хват</div>
+          <div class="exercise-name-en">pull up (neutral grip)</div>
+          <div class="exercise-id">ID: 0V2YQjW</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/0V2YQjW.gif" alt="Набирания с неутрален хват" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">3</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Лег къръл</div>
+          <div class="exercise-name-en">leg curl</div>
+          <div class="exercise-id">ID: 17lJ1kr</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/17lJ1kr.gif" alt="Лег къръл" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">4</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Барбел клекове (умерен товар)</div>
+          <div class="exercise-name-en">barbell squat</div>
+          <div class="exercise-id">ID: 1gFNTZV</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/1gFNTZV.gif" alt="Барбел клекове (умерен товар)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">5</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Стречинг</div>
+          <div class="exercise-name-en">stretching</div>
+          <div class="exercise-id">ID: 1jXLYEw</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/1jXLYEw.gif" alt="Стречинг" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">6</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Assault bike (табата)</div>
+          <div class="exercise-name-en">assault bike tabata</div>
+          <div class="exercise-id">ID: 1ZFqTDN</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/1ZFqTDN.gif" alt="Assault bike (табата)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">7</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Барбел къръл</div>
+          <div class="exercise-name-en">barbell curl</div>
+          <div class="exercise-id">ID: 25GPyDY</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/25GPyDY.gif" alt="Барбел къръл" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">8</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Скокове на прасци</div>
+          <div class="exercise-name-en">calf jump</div>
+          <div class="exercise-id">ID: 2ORFMoR</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/2ORFMoR.gif" alt="Скокове на прасци" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">9</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Супермен (темпо)</div>
+          <div class="exercise-name-en">tempo superman</div>
+          <div class="exercise-id">ID: 4GqRrAk</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/4GqRrAk.gif" alt="Супермен (темпо)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">10</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Лат пулдаун</div>
+          <div class="exercise-name-en">lat pulldown</div>
+          <div class="exercise-id">ID: 4IKbhHV</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/4IKbhHV.gif" alt="Лат пулдаун" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">11</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Клекове на един крак</div>
+          <div class="exercise-name-en">pistol squat</div>
+          <div class="exercise-id">ID: 5bpPTHv</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/5bpPTHv.gif" alt="Клекове на един крак" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">12</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Френска прес</div>
+          <div class="exercise-name-en">overhead extension</div>
+          <div class="exercise-id">ID: 5uFK1xr</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/5uFK1xr.gif" alt="Френска прес" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">13</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Дипс (напреднал)</div>
+          <div class="exercise-name-en">advanced dips</div>
+          <div class="exercise-id">ID: 7aVz15j</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/7aVz15j.gif" alt="Дипс (напреднал)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">14</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Едноръчно гребане с дъмбел</div>
+          <div class="exercise-name-en">single arm dumbbell row</div>
+          <div class="exercise-id">ID: 7vG5o25</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/7vG5o25.gif" alt="Едноръчно гребане с дъмбел" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">15</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Лег прес (лек товар)</div>
+          <div class="exercise-name-en">leg press</div>
+          <div class="exercise-id">ID: 7zdxRTl</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/7zdxRTl.gif" alt="Лег прес (лек товар)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">16</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Странични махове (бутилки)</div>
+          <div class="exercise-name-en">bottle lateral raise</div>
+          <div class="exercise-id">ID: AQ0mC4Y</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/AQ0mC4Y.gif" alt="Странични махове (бутилки)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">17</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Мост на един крак</div>
+          <div class="exercise-name-en">single leg glute bridge</div>
+          <div class="exercise-id">ID: aWedzZX</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/aWedzZX.gif" alt="Мост на един крак" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">18</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Прийчър къръл</div>
+          <div class="exercise-name-en">preacher curl</div>
+          <div class="exercise-id">ID: b6hQYMb</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/b6hQYMb.gif" alt="Прийчър къръл" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">19</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Гребане с дъмбели</div>
+          <div class="exercise-name-en">dumbbell bent over row</div>
+          <div class="exercise-id">ID: BJ0Hz5L</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/BJ0Hz5L.gif" alt="Гребане с дъмбели" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">20</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Гребане с кърпа (едноръчно)</div>
+          <div class="exercise-name-en">single arm towel row</div>
+          <div class="exercise-id">ID: bKWbrTA</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/bKWbrTA.gif" alt="Гребане с кърпа (едноръчно)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">21</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Йога флоу</div>
+          <div class="exercise-name-en">yoga flow</div>
+          <div class="exercise-id">ID: bWlZvXh</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/bWlZvXh.gif" alt="Йога флоу" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">22</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Австралийски лост (маса)</div>
+          <div class="exercise-name-en">inverted row</div>
+          <div class="exercise-id">ID: bZGHsAZ</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/bZGHsAZ.gif" alt="Австралийски лост (маса)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">23</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Бърпита</div>
+          <div class="exercise-name-en">burpee</div>
+          <div class="exercise-id">ID: dK9394r</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/dK9394r.gif" alt="Бърпита" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">24</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Гребане (интервали)</div>
+          <div class="exercise-name-en">rowing intervals</div>
+          <div class="exercise-id">ID: dmgMp3n</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/dmgMp3n.gif" alt="Гребане (интервали)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">25</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Пушдаун с въже</div>
+          <div class="exercise-name-en">rope pushdown</div>
+          <div class="exercise-id">ID: dU605di</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/dU605di.gif" alt="Пушдаун с въже" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">26</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Високи колене</div>
+          <div class="exercise-name-en">high knees</div>
+          <div class="exercise-id">ID: eL6Lz0v</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/eL6Lz0v.gif" alt="Високи колене" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">27</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Наклонени опори (ръце на повдигната повърхност)</div>
+          <div class="exercise-name-en">incline push-up</div>
+          <div class="exercise-id">ID: F7vjXqT</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/F7vjXqT.gif" alt="Наклонени опори (ръце на повдигната повърхност)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">28</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Планински катерач</div>
+          <div class="exercise-name-en">mountain climber</div>
+          <div class="exercise-id">ID: Fey3oVx</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/Fey3oVx.gif" alt="Планински катерач" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">29</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Гребане на кабел седнал</div>
+          <div class="exercise-name-en">seated cable row</div>
+          <div class="exercise-id">ID: fUBheHs</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/fUBheHs.gif" alt="Гребане на кабел седнал" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">30</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Кабел флай</div>
+          <div class="exercise-name-en">cable fly</div>
+          <div class="exercise-id">ID: FVmZVhk</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/FVmZVhk.gif" alt="Кабел флай" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">31</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Фейс пул</div>
+          <div class="exercise-name-en">face pull</div>
+          <div class="exercise-id">ID: G61cXLk</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/G61cXLk.gif" alt="Фейс пул" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">32</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Глутеус мост (изометричен)</div>
+          <div class="exercise-name-en">isometric glute bridge</div>
+          <div class="exercise-id">ID: GibBPPg</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/GibBPPg.gif" alt="Глутеус мост (изометричен)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">33</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Странични махове</div>
+          <div class="exercise-name-en">lateral raise</div>
+          <div class="exercise-id">ID: goJ6ezq</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/goJ6ezq.gif" alt="Странични махове" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">34</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Мъртва тяга</div>
+          <div class="exercise-name-en">deadlift</div>
+          <div class="exercise-id">ID: GUT8I22</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/GUT8I22.gif" alt="Мъртва тяга" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">35</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Вдигане на крака</div>
+          <div class="exercise-name-en">leg raise</div>
+          <div class="exercise-id">ID: Hgs6Nl1</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/Hgs6Nl1.gif" alt="Вдигане на крака" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">36</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Повдигане на крака на лост</div>
+          <div class="exercise-name-en">hanging leg raise</div>
+          <div class="exercise-id">ID: I3tsCnC</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/I3tsCnC.gif" alt="Повдигане на крака на лост" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">37</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Взривни опори</div>
+          <div class="exercise-name-en">explosive push-up</div>
+          <div class="exercise-id">ID: I4hDWkc</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/I4hDWkc.gif" alt="Взривни опори" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">38</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Лицеви опори с наклон надолу</div>
+          <div class="exercise-name-en">decline push-up</div>
+          <div class="exercise-id">ID: i5cEhka</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/i5cEhka.gif" alt="Лицеви опори с наклон надолу" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">39</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Прасци (тежки)</div>
+          <div class="exercise-name-en">heavy calf raise</div>
+          <div class="exercise-id">ID: IeDEXTe</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/IeDEXTe.gif" alt="Прасци (тежки)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">40</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Мъртва тяга</div>
+          <div class="exercise-name-en">barbell deadlift</div>
+          <div class="exercise-id">ID: ila4NZS</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/ila4NZS.gif" alt="Мъртва тяга" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">41</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Скокове на кутия</div>
+          <div class="exercise-name-en">box jump</div>
+          <div class="exercise-id">ID: iPm26QU</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/iPm26QU.gif" alt="Скокове на кутия" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">42</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Ходещи напади</div>
+          <div class="exercise-name-en">walking lunge</div>
+          <div class="exercise-id">ID: IZVHb27</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/IZVHb27.gif" alt="Ходещи напади" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">43</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Кръстосани изтегляния на кабели</div>
+          <div class="exercise-name-en">cable crossover</div>
+          <div class="exercise-id">ID: j7XMAyn</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/j7XMAyn.gif" alt="Кръстосани изтегляния на кабели" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">44</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Разперки с дъмбели</div>
+          <div class="exercise-name-en">dumbbell fly</div>
+          <div class="exercise-id">ID: K5TldTr</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/K5TldTr.gif" alt="Разперки с дъмбели" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">45</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Странично ходене в планк</div>
+          <div class="exercise-name-en">lateral plank walk</div>
+          <div class="exercise-id">ID: KhHJ338</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/KhHJ338.gif" alt="Странично ходене в планк" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">46</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Австралийски лост</div>
+          <div class="exercise-name-en">inverted row</div>
+          <div class="exercise-id">ID: lBDjFxJ</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/lBDjFxJ.gif" alt="Австралийски лост" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">47</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Скокови клекове</div>
+          <div class="exercise-name-en">jump squat</div>
+          <div class="exercise-id">ID: LIlE5Tn</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/LIlE5Tn.gif" alt="Скокови клекове" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">48</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Трицепсово разгъване с дъмбели</div>
+          <div class="exercise-name-en">dumbbell lying triceps extension</div>
+          <div class="exercise-id">ID: mpKZGWz</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/mpKZGWz.gif" alt="Трицепсово разгъване с дъмбели" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">49</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Лег екстеншън</div>
+          <div class="exercise-name-en">leg extension</div>
+          <div class="exercise-id">ID: my33uHU</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/my33uHU.gif" alt="Лег екстеншън" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">50</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Бицепсово сгъване с дъмбели</div>
+          <div class="exercise-name-en">dumbbell biceps curl</div>
+          <div class="exercise-id">ID: NbVPDMW</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/NbVPDMW.gif" alt="Бицепсово сгъване с дъмбели" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">51</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Наклонена прес с дъмбели</div>
+          <div class="exercise-name-en">incline dumbbell press</div>
+          <div class="exercise-id">ID: ns0SIbU</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/ns0SIbU.gif" alt="Наклонена прес с дъмбели" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">52</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Удари с медицинска топка</div>
+          <div class="exercise-name-en">medicine ball slam</div>
+          <div class="exercise-id">ID: oHg8eop</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/oHg8eop.gif" alt="Удари с медицинска топка" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">53</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Скокови напади</div>
+          <div class="exercise-name-en">jumping lunge</div>
+          <div class="exercise-id">ID: PM1PZjg</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/PM1PZjg.gif" alt="Скокови напади" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">54</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Кабел гребане</div>
+          <div class="exercise-name-en">cable row</div>
+          <div class="exercise-id">ID: PQStVXH</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/PQStVXH.gif" alt="Кабел гребане" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">55</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Кабел коремни</div>
+          <div class="exercise-name-en">cable crunch</div>
+          <div class="exercise-id">ID: q2ADGqV</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/q2ADGqV.gif" alt="Кабел коремни" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">56</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Дъмбел къръл</div>
+          <div class="exercise-name-en">dumbbell curl</div>
+          <div class="exercise-id">ID: qAmNMJY</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/qAmNMJY.gif" alt="Дъмбел къръл" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">57</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Фермер ход</div>
+          <div class="exercise-name-en">farmer walk</div>
+          <div class="exercise-id">ID: qPEzJjA</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/qPEzJjA.gif" alt="Фермер ход" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">58</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Лост широк захват</div>
+          <div class="exercise-name-en">wide grip pull-up</div>
+          <div class="exercise-id">ID: Qqi7bko</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/Qqi7bko.gif" alt="Лост широк захват" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">59</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Трицепс пушдаун</div>
+          <div class="exercise-name-en">tricep pushdown</div>
+          <div class="exercise-id">ID: qRZ5S1N</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/qRZ5S1N.gif" alt="Трицепс пушдаун" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">60</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Battle ropes (вълни)</div>
+          <div class="exercise-name-en">battle ropes waves</div>
+          <div class="exercise-id">ID: RJa4tCo</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/RJa4tCo.gif" alt="Battle ropes (вълни)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">61</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Планински катерач</div>
+          <div class="exercise-name-en">mountain climber</div>
+          <div class="exercise-id">ID: RJgzwny</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/RJgzwny.gif" alt="Планински катерач" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">62</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Пътека спринтове</div>
+          <div class="exercise-name-en">treadmill sprint</div>
+          <div class="exercise-id">ID: rjiM4L3</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/rjiM4L3.gif" alt="Пътека спринтове" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">63</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Елиптична машина</div>
+          <div class="exercise-name-en">elliptical</div>
+          <div class="exercise-id">ID: rjtuP6X</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/rjtuP6X.gif" alt="Елиптична машина" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">64</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Глутеус мост на един крак</div>
+          <div class="exercise-name-en">single leg bridge with outstretched leg</div>
+          <div class="exercise-id">ID: rmEukuS</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/rmEukuS.gif" alt="Глутеус мост на един крак" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">65</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Планк странично</div>
+          <div class="exercise-name-en">side plank</div>
+          <div class="exercise-id">ID: RRWFUcw</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/RRWFUcw.gif" alt="Планк странично" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">66</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Барбел клийн (лек)</div>
+          <div class="exercise-name-en">barbell clean</div>
+          <div class="exercise-id">ID: SGY8Zui</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/SGY8Zui.gif" alt="Барбел клийн (лек)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">67</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Чук къръл</div>
+          <div class="exercise-name-en">hammer curl</div>
+          <div class="exercise-id">ID: slDvUAU</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/slDvUAU.gif" alt="Чук къръл" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">68</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Диамантени лицеви опори</div>
+          <div class="exercise-name-en">diamond push-up</div>
+          <div class="exercise-id">ID: soIB2rj</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/soIB2rj.gif" alt="Диамантени лицеви опори" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">69</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Пайк опори</div>
+          <div class="exercise-name-en">pike push-up</div>
+          <div class="exercise-id">ID: sVvXT5J</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/sVvXT5J.gif" alt="Пайк опори" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">70</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Негативи на лост (бицепс)</div>
+          <div class="exercise-name-en">chin-up negative</div>
+          <div class="exercise-id">ID: T2mxWqc</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/T2mxWqc.gif" alt="Негативи на лост (бицепс)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">71</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Предни махове</div>
+          <div class="exercise-name-en">front raise</div>
+          <div class="exercise-id">ID: TFA88iB</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/TFA88iB.gif" alt="Предни махове" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">72</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Свиване на рамене</div>
+          <div class="exercise-name-en">shrugs</div>
+          <div class="exercise-id">ID: trmte8s</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/trmte8s.gif" alt="Свиване на рамене" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">73</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Клекове с темп</div>
+          <div class="exercise-name-en">tempo squat</div>
+          <div class="exercise-id">ID: TUZLh71</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/TUZLh71.gif" alt="Клекове с темп" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">74</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Колело коремни</div>
+          <div class="exercise-name-en">bicycle crunch</div>
+          <div class="exercise-id">ID: tZkGYZ9</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/tZkGYZ9.gif" alt="Колело коремни" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">75</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Разгъване за трицепс на пода</div>
+          <div class="exercise-name-en">bodyweight tricep extension</div>
+          <div class="exercise-id">ID: U3ffHlY</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/U3ffHlY.gif" alt="Разгъване за трицепс на пода" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">76</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Раменна прес стоеща</div>
+          <div class="exercise-name-en">overhead press</div>
+          <div class="exercise-id">ID: u4bAmKp</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/u4bAmKp.gif" alt="Раменна прес стоеща" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">77</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Кетълбел суинг</div>
+          <div class="exercise-name-en">kettlebell swing</div>
+          <div class="exercise-id">ID: UHJlbu3</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/UHJlbu3.gif" alt="Кетълбел суинг" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">78</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Скапуларни лицеви опори</div>
+          <div class="exercise-name-en">scapular push-up</div>
+          <div class="exercise-id">ID: uTBt1HV</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/uTBt1HV.gif" alt="Скапуларни лицеви опори" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">79</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Флътър кикс</div>
+          <div class="exercise-name-en">flutter kick</div>
+          <div class="exercise-id">ID: UVo2Qs2</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/UVo2Qs2.gif" alt="Флътър кикс" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">80</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Планк на TRX</div>
+          <div class="exercise-name-en">TRX plank</div>
+          <div class="exercise-id">ID: VBAWRPG</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/VBAWRPG.gif" alt="Планк на TRX" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">81</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Обърнато гребане със сгънати колене</div>
+          <div class="exercise-name-en">inverted row bent knees</div>
+          <div class="exercise-id">ID: VPPtusI</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/VPPtusI.gif" alt="Обърнато гребане със сгънати колене" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">82</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Къдрене с дъмбели на пейка</div>
+          <div class="exercise-name-en">incline dumbbell curl</div>
+          <div class="exercise-id">ID: W74bXnw</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/W74bXnw.gif" alt="Къдрене с дъмбели на пейка" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">83</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Бенч прес</div>
+          <div class="exercise-name-en">bench press</div>
+          <div class="exercise-id">ID: W9pFVv1</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/W9pFVv1.gif" alt="Бенч прес" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">84</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Ходене на място</div>
+          <div class="exercise-name-en">walking in place</div>
+          <div class="exercise-id">ID: walking</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/walking.gif" alt="Ходене на място" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">85</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Тесен хват бенч</div>
+          <div class="exercise-name-en">close grip bench press</div>
+          <div class="exercise-id">ID: WcHl7ru</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/WcHl7ru.gif" alt="Тесен хват бенч" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">86</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Румънска мъртва тяга</div>
+          <div class="exercise-name-en">barbell romanian deadlift</div>
+          <div class="exercise-id">ID: wQ2c4XD</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/wQ2c4XD.gif" alt="Румънска мъртва тяга" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">87</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Handstand hold (на стена)</div>
+          <div class="exercise-name-en">wall handstand hold</div>
+          <div class="exercise-id">ID: XooAdhl</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/XooAdhl.gif" alt="Handstand hold (на стена)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">88</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Разперки за задни рамене</div>
+          <div class="exercise-name-en">rear delt fly</div>
+          <div class="exercise-id">ID: XUUD0Fs</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/XUUD0Fs.gif" alt="Разперки за задни рамене" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">89</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Руски завъртания</div>
+          <div class="exercise-name-en">russian twist</div>
+          <div class="exercise-id">ID: XVDdcoj</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/XVDdcoj.gif" alt="Руски завъртания" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">90</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Наклонена лежанка с дъмбели</div>
+          <div class="exercise-name-en">incline dumbbell press</div>
+          <div class="exercise-id">ID: yaMIo4D</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/yaMIo4D.gif" alt="Наклонена лежанка с дъмбели" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">91</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Сled push (ако има)</div>
+          <div class="exercise-name-en">sled push</div>
+          <div class="exercise-id">ID: yn2lLSI</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/yn2lLSI.gif" alt="Сled push (ако има)" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">92</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Фоам ролер</div>
+          <div class="exercise-name-en">foam rolling</div>
+          <div class="exercise-id">ID: YUYAMEj</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/YUYAMEj.gif" alt="Фоам ролер" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">93</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Дъмбел флай</div>
+          <div class="exercise-name-en">dumbbell fly</div>
+          <div class="exercise-id">ID: yz9nUhF</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/yz9nUhF.gif" alt="Дъмбел флай" loading="lazy">
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        <div class="exercise-number">94</div>
+        <div class="exercise-info">
+          <div class="exercise-name-bg">Раменни преси</div>
+          <div class="exercise-name-en">dumbbell shoulder press</div>
+          <div class="exercise-id">ID: znQUdHY</div>
+          <div class="status-badge status-ok">
+            ✅ GIF наличен
+          </div>
+        </div>
+      </div>
+
+      <div class="gif-container ">
+        <img src="/exercises/znQUdHY.gif" alt="Раменни преси" loading="lazy">
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>

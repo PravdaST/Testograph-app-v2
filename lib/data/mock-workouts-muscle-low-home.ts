@@ -134,7 +134,7 @@ export const MUSCLE_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
   // Friday - Legs + Core
   {
     day_of_week: 5,
-    name: 'Крака + Кор',
+    name: 'Крака + Корем',
     duration: 45,
     exercises: [
       {

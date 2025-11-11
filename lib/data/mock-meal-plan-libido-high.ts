@@ -598,13 +598,13 @@ export const LIBIDO_HIGH_MEAL_PLAN = {
         {
           meal_number: 2,
           time: '10:30',
-          name: 'Фундък и бразилски орехи',
+          name: 'Лешници и бразилски орехи',
           calories: 360,
           protein: 12,
           carbs: 22,
           fats: 28,
           ingredients: [
-            { name: 'Фундък', quantity: '30г', calories: 189 },
+            { name: 'Лешници', quantity: '30г', calories: 189 },
             { name: 'Бразилски орехи', quantity: '25г', calories: 165 },
           ],
         },

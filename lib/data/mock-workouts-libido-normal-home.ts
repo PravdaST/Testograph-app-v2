@@ -115,7 +115,7 @@ export const LIBIDO_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
         sets: 4,
         reps: '8-12',
         rest_seconds: 90,
-        notes: 'Ако нямаш лост, използвай маса за австралийски лост.',
+        notes: 'Ако нямате лост, използвай маса за австралийски лост.',
       },
       {
         exercisedb_id: 'sVvXT5J',
@@ -128,7 +128,7 @@ export const LIBIDO_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '7aVz15j',
-        name_bg: 'Паралелки на стол',
+        name_bg: 'Кофички на стол',
         name_en: 'chair dips',
         sets: 3,
         reps: '15-20',

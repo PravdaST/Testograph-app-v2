@@ -171,7 +171,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 2,
         reps: '40-50s',
         rest_seconds: 45,
-        notes: 'Core стабилизация',
+        notes: 'Коремна стабилизация',
       },
     ],
   },

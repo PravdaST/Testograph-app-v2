@@ -28,12 +28,12 @@ export const ENERGY_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
   // Monday - Battle Ropes + HIIT Circuit
   {
     day_of_week: 1,
-    name: 'Battle Ropes + HIIT',
+    name: 'Бойни въжета + HIIT',
     duration: 60,
     exercises: [
       {
         exercisedb_id: 'RJa4tCo',
-        name_bg: 'Battle ropes (вълни)',
+        name_bg: 'Бойни въжета (вълни)',
         name_en: 'battle ropes waves',
         sets: 5,
         reps: '40s',
@@ -145,7 +145,7 @@ export const ENERGY_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
   // Wednesday - Rowing + Battle Ropes
   {
     day_of_week: 3,
-    name: 'Гребане + Battle Ropes',
+    name: 'Гребане + Бойни въжета',
     duration: 60,
     exercises: [
       {
@@ -159,7 +159,7 @@ export const ENERGY_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'RJa4tCo',
-        name_bg: 'Battle ropes (алтернатива)',
+        name_bg: 'Бойни въжета (алтернатива)',
         name_en: 'battle ropes alternating',
         sets: 5,
         reps: '45s',
@@ -213,7 +213,7 @@ export const ENERGY_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'yn2lLSI',
-        name_bg: 'Сled push (ако има)',
+        name_bg: 'Тласкане на шейна (ако има)',
         name_en: 'sled push',
         sets: 4,
         reps: '20m',
@@ -222,7 +222,7 @@ export const ENERGY_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'RJa4tCo',
-        name_bg: 'Battle ropes (слам)',
+        name_bg: 'Бойни въжета (слам)',
         name_en: 'battle ropes slam',
         sets: 4,
         reps: '30s',
@@ -245,7 +245,7 @@ export const ENERGY_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 3,
         reps: '20 (10/ръка)',
         rest_seconds: 30,
-        notes: 'Стабилен кор под движение',
+        notes: 'Стабилен корем под движение',
       },
     ],
   },
@@ -294,7 +294,7 @@ export const ENERGY_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'RJa4tCo',
-        name_bg: 'Battle ropes (комбо)',
+        name_bg: 'Бойни въжета (комбо)',
         name_en: 'battle ropes combo',
         sets: 4,
         reps: '60s',

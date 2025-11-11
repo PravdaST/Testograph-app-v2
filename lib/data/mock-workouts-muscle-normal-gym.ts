@@ -232,7 +232,7 @@ export const MUSCLE_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
   // Thursday - Рамене + Кор
   {
     day_of_week: 4,
-    name: 'Рамене + Кор',
+    name: 'Рамене + Корем',
     duration: 55,
     exercises: [
       {
@@ -376,7 +376,7 @@ export const MUSCLE_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
   // Saturday - Ръце + Кор
   {
     day_of_week: 6,
-    name: 'Ръце + Кор',
+    name: 'Ръце + Корем',
     duration: 50,
     exercises: [
       {

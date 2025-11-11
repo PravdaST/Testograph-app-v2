@@ -145,7 +145,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
   // Wednesday - Legs + Core
   {
     day_of_week: 3,
-    name: 'Крака + Кор',
+    name: 'Крака + Корем',
     duration: 70,
     exercises: [
       {
@@ -325,7 +325,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
   // Saturday - Legs + Core (Volume)
   {
     day_of_week: 6,
-    name: 'Крака + Кор - Обем',
+    name: 'Крака + Корем - Обем',
     duration: 65,
     exercises: [
       {

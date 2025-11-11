@@ -199,7 +199,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 3,
         reps: '90s',
         rest_seconds: 60,
-        notes: 'Core стабилизация',
+        notes: 'Коремна стабилизация',
       },
     ],
   },

@@ -216,7 +216,7 @@ export const MUSCLE_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
   // Saturday - Shoulders + Core (Week 3-4)
   {
     day_of_week: 6,
-    name: 'Рамене + Кор',
+    name: 'Рамене + Корем',
     duration: 40,
     exercises: [
       {
@@ -253,7 +253,7 @@ export const MUSCLE_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 3,
         reps: '45-60s',
         rest_seconds: 45,
-        notes: 'Core стабилизация',
+        notes: 'Коремна стабилизация',
       },
     ],
   },

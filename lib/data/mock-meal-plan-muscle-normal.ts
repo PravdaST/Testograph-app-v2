@@ -325,7 +325,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
           ingredients: [
             { name: 'Протеинов прах', quantity: '40г', calories: 160 },
             { name: 'Овесени ядки', quantity: '70г', calories: 266 },
-            { name: 'Финики', quantity: '40г', calories: 110 },
+            { name: 'Фурми', quantity: '30г', calories: 83 },
             { name: 'Мляко', quantity: '300мл', calories: 150 },
           ],
         },

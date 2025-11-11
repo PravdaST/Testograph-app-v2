@@ -111,7 +111,7 @@ export const ENERGY_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'UHJlbu3',
-        name_bg: 'Battle Ropes',
+        name_bg: 'Бойни въжета',
         name_en: 'battle ropes',
         sets: 4,
         reps: '30s',

@@ -68,7 +68,7 @@ export const ENERGY_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
         sets: 2,
         reps: '15-20s',
         rest_seconds: 45,
-        notes: 'Задържане в позиция, силно core',
+        notes: 'Задържане в позиция, силен корем',
       },
       {
         exercisedb_id: '1jXLYEw',

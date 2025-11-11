@@ -91,7 +91,7 @@ export const ENERGY_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
   // Tuesday - Cardio Endurance + Core
   {
     day_of_week: 2,
-    name: 'Кардио издръжливост + Кор',
+    name: 'Кардио издръжливост + Корем',
     duration: 55,
     exercises: [
       {
@@ -254,7 +254,7 @@ export const ENERGY_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         sets: 4,
         reps: '20',
         rest_seconds: 20,
-        notes: 'Кор стабилизация под темпо',
+        notes: 'Корем стабилизация под темпо',
       },
     ],
   },
