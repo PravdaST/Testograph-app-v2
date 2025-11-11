@@ -503,30 +503,9 @@ export default function DashboardPage() {
     }
   }
 
-  const handleTestoUpRefill = async () => {
-    const email = localStorage.getItem('quizEmail')
-    if (!email) return
-
-    try {
-      const response = await fetch('/api/testoup/inventory', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      })
-
-      if (response.ok) {
-        // Refresh inventory after refill
-        const inventoryResponse = await fetch(`/api/testoup/inventory?email=${encodeURIComponent(email)}`)
-        if (inventoryResponse.ok) {
-          const inventoryData = await inventoryResponse.json()
-          setTestoUpInventory(inventoryData)
-        }
-      }
-    } catch (error) {
-      console.error('Error refilling TestoUp:', error)
-    }
+  const handleTestoUpRefill = () => {
+    // Redirect to shop to purchase more capsules
+    window.open('https://shop.testograph.eu', '_blank')
   }
 
   const handleMealsConfirm = async (mealNumbers: number[]) => {

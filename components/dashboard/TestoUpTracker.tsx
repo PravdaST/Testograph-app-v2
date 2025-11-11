@@ -6,7 +6,7 @@
  */
 
 import { useState, useEffect } from 'react'
-import { Pill, Sun, Moon, CheckCircle2, AlertTriangle, RefreshCw, Lock } from 'lucide-react'
+import { Pill, Sun, Moon, CheckCircle2, AlertTriangle, ShoppingCart, Lock } from 'lucide-react'
 
 interface TestoUpTrackerProps {
   morningCompleted: boolean
@@ -274,14 +274,14 @@ export function TestoUpTracker({
             </div>
           )}
 
-          {/* Refill Button */}
+          {/* Shop Button */}
           {onRefill && (
             <button
               onClick={onRefill}
               className="mt-3 w-full py-2.5 px-4 rounded-lg bg-primary text-primary-foreground font-medium text-sm hover:bg-primary/90 transition-all flex items-center justify-center gap-2"
             >
-              <RefreshCw className="w-4 h-4" />
-              Нова опаковка (60 капсули)
+              <ShoppingCart className="w-4 h-4" />
+              Поръчай още капсули
             </button>
           )}
         </div>
