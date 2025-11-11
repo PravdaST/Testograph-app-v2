@@ -93,20 +93,20 @@ export function WorkoutWeekCalendar({
                   )}
                 </div>
 
-                {/* Workout Name (shortened) */}
-                {!isRestDay && workout && (
-                  <span
-                    className={`text-[10px] font-medium truncate max-w-full ${
-                      isCurrent
-                        ? 'text-primary-foreground/80'
-                        : isCompleted
-                          ? 'text-green-600 dark:text-green-500'
+                {/* Day Number or Workout Name */}
+                <span
+                  className={`text-[10px] font-medium truncate max-w-full ${
+                    isCurrent
+                      ? 'text-primary-foreground/80'
+                      : isCompleted
+                        ? 'text-green-600 dark:text-green-500'
+                        : isRestDay
+                          ? 'text-muted-foreground'
                           : 'text-muted-foreground'
-                    }`}
-                  >
-                    {workout.name.split(' ')[0]}
-                  </span>
-                )}
+                  }`}
+                >
+                  {isRestDay ? 'Почивка' : `Ден ${dayOfWeek}`}
+                </span>
 
                 {/* Current Day Indicator Dot */}
                 {isCurrent && (
