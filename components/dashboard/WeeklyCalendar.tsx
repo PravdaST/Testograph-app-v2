@@ -93,6 +93,11 @@ export function WeeklyCalendar({
           const isDayPast = isPast(day)
           const isDayFuture = isFuture(day)
 
+          // Check if day is before program start
+          const dayTime = new Date(day).setHours(0, 0, 0, 0)
+          const startTime = new Date(programStartDate).setHours(0, 0, 0, 0)
+          const isBeforeProgramStart = dayTime < startTime
+
           return (
             <button
               key={day.toISOString()}
@@ -137,8 +142,8 @@ export function WeeklyCalendar({
                   {day.getDate()}
                 </span>
 
-                {/* Program Day Number */}
-                {dayNumber > 0 && dayNumber <= 30 && !isDayFuture && (
+                {/* Program Day Number - Only show from program start onwards */}
+                {!isBeforeProgramStart && dayNumber > 0 && dayNumber <= 30 && !isDayFuture && (
                   <span
                     className={`text-xs ${
                       isSelected
