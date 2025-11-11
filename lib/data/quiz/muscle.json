@@ -3,7 +3,7 @@
     "category": "muscle",
     "category_name": "Мускулна Маса и Сила",
     "version": "2.1",
-    "total_questions": 25,
+    "total_questions": 26,
     "max_score": 210,
     "estimated_time_minutes": 8,
     "language": "bg"
@@ -327,7 +327,7 @@
     },
     {
       "id": "mus_smoking",
-      "number": 12,
+      "number": 13,
       "section": "lifestyle",
       "question": "Пушите ли?",
       "description": "Тютюнопушенето влошава кръвообращението и възстановяването, което пречи на мускулния растеж.",
@@ -364,7 +364,7 @@
     },
     {
       "id": "mus_alcohol",
-      "number": 13,
+      "number": 14,
       "section": "lifestyle",
       "question": "Колко често консумирате алкохол?",
       "description": "Редовната консумация на алкохол намалява тестостерона и пречи на възстановяването.",
@@ -401,7 +401,7 @@
     },
     {
       "id": "mus_sleep_hours",
-      "number": 14,
+      "number": 15,
       "section": "sleep_recovery",
       "question": "Колко часа спите средно на денонощие?",
       "description": "7-9 часа качествен сън са критични за производството на тестостерон и мускулното възстановяване.",
@@ -441,7 +441,7 @@
     },
     {
       "id": "mus_transition_habits",
-      "number": 15,
+      "number": 16,
       "section": "lifestyle",
       "question": "Благодаря Ви за откровеността.",
       "description": "Вече имаме ясна картина на Вашето ежедневие и как то влияе на потенциала Ви за мускулен растеж.",
@@ -461,16 +461,6 @@
           "text": "Навиците Ви са на солидно ниво. Но ако все още изпитвате проблеми с мускулния растеж, това означава, че причината може да не е в начина на живот, а в по-дълбок хормонален дисбаланс или неефективна тренировъчна стратегия."
         }
       ]
-    },
-    {
-      "id": "mus_transition_symptoms",
-      "number": 16,
-      "section": "symptoms",
-      "question": "Благодаря за откровеността.",
-      "description": "Нека сега да навлезем по-дълбоко в симптомите които изпитвате.",
-      "type": "transition_message",
-      "required": false,
-      "dynamic_copy": []
     },
     {
       "id": "mus_training_frequency",
@@ -506,7 +496,7 @@
     },
     {
       "id": "mus_progress_rating",
-      "number": 17,
+      "number": 18,
       "section": "symptoms",
       "question": "Как бихте оценили прогреса си в мускулна маса и сила през последните 6 месеца?",
       "description": "Важен индикатор за ефективността на тренировъчния и хранителен план.",
@@ -547,7 +537,7 @@
     },
     {
       "id": "mus_frustration",
-      "number": 18,
+      "number": 19,
       "section": "symptoms",
       "question": "Кое Ви разочарова най-много, свързано с Вашата мускулна маса?",
       "description": "",
@@ -578,7 +568,7 @@
     },
     {
       "id": "mus_change_one_thing",
-      "number": 19,
+      "number": 20,
       "section": "symptoms",
       "question": "Ако можехте да промените едно нещо във физиката си, какво би било то?",
       "description": "",
@@ -609,7 +599,7 @@
     },
     {
       "id": "mus_transition_social_proof",
-      "number": 20,
+      "number": 21,
       "section": "symptoms",
       "question": "Разбирам. Не сте сам в това.",
       "description": "Хиляди мъже в България преминават през същото – и намират решение.",
@@ -628,7 +618,7 @@
     },
     {
       "id": "mus_tried_solutions",
-      "number": 21,
+      "number": 22,
       "section": "context",
       "question": "Опитвали ли сте вече някакви решения за подобряване на мускулната маса?",
       "description": "",
@@ -659,7 +649,7 @@
     },
     {
       "id": "mus_important_factor",
-      "number": 22,
+      "number": 23,
       "section": "context",
       "question": "Какво е най-важно за Вас при избора на решение?",
       "description": "",
@@ -690,7 +680,7 @@
     },
     {
       "id": "mus_vision",
-      "number": 23,
+      "number": 24,
       "section": "context",
       "question": "Представете си, че след 30 дни проблемът е напълно решен. Как изглежда животът Ви?",
       "description": "",

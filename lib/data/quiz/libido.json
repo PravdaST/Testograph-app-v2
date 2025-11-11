@@ -3,7 +3,7 @@
     "category": "libido",
     "category_name": "Либидо и Сексуално Здраве",
     "version": "2.1",
-    "total_questions": 25,
+    "total_questions": 26,
     "max_score": 210,
     "estimated_time_minutes": 8,
     "language": "bg"
@@ -327,7 +327,7 @@
     },
     {
       "id": "lib_smoking",
-      "number": 12,
+      "number": 13,
       "section": "lifestyle",
       "question": "Пушите ли?",
       "description": "Тютюнопушенето влошава кръвообращението и директно потиска еректилната функция.",
@@ -364,7 +364,7 @@
     },
     {
       "id": "lib_alcohol",
-      "number": 13,
+      "number": 14,
       "section": "lifestyle",
       "question": "Колко често консумирате алкохол?",
       "description": "Редовната консумация на алкохол намалява тестостерона и увеличава естрогена.",
@@ -401,7 +401,7 @@
     },
     {
       "id": "lib_sleep_hours",
-      "number": 14,
+      "number": 15,
       "section": "sleep_recovery",
       "question": "Колко часа спите средно на денонощие?",
       "description": "7-9 часа качествен сън са критични за производството на тестостерон и либидото.",
@@ -441,7 +441,7 @@
     },
     {
       "id": "lib_transition_habits",
-      "number": 15,
+      "number": 16,
       "section": "lifestyle",
       "question": "Благодаря Ви за откровеността.",
       "description": "Вече имаме ясна картина на Вашето ежедневие и как то влияе на тялото Ви.",
@@ -461,16 +461,6 @@
           "text": "Навиците Ви са на солидно ниво. Ако все още изпитвате проблеми с представянето, това означава, че причината може да не е в начина на живот, а в по-дълбок хормонален дисбаланс."
         }
       ]
-    },
-    {
-      "id": "lib_transition_symptoms",
-      "number": 16,
-      "section": "symptoms",
-      "question": "Благодаря за откровеността.",
-      "description": "Нека сега да навлезем по-дълбоко в симптомите които изпитвате.",
-      "type": "transition_message",
-      "required": false,
-      "dynamic_copy": []
     },
     {
       "id": "lib_sex_frequency",
@@ -505,7 +495,7 @@
     },
     {
       "id": "lib_morning_erections",
-      "number": 17,
+      "number": 18,
       "section": "symptoms",
       "question": "Какви са сутрешните Ви ерекции?",
       "description": "Важен индикатор за здравословни нива на тестостерон и добро кръвообращение.",
@@ -546,7 +536,7 @@
     },
     {
       "id": "lib_frustration",
-      "number": 18,
+      "number": 19,
       "section": "symptoms",
       "question": "Кое Ви разочарова най-много в момента?",
       "description": "",
@@ -577,7 +567,7 @@
     },
     {
       "id": "lib_change_one_thing",
-      "number": 19,
+      "number": 20,
       "section": "symptoms",
       "question": "Ако можехте да промените едно нещо в сексуалния си живот, какво би било то?",
       "description": "",
@@ -608,7 +598,7 @@
     },
     {
       "id": "lib_transition_social_proof",
-      "number": 20,
+      "number": 21,
       "section": "symptoms",
       "question": "Разбирам. Не сте сам в това.",
       "description": "Хиляди мъже в България преминават през същото – и намират решение.",
@@ -627,7 +617,7 @@
     },
     {
       "id": "lib_tried_solutions",
-      "number": 21,
+      "number": 22,
       "section": "context",
       "question": "Опитвали ли сте вече някакви решения за подобряване на либидото/ерекцията?",
       "description": "",
@@ -658,7 +648,7 @@
     },
     {
       "id": "lib_important_factor",
-      "number": 22,
+      "number": 23,
       "section": "context",
       "question": "Какво е най-важно за Вас при избора на решение?",
       "description": "",
@@ -689,7 +679,7 @@
     },
     {
       "id": "lib_vision",
-      "number": 23,
+      "number": 24,
       "section": "context",
       "question": "Представете си, че след 30 дни проблемът е напълно решен. Как изглежда животът Ви?",
       "description": "",
