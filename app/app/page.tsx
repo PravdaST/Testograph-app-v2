@@ -821,6 +821,27 @@ export default function DashboardPage() {
           )}
         </div>
 
+        {/* Progress Button */}
+        <Link
+          href="/app/progress"
+          className="block bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-2xl p-5 border-2 border-primary/30 hover:scale-[1.02] hover:border-primary/50 transition-all group"
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <TrendingUp className="w-6 h-6 text-primary" />
+              </div>
+              <div>
+                <h3 className="font-bold text-lg">Виж твоя прогрес</h3>
+                <p className="text-sm text-muted-foreground">
+                  Графики на силовото развитие
+                </p>
+              </div>
+            </div>
+            <ArrowRight className="w-5 h-5 text-primary group-hover:translate-x-1 transition-transform" />
+          </div>
+        </Link>
+
         {/* Today's Checklist */}
         <div className="bg-background rounded-2xl p-5 border border-border">
           <h2 className="font-bold mb-4">Днешни задачи</h2>
