@@ -6,9 +6,10 @@
  */
 
 import { useState, useEffect } from 'react'
-import { TrendingUp, Calendar, Dumbbell, ArrowLeft } from 'lucide-react'
+import { TrendingUp, Calendar, Dumbbell } from 'lucide-react'
 import Link from 'next/link'
 import { ExerciseProgressChart } from '@/components/workout/ExerciseProgressChart'
+import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 
 interface ExerciseSummary {
@@ -17,8 +18,23 @@ interface ExerciseSummary {
   last_workout_date: string
 }
 
+interface UserProgram {
+  category: 'energy' | 'libido' | 'muscle'
+  level: string
+  first_name?: string
+  profile_picture_url?: string
+}
+
+const CATEGORY_NAMES = {
+  energy: 'Енергия и Виталност',
+  libido: 'Либидо и Сексуално здраве',
+  muscle: 'Мускулна маса и сила',
+}
+
 export default function ProgressPage() {
   const [email, setEmail] = useState<string | null>(null)
+  const [userProgram, setUserProgram] = useState<UserProgram | null>(null)
+  const [userName, setUserName] = useState<string>()
   const [exercises, setExercises] = useState<ExerciseSummary[]>([])
   const [selectedExercise, setSelectedExercise] = useState<string | null>(null)
   const [timeRange, setTimeRange] = useState<30 | 90 | 180>(90)
@@ -30,6 +46,29 @@ export default function ProgressPage() {
       const storedEmail = localStorage.getItem('quizEmail')
       setEmail(storedEmail)
     }
+  }, [])
+
+  // Load user program
+  useEffect(() => {
+    const loadUserProgram = async () => {
+      const email = localStorage.getItem('quizEmail')
+      if (!email) return
+
+      try {
+        const response = await fetch(`/api/user/program?email=${encodeURIComponent(email)}`)
+        if (response.ok) {
+          const data = await response.json()
+          setUserProgram(data.program)
+          if (data.program?.first_name) {
+            setUserName(data.program.first_name)
+          }
+        }
+      } catch (error) {
+        console.error('Error loading user program:', error)
+      }
+    }
+
+    loadUserProgram()
   }, [])
 
   useEffect(() => {
@@ -62,9 +101,14 @@ export default function ProgressPage() {
     fetchExercises()
   }, [email])
 
+  const programName = userProgram
+    ? CATEGORY_NAMES[userProgram.category]
+    : 'Зареждане...'
+
   if (!email) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-muted/20">
+        <TopNav programName="Зареждане..." userName={userName} />
         <div className="text-center">
           <p className="text-muted-foreground">Зареждане...</p>
         </div>
@@ -74,22 +118,19 @@ export default function ProgressPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 pb-20">
+      {/* Top Navigation */}
+      <TopNav
+        programName={programName}
+        userName={userName}
+        profilePictureUrl={userProgram?.profile_picture_url}
+      />
+
       {/* Header */}
-      <div className="bg-primary text-white p-6 sticky top-0 z-10 shadow-lg">
-        <div className="flex items-center gap-4 mb-4">
-          <Link
-            href="/app"
-            className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors"
-          >
-            <ArrowLeft className="w-5 h-5" />
-          </Link>
-          <div>
-            <h1 className="text-2xl font-bold">Твоят прогрес</h1>
-            <p className="text-sm text-white/80">
-              Проследи силовото си развитие
-            </p>
-          </div>
-        </div>
+      <div className="bg-primary text-white p-6">
+        <h1 className="text-2xl font-bold">Твоят прогрес</h1>
+        <p className="text-sm text-white/80 mb-4">
+          Проследи силовото си развитие
+        </p>
 
         {/* Time Range Selector */}
         <div className="flex gap-2">

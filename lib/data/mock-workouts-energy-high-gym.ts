@@ -132,12 +132,12 @@ export const ENERGY_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '1ZFqTDN',
-        name_bg: 'Assault bike (охлаждане)',
+        name_bg: 'Охлаждане на Assault Bike',
         name_en: 'assault bike cool down',
         sets: 1,
         reps: '5 мин',
         rest_seconds: 0,
-        notes: 'Умерено темпо',
+        notes: 'Плавно намаляване на темпото',
       },
     ],
   },
@@ -258,12 +258,12 @@ export const ENERGY_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: '1ZFqTDN',
-        name_bg: 'Assault bike (загряване)',
+        name_bg: 'Загрявка на Assault Bike',
         name_en: 'assault bike warm-up',
         sets: 1,
         reps: '5 мин',
         rest_seconds: 0,
-        notes: 'Постепенно увеличаване',
+        notes: 'Постепенно увеличаване на интензивността',
       },
       {
         exercisedb_id: 'SGY8Zui',
@@ -321,7 +321,7 @@ export const ENERGY_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'rjtuP6X',
-        name_bg: 'Елиптична машина',
+        name_bg: 'Кростренажор (Елиптикал)',
         name_en: 'elliptical',
         sets: 1,
         reps: '20 мин',
@@ -330,16 +330,16 @@ export const ENERGY_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'YUYAMEj',
-        name_bg: 'Фоам ролер',
+        name_bg: 'Разпускане с фоумролер',
         name_en: 'foam rolling',
         sets: 1,
         reps: '10 мин',
         rest_seconds: 0,
-        notes: 'Всички мускулни групи',
+        notes: 'За всички основни мускулни групи',
       },
       {
         exercisedb_id: '1jXLYEw',
-        name_bg: 'Стречинг',
+        name_bg: 'Статично разтягане',
         name_en: 'stretching',
         sets: 1,
         reps: '10 мин',

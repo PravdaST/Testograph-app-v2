@@ -357,12 +357,12 @@ export const ENERGY_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'bWlZvXh',
-        name_bg: 'Йога флоу',
+        name_bg: 'Йога за разпускане',
         name_en: 'yoga flow',
         sets: 1,
         reps: '15 мин',
         rest_seconds: 0,
-        notes: 'Стречинг и мобилност',
+        notes: 'Стречинг и мобилност за възстановяване',
       },
       {
         exercisedb_id: 'VBAWRPG',
