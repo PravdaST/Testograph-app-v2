@@ -86,7 +86,7 @@ export default function ResultsPage() {
 
   // Shopify prefilled cart links
   const sampleCartUrl = `https://shop.testograph.eu/cart/62500534092125:1?attributes[email]=${encodeURIComponent(email)}${userName ? `&attributes[name]=${encodeURIComponent(userName)}` : ''}`
-  const fullCartUrl = `https://shop.testograph.eu/checkouts/cn/hWN5AxOe7Ez74iabbczZBwSR/en-bg?_r=AQABm6N-zrCnZALm3rN6tq1O-k_4w5XiFYeK8o_H5jMsT6E&auto_redirect=false&edge_redirect=true&preview_theme_id=188849914205&skip_shop_pay=true`
+  const fullCartUrl = `https://shop.testograph.eu/cart/58614184051037:3?discount=QuizzOff38&attributes[email]=${encodeURIComponent(email)}${userName ? `&attributes[name]=${encodeURIComponent(userName)}` : ''}`
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset">
@@ -255,21 +255,21 @@ export default function ResultsPage() {
               <div className="border-2 border-primary rounded-xl p-4 bg-primary/5">
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <h4 className="font-bold text-lg">3 месеца TestoUP</h4>
+                    <h4 className="font-bold text-lg">3x TestoUP бутилки</h4>
                     <p className="text-sm text-muted-foreground">90 дни пълна програма</p>
                     <p className="text-sm mt-1">
                       <span className="line-through text-muted-foreground">201 лв</span>{' '}
-                      <span className="font-bold text-primary">159 лв</span>
+                      <span className="font-bold text-primary">124.62 лв</span>
                     </p>
                   </div>
                   <div className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-bold">
-                    -21%
+                    -38%
                   </div>
                 </div>
                 <a href={fullCartUrl} target="_blank" rel="noopener noreferrer">
                   <Button size="lg" fullWidth className="group">
                     <ShoppingCart className="w-5 h-5 mr-2" />
-                    Вземи за 159 лв (спести 42 лв)
+                    Вземи за 124.62 лв (спести 76.38 лв)
                   </Button>
                 </a>
               </div>
