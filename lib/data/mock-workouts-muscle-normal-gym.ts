@@ -102,7 +102,7 @@ export const MUSCLE_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'Qqi7bko',
-        name_bg: 'Лост широк захват',
+        name_bg: 'Набирания с широк хват',
         name_en: 'wide grip pull-up',
         sets: 4,
         reps: '8-12',
@@ -120,7 +120,7 @@ export const MUSCLE_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'fUBheHs',
-        name_bg: 'Гребане на кабел седнал',
+        name_bg: 'Гребане на долен скрипец',
         name_en: 'seated cable row',
         sets: 3,
         reps: '12-15',
@@ -129,7 +129,7 @@ export const MUSCLE_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '25GPyDY',
-        name_bg: 'Къдрене със щанга',
+        name_bg: 'Бицепсово сгъване с щанга',
         name_en: 'barbell curl',
         sets: 4,
         reps: '10-12',
@@ -138,7 +138,7 @@ export const MUSCLE_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'W74bXnw',
-        name_bg: 'Къдрене с дъмбели на пейка',
+        name_bg: 'Бицепсово сгъване с дъмбели от полулег',
         name_en: 'incline dumbbell curl',
         sets: 3,
         reps: '12-15',
@@ -147,7 +147,7 @@ export const MUSCLE_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'slDvUAU',
-        name_bg: 'Чук къдрене',
+        name_bg: 'Чуково сгъване с дъмбели',
         name_en: 'hammer curl',
         sets: 3,
         reps: '12-15',

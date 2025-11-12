@@ -8,7 +8,7 @@
 import { useState, useEffect } from 'react'
 import { TrendingUp, Calendar, Dumbbell } from 'lucide-react'
 import Link from 'next/link'
-import { ExerciseProgressChart } from '@/components/workout/ExerciseProgressChart'
+import { ExerciseProgressChartLazy } from '@/components/workout/ExerciseProgressChartLazy'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { useUserProgram } from '@/contexts/UserProgramContext'
@@ -198,7 +198,7 @@ export default function ProgressPage() {
                   <TrendingUp className="w-5 h-5" />
                   График на прогреса
                 </h2>
-                <ExerciseProgressChart
+                <ExerciseProgressChartLazy
                   exerciseName={selectedExercise}
                   email={email}
                   days={timeRange}
