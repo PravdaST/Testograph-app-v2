@@ -14,6 +14,7 @@ import { FeedbackModal } from '@/components/feedback/FeedbackModal'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { createClient } from '@/lib/supabase/client'
+import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
 import { Target, TrendingUp, Utensils, Dumbbell, Moon, Pill, Award, CheckCircle2, ArrowRight, Calendar, Info, X } from 'lucide-react'
 import Link from 'next/link'
 import confetti from 'canvas-confetti'
@@ -73,6 +74,10 @@ export default function DashboardPage() {
 
   // Tooltip state
   const [activeTooltip, setActiveTooltip] = useState<'meals' | 'workouts' | 'sleep' | 'testoup' | 'quiz' | 'today' | 'program' | 'calendar' | null>(null)
+
+  // Weekly completion hook
+  const email = typeof window !== 'undefined' ? localStorage.getItem('quizEmail') : null
+  const { completedDates } = useWeeklyCompletion(selectedDate, email)
 
   // Check if feedback is due
   const checkFeedbackDue = async (email: string, startDate: Date) => {
@@ -774,6 +779,7 @@ export default function DashboardPage() {
             programStartDate={programStartDate}
             selectedDate={selectedDate}
             onDateSelect={setSelectedDate}
+            completedDates={completedDates}
           />
           <button
             onClick={(e) => {
