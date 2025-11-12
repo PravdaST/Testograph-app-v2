@@ -8,6 +8,7 @@ import {
   findSubstitution,
   type Substitution,
 } from '@/lib/data/dietary-substitutions'
+import type { Recipe } from '@/lib/types/recipe'
 
 /**
  * Ingredient structure from meal plans
@@ -46,6 +47,7 @@ export interface SubstitutedMeal {
   carbs: number
   fats: number
   ingredients: SubstitutedIngredient[]
+  recipe?: Recipe
   /** Total number of ingredients substituted */
   substitution_count: number
   /** Whether the meal name was updated */

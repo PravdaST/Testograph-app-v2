@@ -214,7 +214,15 @@ export default function NutritionPage() {
   const dietaryPreference = userProgram.dietary_preference || 'omnivor'
   const mealsForDay: SubstitutedMeal[] = dietaryPreference !== 'omnivor'
     ? applyDaySubstitutions(originalMeals, dietaryPreference)
-    : originalMeals as SubstitutedMeal[] // Cast to SubstitutedMeal[] when omnivor (no substitutions needed)
+    : originalMeals.map(meal => ({
+        ...meal,
+        substitution_count: 0,
+        name_updated: false,
+        ingredients: meal.ingredients.map(ing => ({
+          ...ing,
+          substituted: false
+        }))
+      }))
 
   const dateKey = selectedDate.toISOString().split('T')[0]
   const completedToday = completedMeals[dateKey] || []
