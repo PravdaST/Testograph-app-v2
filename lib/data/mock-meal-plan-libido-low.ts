@@ -5,6 +5,8 @@
  * Calories: 2000-2200 | Protein: 130-140g | Carbs: 180-200g | Fats: 75-85g
  */
 
+import { createRecipe } from '@/lib/types/recipe'
+
 export const LIBIDO_LOW_MEAL_PLAN = {
   program_id: 'libido-low',
   program_name: 'Либидо и Тестостерон - Начално ниво',
@@ -28,6 +30,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Пълнозърнест хляб', quantity: '2 филии', calories: 156 },
             { name: 'Домати', quantity: '50г', calories: 9 },
           ],
+          recipe: createRecipe(['Разбийте яйцата в купичка.', 'Загрейте тиган със зехтин на среден огън.', 'Изсипете яйцата и гответе 3-4 минути, докато стегнат.', 'През това време нарежете авокадото и доматите.', 'Препечете филийките хляб.', 'Сервирайте яйцата върху препечения хляб, гарнирани с авокадо и домати.'], 5, 5, 'easy'),
         },
         {
           meal_number: 2,
@@ -41,6 +44,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Микс ядки', quantity: '30г', calories: 180 },
             { name: 'Тъмен шоколад 85%', quantity: '20г', calories: 120 },
           ],
+          recipe: createRecipe(['Изсипете ядките в купичка.', 'Начупете тъмния шоколад на парченца.', 'Комбинирайте ядките с шоколада за бърза и енергийна закуска.'], 2, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -56,6 +60,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Броколи', quantity: '150г', calories: 51 },
             { name: 'Зехтин', quantity: '1 с.л.', calories: 119 },
           ],
+          recipe: createRecipe(['Сварете киноата според инструкциите на опаковката.', 'Нарежете говеждото месо на парченца.', 'Загрейте тиган със зехтин и запържете месото за 6-8 минути.', 'Сварете броколите на пара за 5 минути.', 'Сервирайте всичко заедно.'], 8, 20, 'easy'),
         },
         {
           meal_number: 4,
@@ -70,6 +75,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Тиквени семки', quantity: '20г', calories: 114 },
             { name: 'Мед', quantity: '1 ч.л.', calories: 21 },
           ],
+          recipe: createRecipe(['Изсипете изварата в купичка.', 'Поръсете с тиквените семки.', 'Полейте с меда и се насладете.'], 2, 0, 'easy'),
         },
         {
           meal_number: 5,
@@ -85,6 +91,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Спанак', quantity: '100г', calories: 23 },
             { name: 'Зехтин', quantity: '1 с.л.', calories: 119 },
           ],
+          recipe: createRecipe(['Загрейте фурната на 200°C.', 'Обелете и нарежете сладкия картоф, след което го печете 25 минути.', 'Подправете сьомгата и я печете на 180°C за 15 минути със зехтин.', 'Сгответе спанака на пара за 3-4 минути.', 'Сервирайте всичко заедно.'], 8, 30, 'easy'),
         },
       ],
     },
@@ -108,6 +115,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Пълнозърнест хляб', quantity: '2 филии', calories: 156 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Нарежете гъбите.', 'Загрейте тиган със зехтин и ги запържете за 3-4 минути.', 'Разбийте яйцата и ги изсипете в тигана.', 'Настържете сиренето отгоре и гответе омлета за 3-4 минути.', 'Препечете хляба и сервирайте заедно.'], 5, 7, 'easy'),
         },
         {
           meal_number: 2,
@@ -121,6 +129,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Банан', quantity: '1 бр', calories: 105 },
             { name: 'Бадемово масло', quantity: '2 с.л.', calories: 159 },
           ],
+          recipe: createRecipe(['Обелете банана и го нарежете на кръгчета.', 'Намажете всяко кръгче с бадемово масло.', 'Бърза и вкусна закуска!'], 2, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -136,6 +145,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Аспержи', quantity: '150г', calories: 30 },
             { name: 'Зехтин', quantity: '1 с.л.', calories: 119 },
           ],
+          recipe: createRecipe(['Сварете кафявия ориз според инструкциите.', 'Запържете пилешките гърди в зехтин за 8-10 минути.', 'Сварете аспержите на пара за 5-6 минути.', 'Сервирайте всичко заедно.'], 8, 20, 'easy'),
         },
         {
           meal_number: 4,
@@ -151,6 +161,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Ленено семе', quantity: '10г', calories: 54 },
             { name: 'Мед', quantity: '1 ч.л.', calories: 21 },
           ],
+          recipe: createRecipe(['Изсипете киселото мляко в купичка.', 'Натрошете орехите и ги поръсете заедно с лененото семе.', 'Полейте с меда и разбъркайте.'], 3, 0, 'easy'),
         },
         {
           meal_number: 5,
@@ -166,6 +177,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Чушки', quantity: '100г', calories: 31 },
             { name: 'Зехтин', quantity: '1 с.л.', calories: 119 },
           ],
+          recipe: createRecipe(['Нарежете зеленчуците и ги полейте със зехтин.', 'Изпечете зеленчуците за 20 минути на 200°C.', 'Загрейте тиган и запържете стека за 4-5 минути от всяка страна.', 'Сервирайте стека с печените зеленчуци.'], 8, 25, 'easy'),
         },
       ],
     },
@@ -188,6 +200,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Орехи', quantity: '15г', calories: 98 },
             { name: 'Мед', quantity: '1 ч.л.', calories: 21 },
           ],
+          recipe: createRecipe(['Изсипете овесените ядки в купичка и ги залейте с гореща вода или мляко.', 'Оставете ги да набъбнат за 3-4 минути.', 'През това време нарежете банана и натрошете орехите.', 'Поръсете с плодовете и ядките и полейте с меда.'], 5, 5, 'easy'),
         },
         {
           meal_number: 2,
@@ -201,6 +214,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Бразилски орехи', quantity: '20г', calories: 132 },
             { name: 'Фурми', quantity: '40г', calories: 111 },
           ],
+          recipe: createRecipe(['Изсипете орехите и фурмите в купичка.', 'Бърза и енергийна закуска!'], 1, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -216,6 +230,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Спанак', quantity: '150г', calories: 35 },
             { name: 'Зехтин', quantity: '1 с.л.', calories: 119 },
           ],
+          recipe: createRecipe(['Сварете булгура според инструкциите на опаковката.', 'Запържете пуешкото месо в зехтин за 8-10 минути.', 'Сгответе спанака за 2-3 минути.', 'Сервирайте всичко заедно.'], 8, 18, 'easy'),
         },
         {
           meal_number: 4,
@@ -230,6 +245,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Бадеми', quantity: '20г', calories: 116 },
             { name: 'Мед', quantity: '1 с.л.', calories: 64 },
           ],
+          recipe: createRecipe(['Изсипете изварата в купичка.', 'Натрошете бадемите и ги поръсете отгоре.', 'Полейте с меда и се насладете.'], 3, 0, 'easy'),
         },
         {
           meal_number: 5,
@@ -245,6 +261,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Моркови', quantity: '100г', calories: 41 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Нарежете картофите и морковите и ги полейте със зехтин.', 'Изпечете зеленчуците за 25 минути на 200°C.', 'Запържете скумрията за 6-7 минути от всяка страна.', 'Сервирайте рибата с печените зеленчуци.'], 8, 30, 'easy'),
         },
       ],
     },
@@ -267,6 +284,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Пуешки бекон', quantity: '2 филии', calories: 70 },
             { name: 'Пълнозърнест хляб', quantity: '2 филии', calories: 156 },
           ],
+          recipe: createRecipe(['Загрейте тиган и запържете бекона за 3-4 минути.', 'Счупете яйцата в тигана и ги оставете да се сготвят за 3-4 минути.', 'През това време нарежете авокадото и препечете хляба.', 'Сервирайте всичко заедно.'], 5, 8, 'easy'),
         },
         {
           meal_number: 2,
@@ -280,6 +298,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Ябълка', quantity: '1 бр', calories: 95 },
             { name: 'Кашу', quantity: '30г', calories: 165 },
           ],
+          recipe: createRecipe(['Нарежете ябълката на филийки.', 'Намажете всяка филийка с кашу.', 'Бърза и лесна закуска!'], 3, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -295,6 +314,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Броколи', quantity: '100г', calories: 34 },
             { name: 'Масло', quantity: '5г', calories: 36 },
           ],
+          recipe: createRecipe(['Сварете картофите и направете пюре с маслото.', 'Запържете кюфтетата за 10-12 минути.', 'Сварете броколите на пара за 5 минути.', 'Сервирайте всичко заедно.'], 10, 20, 'easy'),
         },
         {
           meal_number: 4,
@@ -309,6 +329,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Тиквени семки', quantity: '20г', calories: 114 },
             { name: 'Мед', quantity: '2 ч.л.', calories: 42 },
           ],
+          recipe: createRecipe(['Изсипете киселото мляко в купичка.', 'Поръсете с тиквените семки и полейте с меда.'], 2, 0, 'easy'),
         },
         {
           meal_number: 5,
@@ -324,6 +345,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Аспержи', quantity: '150г', calories: 30 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Сварете киноата според инструкциите.', 'Изпечете сьомгата за 15 минути на 180°C със зехтин.', 'Сварете аспержите на пара за 6 минути.', 'Сервирайте всичко заедно.'], 8, 20, 'easy'),
         },
       ],
     },
@@ -347,6 +369,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Пълнозърнест хляб', quantity: '2 филии', calories: 156 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Нарежете спанака.', 'Загрейте тиган със зехтин и го запържете за 2 минути.', 'Разбийте яйцата и ги изсипете в тигана.', 'Настържете сиренето отгоре и гответе омлета за 3-4 минути.', 'Препечете хляба и сервирайте заедно.'], 5, 7, 'easy'),
         },
         {
           meal_number: 2,
@@ -360,6 +383,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Банан', quantity: '1 бр', calories: 105 },
             { name: 'Орехи', quantity: '20г', calories: 131 },
           ],
+          recipe: createRecipe(['Обелете банана и го нарежете на филийки.', 'Натрошете орехите и ги поръсете отгоре.', 'Бърза и лесна закуска!'], 2, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -375,6 +399,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Зелена салата', quantity: '100г', calories: 15 },
             { name: 'Зехтин', quantity: '1 с.л.', calories: 119 },
           ],
+          recipe: createRecipe(['Сварете ориза според инструкциите.', 'Запържете пилешкия дроб в зехтин за 8-10 минути.', 'Накълцайте салатата и я овкусете със зехтин.', 'Сервирайте всичко заедно.'], 8, 15, 'easy'),
         },
         {
           meal_number: 4,
@@ -390,6 +415,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Боровинки', quantity: '60г', calories: 34 },
             { name: 'Мед', quantity: '1 ч.л.', calories: 21 },
           ],
+          recipe: createRecipe(['Изсипете изварата в купичка.', 'Поръсете с лененото семе и боровинките.', 'Полейте с меда и разбъркайте.'], 2, 0, 'easy'),
         },
         {
           meal_number: 5,
@@ -405,6 +431,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Картофи', quantity: '100г', calories: 77 },
             { name: 'Зехтин', quantity: '1 с.л.', calories: 119 },
           ],
+          recipe: createRecipe(['Нарежете телешкото месо.', 'Загрейте тиган със зехтин и запържете месото за 10-12 минути.', 'Сварете зеления фасул и картофите за 15 минути.', 'Сервирайте всичко заедно.'], 8, 20, 'easy'),
         },
       ],
     },
@@ -426,6 +453,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Авокадо', quantity: '1 бр', calories: 320 },
             { name: 'Пълнозърнест хляб', quantity: '2 филии', calories: 156 },
           ],
+          recipe: createRecipe(['Препечете филийките хляб.', 'Сварете яйцата "поширани" за 3-4 минути.', 'През това време нарежете авокадото.', 'Сложете авокадото върху хляба и поставете яйцата отгоре.', 'Сервирайте веднага.'], 5, 5, 'easy'),
         },
         {
           meal_number: 2,
@@ -439,6 +467,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Микс ядки', quantity: '40г', calories: 240 },
             { name: 'Тъмен шоколад', quantity: '15г', calories: 90 },
           ],
+          recipe: createRecipe(['Изсипете ядките в купичка.', 'Начупете тъмния шоколад на парченца и го добавете.', 'Бърза и лесна закуска!'], 1, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -454,6 +483,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Броколи', quantity: '150г', calories: 51 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Сварете кафявия ориз според инструкциите.', 'Запържете говеждото месо в зехтин за 8-10 минути.', 'Сварете броколите на пара за 5 минути.', 'Сервирайте всичко заедно.'], 8, 20, 'easy'),
         },
         {
           meal_number: 4,
@@ -468,6 +498,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Орехи', quantity: '25г', calories: 164 },
             { name: 'Мед', quantity: '1 ч.л.', calories: 21 },
           ],
+          recipe: createRecipe(['Изсипете киселото мляко в купичка.', 'Натрошете орехите и ги поръсете отгоре.', 'Полейте с меда и се насладете.'], 2, 0, 'easy'),
         },
         {
           meal_number: 5,
@@ -483,6 +514,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Зелена салата', quantity: '100г', calories: 15 },
             { name: 'Зехтин', quantity: '1 с.л.', calories: 119 },
           ],
+          recipe: createRecipe(['Нарежете картофите и ги изпечете за 25 минути на 200°C.', 'Запържете сардините за 5-6 минути от всяка страна.', 'Накълцайте салатата и я овкусете със зехтин.', 'Сервирайте всичко заедно.'], 8, 30, 'easy'),
         },
       ],
     },
@@ -505,6 +537,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Банан', quantity: '1 бр', calories: 105 },
             { name: 'Мед', quantity: '1 ч.л.', calories: 21 },
           ],
+          recipe: createRecipe(['Смелете овесените ядки на брашно.', 'Разбийте яйцата и ги смесете с овесеното брашно.', 'Разбъркайте добре до хомогенна смес.', 'Загрейте тиган и изпечете палачинките.', 'Нарежете банана и сервирайте с него и меда.'], 5, 10, 'easy'),
         },
         {
           meal_number: 2,
@@ -518,6 +551,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Бадеми', quantity: '25г', calories: 145 },
             { name: 'Лешници', quantity: '20г', calories: 126 },
           ],
+          recipe: createRecipe(['Изсипете ядките в купичка.', 'Бърза и лесна закуска!'], 1, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -534,6 +568,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Чушки', quantity: '100г', calories: 31 },
             { name: 'Зехтин', quantity: '1 с.л.', calories: 119 },
           ],
+          recipe: createRecipe(['Сварете киноата според инструкциите.', 'Нарежете зеленчуците и ги изпечете за 20 минути на 200°C.', 'Запържете пуешкото месо за 8-10 минути.', 'Сервирайте всичко заедно.'], 10, 25, 'easy'),
         },
         {
           meal_number: 4,
@@ -548,6 +583,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Тиквени семки', quantity: '15г', calories: 86 },
             { name: 'Мед', quantity: '1 ч.л.', calories: 21 },
           ],
+          recipe: createRecipe(['Изсипете изварата в купичка.', 'Поръсете с тиквените семки и полейте с меда.'], 2, 0, 'easy'),
         },
         {
           meal_number: 5,
@@ -563,6 +599,7 @@ export const LIBIDO_LOW_MEAL_PLAN = {
             { name: 'Спанак', quantity: '100г', calories: 23 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Нарежете и изпечете сладкия картоф за 25 минути на 200°C.', 'Изпечете сьомгата за 15 минути на 180°C.', 'Сгответе спанака за 2-3 минути.', 'Сервирайте всичко заедно.'], 8, 30, 'easy'),
         },
       ],
     },

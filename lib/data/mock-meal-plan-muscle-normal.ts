@@ -4,6 +4,8 @@
  * Calories: 2600-2800 | Protein: 200-220g | Carbs: 280-300g | Fats: 80-90g
  */
 
+import { createRecipe } from '@/lib/types/recipe'
+
 export const MUSCLE_NORMAL_MEAL_PLAN = {
   program_id: 'muscle',
   program_name: 'Мускулна маса и сила',
@@ -28,6 +30,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Банан', quantity: '1 бр', calories: 105 },
             { name: 'Бадеми', quantity: '20г', calories: 116 },
           ],
+          recipe: createRecipe(['Сварете 350мл вода и добавете овесените ядки.', 'Гответе 6-7 минути на тих огън.', 'Свалете от котлона и добавете протеиновия прах, като разбъркате добре.', 'Сварете яйцата за 8 минути и ги обелете.', 'Нарежете банана, накълцайте бадемите и поръсете отгоре.'], 8, 8, 'easy'),
         },
         {
           meal_number: 2,
@@ -43,6 +46,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Мляко', quantity: '300мл', calories: 150 },
             { name: 'Банан', quantity: '1/2 бр', calories: 53 },
           ],
+          recipe: createRecipe(['Изсипете протеина и овесените ядки в шейкър.', 'Добавете нарязания банан и млякото.', 'Разбъркайте енергично за 30 секунди.', 'Готово за пиене!'], 3, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -58,6 +62,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Броколи', quantity: '150г', calories: 51 },
             { name: 'Зехтин', quantity: '1 с.л.', calories: 119 },
           ],
+          recipe: createRecipe(['Сварете ориза за 18 минути.', 'Загрейте тиган със зехтин и изпържете пилето за 6-7 минути от всяка страна.', 'Сварете броколите на пара за 5 минути.', 'Сервирайте всичко заедно.'], 7, 25, 'easy'),
         },
         {
           meal_number: 4,
@@ -73,6 +78,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Протеинов прах', quantity: '30г', calories: 120 },
             { name: 'Мляко', quantity: '200мл', calories: 100 },
           ],
+          recipe: createRecipe(['Препечете хляба и направете сандвич с пуешкото месо.', 'Изсипете протеина и млякото в шейкър и разбъркайте за 20 секунди.', 'Готово за хапване и пиене!'], 4, 3, 'easy'),
         },
         {
           meal_number: 5,
@@ -88,6 +94,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Салата', quantity: '150г', calories: 23 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Изпечете картофите на 180°C за 30 минути.', 'Загрейте тиган със зехтин и изпържете говеждото месо за 5-6 минути от всяка страна.', 'Накълцайте салатата и сервирайте всичко заедно.'], 6, 35, 'easy'),
         },
         {
           meal_number: 6,
@@ -102,6 +109,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Извара', quantity: '150г', calories: 195 },
             { name: 'Мед', quantity: '1 с.л.', calories: 64 },
           ],
+          recipe: createRecipe(['Сложете изварата в купичка.', 'Добавете казеиновия протеин и меда.', 'Разбъркайте добре.', 'Готово за хапване!'], 3, 0, 'easy'),
         },
       ],
     },
@@ -123,6 +131,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Сирене', quantity: '50г', calories: 144 },
             { name: 'Пълнозърнест хляб', quantity: '3 филии', calories: 234 },
           ],
+          recipe: createRecipe(['Разбийте яйцата в купа и добавете настърганото сирене.', 'Загрейте тиган и изсипете сместа.', 'Гответе 5-6 минути.', 'Препечете хляба и сервирайте заедно.'], 4, 8, 'easy'),
         },
         {
           meal_number: 2,
@@ -138,6 +147,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Мляко', quantity: '250мл', calories: 125 },
             { name: 'Орехи', quantity: '20г', calories: 131 },
           ],
+          recipe: createRecipe(['Сложете мюслито в купичка и добавете протеина.', 'Налейте млякото и поръсете с накълцаните орехи.', 'Разбъркайте и се насладете.'], 3, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -152,6 +162,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Пълнозърнести спагети', quantity: '150г сухи', calories: 525 },
             { name: 'Доматен сос', quantity: '100г', calories: 45 },
           ],
+          recipe: createRecipe(['Сварете пастата според инструкциите (10-12 минути).', 'Загрейте тиган и изпържете пуешкото месо за 6-7 минути.', 'Загрейте доматения сос.', 'Прецедете пастата и я смесете със соса и пуешкото.'], 5, 15, 'easy'),
         },
         {
           meal_number: 4,
@@ -167,6 +178,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Банан', quantity: '1.5 бр', calories: 158 },
             { name: 'Мляко', quantity: '250мл', calories: 125 },
           ],
+          recipe: createRecipe(['Нарежете бананите и ги сложете в блендер.', 'Добавете протеина, овесените ядки и млякото.', 'Блендирайте за 40-50 секунди.', 'Готово за пиене!'], 3, 1, 'easy'),
         },
         {
           meal_number: 5,
@@ -182,6 +194,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Аспержи', quantity: '150г', calories: 30 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Сварете киноата за 15 минути.', 'Загрейте фурната на 180°C и изпечете сьомгата за 18 минути.', 'Сварете аспержите на пара за 5 минути.', 'Полейте със зехтин и сервирайте всичко заедно.'], 6, 22, 'easy'),
         },
         {
           meal_number: 6,
@@ -196,6 +209,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Кисело мляко', quantity: '300г', calories: 180 },
             { name: 'Орехи', quantity: '20г', calories: 131 },
           ],
+          recipe: createRecipe(['Сложете киселото мляко в купичка и добавете казеиновия протеин.', 'Поръсете с накълцаните орехи и разбъркайте добре.'], 3, 0, 'easy'),
         },
       ],
     },
@@ -219,6 +233,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Боровинки', quantity: '100г', calories: 57 },
             { name: 'Мед', quantity: '2 с.л.', calories: 128 },
           ],
+          recipe: createRecipe(['Смелете овесените ядки на брашно.', 'Разбийте яйцата и ги смесете с овеса и протеина.', 'Разбъркайте добре.', 'Загрейте тиган и изпечете палачинките за 2-3 минути от всяка страна.', 'Подредете ги, поръсете с боровинки и полейте с мед.'], 8, 12, 'easy'),
         },
         {
           meal_number: 2,
@@ -234,6 +249,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Мляко', quantity: '250мл', calories: 125 },
             { name: 'Бадеми', quantity: '20г', calories: 116 },
           ],
+          recipe: createRecipe(['Сложете ориза в купичка и добавете протеина.', 'Налейте млякото и поръсете с накълцаните бадеми.', 'Разбъркайте и се насладете.'], 3, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -248,6 +264,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Картофено пюре', quantity: '300г', calories: 270 },
             { name: 'Масло', quantity: '10г', calories: 72 },
           ],
+          recipe: createRecipe(['Изпечете кюфтетата на 180°C за 25 минути.', 'Сварете картофите за 20 минути, обелете ги и ги направете на пюре с масло.', 'Сервирайте с кюфтетата.'], 8, 28, 'easy'),
         },
         {
           meal_number: 4,
@@ -263,6 +280,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Протеинов прах', quantity: '30г', calories: 120 },
             { name: 'Мляко', quantity: '200мл', calories: 100 },
           ],
+          recipe: createRecipe(['Препечете хляба и направете сандвич с пилешкото месо.', 'Изсипете протеина и млякото в шейкър и разбъркайте за 20 секунди.', 'Готово!'], 4, 3, 'easy'),
         },
         {
           meal_number: 5,
@@ -278,6 +296,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Зеленчуци', quantity: '200г', calories: 80 },
             { name: 'Зехтин', quantity: '1 с.л.', calories: 119 },
           ],
+          recipe: createRecipe(['Сварете булгура според инструкциите (12 минути).', 'Загрейте тиган със зехтин и изпържете рибата тон за 3-4 минути от всяка страна.', 'Задушете зеленчуците за 6-7 минути.', 'Сервирайте всичко заедно.'], 6, 18, 'easy'),
         },
         {
           meal_number: 6,
@@ -292,6 +311,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Извара', quantity: '200г', calories: 260 },
             { name: 'Мед', quantity: '1 с.л.', calories: 64 },
           ],
+          recipe: createRecipe(['Сложете изварата в купичка.', 'Добавете казеиновия протеин и меда.', 'Разбъркайте добре.'], 3, 0, 'easy'),
         },
       ],
     },
@@ -313,6 +333,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Авокадо', quantity: '1 цял', calories: 320 },
             { name: 'Пълнозърнест хляб', quantity: '3 филии', calories: 234 },
           ],
+          recipe: createRecipe(['Разбийте яйцата и ги сгответе в загрят тиган, като бъркате непрекъснато.', 'Препечете хляба.', 'Намачкайте авокадото и го намажете на хляба.', 'Сервирайте с яйцата.'], 5, 8, 'easy'),
         },
         {
           meal_number: 2,
@@ -328,6 +349,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Фурми', quantity: '30г', calories: 83 },
             { name: 'Мляко', quantity: '300мл', calories: 150 },
           ],
+          recipe: createRecipe(['Изсипете протеина и овесените ядки в шейкър.', 'Добавете нарязаните фурми и млякото.', 'Разбъркайте за 30 секунди.', 'Готово за пиене!'], 3, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -343,6 +365,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Броколи', quantity: '150г', calories: 51 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Изпечете сладкия картоф на 180°C за 35 минути.', 'Загрейте тиган със зехтин и изпържете пилето за 7-8 минути от всяка страна.', 'Сварете броколите за 5 минути.', 'Сервирайте всичко заедно.'], 7, 38, 'easy'),
         },
         {
           meal_number: 4,
@@ -357,6 +380,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Пълнозърнест хляб', quantity: '4 филии', calories: 312 },
             { name: 'Протеинов прах', quantity: '30г', calories: 120 },
           ],
+          recipe: createRecipe(['Препечете хляба и го намажете с хумус.', 'Разтворете протеина с вода в чаша.', 'Готово за хапване и пиене!'], 3, 3, 'easy'),
         },
         {
           meal_number: 5,
@@ -372,6 +396,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Моркови и грах', quantity: '150г', calories: 90 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Сварете ориза за 25 минути.', 'Загрейте тиган със зехтин и изпържете говеждото месо за 5-6 минути от всяка страна.', 'Задушете зеленчуците за 8 минути.', 'Сервирайте всичко заедно.'], 7, 30, 'easy'),
         },
         {
           meal_number: 6,
@@ -386,6 +411,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Мляко', quantity: '300мл', calories: 150 },
             { name: 'Бадемово масло', quantity: '2 с.л.', calories: 159 },
           ],
+          recipe: createRecipe(['Изсипете казеиновия протеин и бадемовото масло в шейкър.', 'Налейте млякото и разбъркайте енергично за 30 секунди.', 'Готово за пиене!'], 3, 0, 'easy'),
         },
       ],
     },
@@ -408,6 +434,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Мляко', quantity: '300мл', calories: 150 },
             { name: 'Орехи', quantity: '30г', calories: 197 },
           ],
+          recipe: createRecipe(['Сварете 400мл вода и добавете овесените ядки.', 'Гответе 7-8 минути.', 'Свалете от котлона, добавете протеина и млякото.', 'Разбъркайте добре и поръсете с накълцаните орехи.'], 6, 8, 'easy'),
         },
         {
           meal_number: 2,
@@ -422,6 +449,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Пуешко месо', quantity: '120г', calories: 180 },
             { name: 'Авокадо', quantity: '1/4 бр', calories: 80 },
           ],
+          recipe: createRecipe(['Препечете хляба.', 'Намачкайте авокадото и го намажете на хляба.', 'Сложете пуешкото месо отгоре.', 'Готово за хапване!'], 3, 3, 'easy'),
         },
         {
           meal_number: 3,
@@ -437,6 +465,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Салата', quantity: '150г', calories: 23 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Изпечете картофите на 180°C за 35 минути.', 'Загрейте тиган със зехтин и изпържете скумрията за 5-6 минути от всяка страна.', 'Накълцайте салатата и сервирайте всичко заедно.'], 7, 38, 'easy'),
         },
         {
           meal_number: 4,
@@ -452,6 +481,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Овесени ядки', quantity: '50г', calories: 190 },
             { name: 'Мляко', quantity: '250мл', calories: 125 },
           ],
+          recipe: createRecipe(['Нарежете бананите и ги сложете в блендер.', 'Добавете протеина, овесените ядки и млякото.', 'Блендирайте за 45 секунди.', 'Готово за пиене!'], 3, 1, 'easy'),
         },
         {
           meal_number: 5,
@@ -467,6 +497,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Печени зеленчуци', quantity: '150г', calories: 90 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Сварете ориза за 18 минути.', 'Загрейте фурната на 180°C.', 'Изпечете кебапчетата за 20 минути и зеленчуците за 15 минути.', 'Сервирайте всичко заедно.'], 6, 24, 'easy'),
         },
         {
           meal_number: 6,
@@ -481,6 +512,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Извара', quantity: '200г', calories: 260 },
             { name: 'Мед', quantity: '2 с.л.', calories: 128 },
           ],
+          recipe: createRecipe(['Сложете изварата в купичка.', 'Добавете казеиновия протеин и меда.', 'Разбъркайте добре.'], 3, 0, 'easy'),
         },
       ],
     },
@@ -504,6 +536,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Банан', quantity: '1 бр', calories: 105 },
             { name: 'Боровинки', quantity: '80г', calories: 46 },
           ],
+          recipe: createRecipe(['Разбийте яйцата в плитка чиния.', 'Потопете всяка филия хляб в яйцата.', 'Загрейте тиган и изпечете филиите за 2-3 минути от всяка страна.', 'Подредете ги, нарежете банана, поръсете с боровинки и полейте с мед.'], 6, 10, 'easy'),
         },
         {
           meal_number: 2,
@@ -517,6 +550,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Домашен протеинов бар', quantity: '120г', calories: 420 },
             { name: 'Мляко', quantity: '200мл', calories: 100 },
           ],
+          recipe: createRecipe(['Вземете протеиновия бар и налейте млякото в чаша.', 'Готово за хапване и пиене!'], 1, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -531,6 +565,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Пълнозърнести спагети', quantity: '150г', calories: 525 },
             { name: 'Доматен сос', quantity: '150г', calories: 68 },
           ],
+          recipe: createRecipe(['Сварете пастата според инструкциите (10-12 минути).', 'Изпечете кюфтетата на 180°C за 25 минути.', 'Загрейте доматения сос.', 'Прецедете пастата, добавете соса и сервирайте с кюфтетата.'], 7, 28, 'easy'),
         },
         {
           meal_number: 4,
@@ -547,6 +582,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Боровинки', quantity: '100г', calories: 57 },
             { name: 'Мляко', quantity: '200мл', calories: 100 },
           ],
+          recipe: createRecipe(['Блендирайте протеина с банана и млякото.', 'Изсипете смутито в купа.', 'Поръсете с мюслито и добавете боровинките отгоре.'], 4, 1, 'easy'),
         },
         {
           meal_number: 5,
@@ -562,6 +598,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Салата', quantity: '150г', calories: 23 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Изпечете картофите на 180°C за 35 минути.', 'Загрейте тиган със зехтин и изпържете стека за 4-5 минути от всяка страна.', 'Накълцайте салатата и сервирайте всичко заедно.'], 7, 38, 'easy'),
         },
         {
           meal_number: 6,
@@ -576,6 +613,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Мляко', quantity: '300мл', calories: 150 },
             { name: 'Бадеми', quantity: '30г', calories: 174 },
           ],
+          recipe: createRecipe(['Изсипете казеиновия протеин в шейкър и налейте млякото.', 'Разбъркайте енергично за 25 секунди.', 'Поръсете с накълцаните бадеми.'], 3, 0, 'easy'),
         },
       ],
     },
@@ -599,6 +637,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Банан', quantity: '1 бр', calories: 105 },
             { name: 'Орехи', quantity: '20г', calories: 131 },
           ],
+          recipe: createRecipe(['Сварете яйцата за 8 минути и ги обелете.', 'Сложете мюслито в купа и добавете протеина.', 'Налейте млякото, добавете нарязания банан и накълцаните орехи.', 'Сервирайте с яйцата.'], 6, 8, 'easy'),
         },
         {
           meal_number: 2,
@@ -614,6 +653,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Протеинов прах', quantity: '35г', calories: 140 },
             { name: 'Мляко', quantity: '250мл', calories: 125 },
           ],
+          recipe: createRecipe(['Препечете хляба.', 'Намачкайте авокадото и го намажете на хляба.', 'Изсипете протеина и млякото в шейкър и разбъркайте за 25 секунди.', 'Готово!'], 4, 3, 'easy'),
         },
         {
           meal_number: 3,
@@ -629,6 +669,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Къри сос', quantity: '100г', calories: 143 },
             { name: 'Зеленчуци', quantity: '150г', calories: 75 },
           ],
+          recipe: createRecipe(['Сварете ориза за 18 минути.', 'Нарежете пилето на парчета и го изпържете в загрят тиган за 8 минути.', 'Добавете къри соса и задушените зеленчуци.', 'Сервирайте с ориза.'], 8, 22, 'easy'),
         },
         {
           meal_number: 4,
@@ -644,6 +685,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Мед', quantity: '2 с.л.', calories: 128 },
             { name: 'Орехи', quantity: '20г', calories: 131 },
           ],
+          recipe: createRecipe(['Сложете изварата в купа и добавете протеина.', 'Полейте с меда и поръсете с накълцаните орехи.', 'Разбъркайте и се насладете.'], 3, 0, 'easy'),
         },
         {
           meal_number: 5,
@@ -659,6 +701,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Моцарела', quantity: '60г', calories: 168 },
             { name: 'Зеленчуци', quantity: '100г', calories: 35 },
           ],
+          recipe: createRecipe(['Разточете тестото и го намажете с доматен сос.', 'Нарежете пилето и го разпределете върху тестото.', 'Поръсете с моцарелата и добавете зеленчуците.', 'Изпечете на 200°C за 18-20 минути.'], 8, 20, 'easy'),
         },
         {
           meal_number: 6,
@@ -674,6 +717,7 @@ export const MUSCLE_NORMAL_MEAL_PLAN = {
             { name: 'Мед', quantity: '1.5 с.л.', calories: 96 },
             { name: 'Бадеми', quantity: '15г', calories: 87 },
           ],
+          recipe: createRecipe(['Сложете киселото мляко в купа и добавете казеиновия протеин.', 'Полейте с меда и поръсете с накълцаните бадеми.', 'Разбъркайте добре.'], 3, 0, 'easy'),
         },
       ],
     },

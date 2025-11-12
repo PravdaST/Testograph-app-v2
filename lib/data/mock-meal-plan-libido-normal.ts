@@ -4,6 +4,8 @@
  * Calories: 2200-2400 | Protein: 160-170g | Carbs: 200-220g | Fats: 90-100g
  */
 
+import { createRecipe } from '@/lib/types/recipe'
+
 export const LIBIDO_NORMAL_MEAL_PLAN = {
   program_id: 'libido',
   program_name: 'Либидо и Сексуално здраве',
@@ -26,6 +28,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Авокадо', quantity: '1/2 бр', calories: 160 },
             { name: 'Пълнозърнест хляб', quantity: '2 филии', calories: 226 },
           ],
+          recipe: createRecipe(['Разбийте яйцата в купичка.', 'Загрейте тиган със зехтин и ги изсипете, като разбърквате за 2-3 минути.', 'Нарежете авокадото на филийки.', 'Препечете хляба.', 'Сервирайте бърканите яйца с препечения хляб и авокадото.'], 5, 5, 'easy'),
         },
         {
           meal_number: 2,
@@ -40,6 +43,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Банан', quantity: '1 бр', calories: 105 },
             { name: 'Мляко', quantity: '250мл', calories: 125 },
           ],
+          recipe: createRecipe(['Изсипете протеина и млякото в шейкър.', 'Нарежете банана и го добавете.', 'Разклатете добре за 30 секунди.', 'Готово за пиене!'], 3, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -55,6 +59,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Броколи', quantity: '150г', calories: 51 },
             { name: 'Зехтин', quantity: '1 с.л.', calories: 119 },
           ],
+          recipe: createRecipe(['Сварете киноата според инструкциите (12-15 минути).', 'Загрейте тиган със зехтин и изпържете пилето за 6-7 минути от всяка страна.', 'Задушете броколите за 3-4 минути.', 'Сервирайте всичко заедно.'], 8, 18, 'easy'),
         },
         {
           meal_number: 4,
@@ -68,6 +73,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Кисело мляко', quantity: '200г', calories: 120 },
             { name: 'Микс ядки', quantity: '30г', calories: 180 },
           ],
+          recipe: createRecipe(['Изсипете киселото мляко в купичка.', 'Натрошете ядките и ги поръсете отгоре.', 'Бърза и лесна закуска!'], 2, 0, 'easy'),
         },
         {
           meal_number: 5,
@@ -82,6 +88,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Броколи', quantity: '200г', calories: 68 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Загрейте фурната на 180°C и изпечете сьомгата за 15 минути.', 'Задушете броколите за 4-5 минути.', 'Полейте със зехтин и сервирайте заедно.'], 5, 15, 'easy'),
         },
       ],
     },
@@ -104,6 +111,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Мляко', quantity: '200мл', calories: 100 },
             { name: 'Бадеми', quantity: '15г', calories: 87 },
           ],
+          recipe: createRecipe(['Изсипете овесените ядки в купичка и ги залейте с топло мляко.', 'Оставете ги да набъбнат за 3-4 минути.', 'Добавете протеиновия прах и разбъркайте.', 'Натрошете бадемите и ги поръсете отгоре.'], 5, 5, 'easy'),
         },
         {
           meal_number: 2,
@@ -118,6 +126,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Протеинов прах', quantity: '20г', calories: 80 },
             { name: 'Фъстъчено масло', quantity: '15г', calories: 94 },
           ],
+          recipe: createRecipe(['Смесете овесените ядки с протеиновия прах.', 'Добавете фъстъченото масло и разбъркайте добре.', 'Оформете сместа като бар и я оставете в хладилник за 30 минути.', 'Готово за хапване!'], 8, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -133,6 +142,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Ориз', quantity: '80г', calories: 104 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Сварете ориза според инструкциите.', 'Загрейте тиган със зехтин и изпържете говеждото месо за 4-5 минути от всяка страна.', 'Задушете зеленчуците за 5-6 минути.', 'Сервирайте всичко заедно.'], 8, 15, 'easy'),
         },
         {
           meal_number: 4,
@@ -146,6 +156,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Кашу', quantity: '20г', calories: 110 },
             { name: 'Орехи', quantity: '20г', calories: 131 },
           ],
+          recipe: createRecipe(['Изсипете кашуто и орехите в купичка.', 'Разбъркайте и се насладете.'], 2, 0, 'easy'),
         },
         {
           meal_number: 5,
@@ -160,6 +171,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Аспержи', quantity: '200г', calories: 40 },
             { name: 'Зехтин', quantity: '1 с.л.', calories: 119 },
           ],
+          recipe: createRecipe(['Загрейте тиган със зехтин и изпържете рибата тон за 3-4 минути от всяка страна.', 'Задушете аспержите за 4-5 минути.', 'Сервирайте всичко заедно.'], 5, 10, 'easy'),
         },
       ],
     },
@@ -182,6 +194,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Сирене', quantity: '40г', calories: 115 },
             { name: 'Пълнозърнест хляб', quantity: '2 филии', calories: 156 },
           ],
+          recipe: createRecipe(['Разбийте яйцата и накълцайте спанака.', 'Настържете сиренето.', 'Загрейте тиган със зехтин, изсипете яйцата и добавете спанака.', 'Поръсете със сирене и гответе 4-5 минути.', 'Препечете хляба и сервирайте.'], 6, 6, 'easy'),
         },
         {
           meal_number: 2,
@@ -195,6 +208,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Ябълка', quantity: '1 голяма', calories: 116 },
             { name: 'Фъстъчено масло', quantity: '2 с.л.', calories: 188 },
           ],
+          recipe: createRecipe(['Нарежете ябълката на резенчета.', 'Намажете всяко резенче с фъстъчено масло.', 'Бърза и вкусна закуска!'], 3, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -209,6 +223,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Сладък картоф', quantity: '200г', calories: 180 },
             { name: 'Зехтин', quantity: '1 с.л.', calories: 119 },
           ],
+          recipe: createRecipe(['Нарежете сладкия картоф и го изпечете за 25 минути на 200°C.', 'Загрейте тиган със зехтин и изпържете пуешкото месо за 5-6 минути от всяка страна.', 'Сервирайте заедно.'], 8, 30, 'easy'),
         },
         {
           meal_number: 4,
@@ -222,6 +237,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Извара', quantity: '150г', calories: 195 },
             { name: 'Мед', quantity: '1 с.л.', calories: 64 },
           ],
+          recipe: createRecipe(['Изсипете изварата в купичка.', 'Полейте с меда и разбъркайте леко.', 'Насладете се!'], 2, 0, 'easy'),
         },
         {
           meal_number: 5,
@@ -237,6 +253,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Зеленчуци', quantity: '150г', calories: 75 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Сварете киноата според инструкциите (12-15 минути).', 'Загрейте тиган със зехтин и изпържете скаридите за 2-3 минути от всяка страна.', 'Задушете зеленчуците за 4-5 минути.', 'Сервирайте всичко заедно.'], 8, 20, 'easy'),
         },
       ],
     },
@@ -259,6 +276,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Протеинов прах', quantity: '15г', calories: 60 },
             { name: 'Боровинки', quantity: '50г', calories: 29 },
           ],
+          recipe: createRecipe(['Смелете овесените ядки на брашно.', 'Разбийте яйцата и ги смесете с протеина.', 'Загрейте тиган и изпържете палачинките за 2-3 минути от всяка страна.', 'Поръсете с боровинки и сервирайте.'], 8, 12, 'easy'),
         },
         {
           meal_number: 2,
@@ -274,6 +292,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Овесени ядки', quantity: '30г', calories: 114 },
             { name: 'Мляко', quantity: '200мл', calories: 100 },
           ],
+          recipe: createRecipe(['Сложете всички съставки в блендер.', 'Миксирайте за 30-40 секунди до гладка смес.', 'Готово за пиене!'], 2, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -289,6 +308,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Авокадо', quantity: '1/2 бр', calories: 160 },
             { name: 'Хляб', quantity: '2 филии', calories: 156 },
           ],
+          recipe: createRecipe(['Нарежете салатата и авокадото на кубчета.', 'Смесете ги с рибата тон.', 'Полейте със зехтин.', 'Препечете хляба и сервирайте заедно.'], 6, 2, 'easy'),
         },
         {
           meal_number: 4,
@@ -304,6 +324,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Краставици', quantity: '100г', calories: 16 },
             { name: 'Хляб', quantity: '1 филия', calories: 78 },
           ],
+          recipe: createRecipe(['Нарежете морковите и краставиците на пръчици.', 'Изсипете хумуса в купичка.', 'Подредете зеленчуците около хумуса.', 'Готово за топене!'], 5, 0, 'easy'),
         },
         {
           meal_number: 5,
@@ -317,6 +338,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Пилешки бутчета', quantity: '200г', calories: 440 },
             { name: 'Печени зеленчуци', quantity: '200г', calories: 120 },
           ],
+          recipe: createRecipe(['Подправете пилешките бутчета.', 'Печете ги на 200°C за 30 минути.', 'Нарежете зеленчуците и ги добавете в тавата през последните 15 минути.', 'Сервирайте заедно.'], 8, 30, 'easy'),
         },
       ],
     },
@@ -338,6 +360,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Мюсли', quantity: '70г', calories: 256 },
             { name: 'Орехи', quantity: '15г', calories: 98 },
           ],
+          recipe: createRecipe(['Изсипете киселото мляко в купа.', 'Добавете мюслито и натрошените орехи.', 'Разбъркайте и се насладете.'], 3, 0, 'easy'),
         },
         {
           meal_number: 2,
@@ -353,6 +376,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Авокадо', quantity: '30г', calories: 48 },
             { name: 'Домати', quantity: '30г', calories: 5 },
           ],
+          recipe: createRecipe(['Препечете леко хляба.', 'Нарежете авокадото и доматите.', 'Сглобете сандвича, като наредите пуешкото месо и зеленчуците.', 'Готово!'], 5, 2, 'easy'),
         },
         {
           meal_number: 3,
@@ -368,6 +392,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Броколи', quantity: '150г', calories: 51 },
             { name: 'Зехтин', quantity: '1 с.л.', calories: 119 },
           ],
+          recipe: createRecipe(['Сварете ориза според инструкциите.', 'Загрейте тиган със зехтин и изпържете пилето за 6-7 минути от всяка страна.', 'Задушете броколите за 4-5 минути.', 'Сервирайте всичко заедно.'], 8, 18, 'easy'),
         },
         {
           meal_number: 4,
@@ -383,6 +408,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Ягоди', quantity: '100г', calories: 32 },
             { name: 'Мляко', quantity: '200мл', calories: 100 },
           ],
+          recipe: createRecipe(['Сложете всички съставки в блендер.', 'Миксирайте за 30-40 секунди до гладка смес.', 'Готово за пиене!'], 2, 0, 'easy'),
         },
         {
           meal_number: 5,
@@ -398,6 +424,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Аспержи', quantity: '100г', calories: 20 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Нарежете сладкия картоф и го печете за 20 минути на 200°C.', 'Подправете сьомгата и я добавете в тавата през последните 15 минути.', 'Задушете аспержите за 4-5 минути.', 'Полейте със зехтин и сервирайте всичко заедно.'], 8, 25, 'easy'),
         },
       ],
     },
@@ -419,6 +446,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Яйца', quantity: '3 бр', calories: 234 },
             { name: 'Авокадо', quantity: '1/2 бр', calories: 160 },
           ],
+          recipe: createRecipe(['Препечете хляба.', 'Разбийте яйцата и ги изпържете.', 'Нарежете авокадото.', 'Сервирайте всичко заедно върху препечения хляб.'], 5, 6, 'easy'),
         },
         {
           meal_number: 2,
@@ -433,6 +461,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Орехи', quantity: '20г', calories: 131 },
             { name: 'Ябълка', quantity: '1/2 бр', calories: 58 },
           ],
+          recipe: createRecipe(['Изсипете киселото мляко в купа.', 'Нарежете ябълката на кубчета и я добавете.', 'Натрошете орехите и ги поръсете отгоре.'], 3, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -447,6 +476,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Месни кюфтета', quantity: '150г', calories: 270 },
             { name: 'Доматен сос', quantity: '100г', calories: 45 },
           ],
+          recipe: createRecipe(['Сварете спагетите според инструкциите (8-10 минути).', 'Загрейте кюфтетата в тиган за 6-8 минути.', 'Добавете доматения сос и спагетите.', 'Разбъркайте и сервирайте.'], 5, 12, 'easy'),
         },
         {
           meal_number: 4,
@@ -462,6 +492,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Портокал', quantity: '1 бр', calories: 62 },
             { name: 'Боровинки', quantity: '50г', calories: 29 },
           ],
+          recipe: createRecipe(['Нарежете банана на кръгчета.', 'Нарежете ябълката на кубчета.', 'Обелете и нарежете портокала.', 'Добавете боровинките и разбъркайте.', 'Свежа и вкусна плодова салата!'], 5, 0, 'easy'),
         },
         {
           meal_number: 5,
@@ -476,6 +507,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Печени зеленчуци', quantity: '200г', calories: 120 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Подправете пилешките гърди.', 'Изпечете ги на скара за 6-7 минути от всяка страна.', 'Нарежете зеленчуците и ги изпечете заедно с пилето за 10-12 минути.', 'Полейте със зехтин и сервирайте.'], 8, 18, 'easy'),
         },
       ],
     },
@@ -497,6 +529,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Орехи', quantity: '30г', calories: 197 },
             { name: 'Мед', quantity: '1 с.л.', calories: 64 },
           ],
+          recipe: createRecipe(['Изсипете овесените ядки в купичка и ги залейте с топла вода.', 'Оставете ги да набъбнат за 3-4 минути.', 'Натрошете орехите и ги поръсете отгоре.', 'Полейте с меда.'], 5, 5, 'easy'),
         },
         {
           meal_number: 2,
@@ -509,6 +542,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
           ingredients: [
             { name: 'Домашен протеинов бар', quantity: '80г', calories: 280 },
           ],
+          recipe: createRecipe(['Хапнете директно протеиновия бар.', 'Бързо и лесно!'], 1, 0, 'easy'),
         },
         {
           meal_number: 3,
@@ -524,6 +558,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Зеленчуци', quantity: '100г', calories: 50 },
             { name: 'Зехтин', quantity: '1/2 с.л.', calories: 60 },
           ],
+          recipe: createRecipe(['Сварете ориза според инструкциите.', 'Загрейте тиган със зехтин и изпържете пилето за 6-7 минути от всяка страна.', 'Задушете зеленчуците за 5-6 минути.', 'Сервирайте всичко заедно.'], 8, 18, 'easy'),
         },
         {
           meal_number: 4,
@@ -539,6 +574,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Мед', quantity: '1 с.л.', calories: 64 },
             { name: 'Бадеми', quantity: '15г', calories: 87 },
           ],
+          recipe: createRecipe(['Изсипете киселото мляко в купа.', 'Добавете боровинките и натрошените бадеми.', 'Полейте с меда и се насладете.'], 3, 0, 'easy'),
         },
         {
           meal_number: 5,
@@ -554,6 +590,7 @@ export const LIBIDO_NORMAL_MEAL_PLAN = {
             { name: 'Моцарела', quantity: '40г', calories: 112 },
             { name: 'Зеленчуци', quantity: '100г', calories: 35 },
           ],
+          recipe: createRecipe(['Разточете тестото.', 'Нарежете пилето и зеленчуците и ги подредете върху тестото.', 'Поръсете с моцарелата.', 'Печете за 15-18 минути на 220°C.', 'Готово!'], 10, 18, 'easy'),
         },
       ],
     },
