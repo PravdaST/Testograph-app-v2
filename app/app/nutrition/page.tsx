@@ -130,19 +130,31 @@ export default function NutritionPage() {
     loadUserProgram()
   }, [router])
 
-  // Load meals for selected date
+  // Load meals and substitutions for selected date
   useEffect(() => {
     const loadMealsForDate = async () => {
       const email = localStorage.getItem('quizEmail')
       if (!email) return
 
       const dateKey = selectedDate.toISOString().split('T')[0]
+
+      // Load completed meals
       const mealsResponse = await fetch(`/api/meals/complete?email=${encodeURIComponent(email)}&date=${dateKey}`)
       if (mealsResponse.ok) {
         const mealsData = await mealsResponse.json()
         setCompletedMeals(prev => ({
           ...prev,
           [dateKey]: mealsData.completedMeals || []
+        }))
+      }
+
+      // Load meal substitutions
+      const subsResponse = await fetch(`/api/meals/substitutions?email=${encodeURIComponent(email)}&date=${dateKey}`)
+      if (subsResponse.ok) {
+        const subsData = await subsResponse.json()
+        setSubstitutedMeals(prev => ({
+          ...prev,
+          [dateKey]: subsData.substitutions || {}
         }))
       }
     }
@@ -196,22 +208,40 @@ export default function NutritionPage() {
     }
   }
 
-  const handleUndo = (mealNumber: number) => {
+  const handleUndo = async (mealNumber: number) => {
+    const email = localStorage.getItem('quizEmail')
+    if (!email) return
+
     const dateKey = selectedDate.toISOString().split('T')[0]
 
-    // Remove substituted meal to restore original
-    setSubstitutedMeals(prev => {
-      const updated = { ...prev }
-      if (updated[dateKey]) {
-        const { [mealNumber]: _removed, ...rest } = updated[dateKey]
-        if (Object.keys(rest).length === 0) {
-          delete updated[dateKey]
-        } else {
-          updated[dateKey] = rest
-        }
+    try {
+      // Delete substitution from database
+      const response = await fetch(
+        `/api/meals/substitutions?email=${encodeURIComponent(email)}&date=${dateKey}&mealNumber=${mealNumber}`,
+        { method: 'DELETE' }
+      )
+
+      if (!response.ok) {
+        throw new Error('Failed to undo substitution')
       }
-      return updated
-    })
+
+      // Remove substituted meal to restore original
+      setSubstitutedMeals(prev => {
+        const updated = { ...prev }
+        if (updated[dateKey]) {
+          const { [mealNumber]: _removed, ...rest } = updated[dateKey]
+          if (Object.keys(rest).length === 0) {
+            delete updated[dateKey]
+          } else {
+            updated[dateKey] = rest
+          }
+        }
+        return updated
+      })
+    } catch (error) {
+      console.error('Error undoing substitution:', error)
+      alert('Не успяхме да възстановим оригиналната храна. Моля опитайте отново.')
+    }
   }
 
   const handleSubstitute = async (meal: SubstitutedMeal) => {
@@ -263,6 +293,23 @@ export default function NutritionPage() {
         recipe: data.meal.recipe,
         substitution_count: (meal.substitution_count || 0) + 1,
         name_updated: true,
+      }
+
+      // Save substitution to database
+      const email = localStorage.getItem('quizEmail')
+      if (email) {
+        await fetch('/api/meals/substitutions', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            date: dateKey,
+            mealNumber: meal.meal_number,
+            substitutedMeal: newMeal,
+          }),
+        })
       }
 
       // Update substituted meals state
