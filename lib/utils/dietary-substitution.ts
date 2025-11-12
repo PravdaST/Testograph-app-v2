@@ -10,6 +10,9 @@ import {
 } from '@/lib/data/dietary-substitutions'
 import type { Recipe } from '@/lib/types/recipe'
 
+// Re-export DietaryPreference for convenience
+export type { DietaryPreference }
+
 /**
  * Ingredient structure from meal plans
  */

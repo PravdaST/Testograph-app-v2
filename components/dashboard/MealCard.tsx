@@ -7,9 +7,8 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { ChevronDown, ChevronUp, Clock, Flame, Drumstick, Wheat, Droplet, Lock, ImageIcon, ChefHat } from 'lucide-react'
-import { Recipe } from '@/lib/types/recipe'
-import { RecipeModal } from '@/components/nutrition/RecipeModal'
+import { ChevronDown, ChevronUp, Clock, Flame, Drumstick, Wheat, Droplet, Lock, ImageIcon, ChefHat, AlertCircle, RefreshCw, Undo2 } from 'lucide-react'
+import { Recipe, formatRecipeTime, getDifficultyLabel, getDifficultyColor } from '@/lib/types/recipe'
 
 interface Ingredient {
   name: string
@@ -30,6 +29,10 @@ interface MealCardProps {
   isCompleted?: boolean
   isLocked?: boolean
   onToggleComplete?: () => void
+  onSubstitute?: () => void
+  onUndo?: () => void
+  isSubstituting?: boolean
+  isSubstituted?: boolean
   imageUrl?: string
 }
 
@@ -46,10 +49,14 @@ export function MealCard({
   isCompleted = false,
   isLocked = false,
   onToggleComplete,
+  onSubstitute,
+  onUndo,
+  isSubstituting = false,
+  isSubstituted = false,
   imageUrl,
 }: MealCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false)
-  const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false)
+  const [isIngredientsExpanded, setIsIngredientsExpanded] = useState(false)
+  const [isRecipeExpanded, setIsRecipeExpanded] = useState(false)
 
   return (
     <div
@@ -96,7 +103,35 @@ export function MealCard({
             <h4 className="font-semibold text-base">{name}</h4>
           </div>
 
-          {onToggleComplete && (
+          <div className="flex items-center gap-2">
+            {(onSubstitute || onUndo) && (
+              <button
+                onClick={isSubstituted ? onUndo : onSubstitute}
+                disabled={isSubstituting || isLocked}
+                className={`
+                  w-6 h-6 rounded-full flex items-center justify-center transition-all ripple-effect
+                  ${
+                    isSubstituting
+                      ? 'bg-primary/10 text-primary'
+                      : isSubstituted
+                      ? 'hover:bg-muted text-muted-foreground hover:text-warning'
+                      : 'hover:bg-muted text-muted-foreground hover:text-success'
+                  }
+                  ${isLocked || isSubstituting ? 'cursor-not-allowed opacity-60' : ''}
+                `}
+                aria-label={isSubstituted ? 'Върни оригинала' : 'Замени храната'}
+              >
+                {isSubstituting ? (
+                  <RefreshCw className="w-4 h-4 animate-spin" />
+                ) : isSubstituted ? (
+                  <Undo2 className="w-4 h-4" />
+                ) : (
+                  <RefreshCw className="w-4 h-4" />
+                )}
+              </button>
+            )}
+
+            {onToggleComplete && (
             <button
               onClick={onToggleComplete}
               disabled={isLocked}
@@ -127,7 +162,8 @@ export function MealCard({
                 </svg>
               )}
             </button>
-          )}
+            )}
+          </div>
 
           {isLocked && isCompleted && (
             <Lock className="w-3 h-3 absolute top-2 right-10 text-muted-foreground" />
@@ -165,44 +201,40 @@ export function MealCard({
         <div className="grid grid-cols-2 gap-2">
           {/* Expand Ingredients Button */}
           <button
-            onClick={() => setIsExpanded(!isExpanded)}
+            onClick={() => setIsIngredientsExpanded(!isIngredientsExpanded)}
             className="flex items-center justify-center gap-2 py-2 text-sm text-primary hover:text-primary/80 transition-colors"
           >
             <span>
-              {isExpanded ? 'Скрий' : 'Съставки'}
+              {isIngredientsExpanded ? 'Скрий' : 'Съставки'}
             </span>
-            {isExpanded ? (
+            {isIngredientsExpanded ? (
               <ChevronUp className="w-4 h-4" />
             ) : (
               <ChevronDown className="w-4 h-4" />
             )}
           </button>
 
-          {/* View Recipe Button */}
+          {/* Expand Recipe Button */}
           {recipe && (
             <button
-              onClick={() => setIsRecipeModalOpen(true)}
-              className="flex items-center justify-center gap-2 py-2 text-sm text-accent hover:text-accent/80 transition-colors"
+              onClick={() => setIsRecipeExpanded(!isRecipeExpanded)}
+              className="flex items-center justify-center gap-2 py-2 text-sm text-success hover:text-success/80 transition-colors"
             >
-              <ChefHat className="w-4 h-4" />
-              <span>Рецепта</span>
+              <span>
+                {isRecipeExpanded ? 'Скрий' : 'Рецепта'}
+              </span>
+              {isRecipeExpanded ? (
+                <ChevronUp className="w-4 h-4" />
+              ) : (
+                <ChefHat className="w-4 h-4" />
+              )}
             </button>
           )}
         </div>
       </div>
 
-      {/* Recipe Modal */}
-      {recipe && (
-        <RecipeModal
-          isOpen={isRecipeModalOpen}
-          onClose={() => setIsRecipeModalOpen(false)}
-          mealName={name}
-          recipe={recipe}
-        />
-      )}
-
       {/* Ingredients List (Expandable) */}
-      {isExpanded && (
+      {isIngredientsExpanded && (
         <div className="border-t border-border px-4 py-3 space-y-2 animate-slide-down">
           {ingredients.map((ingredient, index) => (
             <div
@@ -220,6 +252,72 @@ export function MealCard({
               </span>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Recipe (Expandable) */}
+      {isRecipeExpanded && recipe && (
+        <div className="border-t border-border px-4 py-3 space-y-3 animate-slide-down bg-muted/20">
+          {/* Recipe Header */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3 text-sm">
+              <div className="flex items-center gap-1.5">
+                <Clock className="w-4 h-4 text-primary" />
+                <span className="font-medium">{formatRecipeTime(recipe.total_time)}</span>
+              </div>
+              <div className="flex items-center gap-1.5">
+                <ChefHat className="w-4 h-4" style={{ color: getDifficultyColor(recipe.difficulty) }} />
+                <span className="font-medium" style={{ color: getDifficultyColor(recipe.difficulty) }}>
+                  {getDifficultyLabel(recipe.difficulty)}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Steps */}
+          <div>
+            <h4 className="text-sm font-semibold text-success mb-2 flex items-center gap-1.5">
+              <ChefHat className="w-4 h-4" />
+              Стъпки
+            </h4>
+            <ol className="space-y-2">
+              {recipe.steps.map((step, index) => (
+                <li key={index} className="flex gap-2 text-sm">
+                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-sm font-medium">
+                    {index + 1}
+                  </span>
+                  <p className="text-muted-foreground leading-relaxed flex-1">{step}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+
+          {/* Tips */}
+          {recipe.tips && recipe.tips.length > 0 && (
+            <div className="rounded-lg bg-primary/5 border border-primary/20 p-3">
+              <h4 className="text-sm font-semibold text-info mb-2 flex items-center gap-1.5">
+                <AlertCircle className="w-4 h-4 text-info" />
+                Съвети
+              </h4>
+              <ul className="space-y-1.5">
+                {recipe.tips.map((tip, index) => (
+                  <li key={index} className="flex gap-2 text-sm text-muted-foreground">
+                    <span className="text-info mt-0.5">•</span>
+                    <span className="flex-1 leading-relaxed">{tip}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {/* Special Notes */}
+          {recipe.special_notes && (
+            <div className="rounded-lg bg-success/5 border border-success/20 p-3">
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                <span className="font-semibold text-success">💡</span> {recipe.special_notes}
+              </p>
+            </div>
+          )}
         </div>
       )}
     </div>

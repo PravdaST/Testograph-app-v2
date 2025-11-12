@@ -78,6 +78,8 @@ export default function NutritionPage() {
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [completedMeals, setCompletedMeals] = useState<Record<string, number[]>>({})
   const [activeTooltip, setActiveTooltip] = useState<'hero' | 'progress' | 'calories' | 'protein' | null>(null)
+  const [substitutedMeals, setSubstitutedMeals] = useState<Record<string, Record<number, SubstitutedMeal>>>({})
+  const [substitutingMeals, setSubstitutingMeals] = useState<Record<string, boolean>>({})
 
   // Load user program
   useEffect(() => {
@@ -187,6 +189,96 @@ export default function NutritionPage() {
     }
   }
 
+  const handleUndo = (mealNumber: number) => {
+    const dateKey = selectedDate.toISOString().split('T')[0]
+
+    // Remove substituted meal to restore original
+    setSubstitutedMeals(prev => {
+      const updated = { ...prev }
+      if (updated[dateKey]) {
+        const { [mealNumber]: removed, ...rest } = updated[dateKey]
+        if (Object.keys(rest).length === 0) {
+          delete updated[dateKey]
+        } else {
+          updated[dateKey] = rest
+        }
+      }
+      return updated
+    })
+  }
+
+  const handleSubstitute = async (meal: SubstitutedMeal) => {
+    if (!userProgram) return
+
+    const dateKey = selectedDate.toISOString().split('T')[0]
+    const mealKey = `${dateKey}-${meal.meal_number}`
+
+    // Set loading state
+    setSubstitutingMeals(prev => ({ ...prev, [mealKey]: true }))
+
+    try {
+      const response = await fetch('/api/meals/substitute', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          currentMealName: meal.name,
+          calories: meal.calories,
+          protein: meal.protein,
+          carbs: meal.carbs,
+          fats: meal.fats,
+          mealNumber: meal.meal_number,
+          time: meal.time,
+          dietaryPreference: userProgram.dietary_preference || 'omnivor',
+          category: userProgram.category,
+          level: userProgram.level,
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to substitute meal')
+      }
+
+      const data = await response.json()
+      const newMeal: SubstitutedMeal = {
+        meal_number: meal.meal_number,
+        time: meal.time,
+        name: data.meal.name,
+        calories: data.meal.calories,
+        protein: data.meal.protein,
+        carbs: data.meal.carbs,
+        fats: data.meal.fats,
+        ingredients: data.meal.ingredients.map((ing: any) => ({
+          ...ing,
+          substituted: true,
+        })),
+        recipe: data.meal.recipe,
+        substitution_count: (meal.substitution_count || 0) + 1,
+        name_updated: true,
+      }
+
+      // Update substituted meals state
+      setSubstitutedMeals(prev => ({
+        ...prev,
+        [dateKey]: {
+          ...prev[dateKey],
+          [meal.meal_number]: newMeal,
+        },
+      }))
+    } catch (error) {
+      console.error('Error substituting meal:', error)
+      alert('Не успяхме да заменим храната. Моля опитайте отново.')
+    } finally {
+      // Clear loading state
+      setSubstitutingMeals(prev => {
+        const updated = { ...prev }
+        delete updated[mealKey]
+        return updated
+      })
+    }
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset">
@@ -212,7 +304,7 @@ export default function NutritionPage() {
 
   // Apply dietary substitutions if needed
   const dietaryPreference = userProgram.dietary_preference || 'omnivor'
-  const mealsForDay: SubstitutedMeal[] = dietaryPreference !== 'omnivor'
+  const baseMeals: SubstitutedMeal[] = dietaryPreference !== 'omnivor'
     ? applyDaySubstitutions(originalMeals, dietaryPreference)
     : originalMeals.map(meal => ({
         ...meal,
@@ -225,6 +317,13 @@ export default function NutritionPage() {
       }))
 
   const dateKey = selectedDate.toISOString().split('T')[0]
+
+  // Merge AI-substituted meals
+  const substitutedForToday = substitutedMeals[dateKey] || {}
+  const mealsForDay: SubstitutedMeal[] = baseMeals.map(meal =>
+    substitutedForToday[meal.meal_number] || meal
+  )
+
   const completedToday = completedMeals[dateKey] || []
 
   // Calculate total calories and protein
@@ -527,6 +626,10 @@ export default function NutritionPage() {
                   recipe={meal.recipe}
                   isCompleted={isCompleted}
                   onToggleComplete={() => handleMealToggle(meal.meal_number)}
+                  onSubstitute={() => handleSubstitute(meal)}
+                  onUndo={() => handleUndo(meal.meal_number)}
+                  isSubstituting={substitutingMeals[`${dateKey}-${meal.meal_number}`] || false}
+                  isSubstituted={!!substitutedForToday[meal.meal_number]}
                 />
               </div>
             )
