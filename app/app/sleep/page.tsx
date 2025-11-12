@@ -12,6 +12,7 @@ import { Moon, Star, Sun, CloudRain, Battery, TrendingUp, CheckCircle2, Clock, A
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
+import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
 
 interface UserProgram {
   category: 'energy' | 'libido' | 'muscle'
@@ -54,6 +55,10 @@ export default function SleepPage() {
   const [userName, setUserName] = useState<string>()
   const [programStartDate, setProgramStartDate] = useState<Date>(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
+
+  // Load weekly completion status for calendar
+  const email = typeof window !== 'undefined' ? localStorage.getItem('quizEmail') : null
+  const { completedDates } = useWeeklyCompletion(selectedDate, email)
 
   // Today's sleep tracking
   const [sleepHours, setSleepHours] = useState(7.5)
@@ -312,6 +317,7 @@ export default function SleepPage() {
             programStartDate={programStartDate}
             selectedDate={selectedDate}
             onDateSelect={setSelectedDate}
+            completedDates={completedDates}
           />
         </div>
 

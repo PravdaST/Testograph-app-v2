@@ -16,6 +16,7 @@ import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 import { MealCard } from '@/components/dashboard/MealCard'
 import { applyDaySubstitutions, type SubstitutedMeal, type SubstitutedIngredient } from '@/lib/utils/dietary-substitution'
 import type { DietaryPreference } from '@/lib/data/dietary-substitutions'
+import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
 
 // Meal Plan Imports - LOW level
 import { ENERGY_LOW_MEAL_PLAN } from '@/lib/data/mock-meal-plan-energy-low'
@@ -80,6 +81,10 @@ export default function NutritionPage() {
   const [activeTooltip, setActiveTooltip] = useState<'hero' | 'progress' | 'calories' | 'protein' | null>(null)
   const [substitutedMeals, setSubstitutedMeals] = useState<Record<string, Record<number, SubstitutedMeal>>>({})
   const [substitutingMeals, setSubstitutingMeals] = useState<Record<string, boolean>>({})
+
+  // Load weekly completion status for calendar
+  const email = typeof window !== 'undefined' ? localStorage.getItem('quizEmail') : null
+  const { completedDates } = useWeeklyCompletion(selectedDate, email)
 
   // Load user program
   useEffect(() => {
@@ -487,6 +492,7 @@ export default function NutritionPage() {
             programStartDate={programStartDate}
             selectedDate={selectedDate}
             onDateSelect={setSelectedDate}
+            completedDates={completedDates}
           />
         </div>
 

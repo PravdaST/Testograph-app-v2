@@ -12,6 +12,7 @@ import { Pill, Sun, Moon, CheckCircle2, ShoppingCart, Clock, Lock, TrendingUp, P
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
+import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
 
 interface UserProgram {
   category: 'energy' | 'libido' | 'muscle'
@@ -43,6 +44,8 @@ export default function SupplementPage() {
   const [userName, setUserName] = useState<string>()
   const [programStartDate, setProgramStartDate] = useState<Date>(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
+  const email = typeof window !== 'undefined' ? localStorage.getItem('quizEmail') : null
+  const { completedDates } = useWeeklyCompletion(selectedDate, email)
   const [testoUpInventory, setTestoUpInventory] = useState<TestoUpInventory | null>(null)
   const [morningCompleted, setMorningCompleted] = useState(false)
   const [eveningCompleted, setEveningCompleted] = useState(false)
@@ -303,6 +306,7 @@ export default function SupplementPage() {
             programStartDate={programStartDate}
             selectedDate={selectedDate}
             onDateSelect={setSelectedDate}
+            completedDates={completedDates}
           />
         </div>
 

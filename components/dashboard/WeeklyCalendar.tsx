@@ -23,12 +23,14 @@ interface WeeklyCalendarProps {
   programStartDate: Date
   selectedDate: Date
   onDateSelect: (date: Date) => void
+  completedDates?: Record<string, boolean> // Map of dateString -> isCompleted
 }
 
 export function WeeklyCalendar({
   programStartDate,
   selectedDate,
   onDateSelect,
+  completedDates = {},
 }: WeeklyCalendarProps) {
   const [currentWeekStart, setCurrentWeekStart] = useState(() =>
     getWeekStart(selectedDate)
@@ -98,6 +100,10 @@ export function WeeklyCalendar({
           const startTime = new Date(programStartDate).setHours(0, 0, 0, 0)
           const isBeforeProgramStart = dayTime < startTime
 
+          // Check if day is completed (all 4 tasks done)
+          const dateString = day.toISOString().split('T')[0]
+          const isCompleted = completedDates[dateString] || false
+
           return (
             <button
               key={day.toISOString()}
@@ -109,9 +115,11 @@ export function WeeklyCalendar({
                     ? 'bg-primary text-primary-foreground shadow-lg scale-105'
                     : isDayToday
                       ? 'bg-primary/10 border-2 border-primary text-primary'
-                      : isDayPast
-                        ? 'bg-muted text-muted-foreground'
-                        : 'bg-background border border-border hover:border-primary hover:bg-primary/5'
+                      : isCompleted
+                        ? 'bg-success/10 border-2 border-success/30 text-success'
+                        : isDayPast
+                          ? 'bg-muted text-muted-foreground'
+                          : 'bg-background border border-border hover:border-primary hover:bg-primary/5'
                 }
               `}
             >
@@ -123,7 +131,9 @@ export function WeeklyCalendar({
                       ? 'text-primary-foreground'
                       : isDayToday
                         ? 'text-primary'
-                        : 'text-muted-foreground'
+                        : isCompleted
+                          ? 'text-success'
+                          : 'text-muted-foreground'
                   }`}
                 >
                   {getDayNameShort(dayOfWeek)}
@@ -136,7 +146,9 @@ export function WeeklyCalendar({
                       ? 'text-primary-foreground'
                       : isDayToday
                         ? 'text-primary'
-                        : ''
+                        : isCompleted
+                          ? 'text-success'
+                          : ''
                   }`}
                 >
                   {day.getDate()}

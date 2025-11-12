@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/Button'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
+import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
 
 // Workout Imports - ENERGY
 import { ENERGY_LOW_HOME_WORKOUTS } from '@/lib/data/mock-workouts-energy-low-home'
@@ -110,6 +111,8 @@ export default function WorkoutPage() {
   }
 
   const [selectedDate, setSelectedDate] = useState(getDateForDayOfWeek(dayOfWeek))
+  const email = typeof window !== 'undefined' ? localStorage.getItem('quizEmail') : null
+  const { completedDates } = useWeeklyCompletion(selectedDate, email)
   const [activeTooltip, setActiveTooltip] = useState<'hero' | null>(null)
 
   // Handle date change from calendar
@@ -368,6 +371,7 @@ export default function WorkoutPage() {
               programStartDate={programStartDate}
               selectedDate={selectedDate}
               onDateSelect={handleDateChange}
+              completedDates={completedDates}
             />
           </div>
 
@@ -586,6 +590,7 @@ export default function WorkoutPage() {
             programStartDate={programStartDate}
             selectedDate={selectedDate}
             onDateSelect={handleDateChange}
+            completedDates={completedDates}
           />
         </div>
 
