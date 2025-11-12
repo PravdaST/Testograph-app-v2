@@ -23,6 +23,13 @@ interface PreviousSet {
   date: string
 }
 
+interface SavedSet {
+  exercise_name: string
+  set_number: number
+  weight_kg: number | null
+  actual_reps: number
+}
+
 interface ExerciseCardEnhancedProps {
   exercise: Exercise
   exerciseNumber: number
@@ -106,13 +113,13 @@ export function ExerciseCardEnhanced({
         if (response.ok) {
           const data = await response.json()
           const exerciseSets = data.sets.filter(
-            (s: any) => s.exercise_name === exercise.name_bg
+            (s: SavedSet) => s.exercise_name === exercise.name_bg
           )
 
           if (exerciseSets.length > 0) {
             setSetLogs(prev =>
               prev.map((setLog) => {
-                const savedSet = exerciseSets.find((s: any) => s.set_number === setLog.setNumber)
+                const savedSet = exerciseSets.find((s: SavedSet) => s.set_number === setLog.setNumber)
                 return savedSet ? {
                   setNumber: setLog.setNumber,
                   weight: savedSet.weight_kg ? String(savedSet.weight_kg) : '',
