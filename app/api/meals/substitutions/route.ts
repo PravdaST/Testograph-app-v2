@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import type { SubstitutedMeal } from '@/lib/utils/dietary-substitution'
 
 /**
  * GET /api/meals/substitutions
@@ -32,7 +33,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Convert array to object: { mealNumber: substitutedMeal }
-    const substitutions: Record<number, any> = {}
+    const substitutions: Record<number, SubstitutedMeal> = {}
     data.forEach((item) => {
       substitutions[item.meal_number] = item.substituted_meal
     })
