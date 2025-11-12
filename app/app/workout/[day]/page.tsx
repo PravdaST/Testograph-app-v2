@@ -12,11 +12,15 @@ import { ArrowLeft, Dumbbell, CheckCircle2, TrendingUp, History, Sparkles, Utens
 import Link from 'next/link'
 import { ExerciseCardEnhanced } from '@/components/workout/ExerciseCardEnhanced'
 import { WorkoutTimer } from '@/components/workout/WorkoutTimer'
+import { WarmUpSection } from '@/components/workout/WarmUpSection'
+import { CoolDownSection } from '@/components/workout/CoolDownSection'
 import { Button } from '@/components/ui/Button'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
+import { GENERAL_WARMUP } from '@/lib/data/warm-up-routines'
+import { GENERAL_COOLDOWN } from '@/lib/data/cool-down-routines'
 
 // Workout Imports - ENERGY
 import { ENERGY_LOW_HOME_WORKOUTS } from '@/lib/data/mock-workouts-energy-low-home'
@@ -722,6 +726,11 @@ export default function WorkoutPage() {
           />
         </div>
 
+        {/* Warm-Up Section */}
+        <div className="animate-fade-in" style={{ animationDelay: '0.35s', animationFillMode: 'both' }}>
+          <WarmUpSection exercises={GENERAL_WARMUP} />
+        </div>
+
         {/* Exercise List */}
         <div className="space-y-4">
           <h2
@@ -754,6 +763,11 @@ export default function WorkoutPage() {
               />
             </div>
           ))}
+        </div>
+
+        {/* Cool-Down Section */}
+        <div className="animate-fade-in" style={{ animationDelay: `${0.4 + workout.exercises.length * 0.05 + 0.1}s`, animationFillMode: 'both' }}>
+          <CoolDownSection exercises={GENERAL_COOLDOWN} />
         </div>
 
         {/* Finish Button */}
