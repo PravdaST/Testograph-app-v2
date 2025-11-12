@@ -7,6 +7,7 @@
 
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { getAllCategories, type CategoryInfo } from '@/lib/data/quiz'
 import { LogIn } from 'lucide-react'
 
@@ -18,7 +19,19 @@ export default function QuizLandingPage() {
     <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset flex flex-col">
       <div className="container-mobile py-4 space-y-4 flex-1 flex flex-col justify-center">
         {/* Header */}
-        <div className="text-center space-y-2">
+        <div className="text-center space-y-4">
+          {/* Logo */}
+          <div className="flex justify-center mb-2">
+            <Image
+              src="/testograph_black_logo.png"
+              alt="Testograph"
+              width={180}
+              height={60}
+              priority
+              className="dark:invert"
+            />
+          </div>
+
           <h1 className="text-2xl font-bold leading-tight">
             Безплатен тест за{' '}
             <span className="text-primary">тестостерон</span>
