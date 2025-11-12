@@ -33,7 +33,7 @@ export const ENERGY_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'rjiM4L3',
-        name_bg: 'Ходба на пътека',
+        name_bg: 'Ходене на пътека',
         name_en: 'treadmill walking',
         sets: 1,
         reps: '10 мин',
@@ -69,7 +69,7 @@ export const ENERGY_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'rjtuP6X',
-        name_bg: 'Елиптична машина',
+        name_bg: 'Кростренажор (Елиптикал)',
         name_en: 'elliptical',
         sets: 1,
         reps: '8 мин',
@@ -95,7 +95,7 @@ export const ENERGY_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'dmgMp3n',
-        name_bg: 'Гребане (умерено)',
+        name_bg: 'Гребен тренажор (умерено темпо)',
         name_en: 'rowing machine',
         sets: 1,
         reps: '10 мин',
@@ -122,12 +122,12 @@ export const ENERGY_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'YUYAMEj',
-        name_bg: 'Фоам ролер',
+        name_bg: 'Разпускане с фоумролер',
         name_en: 'foam rolling',
         sets: 1,
         reps: '10 мин',
         rest_seconds: 0,
-        notes: 'Мобилност и възстановяване',
+        notes: 'За мобилност и възстановяване',
       },
     ],
   },
@@ -140,7 +140,7 @@ export const ENERGY_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'rjiM4L3',
-        name_bg: 'Загряване на пътека',
+        name_bg: 'Загрявка на пътека',
         name_en: 'treadmill warm-up',
         sets: 1,
         reps: '5 мин',
@@ -176,7 +176,7 @@ export const ENERGY_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'rjtuP6X',
-        name_bg: 'Охлаждане на елиптична',
+        name_bg: 'Охлаждане на кростренажор',
         name_en: 'elliptical cool down',
         sets: 1,
         reps: '10 мин',
@@ -230,7 +230,7 @@ export const ENERGY_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'rjiM4L3',
-        name_bg: 'Финална ходба',
+        name_bg: 'Охлаждащо ходене',
         name_en: 'cool down walk',
         sets: 1,
         reps: '10 мин',
@@ -256,12 +256,12 @@ export const ENERGY_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'rjiM4L3',
-        name_bg: 'Спокойна ходба (опционално)',
+        name_bg: 'Лека разходка (по желание)',
         name_en: 'light walking',
         sets: 1,
         reps: '20 мин',
         rest_seconds: 0,
-        notes: 'Само ако се чувствате добре',
+        notes: 'Само ако се чувствате добре и имате нужда от движение',
       },
     ],
   },

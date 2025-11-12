@@ -84,7 +84,7 @@ export const ENERGY_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'walking',
-        name_bg: 'Бърза разходка',
+        name_bg: 'Бързо ходене',
         name_en: 'brisk walking',
         sets: 1,
         reps: '30мин',
@@ -93,7 +93,7 @@ export const ENERGY_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '1jXLYEw',
-        name_bg: 'Разтягане',
+        name_bg: 'Разтягане за разпускане',
         name_en: 'stretching',
         sets: 1,
         reps: '10мин',
@@ -218,7 +218,7 @@ export const ENERGY_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'bWlZvXh',
-        name_bg: 'Йога / Разтягане',
+        name_bg: 'Йога за разпускане',
         name_en: 'yoga flow',
         sets: 1,
         reps: '20мин',

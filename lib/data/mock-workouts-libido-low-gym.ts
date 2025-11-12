@@ -33,7 +33,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: '1gFNTZV',
-        name_bg: 'Барбел клекове (лек товар)',
+        name_bg: 'Клекове с щанга (леко)',
         name_en: 'barbell squat',
         sets: 3,
         reps: '8-10',
@@ -42,7 +42,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '7zdxRTl',
-        name_bg: 'Лег прес',
+        name_bg: 'Лег преса',
         name_en: 'leg press',
         sets: 3,
         reps: '10-12',
@@ -51,7 +51,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '17lJ1kr',
-        name_bg: 'Лег къръл',
+        name_bg: 'Бедрено сгъване от лег',
         name_en: 'leg curl',
         sets: 2,
         reps: '12',
@@ -60,7 +60,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'IeDEXTe',
-        name_bg: 'Прасци на машина',
+        name_bg: 'Повдигане за прасци на машина',
         name_en: 'calf raise machine',
         sets: 2,
         reps: '15',
@@ -94,7 +94,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'W9pFVv1',
-        name_bg: 'Бенч прес (умерен товар)',
+        name_bg: 'Вдигане от лег с щанга (умерено)',
         name_en: 'bench press',
         sets: 3,
         reps: '8-10',
@@ -103,7 +103,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '4IKbhHV',
-        name_bg: 'Лат пулдаун',
+        name_bg: 'Вертикален скрипец',
         name_en: 'lat pulldown',
         sets: 3,
         reps: '10-12',
@@ -112,7 +112,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'znQUdHY',
-        name_bg: 'Раменна прес с дъмбели',
+        name_bg: 'Раменни преси с дъмбели',
         name_en: 'dumbbell shoulder press',
         sets: 2,
         reps: '10',
@@ -121,7 +121,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'PQStVXH',
-        name_bg: 'Кабел гребане',
+        name_bg: 'Гребане на долен скрипец',
         name_en: 'cable row',
         sets: 2,
         reps: '12',
@@ -139,7 +139,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: '1gFNTZV',
-        name_bg: 'Барбел клекове',
+        name_bg: 'Клекове с щанга',
         name_en: 'barbell squat',
         sets: 3,
         reps: '10',
@@ -148,7 +148,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'W9pFVv1',
-        name_bg: 'Бенч прес',
+        name_bg: 'Вдигане от лег с щанга',
         name_en: 'bench press',
         sets: 3,
         reps: '10',
@@ -157,7 +157,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '4IKbhHV',
-        name_bg: 'Лат пулдаун',
+        name_bg: 'Вертикален скрипец',
         name_en: 'lat pulldown',
         sets: 2,
         reps: '12',

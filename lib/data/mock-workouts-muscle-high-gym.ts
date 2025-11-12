@@ -33,7 +33,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'W9pFVv1',
-        name_bg: 'Барбел бенч прес',
+        name_bg: 'Вдигане от лег с щанга',
         name_en: 'barbell bench press',
         sets: 5,
         reps: '8-10',
@@ -42,7 +42,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'ns0SIbU',
-        name_bg: 'Наклонена прес с дъмбели',
+        name_bg: 'Вдигане от полулег с дъмбели',
         name_en: 'incline dumbbell press',
         sets: 4,
         reps: '10-12',
@@ -51,7 +51,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'FVmZVhk',
-        name_bg: 'Кабел флай',
+        name_bg: 'Флайс на скрипец',
         name_en: 'cable fly',
         sets: 4,
         reps: '12-15',
@@ -60,7 +60,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'yz9nUhF',
-        name_bg: 'Дъмбел флай',
+        name_bg: 'Флайс с дъмбели',
         name_en: 'dumbbell fly',
         sets: 3,
         reps: '12-15',
@@ -69,7 +69,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'WcHl7ru',
-        name_bg: 'Тесен хват бенч',
+        name_bg: 'Вдигане от лег с тесен хват',
         name_en: 'close grip bench press',
         sets: 4,
         reps: '10',
@@ -78,7 +78,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'qRZ5S1N',
-        name_bg: 'Трицепс пушдаун',
+        name_bg: 'Трицепсово разгъване на горен скрипец',
         name_en: 'tricep pushdown',
         sets: 4,
         reps: '12-15',
@@ -87,7 +87,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '5uFK1xr',
-        name_bg: 'Френска прес',
+        name_bg: 'Френска преса',
         name_en: 'overhead extension',
         sets: 3,
         reps: '12',
@@ -114,7 +114,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '4IKbhHV',
-        name_bg: 'Лат пулдаун',
+        name_bg: 'Вертикален скрипец',
         name_en: 'lat pulldown',
         sets: 4,
         reps: '10-12',
@@ -123,7 +123,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'dmgMp3n',
-        name_bg: 'Барбел гребане',
+        name_bg: 'Гребане с щанга',
         name_en: 'barbell row',
         sets: 4,
         reps: '10',
@@ -132,7 +132,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'PQStVXH',
-        name_bg: 'Кабел гребане',
+        name_bg: 'Гребане на долен скрипец',
         name_en: 'cable row',
         sets: 4,
         reps: '12',
@@ -150,7 +150,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '25GPyDY',
-        name_bg: 'Барбел къръл',
+        name_bg: 'Бицепсово сгъване с щанга',
         name_en: 'barbell curl',
         sets: 4,
         reps: '10-12',
@@ -159,7 +159,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'slDvUAU',
-        name_bg: 'Чук къръл',
+        name_bg: 'Чуково сгъване с дъмбели',
         name_en: 'hammer curl',
         sets: 4,
         reps: '12',
@@ -168,7 +168,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'b6hQYMb',
-        name_bg: 'Прийчър къръл',
+        name_bg: 'Скотово сгъване',
         name_en: 'preacher curl',
         sets: 3,
         reps: '12-15',
@@ -186,7 +186,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: '1gFNTZV',
-        name_bg: 'Барбел клекове',
+        name_bg: 'Клекове с щанга',
         name_en: 'barbell squat',
         sets: 5,
         reps: '8-10',
@@ -195,7 +195,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '7zdxRTl',
-        name_bg: 'Лег прес',
+        name_bg: 'Лег преса',
         name_en: 'leg press',
         sets: 4,
         reps: '12-15',
@@ -213,7 +213,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'my33uHU',
-        name_bg: 'Лег екстеншън',
+        name_bg: 'Бедрено разгъване',
         name_en: 'leg extension',
         sets: 4,
         reps: '15',
@@ -222,7 +222,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '17lJ1kr',
-        name_bg: 'Лег къръл',
+        name_bg: 'Бедрено сгъване от лег',
         name_en: 'leg curl',
         sets: 4,
         reps: '12-15',
@@ -231,7 +231,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'IeDEXTe',
-        name_bg: 'Прасци на машина',
+        name_bg: 'Повдигане за прасци на машина',
         name_en: 'calf raise machine',
         sets: 5,
         reps: '20',
@@ -240,7 +240,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'VBAWRPG',
-        name_bg: 'Планк (тежък)',
+        name_bg: 'Планк с тежест',
         name_en: 'weighted plank',
         sets: 4,
         reps: '75s',
@@ -258,7 +258,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'u4bAmKp',
-        name_bg: 'Раменна прес стоеща',
+        name_bg: 'Военна преса',
         name_en: 'standing overhead press',
         sets: 5,
         reps: '8-10',
@@ -267,7 +267,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'znQUdHY',
-        name_bg: 'Седнала прес с дъмбели',
+        name_bg: 'Раменни преси с дъмбели от седеж',
         name_en: 'seated dumbbell press',
         sets: 4,
         reps: '10-12',
@@ -276,7 +276,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'goJ6ezq',
-        name_bg: 'Странични махове',
+        name_bg: 'Странично повдигане с дъмбели',
         name_en: 'lateral raise',
         sets: 4,
         reps: '15',
@@ -285,7 +285,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'TFA88iB',
-        name_bg: 'Предни махове',
+        name_bg: 'Предно повдигане с дъмбели',
         name_en: 'front raise',
         sets: 3,
         reps: '12',
@@ -294,7 +294,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'G61cXLk',
-        name_bg: 'Фейс пул',
+        name_bg: 'Фейс пул (дърпане към лице)',
         name_en: 'face pull',
         sets: 4,
         reps: '15',
@@ -303,7 +303,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'q2ADGqV',
-        name_bg: 'Кабел коремни',
+        name_bg: 'Коремни преси на скрипец',
         name_en: 'cable crunch',
         sets: 4,
         reps: '20',
@@ -312,7 +312,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'tZkGYZ9',
-        name_bg: 'Колело коремни',
+        name_bg: "Коремни преси 'Колело'",
         name_en: 'bicycle crunch',
         sets: 4,
         reps: '30',
@@ -321,7 +321,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'I3tsCnC',
-        name_bg: 'Повдигане на крака на лост',
+        name_bg: 'Повдигане на крака от вис',
         name_en: 'hanging leg raise',
         sets: 3,
         reps: '15',
@@ -339,7 +339,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: '25GPyDY',
-        name_bg: 'Барбел къръл',
+        name_bg: 'Бицепсово сгъване с щанга',
         name_en: 'barbell curl',
         sets: 4,
         reps: '10',
@@ -348,7 +348,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'WcHl7ru',
-        name_bg: 'Тесен хват бенч',
+        name_bg: 'Вдигане от лег с тесен хват',
         name_en: 'close grip bench',
         sets: 4,
         reps: '10',
@@ -357,7 +357,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'qAmNMJY',
-        name_bg: 'Дъмбел къръл',
+        name_bg: 'Бицепсово сгъване с дъмбели',
         name_en: 'dumbbell curl',
         sets: 4,
         reps: '12',
@@ -366,7 +366,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'qRZ5S1N',
-        name_bg: 'Трицепс пушдаун',
+        name_bg: 'Трицепсово разгъване на горен скрипец',
         name_en: 'tricep pushdown',
         sets: 4,
         reps: '15',
@@ -375,7 +375,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'slDvUAU',
-        name_bg: 'Чук къръл',
+        name_bg: 'Чуково сгъване с дъмбели',
         name_en: 'hammer curl',
         sets: 4,
         reps: '12',
@@ -384,7 +384,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '5uFK1xr',
-        name_bg: 'Френска прес над глава',
+        name_bg: 'Френска преса зад глава',
         name_en: 'overhead extension',
         sets: 4,
         reps: '12',
@@ -393,7 +393,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'b6hQYMb',
-        name_bg: 'Прийчър къръл',
+        name_bg: 'Скотово сгъване',
         name_en: 'preacher curl',
         sets: 3,
         reps: '15',
@@ -402,7 +402,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'dU605di',
-        name_bg: 'Пушдаун с въже',
+        name_bg: 'Трицепсово разгъване на горен скрипец с въже',
         name_en: 'rope pushdown',
         sets: 3,
         reps: '20',
@@ -429,7 +429,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'W9pFVv1',
-        name_bg: 'Бенч прес (умерен)',
+        name_bg: 'Вдигане от лег с щанга (умерено)',
         name_en: 'moderate bench',
         sets: 3,
         reps: '12',
@@ -438,7 +438,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '4IKbhHV',
-        name_bg: 'Лат пулдаун',
+        name_bg: 'Вертикален скрипец',
         name_en: 'lat pulldown',
         sets: 3,
         reps: '15',
@@ -447,7 +447,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'goJ6ezq',
-        name_bg: 'Странични махове',
+        name_bg: 'Странично повдигане с дъмбели',
         name_en: 'lateral raise',
         sets: 4,
         reps: '20',
@@ -456,7 +456,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'G61cXLk',
-        name_bg: 'Фейс пул',
+        name_bg: 'Фейс пул (дърпане към лице)',
         name_en: 'face pull',
         sets: 3,
         reps: '20',

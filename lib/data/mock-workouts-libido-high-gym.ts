@@ -33,7 +33,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: '1gFNTZV',
-        name_bg: 'Барбел клекове (тежки)',
+        name_bg: 'Клекове с щанга (тежко)',
         name_en: 'heavy barbell squat',
         sets: 5,
         reps: '5-8',
@@ -51,7 +51,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '7zdxRTl',
-        name_bg: 'Лег прес (тежък)',
+        name_bg: 'Лег преса (тежко)',
         name_en: 'heavy leg press',
         sets: 4,
         reps: '10',
@@ -60,7 +60,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '17lJ1kr',
-        name_bg: 'Лег къръл',
+        name_bg: 'Бедрено сгъване от лег',
         name_en: 'leg curl',
         sets: 3,
         reps: '12',
@@ -69,7 +69,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'IeDEXTe',
-        name_bg: 'Прасци (тежки)',
+        name_bg: 'Повдигане за прасци (тежко)',
         name_en: 'heavy calf raise',
         sets: 4,
         reps: '15',
@@ -87,7 +87,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'W9pFVv1',
-        name_bg: 'Бенч прес (тежък)',
+        name_bg: 'Вдигане от лег с щанга (тежко)',
         name_en: 'heavy bench press',
         sets: 5,
         reps: '5-8',
@@ -96,7 +96,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'dmgMp3n',
-        name_bg: 'Барбел гребане',
+        name_bg: 'Гребане с щанга',
         name_en: 'barbell row',
         sets: 4,
         reps: '8-10',
@@ -105,7 +105,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'u4bAmKp',
-        name_bg: 'Раменна прес стоеща',
+        name_bg: 'Военна преса',
         name_en: 'overhead press',
         sets: 4,
         reps: '8',
@@ -114,7 +114,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '4IKbhHV',
-        name_bg: 'Лат пулдаун (тежък)',
+        name_bg: 'Вертикален скрипец (тежко)',
         name_en: 'heavy lat pulldown',
         sets: 4,
         reps: '10',
@@ -123,7 +123,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '25GPyDY',
-        name_bg: 'Барбел къръл',
+        name_bg: 'Бицепсово сгъване с щанга',
         name_en: 'barbell curl',
         sets: 3,
         reps: '10',
@@ -149,7 +149,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: '1gFNTZV',
-        name_bg: 'Барбел клекове (обем)',
+        name_bg: 'Клекове с щанга (обемно)',
         name_en: 'volume barbell squat',
         sets: 4,
         reps: '10-12',
@@ -158,7 +158,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '7zdxRTl',
-        name_bg: 'Лег прес',
+        name_bg: 'Лег преса',
         name_en: 'leg press',
         sets: 4,
         reps: '15',
@@ -176,7 +176,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'my33uHU',
-        name_bg: 'Лег екстеншън',
+        name_bg: 'Бедрено разгъване',
         name_en: 'leg extension',
         sets: 3,
         reps: '15',
@@ -185,7 +185,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '17lJ1kr',
-        name_bg: 'Лег къръл',
+        name_bg: 'Бедрено сгъване от лег',
         name_en: 'leg curl',
         sets: 3,
         reps: '15',
@@ -194,7 +194,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'VBAWRPG',
-        name_bg: 'Планк (дълъг)',
+        name_bg: 'Планк (продължително задържане)',
         name_en: 'long plank hold',
         sets: 3,
         reps: '90s',
@@ -212,7 +212,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'W9pFVv1',
-        name_bg: 'Бенч прес',
+        name_bg: 'Вдигане от лег с щанга',
         name_en: 'bench press',
         sets: 4,
         reps: '10',
@@ -221,7 +221,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'ns0SIbU',
-        name_bg: 'Наклонена прес с дъмбели',
+        name_bg: 'Вдигане от полулег с дъмбели',
         name_en: 'incline dumbbell press',
         sets: 4,
         reps: '12',
@@ -230,7 +230,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'PQStVXH',
-        name_bg: 'Кабел гребане',
+        name_bg: 'Гребане на долен скрипец',
         name_en: 'cable row',
         sets: 4,
         reps: '12',
@@ -239,7 +239,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'znQUdHY',
-        name_bg: 'Раменна прес с дъмбели',
+        name_bg: 'Раменни преси с дъмбели',
         name_en: 'dumbbell shoulder press',
         sets: 4,
         reps: '12',
@@ -248,7 +248,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'goJ6ezq',
-        name_bg: 'Странични махове',
+        name_bg: 'Странично повдигане с дъмбели',
         name_en: 'lateral raise',
         sets: 4,
         reps: '15',
@@ -257,7 +257,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'qRZ5S1N',
-        name_bg: 'Трицепс пушдаун',
+        name_bg: 'Трицепсово разгъване на горен скрипец',
         name_en: 'tricep pushdown',
         sets: 3,
         reps: '15',
@@ -266,7 +266,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'slDvUAU',
-        name_bg: 'Чук къръл',
+        name_bg: 'Чуково сгъване с дъмбели',
         name_en: 'hammer curl',
         sets: 3,
         reps: '12',
@@ -284,7 +284,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'SGY8Zui',
-        name_bg: 'Барбел клийн',
+        name_bg: 'Обръщане на щанга',
         name_en: 'barbell clean',
         sets: 5,
         reps: '5',
@@ -311,7 +311,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'qPEzJjA',
-        name_bg: 'Фермер ход',
+        name_bg: 'Фермерска разходка',
         name_en: 'farmer walk',
         sets: 4,
         reps: '40m',
@@ -320,7 +320,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'VBAWRPG',
-        name_bg: 'Планк (тежък)',
+        name_bg: 'Планк с тежест',
         name_en: 'weighted plank',
         sets: 3,
         reps: '60s',

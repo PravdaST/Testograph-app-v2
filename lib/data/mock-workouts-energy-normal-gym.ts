@@ -93,12 +93,12 @@ export const ENERGY_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'YUYAMEj',
-        name_bg: 'Foam Rolling',
+        name_bg: 'Разпускане с фоумролер',
         name_en: 'foam rolling',
         sets: 1,
         reps: '10мин',
         rest_seconds: 0,
-        notes: 'Мобилност и възстановяване на мускулите.',
+        notes: 'За мобилност и възстановяване на мускулите.',
       },
     ],
   },
@@ -209,7 +209,7 @@ export const ENERGY_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '1ZFqTDN',
-        name_bg: 'Assault Bike Финал',
+        name_bg: 'Финален спринт на Assault Bike',
         name_en: 'assault bike',
         sets: 1,
         reps: '10мин',
@@ -227,7 +227,7 @@ export const ENERGY_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'rjtuP6X',
-        name_bg: 'Елиптична машина',
+        name_bg: 'Кростренажор (Елиптикал)',
         name_en: 'elliptical',
         sets: 1,
         reps: '30мин',
@@ -236,12 +236,12 @@ export const ENERGY_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '1jXLYEw',
-        name_bg: 'Разтягане',
+        name_bg: 'Разтягане за финал',
         name_en: 'stretching',
         sets: 1,
         reps: '5мин',
         rest_seconds: 0,
-        notes: 'Динамично разтягане.',
+        notes: 'Динамично разтягане за разпускане.',
       },
     ],
   },

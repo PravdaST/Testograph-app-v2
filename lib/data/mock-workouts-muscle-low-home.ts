@@ -42,7 +42,7 @@ export const MUSCLE_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'F7vjXqT',
-        name_bg: 'Наклонени опори (ръце на повдигната повърхност)',
+        name_bg: 'Лицеви опори на наклон',
         name_en: 'incline push-up',
         sets: 3,
         reps: '12-15',
@@ -51,7 +51,7 @@ export const MUSCLE_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '7aVz15j',
-        name_bg: 'Дипс на стол',
+        name_bg: 'Кофички на стол',
         name_en: 'chair dips',
         sets: 3,
         reps: '8-10',
@@ -60,7 +60,7 @@ export const MUSCLE_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'sVvXT5J',
-        name_bg: 'Пайк опори (рамене)',
+        name_bg: 'Пайк лицеви опори',
         name_en: 'pike push-up',
         sets: 2,
         reps: '8-10',
@@ -86,7 +86,7 @@ export const MUSCLE_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'lBDjFxJ',
-        name_bg: 'Австралийски лост (маса/бар)',
+        name_bg: 'Обратно гребане (с маса или лост)',
         name_en: 'inverted row',
         sets: 3,
         reps: '8-10',
@@ -104,7 +104,7 @@ export const MUSCLE_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '25GPyDY',
-        name_bg: 'Бицепс къръл с кърпа',
+        name_bg: 'Бицепсово сгъване с кърпа',
         name_en: 'towel bicep curl',
         sets: 3,
         reps: '12-15',
@@ -157,7 +157,7 @@ export const MUSCLE_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'GibBPPg',
-        name_bg: 'Глутеус мост',
+        name_bg: 'Седалищен мост',
         name_en: 'glute bridge',
         sets: 3,
         reps: '15',
@@ -175,7 +175,7 @@ export const MUSCLE_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'tZkGYZ9',
-        name_bg: 'Колело коремни',
+        name_bg: "Коремни преси 'Колело'",
         name_en: 'bicycle crunch',
         sets: 2,
         reps: '20',

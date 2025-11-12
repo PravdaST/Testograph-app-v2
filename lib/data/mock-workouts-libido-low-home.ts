@@ -42,7 +42,7 @@ export const LIBIDO_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'GibBPPg',
-        name_bg: 'Глутеус мост',
+        name_bg: 'Седалищен мост',
         name_en: 'glute bridge',
         sets: 3,
         reps: '15',
@@ -103,7 +103,7 @@ export const LIBIDO_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'lBDjFxJ',
-        name_bg: 'Австралийски лост (маса/бар)',
+        name_bg: 'Обратно гребане (с маса или лост)',
         name_en: 'inverted row',
         sets: 3,
         reps: '8-10',
@@ -112,7 +112,7 @@ export const LIBIDO_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '7aVz15j',
-        name_bg: 'Дипс на стол',
+        name_bg: 'Кофички на стол',
         name_en: 'chair dips',
         sets: 2,
         reps: '8-10',
@@ -157,7 +157,7 @@ export const LIBIDO_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'GibBPPg',
-        name_bg: 'Глутеус мост (единичен крак)',
+        name_bg: 'Седалищен мост на един крак',
         name_en: 'single leg glute bridge',
         sets: 2,
         reps: '10/крак',

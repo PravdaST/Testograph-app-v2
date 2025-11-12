@@ -57,7 +57,7 @@ export const LIBIDO_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '7zdxRTl',
-        name_bg: 'Преса за крака',
+        name_bg: 'Лег преса',
         name_en: 'leg press',
         sets: 3,
         reps: '10-12',
@@ -83,7 +83,7 @@ export const LIBIDO_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'W9pFVv1',
-        name_bg: 'Лежанка със щанга',
+        name_bg: 'Вдигане от лег с щанга',
         name_en: 'barbell bench press',
         sets: 5,
         reps: '5-8',
@@ -154,7 +154,7 @@ export const LIBIDO_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'W9pFVv1',
-        name_bg: 'Лежанка със щанга',
+        name_bg: 'Вдигане от лег с щанга',
         name_en: 'barbell bench press',
         sets: 3,
         reps: '8-10',

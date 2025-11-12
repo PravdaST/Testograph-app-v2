@@ -39,7 +39,7 @@ export const LIBIDO_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '5bpPTHv',
-        name_bg: 'Клекове на един крак',
+        name_bg: 'Пистолет клекове',
         name_en: 'pistol squat',
         sets: 4,
         reps: '8-10 на крак',
@@ -57,7 +57,7 @@ export const LIBIDO_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'rmEukuS',
-        name_bg: 'Глутеус мост на един крак',
+        name_bg: 'Седалищен мост на един крак',
         name_en: 'single leg glute bridge',
         sets: 4,
         reps: '12-15 на крак',
@@ -101,7 +101,7 @@ export const LIBIDO_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'i5cEhka',
-        name_bg: 'Лицеви опори с крака нагоре',
+        name_bg: 'Лицеви опори с повдигнати крака',
         name_en: 'decline push-up',
         sets: 4,
         reps: '10-12',
@@ -110,7 +110,7 @@ export const LIBIDO_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'lBDjFxJ',
-        name_bg: 'Лост (или австралийски лост)',
+        name_bg: 'Набирания (или обратно гребане)',
         name_en: 'pull-up or inverted row',
         sets: 4,
         reps: '8-12',
@@ -119,7 +119,7 @@ export const LIBIDO_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'sVvXT5J',
-        name_bg: 'Pike лицеви опори',
+        name_bg: 'Пайк лицеви опори',
         name_en: 'pike push-up',
         sets: 3,
         reps: '12-15',
@@ -190,7 +190,7 @@ export const LIBIDO_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'PM1PZjg',
-        name_bg: 'Скок напади',
+        name_bg: 'Скокови напади',
         name_en: 'jump lunge',
         sets: 3,
         reps: '10-12 на крак',

@@ -33,7 +33,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'I4hDWkc',
-        name_bg: 'Опори (archer)',
+        name_bg: "Лицеви опори 'Лък' (Archer)",
         name_en: 'archer push-up',
         sets: 5,
         reps: '10/страна',
@@ -42,7 +42,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'I4hDWkc',
-        name_bg: 'Диамантени опори',
+        name_bg: 'Диамантени лицеви опори',
         name_en: 'diamond push-up',
         sets: 4,
         reps: '15',
@@ -51,7 +51,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'sVvXT5J',
-        name_bg: 'Пайк опори (стръмни)',
+        name_bg: 'Пайк лицеви опори (със съпротивление)',
         name_en: 'steep pike push-up',
         sets: 5,
         reps: '15',
@@ -60,7 +60,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'I4hDWkc',
-        name_bg: 'Опори с темп',
+        name_bg: 'Лицеви опори с темпо',
         name_en: 'tempo push-up',
         sets: 4,
         reps: '12',
@@ -69,7 +69,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '7aVz15j',
-        name_bg: 'Дипс (напреднал)',
+        name_bg: 'Кофички (напреднали)',
         name_en: 'advanced dips',
         sets: 5,
         reps: '20',
@@ -78,7 +78,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'AQ0mC4Y',
-        name_bg: 'Странични махове (бутилки)',
+        name_bg: 'Странично повдигане (с бутилки)',
         name_en: 'bottle lateral raise',
         sets: 4,
         reps: '20',
@@ -96,7 +96,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'lBDjFxJ',
-        name_bg: 'Австралийски лост (тежък)',
+        name_bg: 'Обратно гребане (с тежест)',
         name_en: 'weighted inverted row',
         sets: 5,
         reps: '15',
@@ -105,7 +105,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'lBDjFxJ',
-        name_bg: 'Лост (ако е възможно)',
+        name_bg: 'Набирания (ако е възможно)',
         name_en: 'pull-up',
         sets: 5,
         reps: 'До отказ',
@@ -123,7 +123,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '25GPyDY',
-        name_bg: 'Бицепс къръл с кърпа',
+        name_bg: 'Бицепсово сгъване с кърпа',
         name_en: 'towel bicep curl',
         sets: 5,
         reps: '15',
@@ -150,7 +150,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'TUZLh71',
-        name_bg: 'Пистол клекове',
+        name_bg: 'Пистолет клекове',
         name_en: 'pistol squat',
         sets: 5,
         reps: '10/крак',
@@ -177,7 +177,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'aWedzZX',
-        name_bg: 'Мост на един крак',
+        name_bg: 'Седалищен мост на един крак',
         name_en: 'single leg glute bridge',
         sets: 5,
         reps: '20/крак',
@@ -186,7 +186,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '17lJ1kr',
-        name_bg: 'Нордик къръл (асистиран)',
+        name_bg: 'Нордиско сгъване за задно бедро (асистирано)',
         name_en: 'assisted nordic curl',
         sets: 4,
         reps: '8-10',
@@ -204,7 +204,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'tZkGYZ9',
-        name_bg: 'Колело коремни',
+        name_bg: "Коремни преси 'Колело'",
         name_en: 'bicycle crunch',
         sets: 4,
         reps: '30',
@@ -222,7 +222,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'I4hDWkc',
-        name_bg: 'Опори (стандартни високо повторение)',
+        name_bg: 'Стандартни лицеви опори (висок брой повторения)',
         name_en: 'high rep push-up',
         sets: 5,
         reps: '25',
@@ -231,7 +231,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'I4hDWkc',
-        name_bg: 'Наклонени опори (краката горе)',
+        name_bg: 'Лицеви опори с повдигнати крака',
         name_en: 'decline push-up',
         sets: 5,
         reps: '20',
@@ -240,7 +240,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'sVvXT5J',
-        name_bg: 'Пайк опори',
+        name_bg: 'Пайк лицеви опори',
         name_en: 'pike push-up',
         sets: 4,
         reps: '18',
@@ -249,7 +249,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'I4hDWkc',
-        name_bg: 'Широки опори',
+        name_bg: 'Лицеви опори с широк хват',
         name_en: 'wide push-up',
         sets: 4,
         reps: '20',
@@ -258,7 +258,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '7aVz15j',
-        name_bg: 'Дипс до отказ',
+        name_bg: 'Кофички до отказ',
         name_en: 'dips to failure',
         sets: 4,
         reps: 'До отказ',
@@ -276,7 +276,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'lBDjFxJ',
-        name_bg: 'Австралийски лост (обем)',
+        name_bg: 'Обратно гребане (обемно)',
         name_en: 'high volume inverted row',
         sets: 5,
         reps: '20',
@@ -285,7 +285,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'lBDjFxJ',
-        name_bg: 'Лост / Негативи',
+        name_bg: 'Набирания / Негативни набирания',
         name_en: 'pull-up negatives',
         sets: 5,
         reps: '8 или негативи 5×8s',
@@ -303,7 +303,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '25GPyDY',
-        name_bg: 'Бицепс изометрични',
+        name_bg: 'Бицепсово сгъване (изометрично)',
         name_en: 'isometric bicep hold',
         sets: 4,
         reps: '45s',
@@ -330,7 +330,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'TUZLh71',
-        name_bg: 'Клекове (100 rep challenge)',
+        name_bg: 'Клекове (предизвикателство 100 повторения)',
         name_en: 'squat 100 rep challenge',
         sets: 1,
         reps: '100',
@@ -339,7 +339,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'lBDjFxJ',
-        name_bg: 'Напади (ходещи)',
+        name_bg: 'Ходещи напади',
         name_en: 'walking lunge',
         sets: 5,
         reps: '20/крак',
@@ -357,7 +357,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'GibBPPg',
-        name_bg: 'Глутеус мост (обем)',
+        name_bg: 'Седалищен мост (обемно)',
         name_en: 'high volume glute bridge',
         sets: 5,
         reps: '25',
@@ -366,7 +366,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'VBAWRPG',
-        name_bg: 'Планк комбо',
+        name_bg: 'Планк комбинация',
         name_en: 'plank combo',
         sets: 4,
         reps: '90s',
@@ -375,7 +375,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'tZkGYZ9',
-        name_bg: 'Колело коремни',
+        name_bg: "Коремни преси 'Колело'",
         name_en: 'bicycle crunch',
         sets: 4,
         reps: '40',

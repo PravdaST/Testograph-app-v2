@@ -36,7 +36,7 @@ export const ENERGY_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'walking',
-        name_bg: 'Ходене на място',
+        name_bg: 'Загряващо ходене на място',
         name_en: 'walking in place',
         sets: 1,
         reps: '5 мин',
@@ -72,12 +72,12 @@ export const ENERGY_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '1jXLYEw',
-        name_bg: 'Разтягане',
+        name_bg: 'Разтягане за разпускане',
         name_en: 'stretching',
         sets: 1,
         reps: '5 мин',
         rest_seconds: 0,
-        notes: 'Спокойно разтягане на цялото тяло',
+        notes: 'Леко разтягане на основните мускулни групи',
       },
     ],
   },
@@ -98,7 +98,7 @@ export const ENERGY_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'walking',
-        name_bg: 'Бърза ходба',
+        name_bg: 'Бързо ходене',
         name_en: 'brisk walking',
         sets: 1,
         reps: '10 мин',
@@ -125,7 +125,7 @@ export const ENERGY_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'bWlZvXh',
-        name_bg: 'Йога разтягане',
+        name_bg: 'Йога за разпускане',
         name_en: 'yoga stretches',
         sets: 1,
         reps: '10 мин',
@@ -179,7 +179,7 @@ export const ENERGY_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'walking',
-        name_bg: 'Охлаждаща ходба',
+        name_bg: 'Охлаждащо ходене',
         name_en: 'cool down walk',
         sets: 1,
         reps: '5 мин',
@@ -197,7 +197,7 @@ export const ENERGY_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'walking',
-        name_bg: 'Интервална ходба',
+        name_bg: 'Интервално ходене',
         name_en: 'interval walking',
         sets: 1,
         reps: '15 мин',
@@ -224,7 +224,7 @@ export const ENERGY_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '1jXLYEw',
-        name_bg: 'Пълно разтягане',
+        name_bg: 'Цялостно разтягане за край',
         name_en: 'full body stretch',
         sets: 1,
         reps: '10 мин',
@@ -250,7 +250,7 @@ export const ENERGY_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'bWlZvXh',
-        name_bg: 'Йога или разтягане (опционално)',
+        name_bg: 'Йога или стречинг (по желание)',
         name_en: 'yoga or stretching',
         sets: 1,
         reps: '15 мин',

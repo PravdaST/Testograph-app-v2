@@ -30,7 +30,7 @@ export const MUSCLE_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'W9pFVv1',
-        name_bg: 'Лежанка със щанга',
+        name_bg: 'Вдигане от лег с щанга',
         name_en: 'barbell bench press',
         sets: 4,
         reps: '8-10',
@@ -39,7 +39,7 @@ export const MUSCLE_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'yaMIo4D',
-        name_bg: 'Наклонена лежанка с дъмбели',
+        name_bg: 'Вдигане от полулег с дъмбели',
         name_en: 'incline dumbbell press',
         sets: 4,
         reps: '10-12',
@@ -48,7 +48,7 @@ export const MUSCLE_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'K5TldTr',
-        name_bg: 'Разперки с дъмбели',
+        name_bg: 'Флайс с дъмбели',
         name_en: 'dumbbell fly',
         sets: 3,
         reps: '12-15',
@@ -57,7 +57,7 @@ export const MUSCLE_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'j7XMAyn',
-        name_bg: 'Кръстосани изтегляния на кабели',
+        name_bg: 'Кросоувър на скрипец',
         name_en: 'cable crossover',
         sets: 3,
         reps: '12-15',
@@ -66,7 +66,7 @@ export const MUSCLE_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '7aVz15j',
-        name_bg: 'Паралелки за трицепс',
+        name_bg: 'Кофички на паралелка',
         name_en: 'tricep dips',
         sets: 4,
         reps: '10-12',
@@ -75,7 +75,7 @@ export const MUSCLE_NORMAL_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'dU605di',
-        name_bg: 'Разтегляния на въже надолу',
+        name_bg: 'Трицепсово разгъване на горен скрипец с въже',
         name_en: 'rope pushdown',
         sets: 3,
         reps: '12-15',

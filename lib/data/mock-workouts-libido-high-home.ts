@@ -78,7 +78,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'GibBPPg',
-        name_bg: 'Глутеус мост (изометричен)',
+        name_bg: 'Седалищен мост (изометрично задържане)',
         name_en: 'isometric glute bridge',
         sets: 3,
         reps: '60s',
@@ -96,7 +96,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'I4hDWkc',
-        name_bg: 'Опори (напреднали вариации)',
+        name_bg: 'Лицеви опори (напреднали варианти)',
         name_en: 'advanced push-up variations',
         sets: 5,
         reps: '15-20',
@@ -105,7 +105,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'lBDjFxJ',
-        name_bg: 'Австралийски лост',
+        name_bg: 'Обратно гребане (с маса или лост)',
         name_en: 'inverted row',
         sets: 5,
         reps: '15',
@@ -114,7 +114,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'sVvXT5J',
-        name_bg: 'Пайк опори (дълбоки)',
+        name_bg: 'Дълбоки Пайк лицеви опори',
         name_en: 'pike push-up',
         sets: 4,
         reps: '15',
@@ -123,7 +123,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '7aVz15j',
-        name_bg: 'Дипс (напреднал)',
+        name_bg: 'Кофички (напреднали)',
         name_en: 'advanced dips',
         sets: 4,
         reps: '15-20',
@@ -132,7 +132,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'VBAWRPG',
-        name_bg: 'Планк с движение',
+        name_bg: 'Динамичен планк',
         name_en: 'dynamic plank',
         sets: 4,
         reps: '60s',
@@ -158,7 +158,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: 'dK9394r',
-        name_bg: 'Бърпита (тежки)',
+        name_bg: 'Бърпита (интензивно)',
         name_en: 'burpee',
         sets: 5,
         reps: '15',
@@ -176,7 +176,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'I4hDWkc',
-        name_bg: 'Опори (експлозивни)',
+        name_bg: 'Експлозивни лицеви опори',
         name_en: 'explosive push-up',
         sets: 5,
         reps: '15',
@@ -194,7 +194,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'lBDjFxJ',
-        name_bg: 'Гребане (маса)',
+        name_bg: 'Обратно гребане с маса',
         name_en: 'table row',
         sets: 4,
         reps: '20',
@@ -203,7 +203,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'GibBPPg',
-        name_bg: 'Мост (единичен крак)',
+        name_bg: 'Седалищен мост на един крак',
         name_en: 'single leg bridge',
         sets: 4,
         reps: '15/крак',
@@ -230,7 +230,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'lBDjFxJ',
-        name_bg: 'Напади (ходещи)',
+        name_bg: 'Ходещи напади',
         name_en: 'walking lunge',
         sets: 5,
         reps: '20/крак',
@@ -239,7 +239,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'LIlE5Tn',
-        name_bg: 'Скокови клекове (сет)',
+        name_bg: 'Скокови клекове (в суперсет)',
         name_en: 'jump squat set',
         sets: 4,
         reps: '15',
@@ -248,7 +248,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'GibBPPg',
-        name_bg: 'Глутеус мост (двукрак тежък)',
+        name_bg: 'Седалищен мост с тежест',
         name_en: 'weighted glute bridge',
         sets: 5,
         reps: '20',
@@ -257,7 +257,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '2ORFMoR',
-        name_bg: 'Прасци (единичен крак)',
+        name_bg: 'Повдигане за прасци на един крак',
         name_en: 'single leg calf raise',
         sets: 4,
         reps: '20/крак',
@@ -293,7 +293,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'tZkGYZ9',
-        name_bg: 'Колело коремни',
+        name_bg: "Коремни преси 'Колело'",
         name_en: 'bicycle crunch',
         sets: 4,
         reps: '40',
@@ -302,7 +302,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'VBAWRPG',
-        name_bg: 'Планк (комбо)',
+        name_bg: 'Планк комбинация',
         name_en: 'plank combo',
         sets: 3,
         reps: '90s',

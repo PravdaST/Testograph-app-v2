@@ -11,18 +11,12 @@ import Link from 'next/link'
 import { ExerciseProgressChart } from '@/components/workout/ExerciseProgressChart'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
+import { useUserProgram } from '@/contexts/UserProgramContext'
 
 interface ExerciseSummary {
   exercise_name: string
   total_workouts: number
   last_workout_date: string
-}
-
-interface UserProgram {
-  category: 'energy' | 'libido' | 'muscle'
-  level: string
-  first_name?: string
-  profile_picture_url?: string
 }
 
 const CATEGORY_NAMES = {
@@ -32,45 +26,14 @@ const CATEGORY_NAMES = {
 }
 
 export default function ProgressPage() {
-  const [email, setEmail] = useState<string | null>(null)
-  const [userProgram, setUserProgram] = useState<UserProgram | null>(null)
-  const [userName, setUserName] = useState<string>()
+  // Use centralized user program state
+  const { userProgram, email, loading: userLoading } = useUserProgram()
   const [exercises, setExercises] = useState<ExerciseSummary[]>([])
   const [selectedExercise, setSelectedExercise] = useState<string | null>(null)
   const [timeRange, setTimeRange] = useState<30 | 90 | 180>(90)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    // Get email from localStorage
-    if (typeof window !== 'undefined') {
-      const storedEmail = localStorage.getItem('quizEmail')
-      setEmail(storedEmail)
-    }
-  }, [])
-
-  // Load user program
-  useEffect(() => {
-    const loadUserProgram = async () => {
-      const email = localStorage.getItem('quizEmail')
-      if (!email) return
-
-      try {
-        const response = await fetch(`/api/user/program?email=${encodeURIComponent(email)}`)
-        if (response.ok) {
-          const data = await response.json()
-          setUserProgram(data.program)
-          if (data.program?.first_name) {
-            setUserName(data.program.first_name)
-          }
-        }
-      } catch (error) {
-        console.error('Error loading user program:', error)
-      }
-    }
-
-    loadUserProgram()
-  }, [])
-
+  // Load exercises list
   useEffect(() => {
     const fetchExercises = async () => {
       if (!email) return
@@ -105,10 +68,10 @@ export default function ProgressPage() {
     ? CATEGORY_NAMES[userProgram.category]
     : 'Зареждане...'
 
-  if (!email) {
+  if (userLoading || !email) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-muted/20">
-        <TopNav programName="Зареждане..." userName={userName} />
+        <TopNav programName="Зареждане..." userName={userProgram?.first_name} />
         <div className="text-center">
           <p className="text-muted-foreground">Зареждане...</p>
         </div>
@@ -121,7 +84,7 @@ export default function ProgressPage() {
       {/* Top Navigation */}
       <TopNav
         programName={programName}
-        userName={userName}
+        userName={userProgram?.first_name}
         profilePictureUrl={userProgram?.profile_picture_url}
       />
 
