@@ -158,34 +158,41 @@ export default function NutritionPage() {
     const currentMeals = completedMeals[dateKey] || []
     const isCompleted = currentMeals.includes(mealNumber)
 
-    if (isCompleted) {
-      // Remove meal
-      setCompletedMeals({
-        ...completedMeals,
-        [dateKey]: currentMeals.filter(m => m !== mealNumber)
+    try {
+      // Always send POST request - API will toggle the state
+      const response = await fetch('/api/meals/complete', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          date: dateKey,
+          mealNumber,
+        }),
       })
-    } else {
-      // Add meal
-      try {
-        await fetch('/api/meals/complete', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email,
-            date: dateKey,
-            mealNumber,
-          }),
-        })
 
+      if (!response.ok) {
+        throw new Error('Failed to toggle meal')
+      }
+
+      // Update local state based on previous state
+      if (isCompleted) {
+        // Was completed, now uncomplete
+        setCompletedMeals({
+          ...completedMeals,
+          [dateKey]: currentMeals.filter(m => m !== mealNumber)
+        })
+      } else {
+        // Was not completed, now complete
         setCompletedMeals({
           ...completedMeals,
           [dateKey]: [...currentMeals, mealNumber]
         })
-      } catch (error) {
-        console.error('Error completing meal:', error)
       }
+    } catch (error) {
+      console.error('Error toggling meal:', error)
+      alert('Не успяхме да запазим промяната. Моля опитайте отново.')
     }
   }
 
