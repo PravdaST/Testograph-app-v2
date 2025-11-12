@@ -370,7 +370,7 @@ export function ExerciseCardEnhanced({
                   value={setLog.reps}
                   onChange={(e) => handleRepsChange(setLog.setNumber, e.target.value)}
                   disabled={setLog.completed}
-                  placeholder={exercise.reps}
+                  placeholder={String(exercise.reps)}
                   className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm disabled:opacity-60 disabled:cursor-not-allowed"
                 />
               </div>

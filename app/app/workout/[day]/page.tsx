@@ -10,7 +10,7 @@ import { useRouter, useParams } from 'next/navigation'
 import { createPortal } from 'react-dom'
 import { ArrowLeft, Dumbbell, CheckCircle2, TrendingUp, History, Sparkles, Utensils, Moon, Timer, Info, X } from 'lucide-react'
 import Link from 'next/link'
-import { ExerciseCard } from '@/components/workout/ExerciseCard'
+import { ExerciseCardEnhanced } from '@/components/workout/ExerciseCardEnhanced'
 import { WorkoutTimer } from '@/components/workout/WorkoutTimer'
 import { Button } from '@/components/ui/Button'
 import { TopNav } from '@/components/navigation/TopNav'
@@ -114,6 +114,7 @@ export default function WorkoutPage() {
   const email = typeof window !== 'undefined' ? localStorage.getItem('quizEmail') : null
   const { completedDates } = useWeeklyCompletion(selectedDate, email)
   const [activeTooltip, setActiveTooltip] = useState<'hero' | null>(null)
+  const [workoutSessionId, setWorkoutSessionId] = useState<string | null>(null)
 
   // Handle date change from calendar
   const handleDateChange = (date: Date) => {
@@ -200,6 +201,19 @@ export default function WorkoutPage() {
         // Clear localStorage progress if workout is completed
         if (data.completed) {
           setCompletedSets({})
+        }
+      }
+
+      // Load workout session for this date
+      const sessionResponse = await fetch(
+        `/api/workout/session?email=${encodeURIComponent(email)}&date=${dateStr}`
+      )
+      if (sessionResponse.ok) {
+        const sessionData = await sessionResponse.json()
+        if (sessionData.session) {
+          setWorkoutSessionId(sessionData.session.id)
+        } else {
+          setWorkoutSessionId(null)
         }
       }
     }
@@ -723,11 +737,20 @@ export default function WorkoutPage() {
               className="animate-fade-in"
               style={{ animationDelay: `${0.4 + index * 0.05}s`, animationFillMode: 'both' }}
             >
-              <ExerciseCard
+              <ExerciseCardEnhanced
                 exercise={exercise}
                 exerciseNumber={index + 1}
-                completedSets={completedSets[index] || []}
-                onSetToggle={(setNum) => handleSetToggle(index, setNum)}
+                exerciseOrder={index + 1}
+                email={email || ''}
+                date={selectedDate.toISOString().split('T')[0]}
+                workoutSessionId={workoutSessionId}
+                onAllSetsComplete={() => {
+                  // Mark all sets as complete for progress tracking
+                  setCompletedSets(prev => ({
+                    ...prev,
+                    [index]: Array.from({ length: exercise.sets }, (_, i) => i + 1)
+                  }))
+                }}
               />
             </div>
           ))}
