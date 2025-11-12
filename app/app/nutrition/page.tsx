@@ -14,7 +14,7 @@ import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 import { MealCard } from '@/components/dashboard/MealCard'
-import { applyDaySubstitutions, type SubstitutedMeal } from '@/lib/utils/dietary-substitution'
+import { applyDaySubstitutions, type SubstitutedMeal, type SubstitutedIngredient } from '@/lib/utils/dietary-substitution'
 import type { DietaryPreference } from '@/lib/data/dietary-substitutions'
 
 // Meal Plan Imports - LOW level
@@ -140,10 +140,10 @@ export default function NutritionPage() {
       const mealsResponse = await fetch(`/api/meals/complete?email=${encodeURIComponent(email)}&date=${dateKey}`)
       if (mealsResponse.ok) {
         const mealsData = await mealsResponse.json()
-        setCompletedMeals({
-          ...completedMeals,
+        setCompletedMeals(prev => ({
+          ...prev,
           [dateKey]: mealsData.completedMeals || []
-        })
+        }))
       }
     }
 
@@ -196,7 +196,7 @@ export default function NutritionPage() {
     setSubstitutedMeals(prev => {
       const updated = { ...prev }
       if (updated[dateKey]) {
-        const { [mealNumber]: removed, ...rest } = updated[dateKey]
+        const { [mealNumber]: _removed, ...rest } = updated[dateKey]
         if (Object.keys(rest).length === 0) {
           delete updated[dateKey]
         } else {
@@ -249,7 +249,7 @@ export default function NutritionPage() {
         protein: data.meal.protein,
         carbs: data.meal.carbs,
         fats: data.meal.fats,
-        ingredients: data.meal.ingredients.map((ing: any) => ({
+        ingredients: data.meal.ingredients.map((ing: SubstitutedIngredient) => ({
           ...ing,
           substituted: true,
         })),
