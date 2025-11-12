@@ -5,6 +5,8 @@
  * Calories: 2600-2800 | Protein: 160-170g | Carbs: 300-330g | Fats: 80-90g
  */
 
+import { Recipe, createRecipe } from '../types/recipe'
+
 export const ENERGY_HIGH_MEAL_PLAN = {
   program_id: 'energy-high',
   program_name: 'Енергия и Жизненост - Напреднало ниво',
@@ -29,6 +31,7 @@ export const ENERGY_HIGH_MEAL_PLAN = {
             { name: 'Орехи', quantity: '20г', calories: 131 },
             { name: 'Мед', quantity: '2 ч.л.', calories: 42 },
           ],
+          recipe: createRecipe(['Сложи овесените ядки в купа', 'Залей с 250мл мляко или вода', 'Загрей 2 мин в микровълнова или 5 мин на котлон', 'Добави протеиновия прах и разбъркай', 'Нарежи банана и сложи върху кашата', 'Добави орехите и меда'], 5, 5, 'easy'),
         },
         {
           meal_number: 2,

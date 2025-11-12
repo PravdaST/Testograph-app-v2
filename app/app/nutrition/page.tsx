@@ -518,6 +518,7 @@ export default function NutritionPage() {
                   carbs={meal.carbs}
                   fats={meal.fats}
                   ingredients={meal.ingredients}
+                  recipe={meal.recipe}
                   isCompleted={isCompleted}
                   onToggleComplete={() => handleMealToggle(meal.meal_number)}
                 />

@@ -7,7 +7,9 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { ChevronDown, ChevronUp, Clock, Flame, Drumstick, Wheat, Droplet, Lock, ImageIcon } from 'lucide-react'
+import { ChevronDown, ChevronUp, Clock, Flame, Drumstick, Wheat, Droplet, Lock, ImageIcon, ChefHat } from 'lucide-react'
+import { Recipe } from '@/lib/types/recipe'
+import { RecipeModal } from '@/components/nutrition/RecipeModal'
 
 interface Ingredient {
   name: string
@@ -24,6 +26,7 @@ interface MealCardProps {
   carbs: number
   fats: number
   ingredients: Ingredient[]
+  recipe?: Recipe
   isCompleted?: boolean
   isLocked?: boolean
   onToggleComplete?: () => void
@@ -39,12 +42,14 @@ export function MealCard({
   carbs,
   fats,
   ingredients,
+  recipe,
   isCompleted = false,
   isLocked = false,
   onToggleComplete,
   imageUrl,
 }: MealCardProps) {
   const [isExpanded, setIsExpanded] = useState(false)
+  const [isRecipeModalOpen, setIsRecipeModalOpen] = useState(false)
 
   return (
     <div
@@ -156,21 +161,45 @@ export function MealCard({
           </div>
         </div>
 
-        {/* Expand Button */}
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="w-full flex items-center justify-center gap-2 py-2 text-sm text-primary hover:text-primary/80 transition-colors"
-        >
-          <span>
-            {isExpanded ? 'Скрий съставки' : 'Виж съставки'}
-          </span>
-          {isExpanded ? (
-            <ChevronUp className="w-4 h-4" />
-          ) : (
-            <ChevronDown className="w-4 h-4" />
+        {/* Action Buttons */}
+        <div className="grid grid-cols-2 gap-2">
+          {/* Expand Ingredients Button */}
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="flex items-center justify-center gap-2 py-2 text-sm text-primary hover:text-primary/80 transition-colors"
+          >
+            <span>
+              {isExpanded ? 'Скрий' : 'Съставки'}
+            </span>
+            {isExpanded ? (
+              <ChevronUp className="w-4 h-4" />
+            ) : (
+              <ChevronDown className="w-4 h-4" />
+            )}
+          </button>
+
+          {/* View Recipe Button */}
+          {recipe && (
+            <button
+              onClick={() => setIsRecipeModalOpen(true)}
+              className="flex items-center justify-center gap-2 py-2 text-sm text-accent hover:text-accent/80 transition-colors"
+            >
+              <ChefHat className="w-4 h-4" />
+              <span>Рецепта</span>
+            </button>
           )}
-        </button>
+        </div>
       </div>
+
+      {/* Recipe Modal */}
+      {recipe && (
+        <RecipeModal
+          isOpen={isRecipeModalOpen}
+          onClose={() => setIsRecipeModalOpen(false)}
+          mealName={name}
+          recipe={recipe}
+        />
+      )}
 
       {/* Ingredients List (Expandable) */}
       {isExpanded && (
