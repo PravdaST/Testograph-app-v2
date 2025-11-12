@@ -9,7 +9,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createPortal } from 'react-dom'
-import { Utensils, CheckCircle2, Clock, Flame, TrendingUp, Award, Info, X, Leaf } from 'lucide-react'
+import { Utensils, Flame, TrendingUp, Award, Info, X, Leaf } from 'lucide-react'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
@@ -214,7 +214,7 @@ export default function NutritionPage() {
   const dietaryPreference = userProgram.dietary_preference || 'omnivor'
   const mealsForDay: SubstitutedMeal[] = dietaryPreference !== 'omnivor'
     ? applyDaySubstitutions(originalMeals, dietaryPreference)
-    : originalMeals as any // Cast to SubstitutedMeal[] when omnivor (no substitutions needed)
+    : originalMeals as SubstitutedMeal[] // Cast to SubstitutedMeal[] when omnivor (no substitutions needed)
 
   const dateKey = selectedDate.toISOString().split('T')[0]
   const completedToday = completedMeals[dateKey] || []
@@ -227,8 +227,6 @@ export default function NutritionPage() {
   const totalProtein = mealsForDay
     .filter(meal => completedToday.includes(meal.meal_number))
     .reduce((sum, meal) => sum + meal.protein, 0)
-
-  const isToday = selectedDate.toDateString() === new Date().toDateString()
 
   // Dietary preference display names
   const dietaryPreferenceNames: Record<DietaryPreference, string> = {
