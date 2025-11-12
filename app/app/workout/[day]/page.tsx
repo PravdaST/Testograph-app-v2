@@ -175,6 +175,35 @@ export default function WorkoutPage() {
     fetchUserProgram()
   }, [router])
 
+  // Load workout completion status when selected date changes
+  useEffect(() => {
+    const loadWorkoutForDate = async () => {
+      const email = localStorage.getItem('quizEmail')
+      if (!email) return
+
+      const dateStr = selectedDate.toISOString().split('T')[0]
+      const response = await fetch(
+        `/api/workout/check?email=${encodeURIComponent(email)}&date=${dateStr}`
+      )
+
+      if (response.ok) {
+        const data = await response.json()
+        // Update completedDays for this specific day
+        setCompletedDays(prev => ({
+          ...prev,
+          [dayOfWeek]: data.completed
+        }))
+
+        // Clear localStorage progress if workout is completed
+        if (data.completed) {
+          setCompletedSets({})
+        }
+      }
+    }
+
+    loadWorkoutForDate()
+  }, [selectedDate, dayOfWeek])
+
   // Get correct workouts based on user's program
   const workouts = userProgram
     ? getWorkoutsForCategoryAndLocation(
