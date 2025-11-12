@@ -47,6 +47,7 @@ export async function GET(request: NextRequest) {
       level: quizResult.determined_level,
       total_score: quizResult.total_score,
       workout_location: quizResult.workout_location || 'gym', // Default to gym if not set
+      dietary_preference: quizResult.dietary_preference || 'omnivor', // Default to omnivor if not set
       breakdown: {
         symptoms: quizResult.breakdown_symptoms,
         nutrition: quizResult.breakdown_nutrition,

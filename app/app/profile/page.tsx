@@ -15,7 +15,7 @@ import {
   User, Mail, Calendar, TrendingUp, ArrowLeft, Camera, Target, Edit2,
   Check, X, Loader2, Trash2, Settings, LogOut, Home,
   Dumbbell as DumbbellIcon, AlertTriangle, Utensils, Moon, Pill,
-  BarChart3, Award, ChevronRight, Info
+  BarChart3, Award, ChevronRight, Info, Leaf
 } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -25,6 +25,7 @@ interface UserProgram {
   level: string
   total_score: number
   workout_location?: 'home' | 'gym'
+  dietary_preference?: 'omnivor' | 'pescatarian' | 'vegetarian' | 'vegan'
   completed_at?: string
   profile_picture_url?: string
   goal?: string
@@ -67,6 +68,13 @@ const CATEGORY_NAMES = {
 const LOCATION_NAMES = {
   home: 'Вкъщи',
   gym: 'Фитнес зала',
+}
+
+const DIETARY_PREFERENCE_NAMES = {
+  omnivor: 'Omnivore (всичко)',
+  pescatarian: 'Pescatarian',
+  vegetarian: 'Vegetarian',
+  vegan: 'Vegan',
 }
 
 export default function ProfilePage() {
@@ -311,6 +319,32 @@ export default function ProfilePage() {
     } catch (error) {
       console.error('Error changing workout location:', error)
       alert('Грешка при промяна на локацията')
+    }
+  }
+
+  const handleChangeDietaryPreference = async () => {
+    if (!email || !userProgram) return
+
+    const currentPreference = userProgram.dietary_preference || 'omnivor'
+    const preferences: ('omnivor' | 'pescatarian' | 'vegetarian' | 'vegan')[] = ['omnivor', 'pescatarian', 'vegetarian', 'vegan']
+    const currentIndex = preferences.indexOf(currentPreference)
+    const newPreference = preferences[(currentIndex + 1) % preferences.length]
+
+    try {
+      const response = await fetch('/api/user/dietary-preference', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, dietary_preference: newPreference })
+      })
+
+      if (response.ok) {
+        setUserProgram(prev => prev ? { ...prev, dietary_preference: newPreference } : null)
+      } else {
+        alert('Грешка при промяна на хранителното предпочитание')
+      }
+    } catch (error) {
+      console.error('Error changing dietary preference:', error)
+      alert('Грешка при промяна на хранителното предпочитание')
     }
   }
 
@@ -669,6 +703,23 @@ export default function ProfilePage() {
                 <ChevronRight className="w-4 h-4 text-muted-foreground" />
               </button>
             )}
+
+            {/* Dietary Preference */}
+            <button
+              onClick={handleChangeDietaryPreference}
+              className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
+            >
+              <div className="flex items-center gap-3">
+                <Leaf className="w-5 h-5 text-green-600 group-hover:text-green-700 transition-colors" />
+                <div className="text-left">
+                  <p className="text-sm font-medium">Хранително предпочитание</p>
+                  <p className="text-xs text-muted-foreground">
+                    Текущо: {DIETARY_PREFERENCE_NAMES[userProgram?.dietary_preference || 'omnivor']}
+                  </p>
+                </div>
+              </div>
+              <ChevronRight className="w-4 h-4 text-muted-foreground" />
+            </button>
 
             {/* Logout */}
             <button

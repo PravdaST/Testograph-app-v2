@@ -3,7 +3,7 @@
     "category": "libido",
     "category_name": "Либидо и Сексуално Здраве",
     "version": "2.1",
-    "total_questions": 26,
+    "total_questions": 27,
     "max_score": 210,
     "estimated_time_minutes": 8,
     "language": "bg"
@@ -714,8 +714,47 @@
       ]
     },
     {
-      "id": "lib_transition_results",
+      "id": "lib_dietary_preference",
       "number": 26,
+      "section": "nutrition",
+      "question": "Имаш ли хранителни предпочитания или ограничения?",
+      "description": "Ще персонализираме храненето според твоите нужди",
+      "type": "single_choice",
+      "required": true,
+      "options": [
+        {
+          "id": "diet_omnivor",
+          "text": "А) Ям всичко (месо, риба, яйца, мляко)",
+          "points": 0,
+          "note": "dietary_preference:omnivor",
+          "description": "Без ограничения"
+        },
+        {
+          "id": "diet_pescatarian",
+          "text": "Б) Вегетарианец + риба",
+          "points": 0,
+          "note": "dietary_preference:pescatarian",
+          "description": "Без месо, но с риба"
+        },
+        {
+          "id": "diet_vegetarian",
+          "text": "В) Вегетарианец (без месо и риба)",
+          "points": 0,
+          "note": "dietary_preference:vegetarian",
+          "description": "Растителна + мляко и яйца"
+        },
+        {
+          "id": "diet_vegan",
+          "text": "Г) Веган (без животински продукти)",
+          "points": 0,
+          "note": "dietary_preference:vegan",
+          "description": "100% растителна храна"
+        }
+      ]
+    },
+    {
+      "id": "lib_transition_results",
+      "number": 27,
       "section": "context",
       "question": "Отлична работа!",
       "description": "Вече имам пълна картина за Вашето състояние. Готов ли сте да видите персонализираните резултати?",

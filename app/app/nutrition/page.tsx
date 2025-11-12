@@ -3,16 +3,19 @@
 /**
  * Nutrition Page - Bento Grid Layout
  * Modern meal plan tracking with Bento Grid design
+ * Now with dietary preference substitutions
  */
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createPortal } from 'react-dom'
-import { Utensils, CheckCircle2, Clock, Flame, TrendingUp, Award, Info, X } from 'lucide-react'
+import { Utensils, CheckCircle2, Clock, Flame, TrendingUp, Award, Info, X, Leaf } from 'lucide-react'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 import { MealCard } from '@/components/dashboard/MealCard'
+import { applyDaySubstitutions, type SubstitutedMeal } from '@/lib/utils/dietary-substitution'
+import type { DietaryPreference } from '@/lib/data/dietary-substitutions'
 
 // Meal Plan Imports - LOW level
 import { ENERGY_LOW_MEAL_PLAN } from '@/lib/data/mock-meal-plan-energy-low'
@@ -35,6 +38,7 @@ interface UserProgram {
   first_name?: string
   profile_picture_url?: string
   program_start_date?: string
+  dietary_preference?: DietaryPreference
 }
 
 const CATEGORY_NAMES = {
@@ -204,7 +208,13 @@ export default function NutritionPage() {
   const dayData = mealPlan?.meals.find(
     (m) => m.day_of_week === (selectedDayOfWeek === 0 ? 7 : selectedDayOfWeek)
   )
-  const mealsForDay = dayData?.meals || []
+  const originalMeals = dayData?.meals || []
+
+  // Apply dietary substitutions if needed
+  const dietaryPreference = userProgram.dietary_preference || 'omnivor'
+  const mealsForDay: SubstitutedMeal[] = dietaryPreference !== 'omnivor'
+    ? applyDaySubstitutions(originalMeals, dietaryPreference)
+    : originalMeals as any // Cast to SubstitutedMeal[] when omnivor (no substitutions needed)
 
   const dateKey = selectedDate.toISOString().split('T')[0]
   const completedToday = completedMeals[dateKey] || []
@@ -220,6 +230,16 @@ export default function NutritionPage() {
 
   const isToday = selectedDate.toDateString() === new Date().toDateString()
 
+  // Dietary preference display names
+  const dietaryPreferenceNames: Record<DietaryPreference, string> = {
+    omnivor: 'Omnivore',
+    pescatarian: 'Pescatarian',
+    vegetarian: 'Vegetarian',
+    vegan: 'Vegan'
+  }
+
+  const hasDietarySubstitutions = dietaryPreference !== 'omnivor'
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset">
       <TopNav
@@ -229,6 +249,23 @@ export default function NutritionPage() {
       />
 
       <div className="container-mobile py-6 pb-24 space-y-4">
+        {/* Dietary Preference Badge (if active) */}
+        {hasDietarySubstitutions && (
+          <div className="bg-green-50 border border-green-200 rounded-xl p-3 flex items-center gap-3 animate-fade-in">
+            <div className="p-2 rounded-lg bg-green-100">
+              <Leaf className="w-4 h-4 text-green-600" />
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium text-green-900">
+                {dietaryPreferenceNames[dietaryPreference]} План
+              </p>
+              <p className="text-xs text-green-700">
+                Съставките са адаптирани според твоите предпочитания
+              </p>
+            </div>
+          </div>
+        )}
+
         {/* Hero Section */}
         <div
           className="relative bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl p-6 border-2 border-primary/30 animate-fade-in"
