@@ -6,9 +6,10 @@
  */
 
 import { useState, useEffect } from 'react'
-import { ArrowLeft, TrendingUp, Calendar, Dumbbell } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { TrendingUp, Calendar, Dumbbell, ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
 import { ExerciseProgressChart } from '@/components/workout/ExerciseProgressChart'
+import { BottomNav } from '@/components/navigation/BottomNav'
 
 interface ExerciseSummary {
   exercise_name: string
@@ -17,7 +18,6 @@ interface ExerciseSummary {
 }
 
 export default function ProgressPage() {
-  const router = useRouter()
   const [email, setEmail] = useState<string | null>(null)
   const [exercises, setExercises] = useState<ExerciseSummary[]>([])
   const [selectedExercise, setSelectedExercise] = useState<string | null>(null)
@@ -77,12 +77,12 @@ export default function ProgressPage() {
       {/* Header */}
       <div className="bg-primary text-white p-6 sticky top-0 z-10 shadow-lg">
         <div className="flex items-center gap-4 mb-4">
-          <button
-            onClick={() => router.push('/app')}
+          <Link
+            href="/app"
             className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors"
           >
             <ArrowLeft className="w-5 h-5" />
-          </button>
+          </Link>
           <div>
             <h1 className="text-2xl font-bold">Твоят прогрес</h1>
             <p className="text-sm text-white/80">
@@ -139,12 +139,12 @@ export default function ProgressPage() {
             <p className="text-muted-foreground mb-4">
               Започни да тренираш, за да видиш прогреса си!
             </p>
-            <button
-              onClick={() => router.push('/app')}
-              className="px-6 py-3 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 transition-colors"
+            <Link
+              href="/app"
+              className="inline-block px-6 py-3 bg-primary text-white rounded-xl font-bold hover:bg-primary/90 transition-colors"
             >
               Към тренировките
-            </button>
+            </Link>
           </div>
         ) : (
           <>
@@ -204,6 +204,9 @@ export default function ProgressPage() {
           </>
         )}
       </div>
+
+      {/* Bottom Navigation */}
+      <BottomNav />
     </div>
   )
 }
