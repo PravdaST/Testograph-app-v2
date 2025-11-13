@@ -1,4 +1,18 @@
-# Testograph v2 - Performance Optimizations
+# Testograph v2 - Documentation Hub
+
+## Overview
+Централна документация за Testograph v2 проекта, включваща performance оптимизации, архитектурен анализ, и workforce структура.
+
+## 📚 Related Documentation
+
+- **[WORKFORCE-STRUCTURE.md](./WORKFORCE-STRUCTURE.md)** - AI Agent Workforce структура (10 специализирани агента)
+- **[CONTEXT7-ANALYSIS.md](./CONTEXT7-ANALYSIS.md)** - Context7 MCP анализ на проекта (8.7/10 рейтинг)
+- **[WORKFLOW-ANALYSIS.md](./WORKFLOW-ANALYSIS.md)** - Подробен workflow анализ
+- **[ALL_QUIZ_QUESTIONS.md](./ALL_QUIZ_QUESTIONS.md)** - Пълен списък с 78 quiz въпроса
+
+---
+
+# Performance Optimizations
 
 ## Overview
 Документация за performance оптимизациите направени на Testograph v2 приложението.
