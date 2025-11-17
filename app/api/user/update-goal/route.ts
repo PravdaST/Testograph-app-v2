@@ -20,8 +20,8 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient()
 
     // Update the goal for the user's latest quiz result
-    const { error } = await supabase
-      .from('quiz_results_v2')
+    const { error } = await (supabase
+      .from('quiz_results_v2') as any)
       .update({ goal: goal.trim() })
       .eq('email', email)
       .order('created_at', { ascending: false })

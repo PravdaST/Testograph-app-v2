@@ -63,8 +63,8 @@ export async function POST(request: NextRequest) {
     const firstName = nameResponse && typeof nameResponse.answer === 'string' ? nameResponse.answer : 'User'
 
     // Save quiz result
-    const { data: quizResultData, error: resultError } = await supabase
-      .from('quiz_results_v2')
+    const { data: quizResultData, error: resultError } = await (supabase
+      .from('quiz_results_v2') as any)
       .insert([
         {
           session_id: session_id || null,
@@ -97,8 +97,8 @@ export async function POST(request: NextRequest) {
     const result_id = quizResultData.id
 
     // Check if user already has capsules from previous purchase
-    const { data: existingInventory } = await supabase
-      .from('testoup_inventory')
+    const { data: existingInventory } = await (supabase
+      .from('testoup_inventory') as any)
       .select('capsules_remaining')
       .eq('email', email)
       .maybeSingle()
@@ -125,8 +125,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Create record in quiz_results table WITH access data if applicable
-    const { error: quizResultsError } = await supabase
-      .from('quiz_results')
+    const { error: quizResultsError } = await (supabase
+      .from('quiz_results') as any)
       .insert({
         email,
         first_name: firstName,
@@ -151,8 +151,8 @@ export async function POST(request: NextRequest) {
         points: response.points,
       }))
 
-      const { error: responsesError } = await supabase
-        .from('quiz_responses')
+      const { error: responsesError } = await (supabase
+        .from('quiz_responses') as any)
         .insert(responsesToInsert)
 
       if (responsesError) {
@@ -163,8 +163,8 @@ export async function POST(request: NextRequest) {
 
     // Update session status if session_id provided
     if (session_id) {
-      await supabase
-        .from('quiz_sessions')
+      await (supabase
+        .from('quiz_sessions') as any)
         .update({
           status: 'completed',
           completed_at: new Date().toISOString(),

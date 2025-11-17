@@ -31,8 +31,8 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient()
 
     // Create quiz session
-    const { data, error } = await supabase
-      .from('quiz_sessions')
+    const { data, error } = await (supabase
+      .from('quiz_sessions') as any)
       .insert([
         {
           category,

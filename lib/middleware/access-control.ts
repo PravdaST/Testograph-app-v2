@@ -17,15 +17,15 @@ export async function checkUserAccess(email: string): Promise<UserAccess> {
   const supabase = createServiceClient()
 
   // Get user access info from quiz_results
-  const { data: userAccess } = await supabase
-    .from('quiz_results')
+  const { data: userAccess } = await (supabase
+    .from('quiz_results') as any)
     .select('has_active_access, access_type, access_end_date')
     .eq('email', email)
     .single()
 
   // Get capsules inventory
-  const { data: inventory } = await supabase
-    .from('testoup_inventory')
+  const { data: inventory } = await (supabase
+    .from('testoup_inventory') as any)
     .select('capsules_remaining')
     .eq('email', email)
     .single()

@@ -21,8 +21,8 @@ export async function GET(request: NextRequest) {
 
     const supabase = await createClient()
 
-    const { data, error } = await supabase
-      .from('meal_substitutions')
+    const { data, error } = await (supabase
+      .from('meal_substitutions') as any)
       .select('meal_number, substituted_meal')
       .eq('email', email)
       .eq('date', date)
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
 
     // Convert array to object: { mealNumber: substitutedMeal }
     const substitutions: Record<number, SubstitutedMeal> = {}
-    data.forEach((item) => {
+    data.forEach((item: any) => {
       substitutions[item.meal_number] = item.substituted_meal
     })
 
@@ -64,8 +64,8 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient()
 
     // Upsert: insert or update if exists
-    const { error } = await supabase
-      .from('meal_substitutions')
+    const { error } = await (supabase
+      .from('meal_substitutions') as any)
       .upsert({
         email,
         date,
@@ -107,8 +107,8 @@ export async function DELETE(request: NextRequest) {
 
     const supabase = await createClient()
 
-    const { error } = await supabase
-      .from('meal_substitutions')
+    const { error } = await (supabase
+      .from('meal_substitutions') as any)
       .delete()
       .eq('email', email)
       .eq('date', date)

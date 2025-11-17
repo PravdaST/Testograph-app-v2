@@ -20,8 +20,8 @@ export async function GET(request: NextRequest) {
     const supabase = await createClient()
 
     // Get all submissions for this user
-    const { data: submissions, error: submissionsError } = await supabase
-      .from('feedback_submissions')
+    const { data: submissions, error: submissionsError } = await (supabase
+      .from('feedback_submissions') as any)
       .select(`
         id,
         program_day,

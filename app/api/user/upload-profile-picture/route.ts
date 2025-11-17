@@ -71,8 +71,8 @@ export async function POST(request: NextRequest) {
     const publicUrl = urlData.publicUrl
 
     // Update user's profile_picture_url in quiz_results
-    const { error: updateError } = await supabase
-      .from('quiz_results_v2')
+    const { error: updateError } = await (supabase
+      .from('quiz_results_v2') as any)
       .update({ profile_picture_url: publicUrl })
       .eq('email', email)
 
@@ -116,8 +116,8 @@ export async function DELETE(request: NextRequest) {
     const supabase = createServiceClient()
 
     // Get current profile picture URL
-    const { data: userData } = await supabase
-      .from('quiz_results_v2')
+    const { data: userData } = await (supabase
+      .from('quiz_results_v2') as any)
       .select('profile_picture_url')
       .eq('email', email)
       .single()
@@ -137,8 +137,8 @@ export async function DELETE(request: NextRequest) {
     }
 
     // Update user record to remove profile picture URL
-    const { error: updateError } = await supabase
-      .from('quiz_results_v2')
+    const { error: updateError } = await (supabase
+      .from('quiz_results_v2') as any)
       .update({ profile_picture_url: null })
       .eq('email', email)
 

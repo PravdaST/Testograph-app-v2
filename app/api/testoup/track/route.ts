@@ -21,8 +21,8 @@ export async function POST(request: NextRequest) {
     const supabase = createServiceClient()
 
     // Get or create tracking record for today
-    const { data: existing, error: fetchError } = await supabase
-      .from('testoup_tracking')
+    const { data: existing, error: fetchError } = await (supabase
+      .from('testoup_tracking') as any)
       .select('*')
       .eq('email', email)
       .eq('date', date)
@@ -37,8 +37,8 @@ export async function POST(request: NextRequest) {
 
     if (existing) {
       // Update existing record
-      const { data, error } = await supabase
-        .from('testoup_tracking')
+      const { data, error } = await (supabase
+        .from('testoup_tracking') as any)
         .update({
           [fieldToUpdate]: true,
           updated_at: new Date().toISOString()
@@ -59,8 +59,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true, data })
     } else {
       // Create new record
-      const { data, error } = await supabase
-        .from('testoup_tracking')
+      const { data, error } = await (supabase
+        .from('testoup_tracking') as any)
         .insert({
           email,
           date,
@@ -104,8 +104,8 @@ export async function GET(request: NextRequest) {
 
     const supabase = createServiceClient()
 
-    const { data, error } = await supabase
-      .from('testoup_tracking')
+    const { data, error } = await (supabase
+      .from('testoup_tracking') as any)
       .select('*')
       .eq('email', email)
       .eq('date', date)
@@ -128,8 +128,8 @@ export async function GET(request: NextRequest) {
 
 async function decreaseCapsuleCount(supabase: SupabaseClient, email: string) {
   // Get current inventory
-  const { data: inventory, error: fetchError } = await supabase
-    .from('testoup_inventory')
+  const { data: inventory, error: fetchError } = await (supabase
+    .from('testoup_inventory') as any)
     .select('*')
     .eq('email', email)
     .single()
@@ -143,8 +143,8 @@ async function decreaseCapsuleCount(supabase: SupabaseClient, email: string) {
     // Decrease by 1 capsule
     const newCount = Math.max(0, inventory.capsules_remaining - 1)
 
-    await supabase
-      .from('testoup_inventory')
+    await (supabase
+      .from('testoup_inventory') as any)
       .update({
         capsules_remaining: newCount,
         updated_at: new Date().toISOString()
@@ -152,8 +152,8 @@ async function decreaseCapsuleCount(supabase: SupabaseClient, email: string) {
       .eq('email', email)
   } else {
     // Initialize inventory with 59 (already took 1)
-    await supabase
-      .from('testoup_inventory')
+    await (supabase
+      .from('testoup_inventory') as any)
       .insert({
         email,
         total_capsules: 60,

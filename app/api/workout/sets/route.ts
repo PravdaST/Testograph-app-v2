@@ -32,8 +32,8 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient()
 
     // Insert the set log
-    const { data, error } = await supabase
-      .from('workout_exercise_sets')
+    const { data, error } = await (supabase
+      .from('workout_exercise_sets') as any)
       .insert({
         email,
         workout_session_id: workoutSessionId || null,
@@ -82,8 +82,8 @@ export async function GET(request: NextRequest) {
     }
 
     const supabase = await createClient()
-    let query = supabase
-      .from('workout_exercise_sets')
+    let query = (supabase
+      .from('workout_exercise_sets') as any)
       .select('*')
       .eq('email', email)
 
@@ -131,8 +131,8 @@ export async function DELETE(request: NextRequest) {
 
     const supabase = await createClient()
 
-    const { error } = await supabase
-      .from('workout_exercise_sets')
+    const { error } = await (supabase
+      .from('workout_exercise_sets') as any)
       .delete()
       .eq('id', setId)
 

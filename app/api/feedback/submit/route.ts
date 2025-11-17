@@ -61,14 +61,12 @@ export async function POST(request: NextRequest) {
     }
 
     // Create feedback submission
-    const { data: submission, error: submissionError } = await supabase
-      .from('feedback_submissions')
-      .insert([
-        {
-          email,
-          program_day,
-        },
-      ])
+    const { data: submission, error: submissionError } = await (supabase
+      .from('feedback_submissions') as any)
+      .insert({
+        email,
+        program_day,
+      })
       .select('id')
       .single()
 
@@ -89,8 +87,8 @@ export async function POST(request: NextRequest) {
         : response.answer.toString(),
     }))
 
-    const { error: responsesError } = await supabase
-      .from('feedback_responses')
+    const { error: responsesError } = await (supabase
+      .from('feedback_responses') as any)
       .insert(responsesToInsert)
 
     if (responsesError) {

@@ -19,8 +19,8 @@ export async function GET(request: NextRequest) {
 
     const supabase = createServiceClient()
 
-    const { data, error } = await supabase
-      .from('testoup_inventory')
+    const { data, error } = await (supabase
+      .from('testoup_inventory') as any)
       .select('*')
       .eq('email', email)
       .single()
@@ -83,8 +83,8 @@ export async function POST(request: NextRequest) {
     const supabase = createServiceClient()
 
     // Check if inventory exists
-    const { data: existing } = await supabase
-      .from('testoup_inventory')
+    const { data: existing } = await (supabase
+      .from('testoup_inventory') as any)
       .select('*')
       .eq('email', email)
       .single()
@@ -94,8 +94,8 @@ export async function POST(request: NextRequest) {
       const newBottlesCount = (existing.bottles_purchased || 0) + 1
       const newCapsulesRemaining = existing.capsules_remaining + 60
 
-      const { data, error } = await supabase
-        .from('testoup_inventory')
+      const { data, error } = await (supabase
+        .from('testoup_inventory') as any)
         .update({
           capsules_remaining: newCapsulesRemaining,
           bottles_purchased: newBottlesCount,
@@ -112,8 +112,8 @@ export async function POST(request: NextRequest) {
       }
 
       // Log manual refill in purchase history
-      await supabase
-        .from('testoup_purchase_history')
+      await (supabase
+        .from('testoup_purchase_history') as any)
         .insert({
           email,
           order_id: 'MANUAL_REFILL',
@@ -130,8 +130,8 @@ export async function POST(request: NextRequest) {
       })
     } else {
       // Create new inventory (first bottle)
-      const { data, error } = await supabase
-        .from('testoup_inventory')
+      const { data, error } = await (supabase
+        .from('testoup_inventory') as any)
         .insert({
           email,
           total_capsules: 60,
@@ -148,8 +148,8 @@ export async function POST(request: NextRequest) {
       }
 
       // Log first bottle in purchase history
-      await supabase
-        .from('testoup_purchase_history')
+      await (supabase
+        .from('testoup_purchase_history') as any)
         .insert({
           email,
           order_id: 'MANUAL_REFILL',

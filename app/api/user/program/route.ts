@@ -24,8 +24,8 @@ export async function GET(request: NextRequest) {
     const supabase = createServiceClient()
 
     // Get latest quiz result for this email
-    const { data: quizResult, error } = await supabase
-      .from('quiz_results_v2')
+    const { data: quizResult, error } = await (supabase
+      .from('quiz_results_v2') as any)
       .select('*')
       .eq('email', email)
       .order('created_at', { ascending: false })

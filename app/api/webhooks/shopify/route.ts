@@ -91,8 +91,8 @@ export async function POST(request: NextRequest) {
     const supabase = createServiceClient()
 
     // Get current inventory
-    const { data: currentInventory } = await supabase
-      .from('testoup_inventory')
+    const { data: currentInventory } = await (supabase
+      .from('testoup_inventory') as any)
       .select('capsules_remaining, bottles_purchased, total_capsules')
       .eq('email', customerEmail)
       .maybeSingle()
@@ -105,8 +105,8 @@ export async function POST(request: NextRequest) {
     const newTotalCapsules = currentTotalCapsules + totalCapsules
 
     // Upsert inventory
-    const { error: upsertError } = await supabase
-      .from('testoup_inventory')
+    const { error: upsertError } = await (supabase
+      .from('testoup_inventory') as any)
       .upsert(
         {
           email: customerEmail,
@@ -128,8 +128,8 @@ export async function POST(request: NextRequest) {
 
     // Log each product purchase in history
     for (const product of testoUpProducts) {
-      const { error: historyError } = await supabase
-        .from('testoup_purchase_history')
+      const { error: historyError } = await (supabase
+        .from('testoup_purchase_history') as any)
         .insert({
           email: customerEmail,
           order_id: order.id.toString(),

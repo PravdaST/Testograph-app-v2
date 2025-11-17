@@ -20,8 +20,8 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient()
 
     // Upsert the substitution
-    const { data, error } = await supabase
-      .from('user_exercise_substitutions')
+    const { data, error } = await (supabase
+      .from('user_exercise_substitutions') as any)
       .upsert({
         email,
         date,
@@ -69,8 +69,8 @@ export async function DELETE(request: NextRequest) {
 
     const supabase = await createClient()
 
-    const { error } = await supabase
-      .from('user_exercise_substitutions')
+    const { error } = await (supabase
+      .from('user_exercise_substitutions') as any)
       .delete()
       .eq('email', email)
       .eq('date', date)
@@ -108,8 +108,8 @@ export async function GET(request: NextRequest) {
 
     const supabase = await createClient()
 
-    const { data, error } = await supabase
-      .from('user_exercise_substitutions')
+    const { data, error } = await (supabase
+      .from('user_exercise_substitutions') as any)
       .select('*')
       .eq('email', email)
       .eq('date', date)

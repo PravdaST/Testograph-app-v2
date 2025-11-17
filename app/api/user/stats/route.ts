@@ -22,8 +22,8 @@ export async function GET(request: NextRequest) {
     const thirtyDaysAgoStr = thirtyDaysAgo.toISOString().split('T')[0]
 
     // 1. Get meals completed in last 30 days
-    const { data: mealData, error: mealError } = await supabase
-      .from('meal_completions')
+    const { data: mealData, error: mealError } = await (supabase
+      .from('meal_completions') as any)
       .select('*')
       .eq('email', email)
       .gte('date', thirtyDaysAgoStr)
@@ -31,8 +31,8 @@ export async function GET(request: NextRequest) {
     const mealsCompleted = mealData?.length || 0
 
     // 2. Get workouts completed in last 30 days
-    const { data: workoutData, error: workoutError } = await supabase
-      .from('workout_sessions')
+    const { data: workoutData, error: workoutError } = await (supabase
+      .from('workout_sessions') as any)
       .select('*')
       .eq('email', email)
       .gte('date', thirtyDaysAgoStr)
@@ -40,8 +40,8 @@ export async function GET(request: NextRequest) {
     const workoutsCompleted = workoutData?.length || 0
 
     // 3. Get sleep data for last 30 days and calculate average
-    const { data: sleepData, error: sleepError } = await supabase
-      .from('sleep_tracking')
+    const { data: sleepData, error: sleepError } = await (supabase
+      .from('sleep_tracking') as any)
       .select('hours_slept')
       .eq('email', email)
       .gte('date', thirtyDaysAgoStr)
@@ -49,22 +49,22 @@ export async function GET(request: NextRequest) {
     let averageSleepHours = 0
     if (sleepData && sleepData.length > 0) {
       const totalHours = sleepData.reduce(
-        (sum, record) => sum + (record.hours_slept || 0),
+        (sum: number, record: any) => sum + (record.hours_slept || 0),
         0
       )
       averageSleepHours = Math.round((totalHours / sleepData.length) * 10) / 10
     }
 
     // 4. Get TestoUp tracking for last 30 days and calculate compliance
-    const { data: testoUpData, error: testoUpError } = await supabase
-      .from('testoup_tracking')
+    const { data: testoUpData, error: testoUpError } = await (supabase
+      .from('testoup_tracking') as any)
       .select('morning_taken, evening_taken')
       .eq('email', email)
       .gte('date', thirtyDaysAgoStr)
 
     let testoUpCompliance = 0
     if (testoUpData && testoUpData.length > 0) {
-      const totalDoses = testoUpData.reduce((sum, record) => {
+      const totalDoses = testoUpData.reduce((sum: number, record: any) => {
         return sum + (record.morning_taken ? 1 : 0) + (record.evening_taken ? 1 : 0)
       }, 0)
       const possibleDoses = testoUpData.length * 2
@@ -72,8 +72,8 @@ export async function GET(request: NextRequest) {
     }
 
     // 5. Get program info to calculate days in program
-    const { data: programData } = await supabase
-      .from('user_programs')
+    const { data: programData } = await (supabase
+      .from('user_programs') as any)
       .select('completed_at')
       .eq('email', email)
       .single()

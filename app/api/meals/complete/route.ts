@@ -20,8 +20,8 @@ export async function GET(request: NextRequest) {
 
     const supabase = await createClient()
 
-    const { data, error } = await supabase
-      .from('meal_completions')
+    const { data, error } = await (supabase
+      .from('meal_completions') as any)
       .select('meal_number')
       .eq('email', email)
       .eq('date', date)
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Return array of completed meal numbers
-    const completedMeals = data.map((item) => item.meal_number)
+    const completedMeals = data.map((item: any) => item.meal_number)
     return NextResponse.json({ completedMeals })
   } catch (error) {
     console.error('Error in meals/complete GET:', error)
@@ -59,8 +59,8 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient()
 
     // Check if meal is already completed
-    const { data: existing } = await supabase
-      .from('meal_completions')
+    const { data: existing } = await (supabase
+      .from('meal_completions') as any)
       .select('*')
       .eq('email', email)
       .eq('date', date)
@@ -69,8 +69,8 @@ export async function POST(request: NextRequest) {
 
     if (existing) {
       // Meal is completed - unmark it
-      const { error } = await supabase
-        .from('meal_completions')
+      const { error } = await (supabase
+        .from('meal_completions') as any)
         .delete()
         .eq('email', email)
         .eq('date', date)
@@ -84,8 +84,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true, completed: false })
     } else {
       // Meal is not completed - mark it
-      const { error } = await supabase
-        .from('meal_completions')
+      const { error } = await (supabase
+        .from('meal_completions') as any)
         .insert({
           email,
           date,

@@ -22,8 +22,8 @@ export async function GET(request: NextRequest) {
 
     if (date) {
       // Get session for specific date
-      const { data, error } = await supabase
-        .from('workout_sessions')
+      const { data, error } = await (supabase
+        .from('workout_sessions') as any)
         .select('*')
         .eq('email', email)
         .eq('date', date)
@@ -39,8 +39,8 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ session: data })
     } else {
       // Get active session (in_progress or paused)
-      const { data, error } = await supabase
-        .from('workout_sessions')
+      const { data, error } = await (supabase
+        .from('workout_sessions') as any)
         .select('*')
         .eq('email', email)
         .in('status', ['in_progress', 'paused'])
@@ -80,8 +80,8 @@ export async function POST(request: NextRequest) {
     const supabase = await createClient()
 
     // Check if there's already an active session
-    const { data: existingSession } = await supabase
-      .from('workout_sessions')
+    const { data: existingSession } = await (supabase
+      .from('workout_sessions') as any)
       .select('*')
       .eq('email', email)
       .in('status', ['in_progress', 'paused'])
@@ -95,8 +95,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Create new session
-    const { data, error } = await supabase
-      .from('workout_sessions')
+    const { data, error } = await (supabase
+      .from('workout_sessions') as any)
       .insert({
         email,
         date,
@@ -140,8 +140,8 @@ export async function PATCH(request: NextRequest) {
     const supabase = await createClient()
 
     // Get current session
-    const { data: session, error: fetchError } = await supabase
-      .from('workout_sessions')
+    const { data: session, error: fetchError } = await (supabase
+      .from('workout_sessions') as any)
       .select('*')
       .eq('id', sessionId)
       .single()
@@ -217,8 +217,8 @@ export async function PATCH(request: NextRequest) {
     }
 
     // Update session
-    const { data, error } = await supabase
-      .from('workout_sessions')
+    const { data, error } = await (supabase
+      .from('workout_sessions') as any)
       .update(updateData)
       .eq('id', sessionId)
       .select()

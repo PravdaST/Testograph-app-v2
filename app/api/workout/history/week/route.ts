@@ -37,8 +37,8 @@ export async function GET(request: NextRequest) {
     const endDate = weekEnd.toISOString().split('T')[0]
 
     // Fetch completed workouts for this week
-    const { data: workouts, error } = await supabase
-      .from('workout_sessions')
+    const { data: workouts, error } = await (supabase
+      .from('workout_sessions') as any)
       .select('*')
       .eq('email', email)
       .gte('date', startDate)
@@ -55,7 +55,7 @@ export async function GET(request: NextRequest) {
 
     // Create a map of completed workouts by day_of_week
     const completedByDayOfWeek: Record<number, boolean> = {}
-    workouts?.forEach((workout) => {
+    workouts?.forEach((workout: any) => {
       completedByDayOfWeek[workout.day_of_week] = true
     })
 

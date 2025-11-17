@@ -24,8 +24,8 @@ export async function GET(request: NextRequest) {
     const supabase = createServiceClient()
 
     // Get user's dietary preference from users table
-    const { data: user, error } = await supabase
-      .from('users')
+    const { data: user, error } = await (supabase
+      .from('users') as any)
       .select('dietary_preference')
       .eq('email', email)
       .maybeSingle()
@@ -82,8 +82,8 @@ export async function POST(request: NextRequest) {
     const supabase = createServiceClient()
 
     // Check if user exists
-    const { data: existingUser } = await supabase
-      .from('users')
+    const { data: existingUser } = await (supabase
+      .from('users') as any)
       .select('id')
       .eq('email', email)
       .maybeSingle()
@@ -93,8 +93,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Update dietary preference
-    const { error: updateError } = await supabase
-      .from('users')
+    const { error: updateError } = await (supabase
+      .from('users') as any)
       .update({ dietary_preference })
       .eq('email', email)
 

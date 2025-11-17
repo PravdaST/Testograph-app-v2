@@ -18,8 +18,8 @@ export async function POST(request: NextRequest) {
 
     const supabase = createServiceClient()
 
-    const { data, error } = await supabase
-      .from('user_programs')
+    const { data, error } = await (supabase
+      .from('user_programs') as any)
       .update({
         first_name: first_name.trim(),
         updated_at: new Date().toISOString(),

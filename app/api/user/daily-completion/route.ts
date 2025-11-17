@@ -36,8 +36,8 @@ export async function GET(request: NextRequest) {
 
     for (const date of dates) {
       // Check meals (need at least 3 completed)
-      const { data: meals } = await supabase
-        .from('meal_completions')
+      const { data: meals } = await (supabase
+        .from('meal_completions') as any)
         .select('meal_number')
         .eq('email', email)
         .eq('date', date)
@@ -45,8 +45,8 @@ export async function GET(request: NextRequest) {
       const mealsCompleted = (meals?.length || 0) >= 3
 
       // Check workout
-      const { data: workout } = await supabase
-        .from('workout_sessions')
+      const { data: workout } = await (supabase
+        .from('workout_sessions') as any)
         .select('id')
         .eq('email', email)
         .eq('date', date)
@@ -56,8 +56,8 @@ export async function GET(request: NextRequest) {
       const workoutCompleted = !!workout
 
       // Check sleep
-      const { data: sleep } = await supabase
-        .from('sleep_tracking')
+      const { data: sleep } = await (supabase
+        .from('sleep_tracking') as any)
         .select('id')
         .eq('email', email)
         .eq('date', date)
@@ -66,8 +66,8 @@ export async function GET(request: NextRequest) {
       const sleepCompleted = !!sleep
 
       // Check TestoUP (both morning and evening)
-      const { data: testoup } = await supabase
-        .from('testoup_tracking')
+      const { data: testoup } = await (supabase
+        .from('testoup_tracking') as any)
         .select('morning_taken, evening_taken')
         .eq('email', email)
         .eq('date', date)

@@ -26,8 +26,8 @@ export async function GET(request: NextRequest) {
     // Get the most recent sets for this exercise (excluding today)
     const today = new Date().toISOString().split('T')[0]
 
-    const { data, error } = await supabase
-      .from('workout_exercise_sets')
+    const { data, error } = await (supabase
+      .from('workout_exercise_sets') as any)
       .select('*')
       .eq('email', email)
       .eq('exercise_name', exerciseName)
@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Group sets by date (workout session)
-    const workoutsByDate = data.reduce((acc, set) => {
+    const workoutsByDate = data.reduce((acc: any, set: any) => {
       if (!acc[set.date]) {
         acc[set.date] = []
       }

@@ -30,8 +30,8 @@ export async function POST(request: NextRequest) {
     }).split(',')[0]
 
     // Check if workout already completed today
-    const { data: existing } = await supabase
-      .from('workout_sessions')
+    const { data: existing } = await (supabase
+      .from('workout_sessions') as any)
       .select('*')
       .eq('email', email)
       .eq('date', today)
@@ -52,8 +52,8 @@ export async function POST(request: NextRequest) {
     )
 
     // Insert workout session
-    const { data: session, error } = await supabase
-      .from('workout_sessions')
+    const { data: session, error } = await (supabase
+      .from('workout_sessions') as any)
       .insert({
         email,
         date: today,

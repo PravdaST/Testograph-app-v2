@@ -28,8 +28,8 @@ export async function GET(request: NextRequest) {
     const supabase = await createClient()
 
     // Fetch all completed workout sessions
-    let query = supabase
-      .from('workout_sessions')
+    let query = (supabase
+      .from('workout_sessions') as any)
       .select('*')
       .eq('email', email)
       .eq('status', 'completed')
@@ -49,9 +49,9 @@ export async function GET(request: NextRequest) {
     // Calculate statistics
     const stats = {
       totalWorkouts: sessions.length,
-      totalMinutes: sessions.reduce((sum, s) => sum + (s.actual_duration_minutes || 0), 0),
+      totalMinutes: sessions.reduce((sum: number, s: any) => sum + (s.actual_duration_minutes || 0), 0),
       averageDuration: sessions.length > 0
-        ? Math.round(sessions.reduce((sum, s) => sum + (s.actual_duration_minutes || 0), 0) / sessions.length)
+        ? Math.round(sessions.reduce((sum: number, s: any) => sum + (s.actual_duration_minutes || 0), 0) / sessions.length)
         : 0,
       currentStreak: calculateCurrentStreak(sessions),
       longestStreak: calculateLongestStreak(sessions),
@@ -72,7 +72,7 @@ export async function GET(request: NextRequest) {
 function calculateCurrentStreak(sessions: WorkoutSession[]): number {
   if (sessions.length === 0) return 0
 
-  const sortedDates = [...new Set(sessions.map(s => s.date))].sort().reverse()
+  const sortedDates = [...new Set(sessions.map((s: any) => s.date))].sort().reverse()
   const today = new Date().toISOString().split('T')[0]
 
   let streak = 0
@@ -104,7 +104,7 @@ function calculateCurrentStreak(sessions: WorkoutSession[]): number {
 function calculateLongestStreak(sessions: WorkoutSession[]): number {
   if (sessions.length === 0) return 0
 
-  const sortedDates = [...new Set(sessions.map(s => s.date))].sort()
+  const sortedDates = [...new Set(sessions.map((s: any) => s.date))].sort()
 
   let maxStreak = 1
   let currentStreak = 1
@@ -139,7 +139,7 @@ function calculateWorkoutsByDay(sessions: WorkoutSession[]): Record<number, numb
     7: 0, // Sunday
   }
 
-  sessions.forEach(session => {
+  sessions.forEach((session: any) => {
     if (session.day_of_week) {
       byDay[session.day_of_week]++
     }

@@ -20,8 +20,8 @@ export async function GET(request: NextRequest) {
 
     const supabase = createServiceClient()
 
-    const { data, error } = await supabase
-      .from('sleep_tracking')
+    const { data, error } = await (supabase
+      .from('sleep_tracking') as any)
       .select('*')
       .eq('email', email)
       .eq('date', date)
@@ -71,8 +71,8 @@ export async function POST(request: NextRequest) {
     const supabase = createServiceClient()
 
     // Upsert sleep tracking data
-    const { data, error } = await supabase
-      .from('sleep_tracking')
+    const { data, error } = await (supabase
+      .from('sleep_tracking') as any)
       .upsert({
         email,
         date,

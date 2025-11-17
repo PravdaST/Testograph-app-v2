@@ -17,8 +17,8 @@ export async function GET(request: NextRequest) {
     const supabase = await createClient()
 
     // Check if user has any purchase history
-    const { data: purchaseHistory, error: historyError } = await supabase
-      .from('testoup_purchase_history')
+    const { data: purchaseHistory, error: historyError } = await (supabase
+      .from('testoup_purchase_history') as any)
       .select('id, capsules_added, order_date, product_sku')
       .eq('email', email)
       .limit(1)
@@ -29,8 +29,8 @@ export async function GET(request: NextRequest) {
     }
 
     // Check if user has inventory
-    const { data: inventory, error: inventoryError } = await supabase
-      .from('testoup_inventory')
+    const { data: inventory, error: inventoryError } = await (supabase
+      .from('testoup_inventory') as any)
       .select('capsules_remaining, bottles_purchased')
       .eq('email', email)
       .maybeSingle()

@@ -25,8 +25,8 @@ export async function POST(request: NextRequest) {
 
     const supabase = createServiceClient()
 
-    const { data, error } = await supabase
-      .from('user_programs')
+    const { data, error } = await (supabase
+      .from('user_programs') as any)
       .update({
         workout_location,
         updated_at: new Date().toISOString(),

@@ -21,8 +21,8 @@ export async function GET(request: NextRequest) {
     const supabase = createServiceClient()
 
     // Check if there's a completed workout for this date
-    const { data, error } = await supabase
-      .from('workout_sessions')
+    const { data, error } = await (supabase
+      .from('workout_sessions') as any)
       .select('id, day_of_week, workout_name, finished_at')
       .eq('email', email)
       .gte('started_at', `${date}T00:00:00`)

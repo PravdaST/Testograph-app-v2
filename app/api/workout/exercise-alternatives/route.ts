@@ -20,8 +20,8 @@ export async function GET(request: NextRequest) {
 
     const supabase = await createClient()
 
-    const { data, error } = await supabase
-      .from('exercise_alternatives')
+    const { data, error } = await (supabase
+      .from('exercise_alternatives') as any)
       .select('*')
       .eq('original_exercise_name', exerciseName)
       .order('difficulty_level')
