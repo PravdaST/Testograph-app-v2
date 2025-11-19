@@ -429,7 +429,7 @@ export default function CategoryQuizPage({ params }: PageProps) {
             <AnimatedTransition
               question={currentQuestion.question}
               description={getDynamicCopy(currentQuestion)}
-              animation={(currentQuestion as any).animation}
+              animation={currentQuestion.animation}
               onContinue={handleNext}
               dynamicCopy={currentQuestion.dynamic_copy}
             />

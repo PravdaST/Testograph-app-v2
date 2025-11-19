@@ -52,6 +52,38 @@ export interface AIImagePrompt {
   size?: string  // e.g., "800x400px"
 }
 
+export interface LottieAnimation {
+  type: 'lottie'
+  src: string
+  loop?: boolean
+  autoplay?: boolean
+  style?: React.CSSProperties
+}
+
+export interface ChartAnimation {
+  type: 'chart'
+  chartType: 'line'
+  data: {
+    xAxis: string[]
+    yAxis: number[]
+    color: string
+    gradient?: boolean
+  }
+  animationDuration?: number
+}
+
+export interface CountUpAnimation {
+  type: 'countup'
+  targetNumber: number
+  prefix?: string
+  suffix?: string
+  duration?: number
+  style?: React.CSSProperties
+  avatarAnimation?: LottieAnimation
+}
+
+export type AnimationConfig = LottieAnimation | ChartAnimation | CountUpAnimation
+
 export interface QuizQuestion {
   id: string
   number: number
@@ -66,6 +98,7 @@ export interface QuizQuestion {
   dynamic_copy?: DynamicCopyVariant[]  // For conditional text based on previous answers
   ai_image_prompt?: AIImagePrompt      // For AI-generated visualizations
   placeholder?: string                  // For text_input type
+  animation?: AnimationConfig           // For animated transition screens
 }
 
 export interface CategoryQuiz {

@@ -6,41 +6,10 @@ import dynamic from 'next/dynamic'
 import CountUp from 'react-countup'
 import { Button } from '@/components/ui/Button'
 import { ArrowRight } from 'lucide-react'
+import type { AnimationConfig } from '@/lib/data/quiz/types'
 
 // Dynamic import за Lottie (за да не натоварваме bundle-а)
 const Lottie = dynamic(() => import('lottie-react'), { ssr: false })
-
-interface LottieAnimation {
-  type: 'lottie'
-  src: string
-  loop?: boolean
-  autoplay?: boolean
-  style?: React.CSSProperties
-}
-
-interface ChartAnimation {
-  type: 'chart'
-  chartType: 'line'
-  data: {
-    xAxis: string[]
-    yAxis: number[]
-    color: string
-    gradient?: boolean
-  }
-  animationDuration?: number
-}
-
-interface CountUpAnimation {
-  type: 'countup'
-  targetNumber: number
-  prefix?: string
-  suffix?: string
-  duration?: number
-  style?: React.CSSProperties
-  avatarAnimation?: LottieAnimation
-}
-
-type AnimationConfig = LottieAnimation | ChartAnimation | CountUpAnimation
 
 interface AnimatedTransitionProps {
   question: string
@@ -60,9 +29,8 @@ export function AnimatedTransition({
   onContinue,
   dynamicCopy,
 }: AnimatedTransitionProps) {
-  const lottieRef = useRef<any>(null)
-  const [lottieData, setLottieData] = useState<any>(null)
-  const [avatarLottieData, setAvatarLottieData] = useState<any>(null)
+  const [lottieData, setLottieData] = useState<object | null>(null)
+  const [avatarLottieData, setAvatarLottieData] = useState<object | null>(null)
 
   // Load Lottie animation data
   useEffect(() => {
@@ -81,13 +49,6 @@ export function AnimatedTransition({
     }
   }, [animation])
 
-  useEffect(() => {
-    // Auto-play Lottie анимация
-    if (animation?.type === 'lottie' && animation.autoplay && lottieRef.current) {
-      lottieRef.current.play()
-    }
-  }, [animation, lottieData])
-
   const renderAnimation = () => {
     if (!animation) return null
 
@@ -102,7 +63,6 @@ export function AnimatedTransition({
             className="flex justify-center mb-8"
           >
             <Lottie
-              lottieRef={lottieRef}
               animationData={lottieData}
               loop={animation.loop ?? true}
               autoplay={animation.autoplay ?? true}
@@ -310,7 +270,6 @@ function TimelineChart({
       ctx.beginPath()
       yAxis.forEach((value, i) => {
         const x = padding + (chartWidth / (yAxis.length - 1)) * i
-        const y = canvas.height - padding - (value / 100) * chartHeight
 
         // Animate progress
         const animatedValue = value * progress
