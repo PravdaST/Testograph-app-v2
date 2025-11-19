@@ -1,0 +1,126 @@
+{
+  "quiz_metadata": {
+    "category": "energy",
+    "category_name": "Енергия и Фокус",
+    "version": "2.2",
+    "total_questions": 26,
+    "max_score": 210,
+    "estimated_time_minutes": 8,
+    "language": "bg"
+  },
+  "questions": [
+    {
+      "id": "eng_transition_body_metrics",
+      "number": 6,
+      "section": "demographics",
+      "question": "Разбирам. Нека сега разгледаме Вашите телесни показатели.",
+      "description": "Те ще ни помогнат да разберем връзката между теглото, мазнините и енергийните Ви нива.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [],
+      "animation": {
+        "type": "lottie",
+        "src": "/animations/body-scan.json",
+        "loop": true,
+        "autoplay": true,
+        "style": {
+          "width": "300px",
+          "height": "300px"
+        }
+      }
+    },
+    {
+      "id": "eng_transition_timeline",
+      "number": 10,
+      "section": "nutrition",
+      "question": "Добре. Ето очакваната траектория на Вашето възстановяване:",
+      "description": "Базирано на хиляди случаи като Вашия, това е реалистичната прогноза за подобрение на енергийните нива. Чудесно! Сега нека разгледаме Вашето хранене и навици.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [],
+      "animation": {
+        "type": "chart",
+        "chartType": "line",
+        "data": {
+          "xAxis": ["0", "30", "60", "90"],
+          "yAxis": [40, 60, 80, 90],
+          "color": "#10B981",
+          "gradient": true
+        },
+        "animationDuration": 2000
+      }
+    },
+    {
+      "id": "eng_transition_habits",
+      "number": 15,
+      "section": "lifestyle",
+      "question": "Благодаря Ви за откровеността.",
+      "description": "Вече имаме ясна картина на Вашето ежедневие и как то влияе на енергийните Ви нива.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [
+        {
+          "condition": "unhealthy_habits",
+          "text": "Виждам, че ежедневието Ви оказва сериозен натиск върху тялото. Добрата новина? Тези навици директно потискат енергията, което означава, че промяната им може драстично да подобри Вашата виталност."
+        }
+      ],
+      "animation": {
+        "type": "lottie",
+        "src": "/animations/healthy-lifestyle.json",
+        "loop": true,
+        "autoplay": true,
+        "style": {
+          "width": "280px",
+          "height": "280px"
+        }
+      }
+    },
+    {
+      "id": "eng_transition_social_proof",
+      "number": 20,
+      "section": "symptoms",
+      "question": "Разбирам. Не сте сам в това.",
+      "description": "Хиляди мъже в България преминават през това – и намират решение.",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [],
+      "animation": {
+        "type": "countup",
+        "targetNumber": 8000,
+        "prefix": "Над ",
+        "suffix": " мъже",
+        "duration": 2.5,
+        "style": {
+          "fontSize": "48px",
+          "fontWeight": "bold",
+          "color": "#10B981"
+        },
+        "avatarAnimation": {
+          "type": "lottie",
+          "src": "/animations/team-celebration.json",
+          "loop": false
+        }
+      }
+    },
+    {
+      "id": "eng_transition_results",
+      "number": 26,
+      "section": "context",
+      "question": "Отлична работа!",
+      "description": "Вече имам пълна картина за Вашето състояние. Готов ли сте да видите персонализираните резултати?",
+      "type": "transition_message",
+      "required": false,
+      "dynamic_copy": [],
+      "animation": {
+        "type": "lottie",
+        "src": "/animations/success-confetti.json",
+        "loop": false,
+        "autoplay": true,
+        "style": {
+          "width": "400px",
+          "height": "400px"
+        }
+      }
+    }
+  ]
+}

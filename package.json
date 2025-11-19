@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate:programs": "tsx scripts/migrate-programs.ts"
+    "migrate:programs": "tsx scripts/migrate-programs.ts",
+    "setup:storage": "tsx scripts/setup-storage-bucket.ts",
+    "generate:meal-images": "tsx scripts/generate-meal-images.ts",
+    "test:image-gen": "tsx scripts/test-generate-single-image.ts"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
@@ -16,12 +19,16 @@
     "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "framer-motion": "^12.23.24",
+    "lottie-react": "^2.4.1",
     "lucide-react": "^0.460.0",
     "next": "15.5",
     "react": "^19.2.0",
+    "react-countup": "^6.5.3",
     "react-dom": "^19.2.0",
     "react-qr-code": "^2.0.18",
     "recharts": "^3.4.1",
+    "sharp": "^0.34.5",
     "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
@@ -30,6 +37,7 @@
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.20",
+    "dotenv": "^17.2.3",
     "eslint": "^9",
     "eslint-config-next": "15.5",
     "postcss": "^8",

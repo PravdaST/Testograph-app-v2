@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/Button'
 import { QuizSlider } from '@/components/quiz/QuizSlider'
 import { BMIInput } from '@/components/quiz/BMIInput'
+import { AnimatedTransition } from '@/components/quiz/AnimatedTransition'
 import { getQuizForCategory, getCategoryInfo, type QuizCategory, type QuizQuestion } from '@/lib/data/quiz'
 import { calculateQuizScore } from '@/lib/utils/quiz-scoring'
 import { ArrowLeft, ArrowRight, Mail, Sparkles } from 'lucide-react'
@@ -424,20 +425,14 @@ export default function CategoryQuizPage({ params }: PageProps) {
 
           {/* Answer Input */}
           {currentQuestion.type === 'transition_message' ? (
-            // Transition message - show button to continue
-            <div className="space-y-4">
-              <div className="bg-accent/20 rounded-lg p-6 text-center">
-                <Sparkles className="w-12 h-12 mx-auto mb-4 text-primary" />
-                <p className="text-lg font-medium">Продължаваме напред!</p>
-              </div>
-              <button
-                onClick={handleNext}
-                className="w-full p-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-all font-medium flex items-center justify-center gap-2"
-              >
-                Напред
-                <ArrowRight className="w-5 h-5" />
-              </button>
-            </div>
+            // Transition message with animations
+            <AnimatedTransition
+              question={currentQuestion.question}
+              description={getDynamicCopy(currentQuestion)}
+              animation={(currentQuestion as any).animation}
+              onContinue={handleNext}
+              dynamicCopy={currentQuestion.dynamic_copy}
+            />
           ) : currentQuestion.type === 'text_input' ? (
             // Text input with inline submit button
             <div className="space-y-2">

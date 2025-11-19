@@ -3,7 +3,7 @@
     "category": "libido",
     "category_name": "Либидо и Сексуално Здраве",
     "version": "2.1",
-    "total_questions": 27,
+    "total_questions": 26,
     "max_score": 210,
     "estimated_time_minutes": 8,
     "language": "bg"
@@ -146,7 +146,17 @@
       "description": "Те ще ни помогнат да разберем връзката между теглото, мазнините и хормоналното Ви здраве.",
       "type": "transition_message",
       "required": false,
-      "dynamic_copy": []
+      "dynamic_copy": [],
+      "animation": {
+        "type": "lottie",
+        "src": "/animations/body-scan.json",
+        "loop": true,
+        "autoplay": true,
+        "style": {
+          "width": "300px",
+          "height": "300px"
+        }
+      }
     },
     {
       "id": "lib_height",
@@ -228,7 +238,7 @@
       "id": "lib_body_fat",
       "number": 9,
       "section": "demographics",
-      "question": "Приблизително какъв е процентът на Вашите подкожни мазнини?",
+      "question": "Приблизително какъв процент от тялото Ви са подкожни мазнини?",
       "description": "Високите нива на мазнини водят до повишен естроген и по-нисък тестостерон.",
       "type": "single_choice",
       "required": true,
@@ -265,9 +275,9 @@
     {
       "id": "lib_transition_timeline",
       "number": 10,
-      "section": "demographics",
+      "section": "nutrition",
       "question": "Добре. Ето очакваната траектория на Вашето възстановяване:",
-      "description": "Базирано на хиляди случаи като Вашия, това е реалистичната прогноза за подобрение на тестостероновите нива.",
+      "description": "Базирано на хиляди случаи като Вашия, това е реалистичната прогноза за подобрение на тестостероновите нива. Чудесно! Сега нека разгледаме Вашето хранене и навици.",
       "type": "transition_message",
       "required": false,
       "dynamic_copy": [],
@@ -275,21 +285,32 @@
         "prompt": "Clean medical-style line graph chart, horizontal X-axis labeled 0-30-60-90 days, vertical Y-axis labeled 0%-100% 'Индекс на Тестостерон', smooth curved line starting at 40% rising to 90%, blue gradient fill (#4A90E2 to #E3F2FD) under curve, current position marked with red dot at day 0, white background, minimal grid lines, professional clinical design, sans-serif labels, Bulgarian text 'Очакван Прогрес на Тестостероновото Възстановяване' as title, 800x400px, high contrast",
         "style": "clinical",
         "size": "800x400px"
+      },
+      "animation": {
+        "type": "chart",
+        "chartType": "line",
+        "data": {
+          "xAxis": [
+            "0",
+            "30",
+            "60",
+            "90"
+          ],
+          "yAxis": [
+            35,
+            55,
+            75,
+            88
+          ],
+          "color": "#EC4899",
+          "gradient": true
+        },
+        "animationDuration": 2000
       }
     },
     {
-      "id": "lib_transition_nutrition",
-      "number": 11,
-      "section": "nutrition",
-      "question": "Чудесно!",
-      "description": "Сега нека разгледаме Вашето хранене и навици.",
-      "type": "transition_message",
-      "required": false,
-      "dynamic_copy": []
-    },
-    {
       "id": "lib_nutrition_regime",
-      "number": 12,
+      "number": 11,
       "section": "nutrition",
       "question": "Какъв е Вашият хранителен режим?",
       "description": "Балансът между протеини, мазнини и въглехидрати влияе директно на производството на тестостерон.",
@@ -327,7 +348,7 @@
     },
     {
       "id": "lib_smoking",
-      "number": 13,
+      "number": 12,
       "section": "lifestyle",
       "question": "Пушите ли?",
       "description": "Тютюнопушенето влошава кръвообращението и директно потиска еректилната функция.",
@@ -364,7 +385,7 @@
     },
     {
       "id": "lib_alcohol",
-      "number": 14,
+      "number": 13,
       "section": "lifestyle",
       "question": "Колко често консумирате алкохол?",
       "description": "Редовната консумация на алкохол намалява тестостерона и увеличава естрогена.",
@@ -378,7 +399,7 @@
         },
         {
           "id": "alcohol_occasional",
-          "text": "Б) Инцидентно, в компания (1-2 пъти месечно).",
+          "text": "Б) Случайно, в компания (1-2 пъти месечно).",
           "points": 8
         },
         {
@@ -401,7 +422,7 @@
     },
     {
       "id": "lib_sleep_hours",
-      "number": 15,
+      "number": 14,
       "section": "sleep_recovery",
       "question": "Колко часа спите средно на денонощие?",
       "description": "7-9 часа качествен сън са критични за производството на тестостерон и либидото.",
@@ -441,7 +462,7 @@
     },
     {
       "id": "lib_transition_habits",
-      "number": 16,
+      "number": 15,
       "section": "lifestyle",
       "question": "Благодаря Ви за откровеността.",
       "description": "Вече имаме ясна картина на Вашето ежедневие и как то влияе на тялото Ви.",
@@ -460,11 +481,21 @@
           "condition": "healthy_habits",
           "text": "Навиците Ви са на солидно ниво. Ако все още изпитвате проблеми с представянето, това означава, че причината може да не е в начина на живот, а в по-дълбок хормонален дисбаланс."
         }
-      ]
+      ],
+      "animation": {
+        "type": "lottie",
+        "src": "/animations/healthy-lifestyle.json",
+        "loop": true,
+        "autoplay": true,
+        "style": {
+          "width": "280px",
+          "height": "280px"
+        }
+      }
     },
     {
       "id": "lib_sex_frequency",
-      "number": 17,
+      "number": 16,
       "section": "symptoms",
       "question": "Колко често правите секс?",
       "description": "",
@@ -495,7 +526,7 @@
     },
     {
       "id": "lib_morning_erections",
-      "number": 18,
+      "number": 17,
       "section": "symptoms",
       "question": "Какви са сутрешните Ви ерекции?",
       "description": "Важен индикатор за здравословни нива на тестостерон и добро кръвообращение.",
@@ -536,7 +567,7 @@
     },
     {
       "id": "lib_frustration",
-      "number": 19,
+      "number": 18,
       "section": "symptoms",
       "question": "Кое Ви разочарова най-много в момента?",
       "description": "",
@@ -567,7 +598,7 @@
     },
     {
       "id": "lib_change_one_thing",
-      "number": 20,
+      "number": 19,
       "section": "symptoms",
       "question": "Ако можехте да промените едно нещо в сексуалния си живот, какво би било то?",
       "description": "",
@@ -598,10 +629,10 @@
     },
     {
       "id": "lib_transition_social_proof",
-      "number": 21,
+      "number": 20,
       "section": "symptoms",
       "question": "Разбирам. Не сте сам в това.",
-      "description": "Хиляди мъже в България преминават през същото – и намират решение.",
+      "description": "Хиляди мъже в България преминават през това – и намират решение.",
       "type": "transition_message",
       "required": false,
       "dynamic_copy": [
@@ -613,11 +644,28 @@
           "condition": "moderate_frustration",
           "text": "Добрата новина е, че вече правите правилната стъпка - търсите ясна и работеща система. Не догадки. Не експерименти. А реални резултати."
         }
-      ]
+      ],
+      "animation": {
+        "type": "countup",
+        "targetNumber": 8000,
+        "prefix": "Над ",
+        "suffix": " мъже",
+        "duration": 2.5,
+        "style": {
+          "fontSize": "48px",
+          "fontWeight": "bold",
+          "color": "#EC4899"
+        },
+        "avatarAnimation": {
+          "type": "lottie",
+          "src": "/animations/team-celebration.json",
+          "loop": false
+        }
+      }
     },
     {
       "id": "lib_tried_solutions",
-      "number": 22,
+      "number": 21,
       "section": "context",
       "question": "Опитвали ли сте вече някакви решения за подобряване на либидото/ерекцията?",
       "description": "",
@@ -648,7 +696,7 @@
     },
     {
       "id": "lib_important_factor",
-      "number": 23,
+      "number": 22,
       "section": "context",
       "question": "Какво е най-важно за Вас при избора на решение?",
       "description": "",
@@ -679,18 +727,18 @@
     },
     {
       "id": "lib_vision",
-      "number": 24,
+      "number": 23,
       "section": "context",
       "question": "Представете си, че след 30 дни проблемът е напълно решен. Как изглежда животът Ви?",
       "description": "",
       "type": "text_input",
       "required": true,
-      "placeholder": "Опиши как изглежда животът ти с върнатата увереност...",
+      "placeholder": "Опишете как изглежда животът Ви с върнатата увереност...",
       "points": 5
     },
     {
       "id": "lib_workout_location",
-      "number": 25,
+      "number": 24,
       "section": "training",
       "question": "Къде предпочитате да тренирате?",
       "description": "Ще персонализираме тренировъчния Ви план според наличното оборудване.",
@@ -715,10 +763,10 @@
     },
     {
       "id": "lib_dietary_preference",
-      "number": 26,
+      "number": 25,
       "section": "nutrition",
-      "question": "Имаш ли хранителни предпочитания или ограничения?",
-      "description": "Ще персонализираме храненето според твоите нужди",
+      "question": "Имате ли хранителни предпочитания или ограничения?",
+      "description": "Ще персонализираме храненето според Вашите нужди",
       "type": "single_choice",
       "required": true,
       "options": [
@@ -754,7 +802,7 @@
     },
     {
       "id": "lib_transition_results",
-      "number": 27,
+      "number": 26,
       "section": "context",
       "question": "Отлична работа!",
       "description": "Вече имам пълна картина за Вашето състояние. Готов ли сте да видите персонализираните резултати?",
@@ -773,7 +821,17 @@
           "condition": "preventive",
           "text": "Впечатлен съм. Малко хора вземат превантивни мерки така рано. Този подход ще Ви спести години на разочарование. Нека да видим какво Ви препоръчвам."
         }
-      ]
+      ],
+      "animation": {
+        "type": "lottie",
+        "src": "/animations/success-confetti.json",
+        "loop": false,
+        "autoplay": true,
+        "style": {
+          "width": "400px",
+          "height": "400px"
+        }
+      }
     }
   ]
 }
