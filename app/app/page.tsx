@@ -99,6 +99,10 @@ export default function DashboardPage() {
   const [selectedDayScore, setSelectedDayScore] = useState(0)
   const [selectedDayCompliance, setSelectedDayCompliance] = useState(0)
 
+  // Achievements & Streaks
+  const [currentStreak, setCurrentStreak] = useState(0)
+  const [perfectDays, setPerfectDays] = useState(0)
+
   // Weekly completion hook
   const email = typeof window !== 'undefined' ? localStorage.getItem('quizEmail') : null
   const { completedDates } = useWeeklyCompletion(selectedDate, email)
@@ -377,6 +381,49 @@ export default function DashboardPage() {
     fetchProgressiveScore()
   }, [selectedDate, email, userProgram, isSelectedDateToday])
 
+  // Calculate streaks and perfect days
+  useEffect(() => {
+    if (!completedDates || completedDates.length === 0) {
+      setCurrentStreak(0)
+      setPerfectDays(0)
+      return
+    }
+
+    // Sort dates (newest first)
+    const sortedDates = [...completedDates].sort((a, b) =>
+      new Date(b.date).getTime() - new Date(a.date).getTime()
+    )
+
+    // Calculate current streak (consecutive days from today backwards)
+    let streak = 0
+    const today = new Date().toISOString().split('T')[0]
+    let checkDate = new Date()
+
+    for (let i = 0; i <= sortedDates.length; i++) {
+      const dateStr = checkDate.toISOString().split('T')[0]
+      const dayData = sortedDates.find(d => d.date === dateStr)
+
+      if (dayData && dayData.completed === 4) {
+        streak++
+      } else if (dateStr < today) {
+        // Only break if it's a past date (not today or future)
+        break
+      }
+
+      // Move to previous day
+      checkDate.setDate(checkDate.getDate() - 1)
+
+      // Don't go before program start
+      if (checkDate < programStartDate) break
+    }
+
+    setCurrentStreak(streak)
+
+    // Calculate total perfect days
+    const perfectCount = sortedDates.filter(d => d.completed === 4 && d.total === 4).length
+    setPerfectDays(perfectCount)
+  }, [completedDates, programStartDate])
+
   // Confetti effect when all tasks completed
   useEffect(() => {
     const todayProgress = [
@@ -551,10 +598,18 @@ export default function DashboardPage() {
 
       <div className="container-mobile py-6 pb-24 space-y-6">
         {/* Hero Section */}
-        <div className="space-y-2">
-          <h1 className="text-2xl font-bold">
-            {greetingTime}, {userName}!
-          </h1>
+        <div className="space-y-3">
+          <div className="flex items-start justify-between gap-3">
+            <h1 className="text-2xl font-bold">
+              {greetingTime}, {userName}!
+            </h1>
+            <div className="flex flex-col items-end gap-1.5">
+              <div className="px-3 py-1.5 bg-primary/10 border border-primary/30 rounded-full">
+                <span className="text-xs font-bold text-primary">Ден {currentProgramDay}/30</span>
+              </div>
+            </div>
+          </div>
+          <p className="text-sm text-muted-foreground">{programName}</p>
         </div>
 
         {/* Bento Grid Layout */}
@@ -694,165 +749,34 @@ export default function DashboardPage() {
             )}
           </div>
 
-          {/* Selected Day's Progress (2x1) */}
-          <div
-            className="relative col-span-2 row-span-1 bg-background rounded-2xl p-4 border border-border animate-fade-in"
-            style={{ animationDelay: '0.3s', animationFillMode: 'both' }}
-          >
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-medium capitalize">
-                {isSelectedDateToday
-                  ? 'Днес'
-                  : selectedDate.toLocaleDateString('bg-BG', {
-                      day: 'numeric',
-                      month: 'short',
-                    })}
-              </span>
-              <span className="text-xs text-muted-foreground">{selectedDayProgress}/{selectedDayTotal}</span>
-            </div>
-            <div className="h-2 bg-muted rounded-full overflow-hidden mb-3">
-              <div
-                className="h-full bg-primary transition-all duration-500"
-                style={{ width: `${(selectedDayProgress / selectedDayTotal) * 100}%` }}
-              />
-            </div>
-            <div className="grid grid-cols-4 gap-2">
-              <div className={`w-full h-1 rounded-full ${
-                selectedDayStats.testoUpMorning && selectedDayStats.testoUpEvening
-                  ? 'bg-success'
-                  : selectedDate < new Date(new Date().setHours(0, 0, 0, 0))
-                    ? 'bg-destructive'
-                    : 'bg-muted'
-              }`} />
-              <div className={`w-full h-1 rounded-full ${
-                selectedDayStats.mealsCompleted >= 3
-                  ? 'bg-success'
-                  : selectedDate < new Date(new Date().setHours(0, 0, 0, 0))
-                    ? 'bg-destructive'
-                    : 'bg-muted'
-              }`} />
-              <div className={`w-full h-1 rounded-full ${
-                selectedDayStats.workoutCompleted
-                  ? 'bg-success'
-                  : selectedDate < new Date(new Date().setHours(0, 0, 0, 0))
-                    ? 'bg-destructive'
-                    : 'bg-muted'
-              }`} />
-              <div className={`w-full h-1 rounded-full ${
-                selectedDayStats.sleepTracked
-                  ? 'bg-success'
-                  : selectedDate < new Date(new Date().setHours(0, 0, 0, 0))
-                    ? 'bg-destructive'
-                    : 'bg-muted'
-              }`} />
-            </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setActiveTooltip(activeTooltip === 'today' ? null : 'today')
-              }}
-              className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
-            >
-              <Info className="w-3 h-3 text-muted-foreground" />
-            </button>
-            {activeTooltip === 'today' && typeof window !== 'undefined' && createPortal(
-              <>
-                <div
-                  className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setActiveTooltip(null)
-                  }}
-                />
-                <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <div className="text-sm font-bold text-foreground">Дневен прогрес</div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setActiveTooltip(null)
-                      }}
-                      className="p-1 hover:bg-muted rounded-md transition-colors"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Дневен прогрес показва колко от 4-те основни задачи си завършил за избрания ден: TestoUp добавка, хранения (мин. 3), тренировка и проследяване на сън. Избери ден от календара за детайли.
-                  </p>
-                </div>
-              </>,
-              document.body
-            )}
-          </div>
-
-          {/* Program Info (2x1) */}
-          <div
-            className="relative col-span-2 row-span-1 bg-background rounded-2xl p-4 border border-border animate-fade-in"
-            style={{ animationDelay: '0.3s', animationFillMode: 'both' }}
-          >
+          {/* Daily Tasks Header & Progress */}
+          <div className="col-span-4 space-y-3">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Target className="w-4 h-4 text-primary" />
-                <span className="text-sm font-medium">Програма</span>
-              </div>
-              <span className="text-xs text-muted-foreground">Ден {currentProgramDay}/30</span>
+              <h3 className="text-sm font-semibold text-muted-foreground">
+                {isSelectedDateToday ? '📍 ДНЕС - Твоите задачи' : `📅 ${selectedDate.toLocaleDateString('bg-BG', { day: 'numeric', month: 'long' })}`}
+              </h3>
+              <span className="text-xs font-medium text-muted-foreground">{selectedDayProgress}/{selectedDayTotal}</span>
             </div>
-            <div className="mt-2 h-1.5 bg-muted rounded-full overflow-hidden">
-              <div
-                className="h-full bg-primary transition-all duration-500"
-                style={{ width: `${(currentProgramDay / 30) * 100}%` }}
-              />
-            </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setActiveTooltip(activeTooltip === 'program' ? null : 'program')
-              }}
-              className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
-            >
-              <Info className="w-3 h-3 text-muted-foreground" />
-            </button>
-            {activeTooltip === 'program' && typeof window !== 'undefined' && createPortal(
-              <>
-                <div
-                  className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setActiveTooltip(null)
-                  }}
-                />
-                <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <div className="text-sm font-bold text-foreground">Програма</div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setActiveTooltip(null)
-                      }}
-                      className="p-1 hover:bg-muted rounded-md transition-colors"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    30-дневна персонализирана програма за оптимизация на тестостерона. Всеки ден е важен за постигане на най-добри резултати.
-                  </p>
-                </div>
-              </>,
-              document.body
-            )}
           </div>
 
-          {/* Quick Stats - 4 tiles (1x1 each) */}
+          {/* Quick Stats - 4 tiles (1x1 each) - Enhanced */}
           <div
             className="relative col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
             style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
             onClick={() => router.push('/app/nutrition')}
           >
-            <div className="flex items-center gap-2">
-              <Utensils className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-              <div className="text-lg font-bold">{selectedDayStats.mealsCompleted}/{selectedDayStats.totalMeals}</div>
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Utensils className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                <div className="text-lg font-bold">{selectedDayStats.mealsCompleted}/{selectedDayStats.totalMeals}</div>
+              </div>
+              {selectedDayStats.mealsCompleted >= 3 ? (
+                <div className="text-[10px] text-success font-medium">✓ Цел постигната</div>
+              ) : (
+                <div className="text-[10px] text-muted-foreground">
+                  Още {3 - selectedDayStats.mealsCompleted} до цел
+                </div>
+              )}
             </div>
             <button
               onClick={(e) => {
@@ -899,11 +823,20 @@ export default function DashboardPage() {
             style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
             onClick={() => router.push(`/app/workout/${selectedDate.getDay() === 0 ? 7 : selectedDate.getDay()}`)}
           >
-            <div className="flex items-center gap-2">
-              <Dumbbell className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-              <div className="text-lg font-bold">
-                {selectedDayStats.workoutCompleted ? '1' : '0'}/1
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Dumbbell className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                <div className="text-lg font-bold">
+                  {selectedDayStats.workoutCompleted ? '1' : '0'}/1
+                </div>
               </div>
+              {selectedDayStats.workoutCompleted ? (
+                <div className="text-[10px] text-success font-medium">
+                  ✓ {selectedDayStats.workoutDuration ? `${selectedDayStats.workoutDuration} мин` : 'Завършено'}
+                </div>
+              ) : (
+                <div className="text-[10px] text-muted-foreground">Не е завършено</div>
+              )}
             </div>
             <button
               onClick={(e) => {
@@ -950,15 +883,24 @@ export default function DashboardPage() {
             style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
             onClick={() => router.push('/app/sleep')}
           >
-            <div className="flex items-center gap-2">
-              <Moon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-              <div className="text-lg font-bold">
-                {selectedDayStats.sleepTracked ? (
-                  `${selectedDayStats.sleepHours}ч`
-                ) : (
-                  <span className="text-destructive">•</span>
-                )}
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Moon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                <div className="text-lg font-bold">
+                  {selectedDayStats.sleepTracked ? (
+                    `${selectedDayStats.sleepHours}ч`
+                  ) : (
+                    <span className="text-destructive">•</span>
+                  )}
+                </div>
               </div>
+              {selectedDayStats.sleepTracked ? (
+                <div className="text-[10px] text-success font-medium">
+                  ✓ Качество: {selectedDayStats.sleepQuality || 'N/A'}/10
+                </div>
+              ) : (
+                <div className="text-[10px] text-muted-foreground">Не е проследен</div>
+              )}
             </div>
             <button
               onClick={(e) => {
@@ -1005,11 +947,20 @@ export default function DashboardPage() {
             style={{ animationDelay: '0.7s', animationFillMode: 'both' }}
             onClick={() => router.push('/app/supplement')}
           >
-            <div className="flex items-center gap-2">
-              <Pill className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-              <div className="text-lg font-bold">
-                {(selectedDayStats.testoUpMorning ? 1 : 0) + (selectedDayStats.testoUpEvening ? 1 : 0)}/2
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <Pill className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                <div className="text-lg font-bold">
+                  {(selectedDayStats.testoUpMorning ? 1 : 0) + (selectedDayStats.testoUpEvening ? 1 : 0)}/2
+                </div>
               </div>
+              {selectedDayStats.testoUpMorning && selectedDayStats.testoUpEvening ? (
+                <div className="text-[10px] text-success font-medium">✓ Пълен прием</div>
+              ) : selectedDayStats.testoUpMorning || selectedDayStats.testoUpEvening ? (
+                <div className="text-[10px] text-warning font-medium">Частичен прием</div>
+              ) : (
+                <div className="text-[10px] text-muted-foreground">Не е взет</div>
+              )}
             </div>
             <button
               onClick={(e) => {
@@ -1049,6 +1000,40 @@ export default function DashboardPage() {
               </>,
               document.body
             )}
+          </div>
+
+          {/* Overall Progress Bar */}
+          <div className="col-span-4 bg-background rounded-xl p-4 border border-border">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-xs font-medium text-muted-foreground">Дневен прогрес</span>
+              <span className="text-xs font-bold text-primary">{Math.round((selectedDayProgress / selectedDayTotal) * 100)}%</span>
+            </div>
+            <div className="h-2.5 bg-muted rounded-full overflow-hidden">
+              <div
+                className={`h-full transition-all duration-500 ${
+                  selectedDayProgress === selectedDayTotal
+                    ? 'bg-success'
+                    : selectedDayProgress >= 3
+                      ? 'bg-primary'
+                      : selectedDayProgress >= 2
+                        ? 'bg-warning'
+                        : 'bg-destructive'
+                }`}
+                style={{ width: `${(selectedDayProgress / selectedDayTotal) * 100}%` }}
+              />
+            </div>
+            <div className="flex items-center justify-between mt-2">
+              <span className="text-[10px] text-muted-foreground">
+                {selectedDayProgress === selectedDayTotal
+                  ? '🎉 Перфектен ден!'
+                  : selectedDayProgress >= 3
+                    ? '👍 Добра работа!'
+                    : selectedDayProgress >= 2
+                      ? '💪 Продължавай!'
+                      : '⚠️ Нуждаеш се от повече усилие'}
+              </span>
+              <span className="text-[10px] font-medium text-muted-foreground">{selectedDayProgress}/{selectedDayTotal} задачи</span>
+            </div>
           </div>
         </div>
 
@@ -1189,6 +1174,49 @@ export default function DashboardPage() {
             </div>
           </div>
         </Link>
+
+        {/* Achievements & Streaks */}
+        <div className="bg-gradient-to-br from-primary/5 to-success/5 rounded-2xl p-5 border border-primary/20">
+          <div className="flex items-center gap-2 mb-4">
+            <Award className="w-5 h-5 text-primary" />
+            <h2 className="font-bold">Постижения</h2>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {/* Current Streak */}
+            <div className="bg-background/80 backdrop-blur-sm rounded-xl p-4 border border-border">
+              <div className="flex flex-col items-center text-center">
+                <div className="text-3xl mb-2">🔥</div>
+                <div className="text-2xl font-bold text-primary">{currentStreak}</div>
+                <div className="text-xs text-muted-foreground mt-1">дни streak</div>
+              </div>
+            </div>
+
+            {/* Perfect Days */}
+            <div className="bg-background/80 backdrop-blur-sm rounded-xl p-4 border border-border">
+              <div className="flex flex-col items-center text-center">
+                <div className="text-3xl mb-2">⭐</div>
+                <div className="text-2xl font-bold text-success">{perfectDays}</div>
+                <div className="text-xs text-muted-foreground mt-1">перфектни дни</div>
+              </div>
+            </div>
+          </div>
+
+          {currentStreak >= 3 && (
+            <div className="mt-3 px-3 py-2 bg-success/10 border border-success/20 rounded-lg">
+              <p className="text-xs text-center text-success font-medium">
+                🎉 Отлично! Продължавай streak-а!
+              </p>
+            </div>
+          )}
+
+          {currentStreak === 0 && (
+            <div className="mt-3 px-3 py-2 bg-muted/30 border border-border rounded-lg">
+              <p className="text-xs text-center text-muted-foreground">
+                💪 Започни streak като завършиш всичките си задачи днес!
+              </p>
+            </div>
+          )}
+        </div>
 
         {/* Selected Day Tasks */}
         <div className="bg-background rounded-2xl p-5 border border-border">
