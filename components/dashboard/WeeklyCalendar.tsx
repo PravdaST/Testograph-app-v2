@@ -7,7 +7,7 @@
  */
 
 import { useState } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Lock } from 'lucide-react'
 import {
   getWeekStart,
   getWeekDays,
@@ -116,23 +116,26 @@ export function WeeklyCalendar({
           return (
             <button
               key={day.toISOString()}
-              onClick={() => onDateSelect(day)}
+              onClick={() => !isBeforeProgramStart && onDateSelect(day)}
+              disabled={isBeforeProgramStart}
               className={`
-                flex-shrink-0 w-16 rounded-xl p-3 transition-all hover-lift ripple-effect
+                flex-shrink-0 w-16 rounded-xl p-3 transition-all
                 ${
-                  isSelected
-                    ? 'bg-primary text-primary-foreground shadow-lg scale-105'
-                    : isDayToday
-                      ? 'bg-primary/10 border-2 border-primary text-primary'
-                      : isFullyCompleted
-                        ? 'bg-success/10 border-2 border-success/30 text-success'
-                        : isPartiallyCompleted && isDayPast
-                          ? 'bg-warning/10 border-2 border-warning/30 text-warning'
-                          : isNotCompleted && isDayPast && !isBeforeProgramStart
-                            ? 'bg-destructive/10 border-2 border-destructive/30 text-destructive'
-                            : isDayPast
-                              ? 'bg-muted text-muted-foreground'
-                              : 'bg-background border border-border hover:border-primary hover:bg-primary/5'
+                  isBeforeProgramStart
+                    ? 'bg-muted/50 text-muted-foreground/40 cursor-not-allowed opacity-60'
+                    : isSelected
+                      ? 'bg-primary text-primary-foreground shadow-lg scale-105 hover-lift ripple-effect'
+                      : isDayToday
+                        ? 'bg-primary/10 border-2 border-primary text-primary hover-lift ripple-effect'
+                        : isFullyCompleted
+                          ? 'bg-success/10 border-2 border-success/30 text-success hover-lift ripple-effect'
+                          : isPartiallyCompleted && isDayPast
+                            ? 'bg-warning/10 border-2 border-warning/30 text-warning hover-lift ripple-effect'
+                            : isNotCompleted && isDayPast
+                              ? 'bg-destructive/10 border-2 border-destructive/30 text-destructive hover-lift ripple-effect'
+                              : isDayPast
+                                ? 'bg-muted text-muted-foreground hover-lift ripple-effect'
+                                : 'bg-background border border-border hover:border-primary hover:bg-primary/5 hover-lift ripple-effect'
                 }
               `}
             >
@@ -156,24 +159,28 @@ export function WeeklyCalendar({
                   {getDayNameShort(dayOfWeek)}
                 </span>
 
-                {/* Day Date */}
-                <span
-                  className={`text-lg font-bold ${
-                    isSelected
-                      ? 'text-primary-foreground'
-                      : isDayToday
-                        ? 'text-primary'
-                        : isFullyCompleted
-                          ? 'text-success'
-                          : isPartiallyCompleted && isDayPast
-                            ? 'text-warning'
-                            : isNotCompleted && isDayPast && !isBeforeProgramStart
-                              ? 'text-destructive'
-                              : ''
-                  }`}
-                >
-                  {day.getDate()}
-                </span>
+                {/* Day Date or Lock Icon */}
+                {isBeforeProgramStart ? (
+                  <Lock className="w-5 h-5 text-muted-foreground/40" />
+                ) : (
+                  <span
+                    className={`text-lg font-bold ${
+                      isSelected
+                        ? 'text-primary-foreground'
+                        : isDayToday
+                          ? 'text-primary'
+                          : isFullyCompleted
+                            ? 'text-success'
+                            : isPartiallyCompleted && isDayPast
+                              ? 'text-warning'
+                              : isNotCompleted && isDayPast
+                                ? 'text-destructive'
+                                : ''
+                    }`}
+                  >
+                    {day.getDate()}
+                  </span>
+                )}
 
                 {/* Program Day Number - Show from program start onwards (past, today, and future) */}
                 {!isBeforeProgramStart && dayNumber > 0 && dayNumber <= 30 && (
