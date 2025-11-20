@@ -11,6 +11,7 @@ import { createPortal } from 'react-dom'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { FeedbackHistory } from '@/components/profile/FeedbackHistory'
+import { useUserProgram } from '@/contexts/UserProgramContext'
 import {
   User, Mail, Calendar, TrendingUp, ArrowLeft, Camera, Target, Edit2,
   Check, X, Loader2, Trash2, Settings, LogOut, Home,
@@ -79,11 +80,10 @@ const DIETARY_PREFERENCE_NAMES = {
 
 export default function ProfilePage() {
   const router = useRouter()
-  const [userProgram, setUserProgram] = useState<UserProgram | null>(null)
+  const { email, userProgram, loading: contextLoading } = useUserProgram()
   const [userStats, setUserStats] = useState<UserStats | null>(null)
   const [feedbackHistory, setFeedbackHistory] = useState<FeedbackSubmission[]>([])
   const [loading, setLoading] = useState(true)
-  const [email, setEmail] = useState<string>()
   const [userName, setUserName] = useState<string>()
   const [firstName, setFirstName] = useState<string>('')
   const [isEditingName, setIsEditingName] = useState(false)
@@ -98,33 +98,20 @@ export default function ProfilePage() {
 
   useEffect(() => {
     const loadProfile = async () => {
+      if (!email || contextLoading) return
+
       try {
-        const storedEmail = localStorage.getItem('quizEmail')
-
-        if (!storedEmail) {
-          router.push('/quiz')
-          return
-        }
-
-        setEmail(storedEmail)
-
-        // Fetch user's program
-        const programResponse = await fetch(
-          `/api/user/program?email=${encodeURIComponent(storedEmail)}`
-        )
-
-        if (programResponse.ok) {
-          const programData = await programResponse.json()
-          setUserProgram(programData)
-          setGoalText(programData.goal || '')
+        // Set goal and name from userProgram
+        if (userProgram) {
+          setGoalText(userProgram.goal || '')
 
           // Set firstName and userName for TopNav
-          if (programData.first_name) {
-            setFirstName(programData.first_name)
-            setNameText(programData.first_name)
-            setUserName(programData.first_name)
+          if (userProgram.first_name) {
+            setFirstName(userProgram.first_name)
+            setNameText(userProgram.first_name)
+            setUserName(userProgram.first_name)
           } else {
-            const namePart = storedEmail.split('@')[0]
+            const namePart = email.split('@')[0]
             setUserName(namePart)
             setFirstName('')
             setNameText('')
@@ -133,7 +120,7 @@ export default function ProfilePage() {
 
         // Fetch feedback history
         const feedbackResponse = await fetch(
-          `/api/feedback/history?email=${encodeURIComponent(storedEmail)}`
+          `/api/feedback/history?email=${encodeURIComponent(email)}`
         )
 
         if (feedbackResponse.ok) {
@@ -143,7 +130,7 @@ export default function ProfilePage() {
 
         // Fetch user statistics
         const statsResponse = await fetch(
-          `/api/user/stats?email=${encodeURIComponent(storedEmail)}`
+          `/api/user/stats?email=${encodeURIComponent(email)}`
         )
 
         if (statsResponse.ok) {
@@ -158,7 +145,7 @@ export default function ProfilePage() {
     }
 
     loadProfile()
-  }, [router])
+  }, [email, userProgram, contextLoading])
 
   const handleSaveName = async () => {
     if (!email || !nameText.trim()) return
