@@ -551,18 +551,15 @@ export default function DashboardPage() {
 
       <div className="container-mobile py-6 pb-24 space-y-6">
         {/* Hero Section */}
-        <div className="space-y-3">
-          <div className="flex items-start justify-between gap-3">
-            <h1 className="text-2xl font-bold">
-              {greetingTime}, {userName}!
-            </h1>
-            <div className="flex flex-col items-end gap-1.5">
-              <div className="px-3 py-1.5 bg-primary/10 border border-primary/30 rounded-full">
-                <span className="text-xs font-bold text-primary">Ден {currentProgramDay}/30</span>
-              </div>
+        <div className="flex items-start justify-between gap-3">
+          <h1 className="text-2xl font-bold">
+            {greetingTime}, {userName}!
+          </h1>
+          <div className="flex flex-col items-end gap-1.5">
+            <div className="px-3 py-1.5 bg-primary/10 border border-primary/30 rounded-full">
+              <span className="text-xs font-bold text-primary">Ден {currentProgramDay}/30</span>
             </div>
           </div>
-          <p className="text-sm text-muted-foreground">{programName}</p>
         </div>
 
         {/* Bento Grid Layout */}
