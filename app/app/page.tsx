@@ -15,7 +15,7 @@ import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { createClient } from '@/lib/supabase/client'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
-import { Target, TrendingUp, Utensils, Dumbbell, Moon, Pill, Award, CheckCircle2, ArrowRight, Calendar, Info, X } from 'lucide-react'
+import { Target, TrendingUp, Utensils, Dumbbell, Moon, Pill, CheckCircle2, ArrowRight, Calendar, Info, X } from 'lucide-react'
 import Link from 'next/link'
 import confetti from 'canvas-confetti'
 import type { FeedbackDay, FeedbackResponse } from '@/lib/data/feedback-questions'
@@ -98,10 +98,6 @@ export default function DashboardPage() {
   const [scoreReduction, setScoreReduction] = useState(0)
   const [selectedDayScore, setSelectedDayScore] = useState(0)
   const [selectedDayCompliance, setSelectedDayCompliance] = useState(0)
-
-  // Achievements & Streaks
-  const [currentStreak, setCurrentStreak] = useState(0)
-  const [perfectDays, setPerfectDays] = useState(0)
 
   // Weekly completion hook
   const email = typeof window !== 'undefined' ? localStorage.getItem('quizEmail') : null
@@ -380,49 +376,6 @@ export default function DashboardPage() {
 
     fetchProgressiveScore()
   }, [selectedDate, email, userProgram, isSelectedDateToday])
-
-  // Calculate streaks and perfect days
-  useEffect(() => {
-    if (!completedDates || !Array.isArray(completedDates) || completedDates.length === 0) {
-      setCurrentStreak(0)
-      setPerfectDays(0)
-      return
-    }
-
-    // Sort dates (newest first)
-    const sortedDates = [...completedDates].sort((a, b) =>
-      new Date(b.date).getTime() - new Date(a.date).getTime()
-    )
-
-    // Calculate current streak (consecutive days from today backwards)
-    let streak = 0
-    const today = new Date().toISOString().split('T')[0]
-    let checkDate = new Date()
-
-    for (let i = 0; i <= sortedDates.length; i++) {
-      const dateStr = checkDate.toISOString().split('T')[0]
-      const dayData = sortedDates.find(d => d.date === dateStr)
-
-      if (dayData && dayData.completed === 4) {
-        streak++
-      } else if (dateStr < today) {
-        // Only break if it's a past date (not today or future)
-        break
-      }
-
-      // Move to previous day
-      checkDate.setDate(checkDate.getDate() - 1)
-
-      // Don't go before program start
-      if (checkDate < programStartDate) break
-    }
-
-    setCurrentStreak(streak)
-
-    // Calculate total perfect days
-    const perfectCount = sortedDates.filter(d => d.completed === 4 && d.total === 4).length
-    setPerfectDays(perfectCount)
-  }, [completedDates, programStartDate])
 
   // Confetti effect when all tasks completed
   useEffect(() => {
@@ -1174,49 +1127,6 @@ export default function DashboardPage() {
             </div>
           </div>
         </Link>
-
-        {/* Achievements & Streaks */}
-        <div className="bg-gradient-to-br from-primary/5 to-success/5 rounded-2xl p-5 border border-primary/20">
-          <div className="flex items-center gap-2 mb-4">
-            <Award className="w-5 h-5 text-primary" />
-            <h2 className="font-bold">Постижения</h2>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
-            {/* Current Streak */}
-            <div className="bg-background/80 backdrop-blur-sm rounded-xl p-4 border border-border">
-              <div className="flex flex-col items-center text-center">
-                <div className="text-3xl mb-2">🔥</div>
-                <div className="text-2xl font-bold text-primary">{currentStreak}</div>
-                <div className="text-xs text-muted-foreground mt-1">дни streak</div>
-              </div>
-            </div>
-
-            {/* Perfect Days */}
-            <div className="bg-background/80 backdrop-blur-sm rounded-xl p-4 border border-border">
-              <div className="flex flex-col items-center text-center">
-                <div className="text-3xl mb-2">⭐</div>
-                <div className="text-2xl font-bold text-success">{perfectDays}</div>
-                <div className="text-xs text-muted-foreground mt-1">перфектни дни</div>
-              </div>
-            </div>
-          </div>
-
-          {currentStreak >= 3 && (
-            <div className="mt-3 px-3 py-2 bg-success/10 border border-success/20 rounded-lg">
-              <p className="text-xs text-center text-success font-medium">
-                🎉 Отлично! Продължавай streak-а!
-              </p>
-            </div>
-          )}
-
-          {currentStreak === 0 && (
-            <div className="mt-3 px-3 py-2 bg-muted/30 border border-border rounded-lg">
-              <p className="text-xs text-center text-muted-foreground">
-                💪 Започни streak като завършиш всичките си задачи днес!
-              </p>
-            </div>
-          )}
-        </div>
 
         {/* Selected Day Tasks */}
         <div className="bg-background rounded-2xl p-5 border border-border">
