@@ -29,6 +29,7 @@ interface WeeklyCalendarProps {
   selectedDate: Date
   onDateSelect: (date: Date) => void
   completedDates?: Record<string, CompletionStatus> // Map of dateString -> completion status
+  capsulesRemaining?: number // TestoUp capsules remaining (2 capsules = 1 day)
 }
 
 export function WeeklyCalendar({
@@ -36,12 +37,19 @@ export function WeeklyCalendar({
   selectedDate,
   onDateSelect,
   completedDates = {},
+  capsulesRemaining,
 }: WeeklyCalendarProps) {
   const [currentWeekStart, setCurrentWeekStart] = useState(() =>
     getWeekStart(selectedDate)
   )
 
   const weekDays = getWeekDays(currentWeekStart)
+
+  // Calculate available days based on capsules (2 capsules = 1 day)
+  const availableDays = capsulesRemaining ? Math.floor(capsulesRemaining / 2) : 30
+  const lastAvailableDate = new Date(programStartDate)
+  lastAvailableDate.setDate(programStartDate.getDate() + availableDays - 1) // -1 because day 1 starts on programStartDate
+  const lastAvailableTime = lastAvailableDate.setHours(23, 59, 59, 999)
 
   const handlePreviousWeek = () => {
     const newWeekStart = new Date(currentWeekStart)
@@ -105,6 +113,9 @@ export function WeeklyCalendar({
           const startTime = new Date(programStartDate).setHours(0, 0, 0, 0)
           const isBeforeProgramStart = dayTime < startTime
 
+          // Check if day is after last available day (insufficient capsules)
+          const isAfterLastAvailableDay = dayTime > lastAvailableTime
+
           // Check completion status
           const dateString = day.toISOString().split('T')[0]
           const completionStatus = completedDates[dateString]
@@ -113,15 +124,18 @@ export function WeeklyCalendar({
           const isPartiallyCompleted = completedCount > 0 && completedCount < 4
           const isNotCompleted = completedCount === 0
 
+          // Combine disabled conditions
+          const isDisabled = isBeforeProgramStart || isAfterLastAvailableDay
+
           return (
             <button
               key={day.toISOString()}
-              onClick={() => !isBeforeProgramStart && onDateSelect(day)}
-              disabled={isBeforeProgramStart}
+              onClick={() => !isDisabled && onDateSelect(day)}
+              disabled={isDisabled}
               className={`
                 flex-shrink-0 w-16 rounded-xl p-3 transition-all
                 ${
-                  isBeforeProgramStart
+                  isDisabled
                     ? 'bg-muted/50 text-muted-foreground/40 cursor-not-allowed opacity-60'
                     : isSelected
                       ? 'bg-primary text-primary-foreground shadow-lg scale-105 hover-lift ripple-effect'
@@ -160,7 +174,7 @@ export function WeeklyCalendar({
                 </span>
 
                 {/* Day Date or Lock Icon */}
-                {isBeforeProgramStart ? (
+                {isDisabled ? (
                   <Lock className="w-5 h-5 text-muted-foreground/40" />
                 ) : (
                   <span
@@ -183,7 +197,7 @@ export function WeeklyCalendar({
                 )}
 
                 {/* Program Day Number - Show from program start onwards (past, today, and future) */}
-                {!isBeforeProgramStart && dayNumber > 0 && dayNumber <= 30 && (
+                {!isDisabled && dayNumber > 0 && dayNumber <= 30 && (
                   <span
                     className={`text-xs ${
                       isSelected

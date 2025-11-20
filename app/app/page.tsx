@@ -1364,6 +1364,7 @@ export default function DashboardPage() {
             selectedDate={selectedDate}
             onDateSelect={setSelectedDate}
             completedDates={completedDates}
+            capsulesRemaining={testoUpInventory?.capsules_remaining}
           />
           <button
             onClick={(e) => {
