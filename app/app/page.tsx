@@ -569,46 +569,28 @@ export default function DashboardPage() {
         <div className="grid grid-cols-4 gap-3 md:gap-4">
           {/* Quiz Score - 2 Row Layout */}
           <div className="relative col-span-4">
-            {/* Wave Background SVG */}
-            <svg className="absolute inset-0 w-full h-full rounded-2xl pointer-events-none" preserveAspectRatio="none">
-              <defs>
-                <pattern id="wave-pattern" x="0" y="0" width="80" height="40" patternUnits="userSpaceOnUse">
-                  <path
-                    d="M0 20 Q 20 10, 40 20 T 80 20"
-                    fill="none"
-                    stroke={(() => {
-                      const s = selectedDayScore || userProgram.total_score
-                      if (s >= 81) return 'hsl(142, 76%, 36%)'
-                      if (s >= 51) return 'hsl(38, 92%, 50%)'
-                      return 'hsl(0, 84%, 60%)'
-                    })()}
-                    strokeWidth="1.5"
-                    opacity="0.15"
-                  />
-                  <path
-                    d="M0 30 Q 20 20, 40 30 T 80 30"
-                    fill="none"
-                    stroke={(() => {
-                      const s = selectedDayScore || userProgram.total_score
-                      if (s >= 81) return 'hsl(142, 76%, 36%)'
-                      if (s >= 51) return 'hsl(38, 92%, 50%)'
-                      return 'hsl(0, 84%, 60%)'
-                    })()}
-                    strokeWidth="1"
-                    opacity="0.08"
-                  />
-                  <animateTransform
-                    attributeName="patternTransform"
-                    attributeType="XML"
-                    type="translate"
-                    from="0 0"
-                    to="80 0"
-                    dur="20s"
-                    repeatCount="indefinite"
-                  />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#wave-pattern)" />
+            {/* Single Smooth Wave Background */}
+            <svg className="absolute inset-0 w-full h-full rounded-2xl pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
+              <path
+                d="M 0,50 C 20,30 30,30 50,50 C 70,70 80,70 100,50 L 100,100 L 0,100 Z"
+                fill={(() => {
+                  const s = selectedDayScore || userProgram.total_score
+                  if (s >= 81) return 'hsl(142, 76%, 36%, 0.08)'
+                  if (s >= 51) return 'hsl(38, 92%, 50%, 0.08)'
+                  return 'hsl(0, 84%, 60%, 0.08)'
+                })()}
+              >
+                <animate
+                  attributeName="d"
+                  dur="15s"
+                  repeatCount="indefinite"
+                  values="
+                    M 0,50 C 20,30 30,30 50,50 C 70,70 80,70 100,50 L 100,100 L 0,100 Z;
+                    M 0,50 C 20,70 30,70 50,50 C 70,30 80,30 100,50 L 100,100 L 0,100 Z;
+                    M 0,50 C 20,30 30,30 50,50 C 70,70 80,70 100,50 L 100,100 L 0,100 Z
+                  "
+                />
+              </path>
             </svg>
 
             <Link
