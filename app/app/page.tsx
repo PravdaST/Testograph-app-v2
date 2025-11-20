@@ -632,15 +632,15 @@ export default function DashboardPage() {
                 <div className="flex items-center justify-between">
                   {/* Score Comparison */}
                   <div className="flex items-center gap-8">
-                    <div className="text-center">
-                      <div className="text-sm text-muted-foreground mb-2">Начален</div>
+                    <div className="flex flex-col items-center justify-center gap-1">
+                      <div className="text-sm text-muted-foreground">Начален</div>
                       <div className={`text-4xl font-bold ${getScoreColorClass(userProgram.total_score)}`}>
                         {userProgram.total_score}
                       </div>
                     </div>
                     <ArrowRight className={`w-6 h-6 ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`} />
-                    <div className="text-center">
-                      <div className="text-sm text-muted-foreground mb-2">Текущ</div>
+                    <div className="flex flex-col items-center justify-center gap-1">
+                      <div className="text-sm text-muted-foreground">Текущ</div>
                       <div className={`text-5xl font-bold ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`}>
                         {selectedDayScore || userProgram.total_score}
                       </div>
