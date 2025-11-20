@@ -5,8 +5,7 @@
  * Quick access to main features
  */
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { Utensils, Dumbbell, Moon, Pill } from 'lucide-react'
 
 interface BottomNavProps {
@@ -15,11 +14,20 @@ interface BottomNavProps {
 
 export function BottomNav({ onNavigate }: BottomNavProps) {
   const router = useRouter()
-  const [activeTab, setActiveTab] = useState<string>('meals')
+  const pathname = usePathname()
+
+  // Determine active tab based on current pathname
+  const getActiveTab = () => {
+    if (pathname.includes('/nutrition')) return 'meals'
+    if (pathname.includes('/workout')) return 'workout'
+    if (pathname.includes('/sleep')) return 'sleep'
+    if (pathname.includes('/supplement')) return 'supplement'
+    return null // No tab active (e.g., on dashboard or profile)
+  }
+
+  const activeTab = getActiveTab()
 
   const handleClick = (tab: 'meals' | 'workout' | 'sleep' | 'supplement') => {
-    setActiveTab(tab)
-
     // Navigate to dedicated pages
     if (tab === 'meals') {
       router.push('/app/nutrition')

@@ -13,6 +13,7 @@ import { WelcomeGuide } from '@/components/dashboard/WelcomeGuide'
 import { FeedbackModal } from '@/components/feedback/FeedbackModal'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
+import { ElectricBorder } from '@/components/ui/electric-border'
 import { createClient } from '@/lib/supabase/client'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
 import { Target, TrendingUp, Utensils, Dumbbell, Moon, Pill, CheckCircle2, ArrowRight, Calendar, Info, X, MapPin, CalendarDays, PartyPopper, ThumbsUp, Sparkles, AlertTriangle } from 'lucide-react'
@@ -758,37 +759,102 @@ export default function DashboardPage() {
           </div>
 
           {/* Quick Stats - 4 tiles (1x1 each) - Enhanced */}
-          <div
-            className="relative col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
-            style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
-            onClick={() => router.push('/app/nutrition')}
-          >
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <Utensils className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-                <div className="text-lg font-bold">{selectedDayStats.mealsCompleted}/{selectedDayStats.totalMeals}</div>
+          {/* Meals Card - Critical if < 3 meals */}
+          {isSelectedDateToday && selectedDayStats.mealsCompleted < 3 ? (
+            <ElectricBorder borderColor="from-orange-500 via-red-500 to-pink-500" className="col-span-1">
+              <div
+                className="relative bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+                style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
+                onClick={() => router.push('/app/nutrition')}
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Utensils className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                    <div className="text-lg font-bold">{selectedDayStats.mealsCompleted}/{selectedDayStats.totalMeals}</div>
+                  </div>
+                  {selectedDayStats.mealsCompleted >= 3 ? (
+                    <div className="flex items-center gap-1 text-[10px] text-success font-medium">
+                      <CheckCircle2 className="w-3 h-3" />
+                      <span>Цел постигната</span>
+                    </div>
+                  ) : (
+                    <div className="text-[10px] text-muted-foreground">
+                      Още {3 - selectedDayStats.mealsCompleted} до цел
+                    </div>
+                  )}
+                </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setActiveTooltip(activeTooltip === 'meals' ? null : 'meals')
+                  }}
+                  className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
+                >
+                  <Info className="w-3 h-3 text-muted-foreground" />
+                </button>
+                {activeTooltip === 'meals' && typeof window !== 'undefined' && createPortal(
+                  <>
+                    <div
+                      className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setActiveTooltip(null)
+                      }}
+                    />
+                    <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <div className="text-sm font-bold text-foreground">Хранения</div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setActiveTooltip(null)
+                          }}
+                          className="p-1 hover:bg-muted rounded-md transition-colors"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Брой завършени хранения за избрания ден. Целта е минимум 3 от 5 хранения дневно за оптимални резултати.
+                      </p>
+                    </div>
+                  </>,
+                  document.body
+                )}
               </div>
-              {selectedDayStats.mealsCompleted >= 3 ? (
-                <div className="flex items-center gap-1 text-[10px] text-success font-medium">
-                  <CheckCircle2 className="w-3 h-3" />
-                  <span>Цел постигната</span>
-                </div>
-              ) : (
-                <div className="text-[10px] text-muted-foreground">
-                  Още {3 - selectedDayStats.mealsCompleted} до цел
-                </div>
-              )}
-            </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setActiveTooltip(activeTooltip === 'meals' ? null : 'meals')
-              }}
-              className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
+            </ElectricBorder>
+          ) : (
+            <div
+              className="relative col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+              style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
+              onClick={() => router.push('/app/nutrition')}
             >
-              <Info className="w-3 h-3 text-muted-foreground" />
-            </button>
-            {activeTooltip === 'meals' && typeof window !== 'undefined' && createPortal(
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Utensils className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                  <div className="text-lg font-bold">{selectedDayStats.mealsCompleted}/{selectedDayStats.totalMeals}</div>
+                </div>
+                {selectedDayStats.mealsCompleted >= 3 ? (
+                  <div className="flex items-center gap-1 text-[10px] text-success font-medium">
+                    <CheckCircle2 className="w-3 h-3" />
+                    <span>Цел постигната</span>
+                  </div>
+                ) : (
+                  <div className="text-[10px] text-muted-foreground">
+                    Още {3 - selectedDayStats.mealsCompleted} до цел
+                  </div>
+                )}
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setActiveTooltip(activeTooltip === 'meals' ? null : 'meals')
+                }}
+                className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
+              >
+                <Info className="w-3 h-3 text-muted-foreground" />
+              </button>
+              {activeTooltip === 'meals' && typeof window !== 'undefined' && createPortal(
               <>
                 <div
                   className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
@@ -817,8 +883,10 @@ export default function DashboardPage() {
               </>,
               document.body
             )}
-          </div>
+            </div>
+          )}
 
+          {/* Workout Card - Critical if not completed */}
           <div
             className="relative col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
             style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
