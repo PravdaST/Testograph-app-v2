@@ -1402,6 +1402,7 @@ export default function DashboardPage() {
             onDateSelect={setSelectedDate}
             completedDates={completedDates}
             capsulesRemaining={testoUpInventory?.capsules_remaining}
+            onLockedDayClick={() => setShowCycleComplete(true)}
           />
           <button
             onClick={(e) => {

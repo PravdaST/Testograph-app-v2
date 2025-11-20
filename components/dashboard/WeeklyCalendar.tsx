@@ -30,6 +30,7 @@ interface WeeklyCalendarProps {
   onDateSelect: (date: Date) => void
   completedDates?: Record<string, CompletionStatus> // Map of dateString -> completion status
   capsulesRemaining?: number // TestoUp capsules remaining (2 capsules = 1 day)
+  onLockedDayClick?: () => void // Called when user clicks on locked day after Day 30
 }
 
 export function WeeklyCalendar({
@@ -38,6 +39,7 @@ export function WeeklyCalendar({
   onDateSelect,
   completedDates = {},
   capsulesRemaining,
+  onLockedDayClick,
 }: WeeklyCalendarProps) {
   const [currentWeekStart, setCurrentWeekStart] = useState(() =>
     getWeekStart(selectedDate)
@@ -116,6 +118,9 @@ export function WeeklyCalendar({
           // Check if day is after last available day (insufficient capsules)
           const isAfterLastAvailableDay = dayTime > lastAvailableTime
 
+          // Check if day is after 30-day cycle (even if capsules remain)
+          const isDayAfterCycle = dayNumber > 30
+
           // Check completion status
           const dateString = day.toISOString().split('T')[0]
           const completionStatus = completedDates[dateString]
@@ -125,18 +130,28 @@ export function WeeklyCalendar({
           const isNotCompleted = completedCount === 0
 
           // Combine disabled conditions
-          const isDisabled = isBeforeProgramStart || isAfterLastAvailableDay
+          const isDisabled = isBeforeProgramStart || isAfterLastAvailableDay || isDayAfterCycle
 
           return (
             <button
               key={day.toISOString()}
-              onClick={() => !isDisabled && onDateSelect(day)}
-              disabled={isDisabled}
+              onClick={() => {
+                if (isDisabled && isDayAfterCycle && onLockedDayClick) {
+                  // Day is locked because cycle ended - show modal
+                  onLockedDayClick()
+                } else if (!isDisabled) {
+                  // Day is available - select it
+                  onDateSelect(day)
+                }
+              }}
+              disabled={false} // Never truly disabled - we handle clicks manually
               className={`
                 flex-shrink-0 w-16 rounded-xl p-3 transition-all
                 ${
                   isDisabled
-                    ? 'bg-muted/50 text-muted-foreground/40 cursor-not-allowed opacity-60'
+                    ? isDayAfterCycle && onLockedDayClick
+                      ? 'bg-muted/50 text-muted-foreground/40 cursor-pointer opacity-60 hover:opacity-80'
+                      : 'bg-muted/50 text-muted-foreground/40 cursor-not-allowed opacity-60'
                     : isSelected
                       ? 'bg-primary text-primary-foreground shadow-lg scale-105 hover-lift ripple-effect'
                       : isDayToday
