@@ -597,6 +597,15 @@ export default function DashboardPage() {
                     strokeWidth="1"
                     opacity="0.08"
                   />
+                  <animateTransform
+                    attributeName="patternTransform"
+                    attributeType="XML"
+                    type="translate"
+                    from="0 0"
+                    to="80 0"
+                    dur="20s"
+                    repeatCount="indefinite"
+                  />
                 </pattern>
               </defs>
               <rect width="100%" height="100%" fill="url(#wave-pattern)" />
