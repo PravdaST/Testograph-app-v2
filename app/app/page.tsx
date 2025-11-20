@@ -553,7 +553,7 @@ export default function DashboardPage() {
         {/* Hero Section */}
         <div className="flex items-start justify-between gap-3">
           <h1 className="text-2xl font-bold">
-            {greetingTime}, {userName}!
+            {greetingTime}
           </h1>
           <div className="flex flex-col items-end gap-1.5">
             <div className="px-3 py-1.5 bg-primary/10 border border-primary/30 rounded-full">
