@@ -569,9 +569,42 @@ export default function DashboardPage() {
         <div className="grid grid-cols-4 gap-3 md:gap-4">
           {/* Quiz Score - 2 Row Layout */}
           <div className="relative col-span-4">
+            {/* Wave Background SVG */}
+            <svg className="absolute inset-0 w-full h-full rounded-2xl pointer-events-none" preserveAspectRatio="none">
+              <defs>
+                <pattern id="wave-pattern" x="0" y="0" width="80" height="40" patternUnits="userSpaceOnUse">
+                  <path
+                    d="M0 20 Q 20 10, 40 20 T 80 20"
+                    fill="none"
+                    stroke={(() => {
+                      const s = selectedDayScore || userProgram.total_score
+                      if (s >= 81) return 'hsl(142, 76%, 36%)'
+                      if (s >= 51) return 'hsl(38, 92%, 50%)'
+                      return 'hsl(0, 84%, 60%)'
+                    })()}
+                    strokeWidth="1.5"
+                    opacity="0.15"
+                  />
+                  <path
+                    d="M0 30 Q 20 20, 40 30 T 80 30"
+                    fill="none"
+                    stroke={(() => {
+                      const s = selectedDayScore || userProgram.total_score
+                      if (s >= 81) return 'hsl(142, 76%, 36%)'
+                      if (s >= 51) return 'hsl(38, 92%, 50%)'
+                      return 'hsl(0, 84%, 60%)'
+                    })()}
+                    strokeWidth="1"
+                    opacity="0.08"
+                  />
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#wave-pattern)" />
+            </svg>
+
             <Link
               href="/app/profile"
-              className="block bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all group animate-fade-in cursor-pointer"
+              className="relative block bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all group animate-fade-in cursor-pointer overflow-hidden"
               style={{ animationDelay: '0.1s', animationFillMode: 'both' }}
             >
               <div className="space-y-4">
