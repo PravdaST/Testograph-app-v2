@@ -14,6 +14,7 @@ import { FeedbackModal } from '@/components/feedback/FeedbackModal'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { ElectricBorder } from '@/components/ui/electric-border'
+import { SkeletonCard, SkeletonProgressBar, SkeletonQuizScore } from '@/components/ui/skeleton-card'
 import { createClient } from '@/lib/supabase/client'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
 import { Target, TrendingUp, Utensils, Dumbbell, Moon, Pill, CheckCircle2, ArrowRight, Calendar, Info, X, MapPin, CalendarDays, PartyPopper, ThumbsUp, Sparkles, AlertTriangle } from 'lucide-react'
@@ -576,8 +577,19 @@ export default function DashboardPage() {
 
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-4 gap-3 md:gap-4">
-          {/* Quiz Score - 2 Row Layout */}
-          <div className="relative col-span-4">
+          {loading ? (
+            <>
+              <SkeletonQuizScore />
+              <SkeletonCard animationDelay="0.1s" />
+              <SkeletonCard animationDelay="0.2s" />
+              <SkeletonCard animationDelay="0.3s" />
+              <SkeletonCard animationDelay="0.4s" />
+              <SkeletonProgressBar />
+            </>
+          ) : (
+            <>
+              {/* Quiz Score - 2 Row Layout */}
+              <div className="relative col-span-4">
             {/* Single Smooth Wave Background */}
             <svg className="absolute inset-0 w-full h-full rounded-2xl pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
               <path
@@ -1337,6 +1349,8 @@ export default function DashboardPage() {
               <span className="text-[10px] font-medium text-muted-foreground">{selectedDayProgress}/{selectedDayTotal} задачи</span>
             </div>
           </div>
+            </>
+          )}
         </div>
 
         {/* Weekly Calendar */}
