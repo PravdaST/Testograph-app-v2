@@ -567,48 +567,69 @@ export default function DashboardPage() {
 
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-4 gap-3 md:gap-4">
-          {/* Quiz Score - Enhanced Size */}
+          {/* Quiz Score - 2 Row Layout */}
           <div className="relative col-span-4">
             <Link
               href="/app/profile"
               className="block bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all group animate-fade-in cursor-pointer"
               style={{ animationDelay: '0.1s', animationFillMode: 'both' }}
             >
-              <div className="flex items-center justify-between gap-8">
-                {/* Left: Label & Icon */}
-                <div className="flex items-center gap-4">
-                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${getScoreColorBg(selectedDayScore || userProgram.total_score)}`}>
-                    <Target className={`w-6 h-6 ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`} />
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold text-muted-foreground">Симптоми Score</div>
-                    <div className="text-xs text-muted-foreground/60 mt-0.5">
-                      {isSelectedDateToday ? 'Днес' : selectedDate.toLocaleDateString('bg-BG', { day: 'numeric', month: 'short' })}
+              <div className="space-y-4">
+                {/* Row 1: Header */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${getScoreColorBg(selectedDayScore || userProgram.total_score)}`}>
+                      <Target className={`w-6 h-6 ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`} />
+                    </div>
+                    <div>
+                      <div className="text-base font-bold text-muted-foreground">Симптоми Score</div>
+                      <div className="text-sm text-muted-foreground/70 mt-0.5">
+                        {isSelectedDateToday ? 'Днес' : selectedDate.toLocaleDateString('bg-BG', { day: 'numeric', month: 'short' })}
+                      </div>
                     </div>
                   </div>
+
+                  {/* TestoUp Info - Top Right */}
+                  {testoUpInventory && (
+                    <div className={`flex items-center gap-2 px-4 py-2 rounded-xl ${
+                      testoUpInventory.capsules_remaining < 30
+                        ? 'bg-destructive/10 border border-destructive/30'
+                        : 'bg-muted/30 border border-border'
+                    }`}>
+                      <Pill className={`w-5 h-5 ${testoUpInventory.capsules_remaining < 30 ? 'text-destructive' : 'text-muted-foreground'}`} />
+                      <div>
+                        <div className={`text-lg font-bold ${testoUpInventory.capsules_remaining < 30 ? 'text-destructive' : 'text-foreground'}`}>
+                          {testoUpInventory.capsules_remaining}
+                        </div>
+                        <div className="text-xs text-muted-foreground">капсули</div>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
-                {/* Center: Score */}
-                <div className="flex items-center gap-6">
-                  <div className="text-center">
-                    <div className="text-xs text-muted-foreground mb-1">Начален</div>
-                    <div className={`text-3xl font-bold ${getScoreColorClass(userProgram.total_score)}`}>
-                      {userProgram.total_score}
+                {/* Row 2: Scores & Chart */}
+                <div className="flex items-center justify-between">
+                  {/* Score Comparison */}
+                  <div className="flex items-center gap-8">
+                    <div className="text-center">
+                      <div className="text-sm text-muted-foreground mb-2">Начален</div>
+                      <div className={`text-4xl font-bold ${getScoreColorClass(userProgram.total_score)}`}>
+                        {userProgram.total_score}
+                      </div>
+                    </div>
+                    <ArrowRight className={`w-6 h-6 ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`} />
+                    <div className="text-center">
+                      <div className="text-sm text-muted-foreground mb-2">Текущ</div>
+                      <div className={`text-5xl font-bold ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`}>
+                        {selectedDayScore || userProgram.total_score}
+                      </div>
                     </div>
                   </div>
-                  <ArrowRight className={`w-5 h-5 ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`} />
-                  <div className="text-center">
-                    <div className="text-xs text-muted-foreground mb-1">Текущ</div>
-                    <div className={`text-4xl font-bold ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`}>
-                      {selectedDayScore || userProgram.total_score}
-                    </div>
-                  </div>
-                </div>
 
-                {/* Right: Chart + Info */}
-                <div className="flex items-center gap-5">
-                  {weeklyCompletionRates.length > 0 && (
-                    <svg width="120" height="50" viewBox="0 0 120 50" preserveAspectRatio="xMidYMid meet">
+                  {/* Chart & Status */}
+                  <div className="flex items-center gap-6">
+                    {weeklyCompletionRates.length > 0 && (
+                      <svg width="140" height="60" viewBox="0 0 140 60" preserveAspectRatio="xMidYMid meet">
                       <defs>
                         <linearGradient id="score-gradient-mini" x1="0%" y1="0%" x2="0%" y2="100%">
                           <stop offset="0%" stopColor={getScoreColorHSL(selectedDayScore || userProgram.total_score)} stopOpacity="0.3" />
@@ -617,7 +638,7 @@ export default function DashboardPage() {
                       </defs>
                       <path
                         d={(() => {
-                          const w = 120, h = 50, p = 5
+                          const w = 140, h = 60, p = 6
                           const pts = weeklyCompletionRates.map((r, i) => {
                             const x = (i / (weeklyCompletionRates.length - 1)) * w
                             const y = h - p - ((r / 100) * (h - p * 2))
@@ -629,34 +650,27 @@ export default function DashboardPage() {
                       />
                       <polyline
                         points={weeklyCompletionRates.map((r, i) => {
-                          const w = 120, h = 50, p = 5
+                          const w = 140, h = 60, p = 6
                           const x = (i / (weeklyCompletionRates.length - 1)) * w
                           const y = h - p - ((r / 100) * (h - p * 2))
                           return `${x},${y}`
                         }).join(' ')}
                         fill="none"
                         stroke={getScoreColorHSL(selectedDayScore || userProgram.total_score)}
-                        strokeWidth="2"
+                        strokeWidth="2.5"
                         strokeLinecap="round"
                       />
                     </svg>
                   )}
-                  <div className="text-right space-y-1">
-                    {testoUpInventory && (
-                      <div className={`flex items-center gap-1.5 text-sm font-medium ${
-                        testoUpInventory.capsules_remaining < 30 ? 'text-destructive' : 'text-muted-foreground'
-                      }`}>
-                        <Pill className="w-4 h-4" />
-                        <span>{testoUpInventory.capsules_remaining} капсули</span>
+                    <div className="text-center">
+                      <div className={`text-base font-bold ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`}>
+                        {(() => {
+                          const s = selectedDayScore || userProgram.total_score
+                          if (s >= 81) return 'Отлично!'
+                          if (s >= 51) return 'Добър прогрес'
+                          return 'Следвай плана'
+                        })()}
                       </div>
-                    )}
-                    <div className={`text-sm font-semibold ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`}>
-                      {(() => {
-                        const s = selectedDayScore || userProgram.total_score
-                        if (s >= 81) return 'Отлично!'
-                        if (s >= 51) return 'Добър прогрес'
-                        return 'Следвай плана'
-                      })()}
                     </div>
                   </div>
                 </div>
