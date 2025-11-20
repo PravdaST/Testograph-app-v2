@@ -1,12 +1,17 @@
 import { useState, useEffect } from 'react'
 import { getWeekStart, getWeekEnd } from '@/lib/utils/date-helpers'
 
+interface CompletionStatus {
+  completed: number
+  total: number
+}
+
 /**
  * Hook to load weekly completion status for calendar
- * Returns a map of dateString -> isCompleted (all 4 tasks done)
+ * Returns a map of dateString -> { completed: number, total: number }
  */
 export function useWeeklyCompletion(selectedDate: Date, email: string | null) {
-  const [completedDates, setCompletedDates] = useState<Record<string, boolean>>({})
+  const [completedDates, setCompletedDates] = useState<Record<string, CompletionStatus>>({})
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {

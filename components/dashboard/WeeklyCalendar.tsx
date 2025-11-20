@@ -19,11 +19,16 @@ import {
   isFuture,
 } from '@/lib/utils/date-helpers'
 
+interface CompletionStatus {
+  completed: number
+  total: number
+}
+
 interface WeeklyCalendarProps {
   programStartDate: Date
   selectedDate: Date
   onDateSelect: (date: Date) => void
-  completedDates?: Record<string, boolean> // Map of dateString -> isCompleted
+  completedDates?: Record<string, CompletionStatus> // Map of dateString -> completion status
 }
 
 export function WeeklyCalendar({
@@ -100,9 +105,13 @@ export function WeeklyCalendar({
           const startTime = new Date(programStartDate).setHours(0, 0, 0, 0)
           const isBeforeProgramStart = dayTime < startTime
 
-          // Check if day is completed (all 4 tasks done)
+          // Check completion status
           const dateString = day.toISOString().split('T')[0]
-          const isCompleted = completedDates[dateString] || false
+          const completionStatus = completedDates[dateString]
+          const completedCount = completionStatus?.completed || 0
+          const isFullyCompleted = completedCount === 4
+          const isPartiallyCompleted = completedCount > 0 && completedCount < 4
+          const isNotCompleted = completedCount === 0
 
           return (
             <button
@@ -115,11 +124,15 @@ export function WeeklyCalendar({
                     ? 'bg-primary text-primary-foreground shadow-lg scale-105'
                     : isDayToday
                       ? 'bg-primary/10 border-2 border-primary text-primary'
-                      : isCompleted
+                      : isFullyCompleted
                         ? 'bg-success/10 border-2 border-success/30 text-success'
-                        : isDayPast
-                          ? 'bg-muted text-muted-foreground'
-                          : 'bg-background border border-border hover:border-primary hover:bg-primary/5'
+                        : isPartiallyCompleted && isDayPast
+                          ? 'bg-warning/10 border-2 border-warning/30 text-warning'
+                          : isNotCompleted && isDayPast && !isBeforeProgramStart
+                            ? 'bg-destructive/10 border-2 border-destructive/30 text-destructive'
+                            : isDayPast
+                              ? 'bg-muted text-muted-foreground'
+                              : 'bg-background border border-border hover:border-primary hover:bg-primary/5'
                 }
               `}
             >
@@ -131,9 +144,13 @@ export function WeeklyCalendar({
                       ? 'text-primary-foreground'
                       : isDayToday
                         ? 'text-primary'
-                        : isCompleted
+                        : isFullyCompleted
                           ? 'text-success'
-                          : 'text-muted-foreground'
+                          : isPartiallyCompleted && isDayPast
+                            ? 'text-warning'
+                            : isNotCompleted && isDayPast && !isBeforeProgramStart
+                              ? 'text-destructive'
+                              : 'text-muted-foreground'
                   }`}
                 >
                   {getDayNameShort(dayOfWeek)}
@@ -146,9 +163,13 @@ export function WeeklyCalendar({
                       ? 'text-primary-foreground'
                       : isDayToday
                         ? 'text-primary'
-                        : isCompleted
+                        : isFullyCompleted
                           ? 'text-success'
-                          : ''
+                          : isPartiallyCompleted && isDayPast
+                            ? 'text-warning'
+                            : isNotCompleted && isDayPast && !isBeforeProgramStart
+                              ? 'text-destructive'
+                              : ''
                   }`}
                 >
                   {day.getDate()}
@@ -160,9 +181,15 @@ export function WeeklyCalendar({
                     className={`text-xs ${
                       isSelected
                         ? 'text-primary-foreground/80'
-                        : isDayFuture
-                          ? 'text-muted-foreground/60'
-                          : 'text-muted-foreground'
+                        : isFullyCompleted
+                          ? 'text-success/80'
+                          : isPartiallyCompleted && isDayPast
+                            ? 'text-warning/80'
+                            : isNotCompleted && isDayPast && !isBeforeProgramStart
+                              ? 'text-destructive/80'
+                              : isDayFuture
+                                ? 'text-muted-foreground/60'
+                                : 'text-muted-foreground'
                     }`}
                   >
                     Ден {dayNumber}

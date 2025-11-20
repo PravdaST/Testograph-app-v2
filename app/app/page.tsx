@@ -58,6 +58,20 @@ export default function DashboardPage() {
     testoUpEvening: false,
   })
 
+  // Selected day stats (for calendar selection)
+  const [selectedDayStats, setSelectedDayStats] = useState({
+    mealsCompleted: 0,
+    totalMeals: 5,
+    workoutCompleted: false,
+    workoutName: null as string | null,
+    workoutDuration: null as number | null,
+    sleepTracked: false,
+    sleepHours: null as number | null,
+    sleepQuality: null as number | null,
+    testoUpMorning: false,
+    testoUpEvening: false,
+  })
+
   // Weekly stats
   const [weeklyStats, setWeeklyStats] = useState({
     mealsCompleted: 0,
@@ -75,9 +89,22 @@ export default function DashboardPage() {
   // Tooltip state
   const [activeTooltip, setActiveTooltip] = useState<'meals' | 'workouts' | 'sleep' | 'testoup' | 'quiz' | 'today' | 'program' | 'calendar' | null>(null)
 
+  // Weekly completion rate data for sparkline
+  const [weeklyCompletionRates, setWeeklyCompletionRates] = useState<number[]>([])
+  const [avgCompletionRate, setAvgCompletionRate] = useState(0)
+
+  // Quiz score improvement tracking
+  const [estimatedCurrentScore, setEstimatedCurrentScore] = useState(0)
+  const [scoreReduction, setScoreReduction] = useState(0)
+  const [selectedDayScore, setSelectedDayScore] = useState(0)
+  const [selectedDayCompliance, setSelectedDayCompliance] = useState(0)
+
   // Weekly completion hook
   const email = typeof window !== 'undefined' ? localStorage.getItem('quizEmail') : null
   const { completedDates } = useWeeklyCompletion(selectedDate, email)
+
+  // Check if selected date is today
+  const isSelectedDateToday = selectedDate.toDateString() === new Date().toDateString()
 
   // Check if feedback is due
   const checkFeedbackDue = async (email: string, startDate: Date) => {
@@ -248,6 +275,108 @@ export default function DashboardPage() {
     }
   }, [loading])
 
+  // Load selected day data when date changes
+  useEffect(() => {
+    const loadSelectedDayData = async () => {
+      if (!email) return
+
+      try {
+        const dateString = selectedDate.toISOString().split('T')[0]
+
+        // Fetch day details from API
+        const response = await fetch(
+          `/api/user/day-details?email=${encodeURIComponent(email)}&date=${dateString}`
+        )
+
+        if (response.ok) {
+          const data = await response.json()
+          setSelectedDayStats({
+            mealsCompleted: data.tasks.meals.completed,
+            totalMeals: data.tasks.meals.total,
+            workoutCompleted: data.tasks.workout.status === 'completed',
+            workoutName: data.tasks.workout.name,
+            workoutDuration: data.tasks.workout.duration,
+            sleepTracked: data.tasks.sleep.status === 'completed',
+            sleepHours: data.tasks.sleep.hours,
+            sleepQuality: data.tasks.sleep.quality,
+            testoUpMorning: data.tasks.testoup.morning,
+            testoUpEvening: data.tasks.testoup.evening,
+          })
+        }
+      } catch (error) {
+        console.error('Error loading selected day data:', error)
+      }
+    }
+
+    loadSelectedDayData()
+  }, [selectedDate, email])
+
+  // Calculate weekly completion rates for sparkline
+  useEffect(() => {
+    if (!completedDates || Object.keys(completedDates).length === 0) return
+
+    const today = new Date()
+    const last7Days: number[] = []
+
+    // Get last 7 days completion rates
+    for (let i = 6; i >= 0; i--) {
+      const date = new Date(today)
+      date.setDate(date.getDate() - i)
+      const dateString = date.toISOString().split('T')[0]
+
+      const dayData = completedDates[dateString]
+      if (dayData) {
+        const rate = (dayData.completed / dayData.total) * 100
+        last7Days.push(rate)
+      } else {
+        last7Days.push(0)
+      }
+    }
+
+    setWeeklyCompletionRates(last7Days)
+
+    // Calculate average
+    const avg = last7Days.length > 0
+      ? last7Days.reduce((sum, rate) => sum + rate, 0) / last7Days.length
+      : 0
+    setAvgCompletionRate(Math.round(avg))
+  }, [completedDates])
+
+  // Fetch progressive score for selected day
+  useEffect(() => {
+    const fetchProgressiveScore = async () => {
+      if (!email || !userProgram) return
+
+      try {
+        const dateString = selectedDate.toISOString().split('T')[0]
+        const response = await fetch(
+          `/api/user/progressive-score?email=${encodeURIComponent(email)}&date=${dateString}`
+        )
+
+        if (response.ok) {
+          const data = await response.json()
+          setSelectedDayScore(data.score)
+          setSelectedDayCompliance(data.compliancePercentage)
+
+          // Also set current score if it's today
+          if (isSelectedDateToday) {
+            setEstimatedCurrentScore(data.score)
+          }
+        } else {
+          // Fallback to initial score
+          setSelectedDayScore(userProgram.total_score)
+          setSelectedDayCompliance(0)
+        }
+      } catch (error) {
+        console.error('Error fetching progressive score:', error)
+        setSelectedDayScore(userProgram.total_score)
+        setSelectedDayCompliance(0)
+      }
+    }
+
+    fetchProgressiveScore()
+  }, [selectedDate, email, userProgram, isSelectedDateToday])
+
   // Confetti effect when all tasks completed
   useEffect(() => {
     const todayProgress = [
@@ -292,6 +421,32 @@ export default function DashboardPage() {
       }, 250)
     }
   }, [todayStats])
+
+  // Helper function to get score color based on new thresholds
+  // 0-50: Red (low progress)
+  // 51-80: Orange (good progress)
+  // 81-100: Green (excellent progress)
+  const getScoreColor = (score: number) => {
+    if (score >= 81) return 'success'
+    if (score >= 51) return 'warning'
+    return 'destructive'
+  }
+
+  const getScoreColorClass = (score: number) => {
+    const color = getScoreColor(score)
+    return color === 'success' ? 'text-success' : color === 'warning' ? 'text-warning' : 'text-destructive'
+  }
+
+  const getScoreColorBg = (score: number) => {
+    const color = getScoreColor(score)
+    return color === 'success' ? 'bg-success/20' : color === 'warning' ? 'bg-warning/20' : 'bg-destructive/20'
+  }
+
+  const getScoreColorHSL = (score: number) => {
+    if (score >= 81) return 'hsl(142, 76%, 36%)'
+    if (score >= 51) return 'hsl(38, 92%, 50%)'
+    return 'hsl(0, 84%, 60%)'
+  }
 
   const handleWelcomeComplete = () => {
     localStorage.setItem('hasSeenWelcome', 'true')
@@ -362,6 +517,16 @@ export default function DashboardPage() {
 
   const todayTotal = 4
 
+  // Calculate selected day's progress
+  const selectedDayProgress = [
+    selectedDayStats.testoUpMorning && selectedDayStats.testoUpEvening,
+    selectedDayStats.mealsCompleted >= 3,
+    selectedDayStats.workoutCompleted,
+    selectedDayStats.sleepTracked,
+  ].filter(Boolean).length
+
+  const selectedDayTotal = 4
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -394,25 +559,98 @@ export default function DashboardPage() {
 
         {/* Bento Grid Layout */}
         <div className="grid grid-cols-4 gap-3 md:gap-4">
-          {/* Quiz Score - Large Tile (2x2) */}
-          <div className="relative col-span-2 row-span-2">
+          {/* Quiz Score - Compact (4x1) */}
+          <div className="relative col-span-4">
             <Link
               href="/app/profile"
-              className={`block h-full bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl p-6 border-2 border-primary/30 hover:scale-[1.02] transition-transform cursor-pointer group animate-fade-in ${
-                userProgram.total_score >= 80 ? 'animate-pulse-glow' : ''
-              }`}
+              className="block bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-4 border border-primary/20 hover:border-primary/40 transition-all group animate-fade-in cursor-pointer"
               style={{ animationDelay: '0.1s', animationFillMode: 'both' }}
             >
-              <div className="h-full flex flex-col items-center justify-center">
-                <Award className="w-8 h-8 text-primary mb-3 group-hover:scale-110 transition-transform" />
-                <div className="text-6xl font-bold text-primary mb-2">
-                  {userProgram.total_score}
+              <div className="flex items-center justify-between gap-6">
+                {/* Left: Label & Icon */}
+                <div className="flex items-center gap-3">
+                  <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${getScoreColorBg(selectedDayScore || userProgram.total_score)}`}>
+                    <Target className={`w-4 h-4 ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`} />
+                  </div>
+                  <div>
+                    <div className="text-xs font-medium text-muted-foreground">Симптоми Score</div>
+                    <div className="text-[10px] text-muted-foreground/60">
+                      {isSelectedDateToday ? 'Днес' : selectedDate.toLocaleDateString('bg-BG', { day: 'numeric', month: 'short' })}
+                    </div>
+                  </div>
                 </div>
-                <div className="text-sm text-muted-foreground text-center">
-                  Quiz Score
+
+                {/* Center: Score */}
+                <div className="flex items-center gap-4">
+                  <div className="text-center">
+                    <div className="text-[10px] text-muted-foreground mb-0.5">Начален</div>
+                    <div className={`text-2xl font-bold ${getScoreColorClass(userProgram.total_score)}`}>
+                      {userProgram.total_score}
+                    </div>
+                  </div>
+                  <ArrowRight className={`w-4 h-4 ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`} />
+                  <div className="text-center">
+                    <div className="text-[10px] text-muted-foreground mb-0.5">Текущ</div>
+                    <div className={`text-3xl font-bold ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`}>
+                      {selectedDayScore || userProgram.total_score}
+                    </div>
+                  </div>
                 </div>
-                <div className="mt-4 text-xs text-primary font-medium flex items-center gap-1">
-                  Виж детайли <ArrowRight className="w-3 h-3" />
+
+                {/* Right: Chart + Info */}
+                <div className="flex items-center gap-4">
+                  {weeklyCompletionRates.length > 0 && (
+                    <svg width="100" height="40" viewBox="0 0 100 40" preserveAspectRatio="xMidYMid meet">
+                      <defs>
+                        <linearGradient id="score-gradient-mini" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" stopColor={getScoreColorHSL(selectedDayScore || userProgram.total_score)} stopOpacity="0.3" />
+                          <stop offset="100%" stopColor={getScoreColorHSL(selectedDayScore || userProgram.total_score)} stopOpacity="0" />
+                        </linearGradient>
+                      </defs>
+                      <path
+                        d={(() => {
+                          const w = 100, h = 40, p = 4
+                          const pts = weeklyCompletionRates.map((r, i) => {
+                            const x = (i / (weeklyCompletionRates.length - 1)) * w
+                            const y = h - p - ((r / 100) * (h - p * 2))
+                            return `${x},${y}`
+                          })
+                          return `M 0,${h} L ${pts.join(' L ')} L ${w},${h} Z`
+                        })()}
+                        fill="url(#score-gradient-mini)"
+                      />
+                      <polyline
+                        points={weeklyCompletionRates.map((r, i) => {
+                          const w = 100, h = 40, p = 4
+                          const x = (i / (weeklyCompletionRates.length - 1)) * w
+                          const y = h - p - ((r / 100) * (h - p * 2))
+                          return `${x},${y}`
+                        }).join(' ')}
+                        fill="none"
+                        stroke={getScoreColorHSL(selectedDayScore || userProgram.total_score)}
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  )}
+                  <div className="text-right">
+                    {testoUpInventory && (
+                      <div className={`flex items-center gap-1 text-[10px] mb-1 ${
+                        testoUpInventory.capsules_remaining < 30 ? 'text-destructive' : 'text-muted-foreground'
+                      }`}>
+                        <Pill className="w-2.5 h-2.5" />
+                        <span>{testoUpInventory.capsules_remaining} капсули</span>
+                      </div>
+                    )}
+                    <div className={`text-xs font-medium ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`}>
+                      {(() => {
+                        const s = selectedDayScore || userProgram.total_score
+                        if (s >= 81) return 'Отлично!'
+                        if (s >= 51) return 'Добър прогрес'
+                        return 'Следвай плана'
+                      })()}
+                    </div>
+                  </div>
                 </div>
               </div>
             </Link>
@@ -421,7 +659,7 @@ export default function DashboardPage() {
                 e.stopPropagation()
                 setActiveTooltip(activeTooltip === 'quiz' ? null : 'quiz')
               }}
-              className="absolute bottom-2 right-2 p-1 rounded-md hover:bg-muted/50 transition-colors"
+              className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
             >
               <Info className="w-3 h-3 text-muted-foreground" />
             </button>
@@ -448,7 +686,7 @@ export default function DashboardPage() {
                     </button>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Резултат от началния тест, оценяващ твоите симптоми и нива. По-висок резултат означава повече симптоми, които програмата ще адресира.
+                    Начален резултат от теста показва тежестта на симптомите. Колкото по-добре следваш програмата, толкова повече намаляват симптомите. Процентът показва estimated подобрение базирано на твоя compliance.
                   </p>
                 </div>
               </>,
@@ -456,33 +694,64 @@ export default function DashboardPage() {
             )}
           </div>
 
-          {/* Today's Progress (1x2) */}
+          {/* Selected Day's Progress (2x1) */}
           <div
             className="relative col-span-2 row-span-1 bg-background rounded-2xl p-4 border border-border animate-fade-in"
-            style={{ animationDelay: '0.2s', animationFillMode: 'both' }}
+            style={{ animationDelay: '0.3s', animationFillMode: 'both' }}
           >
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm font-medium">Днес</span>
-              <span className="text-xs text-muted-foreground">{todayProgress}/{todayTotal}</span>
+              <span className="text-sm font-medium capitalize">
+                {isSelectedDateToday
+                  ? 'Днес'
+                  : selectedDate.toLocaleDateString('bg-BG', {
+                      day: 'numeric',
+                      month: 'short',
+                    })}
+              </span>
+              <span className="text-xs text-muted-foreground">{selectedDayProgress}/{selectedDayTotal}</span>
             </div>
             <div className="h-2 bg-muted rounded-full overflow-hidden mb-3">
               <div
                 className="h-full bg-primary transition-all duration-500"
-                style={{ width: `${(todayProgress / todayTotal) * 100}%` }}
+                style={{ width: `${(selectedDayProgress / selectedDayTotal) * 100}%` }}
               />
             </div>
             <div className="grid grid-cols-4 gap-2">
-              <div className={`w-full h-1 rounded-full ${todayStats.testoUpMorning && todayStats.testoUpEvening ? 'bg-success' : 'bg-muted'}`} />
-              <div className={`w-full h-1 rounded-full ${todayStats.mealsCompleted >= 3 ? 'bg-success' : 'bg-muted'}`} />
-              <div className={`w-full h-1 rounded-full ${todayStats.workoutCompleted ? 'bg-success' : 'bg-muted'}`} />
-              <div className={`w-full h-1 rounded-full ${todayStats.sleepTracked ? 'bg-success' : 'bg-muted'}`} />
+              <div className={`w-full h-1 rounded-full ${
+                selectedDayStats.testoUpMorning && selectedDayStats.testoUpEvening
+                  ? 'bg-success'
+                  : selectedDate < new Date(new Date().setHours(0, 0, 0, 0))
+                    ? 'bg-destructive'
+                    : 'bg-muted'
+              }`} />
+              <div className={`w-full h-1 rounded-full ${
+                selectedDayStats.mealsCompleted >= 3
+                  ? 'bg-success'
+                  : selectedDate < new Date(new Date().setHours(0, 0, 0, 0))
+                    ? 'bg-destructive'
+                    : 'bg-muted'
+              }`} />
+              <div className={`w-full h-1 rounded-full ${
+                selectedDayStats.workoutCompleted
+                  ? 'bg-success'
+                  : selectedDate < new Date(new Date().setHours(0, 0, 0, 0))
+                    ? 'bg-destructive'
+                    : 'bg-muted'
+              }`} />
+              <div className={`w-full h-1 rounded-full ${
+                selectedDayStats.sleepTracked
+                  ? 'bg-success'
+                  : selectedDate < new Date(new Date().setHours(0, 0, 0, 0))
+                    ? 'bg-destructive'
+                    : 'bg-muted'
+              }`} />
             </div>
             <button
               onClick={(e) => {
                 e.stopPropagation()
                 setActiveTooltip(activeTooltip === 'today' ? null : 'today')
               }}
-              className="absolute bottom-2 right-2 p-1 rounded-md hover:bg-muted/50 transition-colors"
+              className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
             >
               <Info className="w-3 h-3 text-muted-foreground" />
             </button>
@@ -509,7 +778,7 @@ export default function DashboardPage() {
                     </button>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Дневен прогрес показва колко от 4-те основни задачи си завършил днес: TestoUp добавка, хранения (мин. 3), тренировка и проследяване на сън.
+                    Дневен прогрес показва колко от 4-те основни задачи си завършил за избрания ден: TestoUp добавка, хранения (мин. 3), тренировка и проследяване на сън. Избери ден от календара за детайли.
                   </p>
                 </div>
               </>,
@@ -540,7 +809,7 @@ export default function DashboardPage() {
                 e.stopPropagation()
                 setActiveTooltip(activeTooltip === 'program' ? null : 'program')
               }}
-              className="absolute bottom-2 right-2 p-1 rounded-md hover:bg-muted/50 transition-colors"
+              className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
             >
               <Info className="w-3 h-3 text-muted-foreground" />
             </button>
@@ -581,15 +850,16 @@ export default function DashboardPage() {
             style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
             onClick={() => router.push('/app/nutrition')}
           >
-            <Utensils className="w-5 h-5 text-primary mb-2 group-hover:scale-110 transition-transform" />
-            <div className="text-2xl font-bold">{weeklyStats.mealsCompleted}</div>
-            <div className="text-xs text-muted-foreground">хранения</div>
+            <div className="flex items-center gap-2">
+              <Utensils className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+              <div className="text-lg font-bold">{selectedDayStats.mealsCompleted}/{selectedDayStats.totalMeals}</div>
+            </div>
             <button
               onClick={(e) => {
                 e.stopPropagation()
                 setActiveTooltip(activeTooltip === 'meals' ? null : 'meals')
               }}
-              className="absolute bottom-2 right-2 p-1 rounded-md hover:bg-muted/50 transition-colors"
+              className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
             >
               <Info className="w-3 h-3 text-muted-foreground" />
             </button>
@@ -616,7 +886,7 @@ export default function DashboardPage() {
                     </button>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Брой завършени хранения през последните 30 дни. Следи хранителния си план за оптимални резултати.
+                    Брой завършени хранения за избрания ден. Целта е минимум 3 от 5 хранения дневно за оптимални резултати.
                   </p>
                 </div>
               </>,
@@ -629,15 +899,18 @@ export default function DashboardPage() {
             style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
             onClick={() => router.push(`/app/workout/${selectedDate.getDay() === 0 ? 7 : selectedDate.getDay()}`)}
           >
-            <Dumbbell className="w-5 h-5 text-primary mb-2 group-hover:scale-110 transition-transform" />
-            <div className="text-2xl font-bold">{weeklyStats.workoutsCompleted}</div>
-            <div className="text-xs text-muted-foreground">тренировки</div>
+            <div className="flex items-center gap-2">
+              <Dumbbell className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+              <div className="text-lg font-bold">
+                {selectedDayStats.workoutCompleted ? '1' : '0'}/1
+              </div>
+            </div>
             <button
               onClick={(e) => {
                 e.stopPropagation()
                 setActiveTooltip(activeTooltip === 'workouts' ? null : 'workouts')
               }}
-              className="absolute bottom-2 right-2 p-1 rounded-md hover:bg-muted/50 transition-colors"
+              className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
             >
               <Info className="w-3 h-3 text-muted-foreground" />
             </button>
@@ -664,7 +937,7 @@ export default function DashboardPage() {
                     </button>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Брой завършени тренировки през последните 30 дни. Редовните тренировки са ключови за повишаване на тестостерона.
+                    Статус на тренировката за избрания ден. Редовните тренировки са ключови за повишаване на тестостерона.
                   </p>
                 </div>
               </>,
@@ -677,15 +950,22 @@ export default function DashboardPage() {
             style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
             onClick={() => router.push('/app/sleep')}
           >
-            <Moon className="w-5 h-5 text-primary mb-2 group-hover:scale-110 transition-transform" />
-            <div className="text-2xl font-bold">{weeklyStats.averageSleep}ч</div>
-            <div className="text-xs text-muted-foreground">сън</div>
+            <div className="flex items-center gap-2">
+              <Moon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+              <div className="text-lg font-bold">
+                {selectedDayStats.sleepTracked ? (
+                  `${selectedDayStats.sleepHours}ч`
+                ) : (
+                  <span className="text-destructive">•</span>
+                )}
+              </div>
+            </div>
             <button
               onClick={(e) => {
                 e.stopPropagation()
                 setActiveTooltip(activeTooltip === 'sleep' ? null : 'sleep')
               }}
-              className="absolute bottom-2 right-2 p-1 rounded-md hover:bg-muted/50 transition-colors"
+              className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
             >
               <Info className="w-3 h-3 text-muted-foreground" />
             </button>
@@ -712,7 +992,7 @@ export default function DashboardPage() {
                     </button>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Среден брой часове сън през последните 30 дни. Целта е 7-9 часа качествен сън за оптимална хормонална функция.
+                    Брой часове сън за избрания ден. Целта е 7-9 часа качествен сън за оптимална хормонална функция.
                   </p>
                 </div>
               </>,
@@ -725,15 +1005,18 @@ export default function DashboardPage() {
             style={{ animationDelay: '0.7s', animationFillMode: 'both' }}
             onClick={() => router.push('/app/supplement')}
           >
-            <Pill className="w-5 h-5 text-primary mb-2 group-hover:scale-110 transition-transform" />
-            <div className="text-2xl font-bold">{weeklyStats.testoUpCompliance}%</div>
-            <div className="text-xs text-muted-foreground">TestoUp</div>
+            <div className="flex items-center gap-2">
+              <Pill className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+              <div className="text-lg font-bold">
+                {(selectedDayStats.testoUpMorning ? 1 : 0) + (selectedDayStats.testoUpEvening ? 1 : 0)}/2
+              </div>
+            </div>
             <button
               onClick={(e) => {
                 e.stopPropagation()
                 setActiveTooltip(activeTooltip === 'testoup' ? null : 'testoup')
               }}
-              className="absolute bottom-2 right-2 p-1 rounded-md hover:bg-muted/50 transition-colors"
+              className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
             >
               <Info className="w-3 h-3 text-muted-foreground" />
             </button>
@@ -760,7 +1043,7 @@ export default function DashboardPage() {
                     </button>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Процент на спазване на дозировката. TestoUp се взема 2 пъти дневно (сутрин и вечер). 100% = всички дози са взети през последните 30 дни.
+                    Брой взети дози за избрания ден. TestoUp се взема 2 пъти дневно (сутрин и вечер).
                   </p>
                 </div>
               </>,
@@ -786,7 +1069,7 @@ export default function DashboardPage() {
               e.stopPropagation()
               setActiveTooltip(activeTooltip === 'calendar' ? null : 'calendar')
             }}
-            className="absolute top-5 right-5 p-1 rounded-md hover:bg-muted/50 transition-colors"
+            className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
           >
             <Info className="w-3 h-3 text-muted-foreground" />
           </button>
@@ -821,41 +1104,124 @@ export default function DashboardPage() {
           )}
         </div>
 
-        {/* Progress Button */}
+        {/* Progress Section with Sparkline */}
         <Link
           href="/app/progress"
-          className="block bg-gradient-to-r from-primary/20 via-primary/10 to-primary/20 rounded-2xl p-5 border-2 border-primary/30 hover:scale-[1.02] hover:border-primary/50 transition-all group"
+          className="block bg-background rounded-2xl p-5 border border-border hover:border-primary/50 hover:scale-[1.02] transition-all group"
         >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                <TrendingUp className="w-6 h-6 text-primary" />
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <TrendingUp className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                <h3 className="font-bold">Седмичен прогрес</h3>
               </div>
-              <div>
-                <h3 className="font-bold text-lg">Виж твоя прогрес</h3>
-                <p className="text-sm text-muted-foreground">
-                  Графики на силовото развитие
-                </p>
-              </div>
+              <ArrowRight className="w-5 h-5 text-primary group-hover:translate-x-1 transition-transform" />
             </div>
-            <ArrowRight className="w-5 h-5 text-primary group-hover:translate-x-1 transition-transform" />
+
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-3xl font-bold text-primary">{avgCompletionRate}%</div>
+                <div className="text-xs text-muted-foreground">среден completion rate</div>
+              </div>
+
+              {/* Sparkline */}
+              {weeklyCompletionRates.length > 0 && (
+                <svg width="120" height="40" className="group-hover:scale-105 transition-transform">
+                  <defs>
+                    <linearGradient id="sparkline-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.3" />
+                      <stop offset="100%" stopColor="hsl(var(--primary))" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+
+                  {/* Area under the line */}
+                  <path
+                    d={(() => {
+                      const width = 120
+                      const height = 40
+                      const padding = 4
+                      const points = weeklyCompletionRates.map((rate, i) => {
+                        const x = (i / (weeklyCompletionRates.length - 1)) * width
+                        const y = height - padding - ((rate / 100) * (height - padding * 2))
+                        return `${x},${y}`
+                      })
+                      return `M 0,${height} L ${points.join(' L ')} L ${width},${height} Z`
+                    })()}
+                    fill="url(#sparkline-gradient)"
+                  />
+
+                  {/* Line */}
+                  <polyline
+                    points={weeklyCompletionRates.map((rate, i) => {
+                      const width = 120
+                      const height = 40
+                      const padding = 4
+                      const x = (i / (weeklyCompletionRates.length - 1)) * width
+                      const y = height - padding - ((rate / 100) * (height - padding * 2))
+                      return `${x},${y}`
+                    }).join(' ')}
+                    fill="none"
+                    stroke="hsl(var(--primary))"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+
+                  {/* Dots on data points */}
+                  {weeklyCompletionRates.map((rate, i) => {
+                    const width = 120
+                    const height = 40
+                    const padding = 4
+                    const x = (i / (weeklyCompletionRates.length - 1)) * width
+                    const y = height - padding - ((rate / 100) * (height - padding * 2))
+                    return (
+                      <circle
+                        key={i}
+                        cx={x}
+                        cy={y}
+                        r="2"
+                        fill="hsl(var(--primary))"
+                      />
+                    )
+                  })}
+                </svg>
+              )}
+            </div>
           </div>
         </Link>
 
-        {/* Today's Checklist */}
+        {/* Selected Day Tasks */}
         <div className="bg-background rounded-2xl p-5 border border-border">
-          <h2 className="font-bold mb-4">Днешни задачи</h2>
+          <h2 className="font-bold mb-4 capitalize">
+            {selectedDate.toLocaleDateString('bg-BG', {
+              weekday: 'long',
+              day: 'numeric',
+              month: 'long',
+            })}
+          </h2>
           <div className="space-y-3">
             <button
               onClick={() => router.push('/app/supplement')}
-              className="w-full flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors"
+              className={`w-full flex items-center justify-between p-3 rounded-xl transition-colors ${
+                selectedDayStats.testoUpMorning && selectedDayStats.testoUpEvening
+                  ? 'bg-success/10 hover:bg-success/20'
+                  : selectedDate < new Date(new Date().setHours(0, 0, 0, 0))
+                    ? 'bg-destructive/10 hover:bg-destructive/20'
+                    : 'bg-muted/30 hover:bg-muted/50'
+              }`}
             >
               <div className="flex items-center gap-3">
-                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${todayStats.testoUpMorning && todayStats.testoUpEvening ? 'bg-success border-success' : 'border-border'}`}>
-                  {todayStats.testoUpMorning && todayStats.testoUpEvening && (
+                {selectedDayStats.testoUpMorning && selectedDayStats.testoUpEvening ? (
+                  <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center bg-success border-success">
                     <CheckCircle2 className="w-4 h-4 text-white" />
-                  )}
-                </div>
+                  </div>
+                ) : selectedDate < new Date(new Date().setHours(0, 0, 0, 0)) ? (
+                  <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center bg-destructive border-destructive">
+                    <X className="w-4 h-4 text-white" />
+                  </div>
+                ) : (
+                  <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center border-border" />
+                )}
                 <span className="text-sm">TestoUp (сутрин и вечер)</span>
               </div>
               <ArrowRight className="w-4 h-4 text-muted-foreground" />
@@ -863,29 +1229,53 @@ export default function DashboardPage() {
 
             <button
               onClick={() => router.push('/app/nutrition')}
-              className="w-full flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors"
+              className={`w-full flex items-center justify-between p-3 rounded-xl transition-colors ${
+                selectedDayStats.mealsCompleted >= 3
+                  ? 'bg-success/10 hover:bg-success/20'
+                  : selectedDate < new Date(new Date().setHours(0, 0, 0, 0))
+                    ? 'bg-destructive/10 hover:bg-destructive/20'
+                    : 'bg-muted/30 hover:bg-muted/50'
+              }`}
             >
               <div className="flex items-center gap-3">
-                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${todayStats.mealsCompleted >= 3 ? 'bg-success border-success' : 'border-border'}`}>
-                  {todayStats.mealsCompleted >= 3 && (
+                {selectedDayStats.mealsCompleted >= 3 ? (
+                  <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center bg-success border-success">
                     <CheckCircle2 className="w-4 h-4 text-white" />
-                  )}
-                </div>
-                <span className="text-sm">Хранения ({todayStats.mealsCompleted}/5)</span>
+                  </div>
+                ) : selectedDate < new Date(new Date().setHours(0, 0, 0, 0)) ? (
+                  <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center bg-destructive border-destructive">
+                    <X className="w-4 h-4 text-white" />
+                  </div>
+                ) : (
+                  <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center border-border" />
+                )}
+                <span className="text-sm">Хранения ({selectedDayStats.mealsCompleted}/5)</span>
               </div>
               <ArrowRight className="w-4 h-4 text-muted-foreground" />
             </button>
 
             <button
               onClick={() => router.push(`/app/workout/${selectedDate.getDay() === 0 ? 7 : selectedDate.getDay()}`)}
-              className="w-full flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors"
+              className={`w-full flex items-center justify-between p-3 rounded-xl transition-colors ${
+                selectedDayStats.workoutCompleted
+                  ? 'bg-success/10 hover:bg-success/20'
+                  : selectedDate < new Date(new Date().setHours(0, 0, 0, 0))
+                    ? 'bg-destructive/10 hover:bg-destructive/20'
+                    : 'bg-muted/30 hover:bg-muted/50'
+              }`}
             >
               <div className="flex items-center gap-3">
-                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${todayStats.workoutCompleted ? 'bg-success border-success' : 'border-border'}`}>
-                  {todayStats.workoutCompleted && (
+                {selectedDayStats.workoutCompleted ? (
+                  <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center bg-success border-success">
                     <CheckCircle2 className="w-4 h-4 text-white" />
-                  )}
-                </div>
+                  </div>
+                ) : selectedDate < new Date(new Date().setHours(0, 0, 0, 0)) ? (
+                  <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center bg-destructive border-destructive">
+                    <X className="w-4 h-4 text-white" />
+                  </div>
+                ) : (
+                  <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center border-border" />
+                )}
                 <span className="text-sm">Тренировка</span>
               </div>
               <ArrowRight className="w-4 h-4 text-muted-foreground" />
@@ -893,14 +1283,26 @@ export default function DashboardPage() {
 
             <button
               onClick={() => router.push('/app/sleep')}
-              className="w-full flex items-center justify-between p-3 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors"
+              className={`w-full flex items-center justify-between p-3 rounded-xl transition-colors ${
+                selectedDayStats.sleepTracked
+                  ? 'bg-success/10 hover:bg-success/20'
+                  : selectedDate < new Date(new Date().setHours(0, 0, 0, 0))
+                    ? 'bg-destructive/10 hover:bg-destructive/20'
+                    : 'bg-muted/30 hover:bg-muted/50'
+              }`}
             >
               <div className="flex items-center gap-3">
-                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${todayStats.sleepTracked ? 'bg-success border-success' : 'border-border'}`}>
-                  {todayStats.sleepTracked && (
+                {selectedDayStats.sleepTracked ? (
+                  <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center bg-success border-success">
                     <CheckCircle2 className="w-4 h-4 text-white" />
-                  )}
-                </div>
+                  </div>
+                ) : selectedDate < new Date(new Date().setHours(0, 0, 0, 0)) ? (
+                  <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center bg-destructive border-destructive">
+                    <X className="w-4 h-4 text-white" />
+                  </div>
+                ) : (
+                  <div className="w-5 h-5 rounded-full border-2 flex items-center justify-center border-border" />
+                )}
                 <span className="text-sm">Сън</span>
               </div>
               <ArrowRight className="w-4 h-4 text-muted-foreground" />

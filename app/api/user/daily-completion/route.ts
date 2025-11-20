@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Check completion for each date
-    const completionStatus: Record<string, boolean> = {}
+    const completionStatus: Record<string, { completed: number; total: number }> = {}
 
     for (const date of dates) {
       // Check meals (need at least 3 completed)
@@ -75,8 +75,13 @@ export async function GET(request: NextRequest) {
 
       const testoUpCompleted = !!(testoup?.morning_taken && testoup?.evening_taken)
 
-      // Day is complete if all 4 are done
-      completionStatus[date] = mealsCompleted && workoutCompleted && sleepCompleted && testoUpCompleted
+      // Count completed tasks
+      const completedCount = [mealsCompleted, workoutCompleted, sleepCompleted, testoUpCompleted].filter(Boolean).length
+
+      completionStatus[date] = {
+        completed: completedCount,
+        total: 4
+      }
     }
 
     return NextResponse.json({ completionStatus })
