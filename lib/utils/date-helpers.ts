@@ -129,7 +129,7 @@ export function getMonthName(month: number): string {
 }
 
 /**
- * Calculate day number in program (1-30)
+ * Calculate day number in program (unlimited, continues past 30)
  */
 export function getDayNumber(programStartDate: Date, currentDate: Date): number {
   const start = new Date(programStartDate)
@@ -141,7 +141,7 @@ export function getDayNumber(programStartDate: Date, currentDate: Date): number 
   const diffTime = current.getTime() - start.getTime()
   const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
 
-  return Math.min(Math.max(diffDays + 1, 1), 30)
+  return Math.max(diffDays + 1, 1) // No upper limit - continues counting indefinitely
 }
 
 /**
