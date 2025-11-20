@@ -61,10 +61,10 @@ export function UserProgramProvider({ children }: { children: ReactNode }) {
 
       if (!response.ok) {
         throw new Error('Failed to load user program')
-        }
+      }
 
       const data = await response.json()
-      setUserProgram(data.program)
+      setUserProgram(data)
     } catch (err) {
       console.error('Error loading user program:', err)
       setError(err instanceof Error ? err.message : 'Unknown error')
