@@ -1001,14 +1001,23 @@ npm run build
 - **Perceived 2x Faster** - Immediate UI response
 - **3 Skeleton Components** - Reusable SkeletonCard, SkeletonProgressBar, SkeletonQuizScore
 
+### Capsules Calendar & Cycle System 📅 (20.11.2025)
+- **Capsules-Based Availability** - Calendar shows days based on inventory (2 capsules = 1 day)
+- **30-Day Cycle Boundary** - Days after Day 30 are locked with 🔒 icon
+- **Cycle Completion Modal** - 2 options: Continue same program OR Change program (Quiz)
+- **Unlimited Day Counting** - Ден 31, 32, 33... (no hardcoded limit)
+- **Business Logic Integration** - Prevents access without capsules
+- **API Endpoint**: `/api/user/restart-cycle` за cycle restart
+
 ### Architecture 🏗️
-- **REST API**: `/api/user/progressive-score`, `/api/user/program` (secured)
+- **REST API**: `/api/user/progressive-score`, `/api/user/program`, `/api/user/restart-cycle` (secured)
 - **Database**: `daily_progress_scores` с RLS + 9 performance indexes
 - **React State**: Unified `selectedDate` за всички компоненти
 - **Caching Strategy**: DB-first за performance
 - **Middleware**: Next.js middleware за route protection
 - **Session Management**: Supabase HTTP-only cookies
 - **Loading States**: Skeleton components с animate-pulse
+- **Capsule Logic**: WeeklyCalendar + CycleCompleteModal
 
 ---
 
@@ -1225,6 +1234,190 @@ import { SkeletonCard, SkeletonProgressBar, SkeletonQuizScore } from '@/componen
 
 ---
 
+## 7. Capsules-Based Calendar & 30-Day Cycle System (20.11.2025)
+
+### Проблем
+След performance оптимизациите, имахме проблем с програмния цикъл:
+- **Календарът показваше всички 30 дни** независимо от капсулите
+- **Липса на логика за restart** - след 30 дни потребителят не знае какво да прави
+- **"Ден 30, 30, 30..."** - dayNumber се ограничаваше до 30 максимум
+- **Няма capsule inventory check** - user може да избере дни без капсули
+
+### Решение: 3-Phase Implementation
+
+#### Phase 1: Capsules-Based Calendar Availability
+
+**Файл:** `components/dashboard/WeeklyCalendar.tsx`
+
+```typescript
+interface WeeklyCalendarProps {
+  // ... existing props
+  capsulesRemaining?: number // TestoUp capsules remaining (2 capsules = 1 day)
+  onLockedDayClick?: () => void // Called when user clicks locked day after Day 30
+}
+
+// Calculate available days based on capsules
+const availableDays = capsulesRemaining ? Math.floor(capsulesRemaining / 2) : 30
+const lastAvailableDate = new Date(programStartDate)
+lastAvailableDate.setDate(programStartDate.getDate() + availableDays - 1)
+
+// Check if day is after last available day (insufficient capsules)
+const isAfterLastAvailableDay = dayTime > lastAvailableTime
+
+// Check if day is after 30-day cycle (even if capsules remain)
+const isDayAfterCycle = dayNumber > 30
+
+// Combine disabled conditions
+const isDisabled = isBeforeProgramStart || isAfterLastAvailableDay || isDayAfterCycle
+```
+
+**Dashboard Integration:**
+```typescript
+<WeeklyCalendar
+  programStartDate={programStartDate}
+  selectedDate={selectedDate}
+  onDateSelect={setSelectedDate}
+  completedDates={completedDates}
+  capsulesRemaining={testoUpInventory?.capsules_remaining}
+  onLockedDayClick={() => setShowCycleComplete(true)}
+/>
+```
+
+#### Phase 2: 30-Day Cycle Completion Modal
+
+**Файл:** `components/dashboard/CycleCompleteModal.tsx` (NEW)
+
+```typescript
+export function CycleCompleteModal({
+  isOpen,
+  onClose,
+  email,
+  capsulesRemaining,
+  daysRemaining,
+  currentCategory,
+}: CycleCompleteModalProps) {
+  // Modal appears when user completes 30 days AND has remaining capsules
+  // 2 options:
+  // 1. "Продължи със същата програма" → restart cycle
+  // 2. "Смени програмата" → redirect to Quiz
+}
+```
+
+**API Endpoint:** `/api/user/restart-cycle` (POST)
+
+```typescript
+// Update program_start_date to today (restart 30-day cycle)
+const today = new Date().toISOString().split('T')[0]
+
+const { error: updateError } = await (supabase
+  .from('users') as any)
+  .update({
+    program_start_date: today,
+    updated_at: new Date().toISOString(),
+  })
+  .eq('email', sessionEmail)
+```
+
+**Dashboard Trigger Logic:**
+```typescript
+useEffect(() => {
+  if (!userProgram || !testoUpInventory) return
+
+  const currentProgramDay = Math.max(
+    Math.floor((new Date().getTime() - programStartDate.getTime()) / (1000 * 60 * 60 * 24)) + 1,
+    1
+  )
+
+  // Check if cycle is complete and user has capsules for at least 1 more day
+  const isCycleComplete = currentProgramDay >= 30
+  const hasRemainingCapsules = testoUpInventory.capsules_remaining >= 2
+
+  if (isCycleComplete && hasRemainingCapsules) {
+    // Check if modal was already shown today
+    const today = new Date().toISOString().split('T')[0]
+    const lastShown = localStorage.getItem('cycleModalShownDate')
+
+    if (lastShown !== today) {
+      setShowCycleComplete(true)
+      localStorage.setItem('cycleModalShownDate', today)
+    }
+  }
+}, [userProgram, testoUpInventory, programStartDate])
+```
+
+#### Phase 3: Fix getDayNumber Unlimited Counting
+
+**Файл:** `lib/utils/date-helpers.ts`
+
+**Before:**
+```typescript
+export function getDayNumber(programStartDate: Date, currentDate: Date): number {
+  // ...
+  return Math.min(Math.max(diffDays + 1, 1), 30) // ❌ Hardcoded limit
+}
+```
+
+**After:**
+```typescript
+export function getDayNumber(programStartDate: Date, currentDate: Date): number {
+  // ...
+  return Math.max(diffDays + 1, 1) // ✅ No upper limit - continues indefinitely
+}
+```
+
+#### Резултати
+
+| Feature | Before | After | Benefit |
+|---------|--------|-------|---------|
+| Calendar Days | Always 30 days | Based on capsules | **Prevents confusion** ✅ |
+| Day Numbering | "Ден 30, 30, 30..." | "Ден 31, 32, 33..." | **Correct counting** ✅ |
+| Locked Days | No interaction | Click → Modal | **Clear next steps** ✅ |
+| Cycle Restart | Manual/unclear | 2 clear options | **User empowerment** 💪 |
+| Capsule Logic | None | 2 capsules = 1 day | **Business logic** 💰 |
+
+### User Flow Examples
+
+**Example 1: User с 70 капсули (35 дни)**
+```
+Day 30 complete
+    │
+    ├─ Calendar view:
+    │  - Days 1-30: Normal (green/orange/red compliance colors)
+    │  - Days 31-35: Lock 🔒 (clickable → modal)
+    │  - Days 36+: Lock 🔒 (insufficient capsules, not clickable)
+    │
+    ├─ User clicks Day 31
+    │
+    └─ CycleCompleteModal appears:
+       │
+       ├─ Option 1: "Продължи със същата програма"
+       │   → API call → program_start_date = today
+       │   → Page reload → Cycle 2 begins (Day 1)
+       │
+       └─ Option 2: "Смени програмата"
+           → Redirect to /quiz
+           → User chooses new category
+           → New program starts (Day 1)
+```
+
+**Example 2: User с 60 капсули (30 дни exact)**
+```
+Day 30 complete + 0 remaining capsules
+    │
+    ├─ Modal does NOT appear (no capsules for restart)
+    │
+    └─ "Купи капсули" warning shows instead
+```
+
+#### Git Commits
+- Capsules calendar: `16a023f` (20.11.2025)
+- Calendar day fix: `03643f1` (20.11.2025)
+- Cycle modal: `76c157e` (20.11.2025)
+- Lock after Day 30: `fc966ab` (20.11.2025)
+- getDayNumber fix: `c508da9` (20.11.2025)
+
+---
+
 **Current State:** Production-ready, secure, и significantly faster версия на Dashboard. ✅
 
 **Completed Tasks:**
@@ -1234,6 +1427,8 @@ import { SkeletonCard, SkeletonProgressBar, SkeletonQuizScore } from '@/componen
 - ✅ **Database Indexes - 11x faster queries - 20.11.2025**
 - ✅ **Parallel API Calls - 2.5x faster Dashboard - 20.11.2025**
 - ✅ **Loading Skeletons - 2x perceived performance - 20.11.2025**
+- ✅ **Capsules-Based Calendar Logic - 20.11.2025**
+- ✅ **30-Day Cycle Completion System - 20.11.2025**
 
 **Next Steps:**
 - ⏳ Desktop Accessibility (remove mobile-only barrier)
@@ -1242,5 +1437,5 @@ import { SkeletonCard, SkeletonProgressBar, SkeletonQuizScore } from '@/componen
 
 ---
 
-*Последна актуализация: 2025-11-20 (Loading Skeletons)*
+*Последна актуализация: 2025-11-20 (Capsules Calendar & Cycle System)*
 *Автор: Claude Code*
