@@ -17,6 +17,7 @@ import { MealCard } from '@/components/dashboard/MealCard'
 import { applyDaySubstitutions, type SubstitutedMeal, type SubstitutedIngredient } from '@/lib/utils/dietary-substitution'
 import type { DietaryPreference } from '@/lib/data/dietary-substitutions'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
+import mealImagesMapping from '@/lib/data/meal-images-mapping.json'
 
 // Meal Plan Imports - LOW level
 import { ENERGY_LOW_MEAL_PLAN } from '@/lib/data/mock-meal-plan-energy-low'
@@ -68,6 +69,32 @@ function getMealPlanForCategory(
     if (normalizedLevel === 'high') return MUSCLE_HIGH_MEAL_PLAN
     return MUSCLE_NORMAL_MEAL_PLAN
   }
+}
+
+// Helper function to get image URL for a meal name
+function getMealImageUrl(mealName: string): string | undefined {
+  // Create slug from meal name (same logic as in generation script)
+  const translitMap: Record<string, string> = {
+    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd',
+    'е': 'e', 'ж': 'zh', 'з': 'z', 'и': 'i', 'й': 'y',
+    'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o',
+    'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u',
+    'ф': 'f', 'х': 'h', 'ц': 'ts', 'ч': 'ch', 'ш': 'sh',
+    'щ': 'sht', 'ъ': 'a', 'ь': 'y', 'ю': 'yu', 'я': 'ya'
+  }
+
+  const slug = mealName
+    .toLowerCase()
+    .split('')
+    .map(char => translitMap[char] || char)
+    .join('')
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9-]/g, '')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+
+  const mapping = mealImagesMapping as Record<string, { imageUrl: string }>
+  return mapping[slug]?.imageUrl
 }
 
 export default function NutritionPage() {
@@ -690,6 +717,7 @@ export default function NutritionPage() {
                   onUndo={() => handleUndo(meal.meal_number)}
                   isSubstituting={substitutingMeals[`${dateKey}-${meal.meal_number}`] || false}
                   isSubstituted={!!substitutedForToday[meal.meal_number]}
+                  imageUrl={getMealImageUrl(meal.name)}
                 />
               </div>
             )

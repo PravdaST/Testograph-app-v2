@@ -50,3 +50,10 @@ scripts/quick-logout.html
 
 # problematic files
 nul
+
+# local image cache (images are in Supabase Storage)
+generated-meal-images/
+test-images/
+
+# claude local settings
+.claude/settings.local.json

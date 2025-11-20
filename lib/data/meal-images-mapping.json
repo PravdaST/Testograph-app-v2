@@ -1,0 +1,2054 @@
+{
+  "agneshko-meso": {
+    "name": "Агнешко месо",
+    "slug": "agneshko-meso",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/agneshko-meso.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\agneshko-meso.jpg"
+  },
+  "agneshko-s-bulgur-i-zelenchutsi": {
+    "name": "Агнешко с булгур и зеленчуци",
+    "slug": "agneshko-s-bulgur-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/agneshko-s-bulgur-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\agneshko-s-bulgur-i-zelenchutsi.jpg"
+  },
+  "agneshko-sas-zelen-fasul-i-kartofi": {
+    "name": "Агнешко със зелен фасул и картофи",
+    "slug": "agneshko-sas-zelen-fasul-i-kartofi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/agneshko-sas-zelen-fasul-i-kartofi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\agneshko-sas-zelen-fasul-i-kartofi.jpg"
+  },
+  "bademi-i-leshnitsi": {
+    "name": "Бадеми и лешници",
+    "slug": "bademi-i-leshnitsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/bademi-i-leshnitsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\bademi-i-leshnitsi.jpg"
+  },
+  "bademovo-maslo": {
+    "name": "Бадемово масло",
+    "slug": "bademovo-maslo",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/bademovo-maslo.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\bademovo-maslo.jpg"
+  },
+  "banan-s-bademi": {
+    "name": "Банан с бадеми",
+    "slug": "banan-s-bademi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/banan-s-bademi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\banan-s-bademi.jpg"
+  },
+  "banan-s-bademovo-maslo": {
+    "name": "Банан с бадемово масло",
+    "slug": "banan-s-bademovo-maslo",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/banan-s-bademovo-maslo.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\banan-s-bademovo-maslo.jpg"
+  },
+  "banan-s-bademovo-maslo-i-protein": {
+    "name": "Банан с бадемово масло и протеин",
+    "slug": "banan-s-bademovo-maslo-i-protein",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/banan-s-bademovo-maslo-i-protein.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\banan-s-bademovo-maslo-i-protein.jpg"
+  },
+  "banan-s-kiselo-mlyako": {
+    "name": "Банан с кисело мляко",
+    "slug": "banan-s-kiselo-mlyako",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/banan-s-kiselo-mlyako.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\banan-s-kiselo-mlyako.jpg"
+  },
+  "banan-s-orehi": {
+    "name": "Банан с орехи",
+    "slug": "banan-s-orehi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/banan-s-orehi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\banan-s-orehi.jpg"
+  },
+  "banan-s-fastacheno-maslo": {
+    "name": "Банан с фъстъчено масло",
+    "slug": "banan-s-fastacheno-maslo",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/banan-s-fastacheno-maslo.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\banan-s-fastacheno-maslo.jpg"
+  },
+  "banan-s-fastacheno-maslo-i-protein": {
+    "name": "Банан с фъстъчено масло и протеин",
+    "slug": "banan-s-fastacheno-maslo-i-protein",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/banan-s-fastacheno-maslo-i-protein.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\banan-s-fastacheno-maslo-i-protein.jpg"
+  },
+  "brazilski-orehi": {
+    "name": "Бразилски орехи",
+    "slug": "brazilski-orehi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/brazilski-orehi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\brazilski-orehi.jpg"
+  },
+  "brazilski-orehi-i-bademi": {
+    "name": "Бразилски орехи и бадеми",
+    "slug": "brazilski-orehi-i-bademi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/brazilski-orehi-i-bademi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\brazilski-orehi-i-bademi.jpg"
+  },
+  "brazilski-orehi-i-tamen-shokolad": {
+    "name": "Бразилски орехи и тъмен шоколад",
+    "slug": "brazilski-orehi-i-tamen-shokolad",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/brazilski-orehi-i-tamen-shokolad.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\brazilski-orehi-i-tamen-shokolad.jpg"
+  },
+  "brazilski-orehi-i-furmi": {
+    "name": "Бразилски орехи и фурми",
+    "slug": "brazilski-orehi-i-furmi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/brazilski-orehi-i-furmi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\brazilski-orehi-i-furmi.jpg"
+  },
+  "barkani-yaytsa-s-avokado": {
+    "name": "Бъркани яйца с авокадо",
+    "slug": "barkani-yaytsa-s-avokado",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/barkani-yaytsa-s-avokado.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\barkani-yaytsa-s-avokado.jpg"
+  },
+  "barkani-yaytsa-s-avokado-i-hlyab": {
+    "name": "Бъркани яйца с авокадо и хляб",
+    "slug": "barkani-yaytsa-s-avokado-i-hlyab",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/barkani-yaytsa-s-avokado-i-hlyab.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\barkani-yaytsa-s-avokado-i-hlyab.jpg"
+  },
+  "barkani-yaytsa-s-palnozarnest-hlyab": {
+    "name": "Бъркани яйца с пълнозърнест хляб",
+    "slug": "barkani-yaytsa-s-palnozarnest-hlyab",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/barkani-yaytsa-s-palnozarnest-hlyab.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\barkani-yaytsa-s-palnozarnest-hlyab.jpg"
+  },
+  "barkani-yaytsa-s-palnozarnest-hlyab-i-avokado": {
+    "name": "Бъркани яйца с пълнозърнест хляб и авокадо",
+    "slug": "barkani-yaytsa-s-palnozarnest-hlyab-i-avokado",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/barkani-yaytsa-s-palnozarnest-hlyab-i-avokado.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\barkani-yaytsa-s-palnozarnest-hlyab-i-avokado.jpg"
+  },
+  "byala-riba-tsipura": {
+    "name": "Бяла риба (ципура)",
+    "slug": "byala-riba-tsipura",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/byala-riba-tsipura.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\byala-riba-tsipura.jpg"
+  },
+  "govezhdi-kyufteta-s-kartofeno-pyure": {
+    "name": "Говежди кюфтета с картофено пюре",
+    "slug": "govezhdi-kyufteta-s-kartofeno-pyure",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdi-kyufteta-s-kartofeno-pyure.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdi-kyufteta-s-kartofeno-pyure.jpg"
+  },
+  "govezhdi-kyufteta-s-kartofeno-pyure-i-zelenchutsi": {
+    "name": "Говежди кюфтета с картофено пюре и зеленчуци",
+    "slug": "govezhdi-kyufteta-s-kartofeno-pyure-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdi-kyufteta-s-kartofeno-pyure-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdi-kyufteta-s-kartofeno-pyure-i-zelenchutsi.jpg"
+  },
+  "govezhdo-kyufte": {
+    "name": "Говеждо кюфте",
+    "slug": "govezhdo-kyufte",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdo-kyufte.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdo-kyufte.jpg"
+  },
+  "govezhdo-meso": {
+    "name": "Говеждо месо",
+    "slug": "govezhdo-meso",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdo-meso.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdo-meso.jpg"
+  },
+  "govezhdo-meso-s-kinoa-i-brokoli": {
+    "name": "Говеждо месо с киноа и броколи",
+    "slug": "govezhdo-meso-s-kinoa-i-brokoli",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdo-meso-s-kinoa-i-brokoli.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdo-meso-s-kinoa-i-brokoli.jpg"
+  },
+  "govezhdo-s-kartofeno-pyure-i-zelenchutsi": {
+    "name": "Говеждо с картофено пюре и зеленчуци",
+    "slug": "govezhdo-s-kartofeno-pyure-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdo-s-kartofeno-pyure-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdo-s-kartofeno-pyure-i-zelenchutsi.jpg"
+  },
+  "govezhdo-s-kartofi-i-salata": {
+    "name": "Говеждо с картофи и салата",
+    "slug": "govezhdo-s-kartofi-i-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdo-s-kartofi-i-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdo-s-kartofi-i-salata.jpg"
+  },
+  "govezhdo-s-kafyav-oriz-i-brokoli": {
+    "name": "Говеждо с кафяв ориз и броколи",
+    "slug": "govezhdo-s-kafyav-oriz-i-brokoli",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdo-s-kafyav-oriz-i-brokoli.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdo-s-kafyav-oriz-i-brokoli.jpg"
+  },
+  "govezhdo-s-kafyav-oriz-i-zelenchutsi": {
+    "name": "Говеждо с кафяв ориз и зеленчуци",
+    "slug": "govezhdo-s-kafyav-oriz-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdo-s-kafyav-oriz-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdo-s-kafyav-oriz-i-zelenchutsi.jpg"
+  },
+  "govezhdo-s-kinoa-i-zelenchutsi": {
+    "name": "Говеждо с киноа и зеленчуци",
+    "slug": "govezhdo-s-kinoa-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdo-s-kinoa-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdo-s-kinoa-i-zelenchutsi.jpg"
+  },
+  "govezhdo-s-oriz-i-zelenchutsi": {
+    "name": "Говеждо с ориз и зеленчуци",
+    "slug": "govezhdo-s-oriz-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdo-s-oriz-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdo-s-oriz-i-zelenchutsi.jpg"
+  },
+  "govezhdo-s-oriz-kinoa-i-zelenchutsi": {
+    "name": "Говеждо с ориз, киноа и зеленчуци",
+    "slug": "govezhdo-s-oriz-kinoa-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdo-s-oriz-kinoa-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdo-s-oriz-kinoa-i-zelenchutsi.jpg"
+  },
+  "govezhdo-s-pasta-i-zelenchutsi": {
+    "name": "Говеждо с паста и зеленчуци",
+    "slug": "govezhdo-s-pasta-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdo-s-pasta-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdo-s-pasta-i-zelenchutsi.jpg"
+  },
+  "govezhdo-stek": {
+    "name": "Говеждо стек",
+    "slug": "govezhdo-stek",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdo-stek.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdo-stek.jpg"
+  },
+  "govezhdo-stek-s-kartofi-i-salata": {
+    "name": "Говеждо стек с картофи и салата",
+    "slug": "govezhdo-stek-s-kartofi-i-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdo-stek-s-kartofi-i-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdo-stek-s-kartofi-i-salata.jpg"
+  },
+  "govezhdo-stek-s-kinoa-i-spanak": {
+    "name": "Говеждо стек с киноа и спанак",
+    "slug": "govezhdo-stek-s-kinoa-i-spanak",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdo-stek-s-kinoa-i-spanak.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdo-stek-s-kinoa-i-spanak.jpg"
+  },
+  "govezhdo-sas-zelenchutsi": {
+    "name": "Говеждо със зеленчуци",
+    "slug": "govezhdo-sas-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/govezhdo-sas-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\govezhdo-sas-zelenchutsi.jpg"
+  },
+  "golyama-portsiya-pile-s-oriz-i-zelenchutsi": {
+    "name": "Голяма порция пиле с ориз и зеленчуци",
+    "slug": "golyama-portsiya-pile-s-oriz-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/golyama-portsiya-pile-s-oriz-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\golyama-portsiya-pile-s-oriz-i-zelenchutsi.jpg"
+  },
+  "diva-syomga-s-asperzhi-i-sladak-kartof": {
+    "name": "Дива сьомга с аспержи и сладък картоф",
+    "slug": "diva-syomga-s-asperzhi-i-sladak-kartof",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/diva-syomga-s-asperzhi-i-sladak-kartof.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\diva-syomga-s-asperzhi-i-sladak-kartof.jpg"
+  },
+  "diva-syomga-sas-sladak-kartof-i-asperzhi": {
+    "name": "Дива сьомга със сладък картоф и аспержи",
+    "slug": "diva-syomga-sas-sladak-kartof-i-asperzhi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/diva-syomga-sas-sladak-kartof-i-asperzhi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\diva-syomga-sas-sladak-kartof-i-asperzhi.jpg"
+  },
+  "domaten-sos": {
+    "name": "Доматен сос",
+    "slug": "domaten-sos",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/domaten-sos.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\domaten-sos.jpg"
+  },
+  "domashen-proteinov-bar": {
+    "name": "Домашен протеинов бар",
+    "slug": "domashen-proteinov-bar",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/domashen-proteinov-bar.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\domashen-proteinov-bar.jpg"
+  },
+  "domashna-pitsa-s-pile-i-motsarela": {
+    "name": "Домашна пица с пиле и моцарела",
+    "slug": "domashna-pitsa-s-pile-i-motsarela",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/domashna-pitsa-s-pile-i-motsarela.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\domashna-pitsa-s-pile-i-motsarela.jpg"
+  },
+  "energien-smuti": {
+    "name": "Енергиен смути",
+    "slug": "energien-smuti",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/energien-smuti.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\energien-smuti.jpg"
+  },
+  "zamrazeni-borovinki": {
+    "name": "Замразени боровинки",
+    "slug": "zamrazeni-borovinki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/zamrazeni-borovinki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\zamrazeni-borovinki.jpg"
+  },
+  "zelen-fasul": {
+    "name": "Зелен фасул",
+    "slug": "zelen-fasul",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/zelen-fasul.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\zelen-fasul.jpg"
+  },
+  "zelena-salata": {
+    "name": "Зелена салата",
+    "slug": "zelena-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/zelena-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\zelena-salata.jpg"
+  },
+  "izvara-s-bademi": {
+    "name": "Извара с бадеми",
+    "slug": "izvara-s-bademi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-bademi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-bademi.jpg"
+  },
+  "izvara-s-bademi-i-med": {
+    "name": "Извара с бадеми и мед",
+    "slug": "izvara-s-bademi-i-med",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-bademi-i-med.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-bademi-i-med.jpg"
+  },
+  "izvara-s-borovinki": {
+    "name": "Извара с боровинки",
+    "slug": "izvara-s-borovinki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-borovinki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-borovinki.jpg"
+  },
+  "izvara-s-borovinki-i-bademi": {
+    "name": "Извара с боровинки и бадеми",
+    "slug": "izvara-s-borovinki-i-bademi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-borovinki-i-bademi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-borovinki-i-bademi.jpg"
+  },
+  "izvara-s-kazeinov-protein": {
+    "name": "Извара с казеинов протеин",
+    "slug": "izvara-s-kazeinov-protein",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-kazeinov-protein.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-kazeinov-protein.jpg"
+  },
+  "izvara-s-kazeinov-protein-i-med": {
+    "name": "Извара с казеинов протеин и мед",
+    "slug": "izvara-s-kazeinov-protein-i-med",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-kazeinov-protein-i-med.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-kazeinov-protein-i-med.jpg"
+  },
+  "izvara-s-leneno-seme": {
+    "name": "Извара с ленено семе",
+    "slug": "izvara-s-leneno-seme",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-leneno-seme.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-leneno-seme.jpg"
+  },
+  "izvara-s-leneno-seme-i-borovinki": {
+    "name": "Извара с ленено семе и боровинки",
+    "slug": "izvara-s-leneno-seme-i-borovinki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-leneno-seme-i-borovinki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-leneno-seme-i-borovinki.jpg"
+  },
+  "izvara-s-med": {
+    "name": "Извара с мед",
+    "slug": "izvara-s-med",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-med.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-med.jpg"
+  },
+  "izvara-s-med-i-bademi": {
+    "name": "Извара с мед и бадеми",
+    "slug": "izvara-s-med-i-bademi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-med-i-bademi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-med-i-bademi.jpg"
+  },
+  "izvara-s-med-i-yadki": {
+    "name": "Извара с мед и ядки",
+    "slug": "izvara-s-med-i-yadki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-med-i-yadki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-med-i-yadki.jpg"
+  },
+  "izvara-s-med-yadki-i-protein": {
+    "name": "Извара с мед, ядки и протеин",
+    "slug": "izvara-s-med-yadki-i-protein",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-med-yadki-i-protein.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-med-yadki-i-protein.jpg"
+  },
+  "izvara-s-myusli-i-orehi": {
+    "name": "Извара с мюсли и орехи",
+    "slug": "izvara-s-myusli-i-orehi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-myusli-i-orehi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-myusli-i-orehi.jpg"
+  },
+  "izvara-s-orehi": {
+    "name": "Извара с орехи",
+    "slug": "izvara-s-orehi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-orehi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-orehi.jpg"
+  },
+  "izvara-s-orehi-i-med": {
+    "name": "Извара с орехи и мед",
+    "slug": "izvara-s-orehi-i-med",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-orehi-i-med.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-orehi-i-med.jpg"
+  },
+  "izvara-s-orehi-tikveni-semki-i-med": {
+    "name": "Извара с орехи, тиквени семки и мед",
+    "slug": "izvara-s-orehi-tikveni-semki-i-med",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-orehi-tikveni-semki-i-med.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-orehi-tikveni-semki-i-med.jpg"
+  },
+  "izvara-s-protein-i-bademi": {
+    "name": "Извара с протеин и бадеми",
+    "slug": "izvara-s-protein-i-bademi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-protein-i-bademi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-protein-i-bademi.jpg"
+  },
+  "izvara-s-protein-i-orehi": {
+    "name": "Извара с протеин и орехи",
+    "slug": "izvara-s-protein-i-orehi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-protein-i-orehi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-protein-i-orehi.jpg"
+  },
+  "izvara-s-protein-borovinki-i-orehi": {
+    "name": "Извара с протеин, боровинки и орехи",
+    "slug": "izvara-s-protein-borovinki-i-orehi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-protein-borovinki-i-orehi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-protein-borovinki-i-orehi.jpg"
+  },
+  "izvara-s-tikveni-semki": {
+    "name": "Извара с тиквени семки",
+    "slug": "izvara-s-tikveni-semki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-tikveni-semki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-tikveni-semki.jpg"
+  },
+  "izvara-s-tikveni-semki-i-med": {
+    "name": "Извара с тиквени семки и мед",
+    "slug": "izvara-s-tikveni-semki-i-med",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-tikveni-semki-i-med.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-tikveni-semki-i-med.jpg"
+  },
+  "izvara-s-tikveni-semki-orehi-i-med": {
+    "name": "Извара с тиквени семки, орехи и мед",
+    "slug": "izvara-s-tikveni-semki-orehi-i-med",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-tikveni-semki-orehi-i-med.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-tikveni-semki-orehi-i-med.jpg"
+  },
+  "izvara-s-yabalka": {
+    "name": "Извара с ябълка",
+    "slug": "izvara-s-yabalka",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/izvara-s-yabalka.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\izvara-s-yabalka.jpg"
+  },
+  "kazeinov-protein": {
+    "name": "Казеинов протеин",
+    "slug": "kazeinov-protein",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kazeinov-protein.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kazeinov-protein.jpg"
+  },
+  "kazeinov-protein-s-izvara": {
+    "name": "Казеинов протеин с извара",
+    "slug": "kazeinov-protein-s-izvara",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kazeinov-protein-s-izvara.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kazeinov-protein-s-izvara.jpg"
+  },
+  "kazeinov-protein-s-kiselo-mlyako": {
+    "name": "Казеинов протеин с кисело мляко",
+    "slug": "kazeinov-protein-s-kiselo-mlyako",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kazeinov-protein-s-kiselo-mlyako.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kazeinov-protein-s-kiselo-mlyako.jpg"
+  },
+  "kazeinov-protein-s-yadki": {
+    "name": "Казеинов протеин с ядки",
+    "slug": "kazeinov-protein-s-yadki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kazeinov-protein-s-yadki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kazeinov-protein-s-yadki.jpg"
+  },
+  "kazeinov-sheyk-s-bademovo-maslo": {
+    "name": "Казеинов шейк с бадемово масло",
+    "slug": "kazeinov-sheyk-s-bademovo-maslo",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kazeinov-sheyk-s-bademovo-maslo.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kazeinov-sheyk-s-bademovo-maslo.jpg"
+  },
+  "kartofeno-pyure": {
+    "name": "Картофено пюре",
+    "slug": "kartofeno-pyure",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kartofeno-pyure.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kartofeno-pyure.jpg"
+  },
+  "kartofi-vareni": {
+    "name": "Картофи варени",
+    "slug": "kartofi-vareni",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kartofi-vareni.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kartofi-vareni.jpg"
+  },
+  "kartofi-pecheni": {
+    "name": "Картофи печени",
+    "slug": "kartofi-pecheni",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kartofi-pecheni.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kartofi-pecheni.jpg"
+  },
+  "kafyav-oriz-s-pile-i-zelenchutsi": {
+    "name": "Кафяв ориз с пиле и зеленчуци",
+    "slug": "kafyav-oriz-s-pile-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kafyav-oriz-s-pile-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kafyav-oriz-s-pile-i-zelenchutsi.jpg"
+  },
+  "kashu-s-tamen-shokolad": {
+    "name": "Кашу с тъмен шоколад",
+    "slug": "kashu-s-tamen-shokolad",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kashu-s-tamen-shokolad.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kashu-s-tamen-shokolad.jpg"
+  },
+  "kinoa-s-pueshko-meso-i-zelenchutsi": {
+    "name": "Киноа с пуешко месо и зеленчуци",
+    "slug": "kinoa-s-pueshko-meso-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kinoa-s-pueshko-meso-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kinoa-s-pueshko-meso-i-zelenchutsi.jpg"
+  },
+  "kiselo-mlyako": {
+    "name": "Кисело мляко",
+    "slug": "kiselo-mlyako",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako.jpg"
+  },
+  "kiselo-mlyako-2": {
+    "name": "Кисело мляко 2%",
+    "slug": "kiselo-mlyako-2",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-2.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-2.jpg"
+  },
+  "kiselo-mlyako-s-bademi-i-borovinki": {
+    "name": "Кисело мляко с бадеми и боровинки",
+    "slug": "kiselo-mlyako-s-bademi-i-borovinki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-bademi-i-borovinki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-bademi-i-borovinki.jpg"
+  },
+  "kiselo-mlyako-s-borovinki": {
+    "name": "Кисело мляко с боровинки",
+    "slug": "kiselo-mlyako-s-borovinki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-borovinki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-borovinki.jpg"
+  },
+  "kiselo-mlyako-s-kazeinov-protein": {
+    "name": "Кисело мляко с казеинов протеин",
+    "slug": "kiselo-mlyako-s-kazeinov-protein",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-kazeinov-protein.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-kazeinov-protein.jpg"
+  },
+  "kiselo-mlyako-s-med": {
+    "name": "Кисело мляко с мед",
+    "slug": "kiselo-mlyako-s-med",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-med.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-med.jpg"
+  },
+  "kiselo-mlyako-s-myusli": {
+    "name": "Кисело мляко с мюсли",
+    "slug": "kiselo-mlyako-s-myusli",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-myusli.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-myusli.jpg"
+  },
+  "kiselo-mlyako-s-myusli-i-protein": {
+    "name": "Кисело мляко с мюсли и протеин",
+    "slug": "kiselo-mlyako-s-myusli-i-protein",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-myusli-i-protein.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-myusli-i-protein.jpg"
+  },
+  "kiselo-mlyako-s-oveseni-yadki": {
+    "name": "Кисело мляко с овесени ядки",
+    "slug": "kiselo-mlyako-s-oveseni-yadki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-oveseni-yadki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-oveseni-yadki.jpg"
+  },
+  "kiselo-mlyako-s-orehi": {
+    "name": "Кисело мляко с орехи",
+    "slug": "kiselo-mlyako-s-orehi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-orehi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-orehi.jpg"
+  },
+  "kiselo-mlyako-s-orehi-i-leneno-seme": {
+    "name": "Кисело мляко с орехи и ленено семе",
+    "slug": "kiselo-mlyako-s-orehi-i-leneno-seme",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-orehi-i-leneno-seme.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-orehi-i-leneno-seme.jpg"
+  },
+  "kiselo-mlyako-s-orehi-i-med": {
+    "name": "Кисело мляко с орехи и мед",
+    "slug": "kiselo-mlyako-s-orehi-i-med",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-orehi-i-med.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-orehi-i-med.jpg"
+  },
+  "kiselo-mlyako-s-orehi-i-susheni-plodove": {
+    "name": "Кисело мляко с орехи и сушени плодове",
+    "slug": "kiselo-mlyako-s-orehi-i-susheni-plodove",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-orehi-i-susheni-plodove.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-orehi-i-susheni-plodove.jpg"
+  },
+  "kiselo-mlyako-s-orehi-i-yabalka": {
+    "name": "Кисело мляко с орехи и ябълка",
+    "slug": "kiselo-mlyako-s-orehi-i-yabalka",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-orehi-i-yabalka.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-orehi-i-yabalka.jpg"
+  },
+  "kiselo-mlyako-s-orehi-leneno-seme-i-borovinki": {
+    "name": "Кисело мляко с орехи, ленено семе и боровинки",
+    "slug": "kiselo-mlyako-s-orehi-leneno-seme-i-borovinki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-orehi-leneno-seme-i-borovinki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-orehi-leneno-seme-i-borovinki.jpg"
+  },
+  "kiselo-mlyako-s-protein-i-bademi": {
+    "name": "Кисело мляко с протеин и бадеми",
+    "slug": "kiselo-mlyako-s-protein-i-bademi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-protein-i-bademi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-protein-i-bademi.jpg"
+  },
+  "kiselo-mlyako-s-protein-i-oveseni-yadki": {
+    "name": "Кисело мляко с протеин и овесени ядки",
+    "slug": "kiselo-mlyako-s-protein-i-oveseni-yadki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-protein-i-oveseni-yadki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-protein-i-oveseni-yadki.jpg"
+  },
+  "kiselo-mlyako-s-protein-i-orehi": {
+    "name": "Кисело мляко с протеин и орехи",
+    "slug": "kiselo-mlyako-s-protein-i-orehi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-protein-i-orehi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-protein-i-orehi.jpg"
+  },
+  "kiselo-mlyako-s-tikveni-semki": {
+    "name": "Кисело мляко с тиквени семки",
+    "slug": "kiselo-mlyako-s-tikveni-semki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-tikveni-semki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-tikveni-semki.jpg"
+  },
+  "kiselo-mlyako-s-tikveni-semki-i-orehi": {
+    "name": "Кисело мляко с тиквени семки и орехи",
+    "slug": "kiselo-mlyako-s-tikveni-semki-i-orehi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-tikveni-semki-i-orehi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-tikveni-semki-i-orehi.jpg"
+  },
+  "kiselo-mlyako-s-yadki": {
+    "name": "Кисело мляко с ядки",
+    "slug": "kiselo-mlyako-s-yadki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kiselo-mlyako-s-yadki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kiselo-mlyako-s-yadki.jpg"
+  },
+  "kokosovo-mlyako-light": {
+    "name": "Кокосово мляко light",
+    "slug": "kokosovo-mlyako-light",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/kokosovo-mlyako-light.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\kokosovo-mlyako-light.jpg"
+  },
+  "leneno-seme": {
+    "name": "Ленено семе",
+    "slug": "leneno-seme",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/leneno-seme.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\leneno-seme.jpg"
+  },
+  "leshnitsi-i-brazilski-orehi": {
+    "name": "Лешници и бразилски орехи",
+    "slug": "leshnitsi-i-brazilski-orehi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/leshnitsi-i-brazilski-orehi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\leshnitsi-i-brazilski-orehi.jpg"
+  },
+  "maslinovo-maslo": {
+    "name": "Маслиново масло",
+    "slug": "maslinovo-maslo",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/maslinovo-maslo.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\maslinovo-maslo.jpg"
+  },
+  "mesni-kyufteta": {
+    "name": "Месни кюфтета",
+    "slug": "mesni-kyufteta",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/mesni-kyufteta.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\mesni-kyufteta.jpg"
+  },
+  "miks-ot-yadki-kashu-i-orehi": {
+    "name": "Микс от ядки (кашу и орехи)",
+    "slug": "miks-ot-yadki-kashu-i-orehi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/miks-ot-yadki-kashu-i-orehi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\miks-ot-yadki-kashu-i-orehi.jpg"
+  },
+  "morkovi-vareni": {
+    "name": "Моркови варени",
+    "slug": "morkovi-vareni",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/morkovi-vareni.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\morkovi-vareni.jpg"
+  },
+  "morkovi-i-grah": {
+    "name": "Моркови и грах",
+    "slug": "morkovi-i-grah",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/morkovi-i-grah.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\morkovi-i-grah.jpg"
+  },
+  "motsarela-light": {
+    "name": "Моцарела light",
+    "slug": "motsarela-light",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/motsarela-light.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\motsarela-light.jpg"
+  },
+  "myusli-s-kiselo-mlyako-i-plodove": {
+    "name": "Мюсли с кисело мляко и плодове",
+    "slug": "myusli-s-kiselo-mlyako-i-plodove",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/myusli-s-kiselo-mlyako-i-plodove.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\myusli-s-kiselo-mlyako-i-plodove.jpg"
+  },
+  "myusli-s-mlyako-i-plod": {
+    "name": "Мюсли с мляко и плод",
+    "slug": "myusli-s-mlyako-i-plod",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/myusli-s-mlyako-i-plod.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\myusli-s-mlyako-i-plod.jpg"
+  },
+  "myusli-s-mlyako-i-protein": {
+    "name": "Мюсли с мляко и протеин",
+    "slug": "myusli-s-mlyako-i-protein",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/myusli-s-mlyako-i-protein.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\myusli-s-mlyako-i-protein.jpg"
+  },
+  "myusli-s-protein-i-yadki": {
+    "name": "Мюсли с протеин и ядки",
+    "slug": "myusli-s-protein-i-yadki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/myusli-s-protein-i-yadki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\myusli-s-protein-i-yadki.jpg"
+  },
+  "myusli-s-protein-mlyako-i-plodove": {
+    "name": "Мюсли с протеин, мляко и плодове",
+    "slug": "myusli-s-protein-mlyako-i-plodove",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/myusli-s-protein-mlyako-i-plodove.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\myusli-s-protein-mlyako-i-plodove.jpg"
+  },
+  "myusli-s-protein-yaytsa-i-plodove": {
+    "name": "Мюсли с протеин, яйца и плодове",
+    "slug": "myusli-s-protein-yaytsa-i-plodove",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/myusli-s-protein-yaytsa-i-plodove.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\myusli-s-protein-yaytsa-i-plodove.jpg"
+  },
+  "ovesena-kasha-s-banan-i-kanela": {
+    "name": "Овесена каша с банан и канела",
+    "slug": "ovesena-kasha-s-banan-i-kanela",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/ovesena-kasha-s-banan-i-kanela.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\ovesena-kasha-s-banan-i-kanela.jpg"
+  },
+  "ovesena-kasha-s-borovinki-i-leneno-seme": {
+    "name": "Овесена каша с боровинки и ленено семе",
+    "slug": "ovesena-kasha-s-borovinki-i-leneno-seme",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/ovesena-kasha-s-borovinki-i-leneno-seme.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\ovesena-kasha-s-borovinki-i-leneno-seme.jpg"
+  },
+  "ovesena-kasha-s-orehi": {
+    "name": "Овесена каша с орехи",
+    "slug": "ovesena-kasha-s-orehi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/ovesena-kasha-s-orehi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\ovesena-kasha-s-orehi.jpg"
+  },
+  "ovesena-kasha-s-protein": {
+    "name": "Овесена каша с протеин",
+    "slug": "ovesena-kasha-s-protein",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/ovesena-kasha-s-protein.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\ovesena-kasha-s-protein.jpg"
+  },
+  "ovesena-kasha-s-protein-i-banan": {
+    "name": "Овесена каша с протеин и банан",
+    "slug": "ovesena-kasha-s-protein-i-banan",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/ovesena-kasha-s-protein-i-banan.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\ovesena-kasha-s-protein-i-banan.jpg"
+  },
+  "ovesena-kasha-s-protein-i-yadki": {
+    "name": "Овесена каша с протеин и ядки",
+    "slug": "ovesena-kasha-s-protein-i-yadki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/ovesena-kasha-s-protein-i-yadki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\ovesena-kasha-s-protein-i-yadki.jpg"
+  },
+  "ovesena-kasha-s-protein-banani-i-yadki": {
+    "name": "Овесена каша с протеин, банани и ядки",
+    "slug": "ovesena-kasha-s-protein-banani-i-yadki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/ovesena-kasha-s-protein-banani-i-yadki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\ovesena-kasha-s-protein-banani-i-yadki.jpg"
+  },
+  "ovesena-kasha-s-protein-orehi-i-banan": {
+    "name": "Овесена каша с протеин, орехи и банан",
+    "slug": "ovesena-kasha-s-protein-orehi-i-banan",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/ovesena-kasha-s-protein-orehi-i-banan.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\ovesena-kasha-s-protein-orehi-i-banan.jpg"
+  },
+  "ovesena-kasha-s-protein-yadki-i-plodove": {
+    "name": "Овесена каша с протеин, ядки и плодове",
+    "slug": "ovesena-kasha-s-protein-yadki-i-plodove",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/ovesena-kasha-s-protein-yadki-i-plodove.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\ovesena-kasha-s-protein-yadki-i-plodove.jpg"
+  },
+  "ovesena-kasha-s-protein-yaytsa-i-banan": {
+    "name": "Овесена каша с протеин, яйца и банан",
+    "slug": "ovesena-kasha-s-protein-yaytsa-i-banan",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/ovesena-kasha-s-protein-yaytsa-i-banan.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\ovesena-kasha-s-protein-yaytsa-i-banan.jpg"
+  },
+  "ovesena-kasha-s-protein-yaytsa-i-plodove": {
+    "name": "Овесена каша с протеин, яйца и плодове",
+    "slug": "ovesena-kasha-s-protein-yaytsa-i-plodove",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/ovesena-kasha-s-protein-yaytsa-i-plodove.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\ovesena-kasha-s-protein-yaytsa-i-plodove.jpg"
+  },
+  "ovesena-kasha-s-yabalka": {
+    "name": "Овесена каша с ябълка",
+    "slug": "ovesena-kasha-s-yabalka",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/ovesena-kasha-s-yabalka.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\ovesena-kasha-s-yabalka.jpg"
+  },
+  "oveseni-yadki": {
+    "name": "Овесени ядки",
+    "slug": "oveseni-yadki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/oveseni-yadki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\oveseni-yadki.jpg"
+  },
+  "oveseno-mlyako": {
+    "name": "Овесено мляко",
+    "slug": "oveseno-mlyako",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/oveseno-mlyako.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\oveseno-mlyako.jpg"
+  },
+  "omlet-s-5-yaytsa-i-hlyab": {
+    "name": "Омлет с 5 яйца и хляб",
+    "slug": "omlet-s-5-yaytsa-i-hlyab",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/omlet-s-5-yaytsa-i-hlyab.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\omlet-s-5-yaytsa-i-hlyab.jpg"
+  },
+  "omlet-s-avokado-i-hlyab": {
+    "name": "Омлет с авокадо и хляб",
+    "slug": "omlet-s-avokado-i-hlyab",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/omlet-s-avokado-i-hlyab.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\omlet-s-avokado-i-hlyab.jpg"
+  },
+  "omlet-s-gabi-i-sirene": {
+    "name": "Омлет с гъби и сирене",
+    "slug": "omlet-s-gabi-i-sirene",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/omlet-s-gabi-i-sirene.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\omlet-s-gabi-i-sirene.jpg"
+  },
+  "omlet-s-gabi-i-spanak": {
+    "name": "Омлет с гъби и спанак",
+    "slug": "omlet-s-gabi-i-spanak",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/omlet-s-gabi-i-spanak.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\omlet-s-gabi-i-spanak.jpg"
+  },
+  "omlet-s-gabi-spanak-i-sirene": {
+    "name": "Омлет с гъби, спанак и сирене",
+    "slug": "omlet-s-gabi-spanak-i-sirene",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/omlet-s-gabi-spanak-i-sirene.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\omlet-s-gabi-spanak-i-sirene.jpg"
+  },
+  "omlet-s-domati-i-hlyab": {
+    "name": "Омлет с домати и хляб",
+    "slug": "omlet-s-domati-i-hlyab",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/omlet-s-domati-i-hlyab.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\omlet-s-domati-i-hlyab.jpg"
+  },
+  "omlet-s-palnozarnest-hlyab-i-avokado": {
+    "name": "Омлет с пълнозърнест хляб и авокадо",
+    "slug": "omlet-s-palnozarnest-hlyab-i-avokado",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/omlet-s-palnozarnest-hlyab-i-avokado.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\omlet-s-palnozarnest-hlyab-i-avokado.jpg"
+  },
+  "omlet-s-hlyab-i-domati": {
+    "name": "Омлет с хляб и домати",
+    "slug": "omlet-s-hlyab-i-domati",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/omlet-s-hlyab-i-domati.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\omlet-s-hlyab-i-domati.jpg"
+  },
+  "omlet-sas-spanak": {
+    "name": "Омлет със спанак",
+    "slug": "omlet-sas-spanak",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/omlet-sas-spanak.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\omlet-sas-spanak.jpg"
+  },
+  "omlet-sas-spanak-i-sirene": {
+    "name": "Омлет със спанак и сирене",
+    "slug": "omlet-sas-spanak-i-sirene",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/omlet-sas-spanak-i-sirene.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\omlet-sas-spanak-i-sirene.jpg"
+  },
+  "omlet-sas-spanak-sirene-i-gabi": {
+    "name": "Омлет със спанак, сирене и гъби",
+    "slug": "omlet-sas-spanak-sirene-i-gabi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/omlet-sas-spanak-sirene-i-gabi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\omlet-sas-spanak-sirene-i-gabi.jpg"
+  },
+  "orehi-i-tamen-shokolad": {
+    "name": "Орехи и тъмен шоколад",
+    "slug": "orehi-i-tamen-shokolad",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/orehi-i-tamen-shokolad.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\orehi-i-tamen-shokolad.jpg"
+  },
+  "oriz-s-protein-i-bademi": {
+    "name": "Ориз с протеин и бадеми",
+    "slug": "oriz-s-protein-i-bademi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/oriz-s-protein-i-bademi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\oriz-s-protein-i-bademi.jpg"
+  },
+  "palachinki-s-med": {
+    "name": "Палачинки с мед",
+    "slug": "palachinki-s-med",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/palachinki-s-med.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\palachinki-s-med.jpg"
+  },
+  "palachinki-s-yaytsa-i-banan": {
+    "name": "Палачинки с яйца и банан",
+    "slug": "palachinki-s-yaytsa-i-banan",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/palachinki-s-yaytsa-i-banan.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\palachinki-s-yaytsa-i-banan.jpg"
+  },
+  "palachinki-s-yaytsa-protein-i-plodove": {
+    "name": "Палачинки с яйца, протеин и плодове",
+    "slug": "palachinki-s-yaytsa-protein-i-plodove",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/palachinki-s-yaytsa-protein-i-plodove.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\palachinki-s-yaytsa-protein-i-plodove.jpg"
+  },
+  "pasta-s-pileshko-i-zelenchutsi": {
+    "name": "Паста с пилешко и зеленчуци",
+    "slug": "pasta-s-pileshko-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pasta-s-pileshko-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pasta-s-pileshko-i-zelenchutsi.jpg"
+  },
+  "pasta-s-pueshka-kayma": {
+    "name": "Паста с пуешка кайма",
+    "slug": "pasta-s-pueshka-kayma",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pasta-s-pueshka-kayma.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pasta-s-pueshka-kayma.jpg"
+  },
+  "pecheni-zelenchutsi": {
+    "name": "Печени зеленчуци",
+    "slug": "pecheni-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pecheni-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pecheni-zelenchutsi.jpg"
+  },
+  "pecheni-kartofi": {
+    "name": "Печени картофи",
+    "slug": "pecheni-kartofi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pecheni-kartofi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pecheni-kartofi.jpg"
+  },
+  "pecheni-pileshki-butcheta": {
+    "name": "Печени пилешки бутчета",
+    "slug": "pecheni-pileshki-butcheta",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pecheni-pileshki-butcheta.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pecheni-pileshki-butcheta.jpg"
+  },
+  "pile-na-skara": {
+    "name": "Пиле на скара",
+    "slug": "pile-na-skara",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-na-skara.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-na-skara.jpg"
+  },
+  "pile-s-bulgur-i-zelenchutsi": {
+    "name": "Пиле с булгур и зеленчуци",
+    "slug": "pile-s-bulgur-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-s-bulgur-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-s-bulgur-i-zelenchutsi.jpg"
+  },
+  "pile-s-bulgur-zelenchutsi-i-sladak-kartof": {
+    "name": "Пиле с булгур, зеленчуци и сладък картоф",
+    "slug": "pile-s-bulgur-zelenchutsi-i-sladak-kartof",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-s-bulgur-zelenchutsi-i-sladak-kartof.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-s-bulgur-zelenchutsi-i-sladak-kartof.jpg"
+  },
+  "pile-s-bulgur-kartofi-i-brokoli": {
+    "name": "Пиле с булгур, картофи и броколи",
+    "slug": "pile-s-bulgur-kartofi-i-brokoli",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-s-bulgur-kartofi-i-brokoli.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-s-bulgur-kartofi-i-brokoli.jpg"
+  },
+  "pile-s-byal-oriz-i-brokoli": {
+    "name": "Пиле с бял ориз и броколи",
+    "slug": "pile-s-byal-oriz-i-brokoli",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-s-byal-oriz-i-brokoli.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-s-byal-oriz-i-brokoli.jpg"
+  },
+  "pile-s-byal-oriz-i-morkovi": {
+    "name": "Пиле с бял ориз и моркови",
+    "slug": "pile-s-byal-oriz-i-morkovi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-s-byal-oriz-i-morkovi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-s-byal-oriz-i-morkovi.jpg"
+  },
+  "pile-s-kafyav-oriz-i-asperzhi": {
+    "name": "Пиле с кафяв ориз и аспержи",
+    "slug": "pile-s-kafyav-oriz-i-asperzhi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-s-kafyav-oriz-i-asperzhi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-s-kafyav-oriz-i-asperzhi.jpg"
+  },
+  "pile-s-kafyav-oriz-brokoli-i-sladak-kartof": {
+    "name": "Пиле с кафяв ориз, броколи и сладък картоф",
+    "slug": "pile-s-kafyav-oriz-brokoli-i-sladak-kartof",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-s-kafyav-oriz-brokoli-i-sladak-kartof.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-s-kafyav-oriz-brokoli-i-sladak-kartof.jpg"
+  },
+  "pile-s-kafyav-oriz-sladak-kartof-i-zelenchutsi": {
+    "name": "Пиле с кафяв ориз, сладък картоф и зеленчуци",
+    "slug": "pile-s-kafyav-oriz-sladak-kartof-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-s-kafyav-oriz-sladak-kartof-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-s-kafyav-oriz-sladak-kartof-i-zelenchutsi.jpg"
+  },
+  "pile-s-kinoa-i-zelenchutsi": {
+    "name": "Пиле с киноа и зеленчуци",
+    "slug": "pile-s-kinoa-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-s-kinoa-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-s-kinoa-i-zelenchutsi.jpg"
+  },
+  "pile-s-kinoa-i-pecheni-zelenchutsi": {
+    "name": "Пиле с киноа и печени зеленчуци",
+    "slug": "pile-s-kinoa-i-pecheni-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-s-kinoa-i-pecheni-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-s-kinoa-i-pecheni-zelenchutsi.jpg"
+  },
+  "pile-s-kinoa-zelenchutsi-i-kartofi": {
+    "name": "Пиле с киноа, зеленчуци и картофи",
+    "slug": "pile-s-kinoa-zelenchutsi-i-kartofi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-s-kinoa-zelenchutsi-i-kartofi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-s-kinoa-zelenchutsi-i-kartofi.jpg"
+  },
+  "pile-s-oriz-i-zelenchutsi": {
+    "name": "Пиле с ориз и зеленчуци",
+    "slug": "pile-s-oriz-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-s-oriz-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-s-oriz-i-zelenchutsi.jpg"
+  },
+  "pile-s-pasta-i-zelenchutsi": {
+    "name": "Пиле с паста и зеленчуци",
+    "slug": "pile-s-pasta-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-s-pasta-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-s-pasta-i-zelenchutsi.jpg"
+  },
+  "pile-sas-zelen-fasul-i-oriz": {
+    "name": "Пиле със зелен фасул и ориз",
+    "slug": "pile-sas-zelen-fasul-i-oriz",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-sas-zelen-fasul-i-oriz.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-sas-zelen-fasul-i-oriz.jpg"
+  },
+  "pile-sas-zelenchutsi-na-furna": {
+    "name": "Пиле със зеленчуци на фурна",
+    "slug": "pile-sas-zelenchutsi-na-furna",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pile-sas-zelenchutsi-na-furna.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pile-sas-zelenchutsi-na-furna.jpg"
+  },
+  "pileshka-supa-s-oriz": {
+    "name": "Пилешка супа с ориз",
+    "slug": "pileshka-supa-s-oriz",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshka-supa-s-oriz.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshka-supa-s-oriz.jpg"
+  },
+  "pileshka-supa-sas-zelenchutsi": {
+    "name": "Пилешка супа със зеленчуци",
+    "slug": "pileshka-supa-sas-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshka-supa-sas-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshka-supa-sas-zelenchutsi.jpg"
+  },
+  "pileshki-butcheta": {
+    "name": "Пилешки бутчета",
+    "slug": "pileshki-butcheta",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshki-butcheta.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshki-butcheta.jpg"
+  },
+  "pileshki-gardi": {
+    "name": "Пилешки гърди",
+    "slug": "pileshki-gardi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshki-gardi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshki-gardi.jpg"
+  },
+  "pileshki-gardi-s-kinoa": {
+    "name": "Пилешки гърди с киноа",
+    "slug": "pileshki-gardi-s-kinoa",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshki-gardi-s-kinoa.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshki-gardi-s-kinoa.jpg"
+  },
+  "pileshki-drob": {
+    "name": "Пилешки дроб",
+    "slug": "pileshki-drob",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshki-drob.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshki-drob.jpg"
+  },
+  "pileshki-drob-s-kafyav-oriz-i-salata": {
+    "name": "Пилешки дроб с кафяв ориз и салата",
+    "slug": "pileshki-drob-s-kafyav-oriz-i-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshki-drob-s-kafyav-oriz-i-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshki-drob-s-kafyav-oriz-i-salata.jpg"
+  },
+  "pileshki-drob-s-oriz-i-salata": {
+    "name": "Пилешки дроб с ориз и салата",
+    "slug": "pileshki-drob-s-oriz-i-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshki-drob-s-oriz-i-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshki-drob-s-oriz-i-salata.jpg"
+  },
+  "pileshki-kebapcheta-s-oriz": {
+    "name": "Пилешки кебапчета с ориз",
+    "slug": "pileshki-kebapcheta-s-oriz",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshki-kebapcheta-s-oriz.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshki-kebapcheta-s-oriz.jpg"
+  },
+  "pileshki-kebapcheta-s-oriz-i-zelenchutsi": {
+    "name": "Пилешки кебапчета с ориз и зеленчуци",
+    "slug": "pileshki-kebapcheta-s-oriz-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshki-kebapcheta-s-oriz-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshki-kebapcheta-s-oriz-i-zelenchutsi.jpg"
+  },
+  "pileshki-kebapcheta-s-oriz-i-salata": {
+    "name": "Пилешки кебапчета с ориз и салата",
+    "slug": "pileshki-kebapcheta-s-oriz-i-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshki-kebapcheta-s-oriz-i-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshki-kebapcheta-s-oriz-i-salata.jpg"
+  },
+  "pileshki-stek-s-batat-i-brokoli": {
+    "name": "Пилешки стек с батат и броколи",
+    "slug": "pileshki-stek-s-batat-i-brokoli",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshki-stek-s-batat-i-brokoli.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshki-stek-s-batat-i-brokoli.jpg"
+  },
+  "pileshko-kebapche": {
+    "name": "Пилешко кебапче",
+    "slug": "pileshko-kebapche",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshko-kebapche.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshko-kebapche.jpg"
+  },
+  "pileshko-kari-s-oriz": {
+    "name": "Пилешко къри с ориз",
+    "slug": "pileshko-kari-s-oriz",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshko-kari-s-oriz.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshko-kari-s-oriz.jpg"
+  },
+  "pileshko-kari-s-oriz-i-zelenchutsi": {
+    "name": "Пилешко къри с ориз и зеленчуци",
+    "slug": "pileshko-kari-s-oriz-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshko-kari-s-oriz-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshko-kari-s-oriz-i-zelenchutsi.jpg"
+  },
+  "pileshko-meso": {
+    "name": "Пилешко месо",
+    "slug": "pileshko-meso",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pileshko-meso.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pileshko-meso.jpg"
+  },
+  "pitsa-s-pile-i-zelenchutsi": {
+    "name": "Пица с пиле и зеленчуци",
+    "slug": "pitsa-s-pile-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pitsa-s-pile-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pitsa-s-pile-i-zelenchutsi.jpg"
+  },
+  "pitsa-s-pile-i-zelenchutsi-domashna": {
+    "name": "Пица с пиле и зеленчуци (домашна)",
+    "slug": "pitsa-s-pile-i-zelenchutsi-domashna",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pitsa-s-pile-i-zelenchutsi-domashna.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pitsa-s-pile-i-zelenchutsi-domashna.jpg"
+  },
+  "plodova-salata": {
+    "name": "Плодова салата",
+    "slug": "plodova-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/plodova-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\plodova-salata.jpg"
+  },
+  "plodova-salata-s-orehi": {
+    "name": "Плодова салата с орехи",
+    "slug": "plodova-salata-s-orehi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/plodova-salata-s-orehi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\plodova-salata-s-orehi.jpg"
+  },
+  "prepecheni-filiyki-s-bademovo-maslo": {
+    "name": "Препечени филийки с бадемово масло",
+    "slug": "prepecheni-filiyki-s-bademovo-maslo",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/prepecheni-filiyki-s-bademovo-maslo.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\prepecheni-filiyki-s-bademovo-maslo.jpg"
+  },
+  "prepecheni-filiyki-s-med": {
+    "name": "Препечени филийки с мед",
+    "slug": "prepecheni-filiyki-s-med",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/prepecheni-filiyki-s-med.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\prepecheni-filiyki-s-med.jpg"
+  },
+  "prepecheni-filiyki-s-pueshko": {
+    "name": "Препечени филийки с пуешко",
+    "slug": "prepecheni-filiyki-s-pueshko",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/prepecheni-filiyki-s-pueshko.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\prepecheni-filiyki-s-pueshko.jpg"
+  },
+  "prepecheni-filiyki-s-fastacheno-maslo": {
+    "name": "Препечени филийки с фъстъчено масло",
+    "slug": "prepecheni-filiyki-s-fastacheno-maslo",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/prepecheni-filiyki-s-fastacheno-maslo.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\prepecheni-filiyki-s-fastacheno-maslo.jpg"
+  },
+  "prepecheni-filiyki-s-yaytsa-i-avokado": {
+    "name": "Препечени филийки с яйца и авокадо",
+    "slug": "prepecheni-filiyki-s-yaytsa-i-avokado",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/prepecheni-filiyki-s-yaytsa-i-avokado.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\prepecheni-filiyki-s-yaytsa-i-avokado.jpg"
+  },
+  "proteinov-bar": {
+    "name": "Протеинов бар",
+    "slug": "proteinov-bar",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinov-bar.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinov-bar.jpg"
+  },
+  "proteinov-bar-s-mlyako": {
+    "name": "Протеинов бар с мляко",
+    "slug": "proteinov-bar-s-mlyako",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinov-bar-s-mlyako.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinov-bar-s-mlyako.jpg"
+  },
+  "proteinov-prah": {
+    "name": "Протеинов прах",
+    "slug": "proteinov-prah",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinov-prah.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinov-prah.jpg"
+  },
+  "proteinov-smuti-s-banan-i-oves": {
+    "name": "Протеинов смути с банан и овес",
+    "slug": "proteinov-smuti-s-banan-i-oves",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinov-smuti-s-banan-i-oves.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinov-smuti-s-banan-i-oves.jpg"
+  },
+  "proteinov-sheyk-s-banan": {
+    "name": "Протеинов шейк с банан",
+    "slug": "proteinov-sheyk-s-banan",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinov-sheyk-s-banan.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinov-sheyk-s-banan.jpg"
+  },
+  "proteinov-sheyk-s-banan-i-oveseni-yadki": {
+    "name": "Протеинов шейк с банан и овесени ядки",
+    "slug": "proteinov-sheyk-s-banan-i-oveseni-yadki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinov-sheyk-s-banan-i-oveseni-yadki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinov-sheyk-s-banan-i-oveseni-yadki.jpg"
+  },
+  "proteinov-sheyk-s-banani-i-oveseni-yadki": {
+    "name": "Протеинов шейк с банани и овесени ядки",
+    "slug": "proteinov-sheyk-s-banani-i-oveseni-yadki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinov-sheyk-s-banani-i-oveseni-yadki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinov-sheyk-s-banani-i-oveseni-yadki.jpg"
+  },
+  "proteinov-sheyk-s-oves-i-finiki": {
+    "name": "Протеинов шейк с овес и финики",
+    "slug": "proteinov-sheyk-s-oves-i-finiki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinov-sheyk-s-oves-i-finiki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinov-sheyk-s-oves-i-finiki.jpg"
+  },
+  "proteinov-sheyk-s-oveseni-yadki": {
+    "name": "Протеинов шейк с овесени ядки",
+    "slug": "proteinov-sheyk-s-oveseni-yadki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinov-sheyk-s-oveseni-yadki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinov-sheyk-s-oveseni-yadki.jpg"
+  },
+  "proteinov-sheyk-s-oveseni-yadki-i-banan": {
+    "name": "Протеинов шейк с овесени ядки и банан",
+    "slug": "proteinov-sheyk-s-oveseni-yadki-i-banan",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinov-sheyk-s-oveseni-yadki-i-banan.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinov-sheyk-s-oveseni-yadki-i-banan.jpg"
+  },
+  "proteinov-sheyk-s-oveseni-yadki-i-plodove": {
+    "name": "Протеинов шейк с овесени ядки и плодове",
+    "slug": "proteinov-sheyk-s-oveseni-yadki-i-plodove",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinov-sheyk-s-oveseni-yadki-i-plodove.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinov-sheyk-s-oveseni-yadki-i-plodove.jpg"
+  },
+  "proteinov-sheyk-s-yadki-i-oves": {
+    "name": "Протеинов шейк с ядки и овес",
+    "slug": "proteinov-sheyk-s-yadki-i-oves",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinov-sheyk-s-yadki-i-oves.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinov-sheyk-s-yadki-i-oves.jpg"
+  },
+  "proteinova-ovesena-kasha-s-yaytsa": {
+    "name": "Протеинова овесена каша с яйца",
+    "slug": "proteinova-ovesena-kasha-s-yaytsa",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinova-ovesena-kasha-s-yaytsa.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinova-ovesena-kasha-s-yaytsa.jpg"
+  },
+  "proteinovi-palachinki": {
+    "name": "Протеинови палачинки",
+    "slug": "proteinovi-palachinki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinovi-palachinki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinovi-palachinki.jpg"
+  },
+  "proteinovi-palachinki-s-plodove": {
+    "name": "Протеинови палачинки с плодове",
+    "slug": "proteinovi-palachinki-s-plodove",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinovi-palachinki-s-plodove.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinovi-palachinki-s-plodove.jpg"
+  },
+  "proteinovi-palachinki-s-plodove-i-med": {
+    "name": "Протеинови палачинки с плодове и мед",
+    "slug": "proteinovi-palachinki-s-plodove-i-med",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinovi-palachinki-s-plodove-i-med.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinovi-palachinki-s-plodove-i-med.jpg"
+  },
+  "proteinovi-palachinki-s-plodove-i-sirop": {
+    "name": "Протеинови палачинки с плодове и сироп",
+    "slug": "proteinovi-palachinki-s-plodove-i-sirop",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinovi-palachinki-s-plodove-i-sirop.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinovi-palachinki-s-plodove-i-sirop.jpg"
+  },
+  "proteinovo-smuti": {
+    "name": "Протеиново смути",
+    "slug": "proteinovo-smuti",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinovo-smuti.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinovo-smuti.jpg"
+  },
+  "proteinovo-smuti-s-oves-i-banan": {
+    "name": "Протеиново смути с овес и банан",
+    "slug": "proteinovo-smuti-s-oves-i-banan",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/proteinovo-smuti-s-oves-i-banan.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\proteinovo-smuti-s-oves-i-banan.jpg"
+  },
+  "pueshka-kayma-s-makaroni": {
+    "name": "Пуешка кайма с макарони",
+    "slug": "pueshka-kayma-s-makaroni",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshka-kayma-s-makaroni.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshka-kayma-s-makaroni.jpg"
+  },
+  "pueshki-bekon": {
+    "name": "Пуешки бекон",
+    "slug": "pueshki-bekon",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshki-bekon.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshki-bekon.jpg"
+  },
+  "pueshki-kyufteta-s-kartofeno-pyure": {
+    "name": "Пуешки кюфтета с картофено пюре",
+    "slug": "pueshki-kyufteta-s-kartofeno-pyure",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshki-kyufteta-s-kartofeno-pyure.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshki-kyufteta-s-kartofeno-pyure.jpg"
+  },
+  "pueshki-kyufteta-s-oriz-i-salata": {
+    "name": "Пуешки кюфтета с ориз и салата",
+    "slug": "pueshki-kyufteta-s-oriz-i-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshki-kyufteta-s-oriz-i-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshki-kyufteta-s-oriz-i-salata.jpg"
+  },
+  "pueshki-kyufteta-s-pasta-i-sos": {
+    "name": "Пуешки кюфтета с паста и сос",
+    "slug": "pueshki-kyufteta-s-pasta-i-sos",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshki-kyufteta-s-pasta-i-sos.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshki-kyufteta-s-pasta-i-sos.jpg"
+  },
+  "pueshko-kayma": {
+    "name": "Пуешко кайма",
+    "slug": "pueshko-kayma",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshko-kayma.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshko-kayma.jpg"
+  },
+  "pueshko-kyufte": {
+    "name": "Пуешко кюфте",
+    "slug": "pueshko-kyufte",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshko-kyufte.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshko-kyufte.jpg"
+  },
+  "pueshko-meso": {
+    "name": "Пуешко месо",
+    "slug": "pueshko-meso",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshko-meso.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshko-meso.jpg"
+  },
+  "pueshko-meso-s-batat": {
+    "name": "Пуешко месо с батат",
+    "slug": "pueshko-meso-s-batat",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshko-meso-s-batat.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshko-meso-s-batat.jpg"
+  },
+  "pueshko-meso-s-pasta-i-sos": {
+    "name": "Пуешко месо с паста и сос",
+    "slug": "pueshko-meso-s-pasta-i-sos",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshko-meso-s-pasta-i-sos.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshko-meso-s-pasta-i-sos.jpg"
+  },
+  "pueshko-s-bulgur-i-salata": {
+    "name": "Пуешко с булгур и салата",
+    "slug": "pueshko-s-bulgur-i-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshko-s-bulgur-i-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshko-s-bulgur-i-salata.jpg"
+  },
+  "pueshko-s-bulgur-i-spanak": {
+    "name": "Пуешко с булгур и спанак",
+    "slug": "pueshko-s-bulgur-i-spanak",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshko-s-bulgur-i-spanak.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshko-s-bulgur-i-spanak.jpg"
+  },
+  "pueshko-s-byal-oriz-kinoa-i-salata": {
+    "name": "Пуешко с бял ориз, киноа и салата",
+    "slug": "pueshko-s-byal-oriz-kinoa-i-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshko-s-byal-oriz-kinoa-i-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshko-s-byal-oriz-kinoa-i-salata.jpg"
+  },
+  "pueshko-s-kartofi-i-salata": {
+    "name": "Пуешко с картофи и салата",
+    "slug": "pueshko-s-kartofi-i-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshko-s-kartofi-i-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshko-s-kartofi-i-salata.jpg"
+  },
+  "pueshko-s-kinoa-i-zelenchutsi": {
+    "name": "Пуешко с киноа и зеленчуци",
+    "slug": "pueshko-s-kinoa-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshko-s-kinoa-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshko-s-kinoa-i-zelenchutsi.jpg"
+  },
+  "pueshko-s-kinoa-i-salata": {
+    "name": "Пуешко с киноа и салата",
+    "slug": "pueshko-s-kinoa-i-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshko-s-kinoa-i-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshko-s-kinoa-i-salata.jpg"
+  },
+  "pueshko-s-oriz-bulgur-i-zelenchutsi": {
+    "name": "Пуешко с ориз, булгур и зеленчуци",
+    "slug": "pueshko-s-oriz-bulgur-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshko-s-oriz-bulgur-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshko-s-oriz-bulgur-i-zelenchutsi.jpg"
+  },
+  "pueshko-s-pasta-i-zelenchutsi": {
+    "name": "Пуешко с паста и зеленчуци",
+    "slug": "pueshko-s-pasta-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshko-s-pasta-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshko-s-pasta-i-zelenchutsi.jpg"
+  },
+  "pueshko-sas-sladak-kartof-i-salata": {
+    "name": "Пуешко със сладък картоф и салата",
+    "slug": "pueshko-sas-sladak-kartof-i-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pueshko-sas-sladak-kartof-i-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pueshko-sas-sladak-kartof-i-salata.jpg"
+  },
+  "pushena-syomga": {
+    "name": "Пушена сьомга",
+    "slug": "pushena-syomga",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/pushena-syomga.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\pushena-syomga.jpg"
+  },
+  "palneni-chushki-s-meso-i-oriz": {
+    "name": "Пълнени чушки с месо и ориз",
+    "slug": "palneni-chushki-s-meso-i-oriz",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/palneni-chushki-s-meso-i-oriz.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\palneni-chushki-s-meso-i-oriz.jpg"
+  },
+  "palneni-chushki-s-oriz-i-meso": {
+    "name": "Пълнени чушки с ориз и месо",
+    "slug": "palneni-chushki-s-oriz-i-meso",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/palneni-chushki-s-oriz-i-meso.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\palneni-chushki-s-oriz-i-meso.jpg"
+  },
+  "palnozarnest-tost-s-avokado-i-yaytsa": {
+    "name": "Пълнозърнест тост с авокадо и яйца",
+    "slug": "palnozarnest-tost-s-avokado-i-yaytsa",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/palnozarnest-tost-s-avokado-i-yaytsa.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\palnozarnest-tost-s-avokado-i-yaytsa.jpg"
+  },
+  "palnozarnest-hlyab": {
+    "name": "Пълнозърнест хляб",
+    "slug": "palnozarnest-hlyab",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/palnozarnest-hlyab.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\palnozarnest-hlyab.jpg"
+  },
+  "palnozarnesti-makaroni": {
+    "name": "Пълнозърнести макарони",
+    "slug": "palnozarnesti-makaroni",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/palnozarnesti-makaroni.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\palnozarnesti-makaroni.jpg"
+  },
+  "palnozarnesti-spageti": {
+    "name": "Пълнозърнести спагети",
+    "slug": "palnozarnesti-spageti",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/palnozarnesti-spageti.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\palnozarnesti-spageti.jpg"
+  },
+  "palnozarnesto-testo": {
+    "name": "Пълнозърнесто тесто",
+    "slug": "palnozarnesto-testo",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/palnozarnesto-testo.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\palnozarnesto-testo.jpg"
+  },
+  "parzheno-pile-s-oriz": {
+    "name": "Пържено пиле с ориз",
+    "slug": "parzheno-pile-s-oriz",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/parzheno-pile-s-oriz.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\parzheno-pile-s-oriz.jpg"
+  },
+  "riba-s-pecheni-zelenchutsi": {
+    "name": "Риба с печени зеленчуци",
+    "slug": "riba-s-pecheni-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/riba-s-pecheni-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\riba-s-pecheni-zelenchutsi.jpg"
+  },
+  "riba-s-presni-zelenchutsi": {
+    "name": "Риба с пресни зеленчуци",
+    "slug": "riba-s-presni-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/riba-s-presni-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\riba-s-presni-zelenchutsi.jpg"
+  },
+  "riba-ton-s-asperzhi": {
+    "name": "Риба тон с аспержи",
+    "slug": "riba-ton-s-asperzhi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/riba-ton-s-asperzhi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\riba-ton-s-asperzhi.jpg"
+  },
+  "riba-ton-s-bulgur-i-zelenchutsi": {
+    "name": "Риба тон с булгур и зеленчуци",
+    "slug": "riba-ton-s-bulgur-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/riba-ton-s-bulgur-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\riba-ton-s-bulgur-i-zelenchutsi.jpg"
+  },
+  "riba-ton-s-oriz-i-salata": {
+    "name": "Риба тон с ориз и салата",
+    "slug": "riba-ton-s-oriz-i-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/riba-ton-s-oriz-i-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\riba-ton-s-oriz-i-salata.jpg"
+  },
+  "riba-ton-sas-zelen-fasul": {
+    "name": "Риба тон със зелен фасул",
+    "slug": "riba-ton-sas-zelen-fasul",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/riba-ton-sas-zelen-fasul.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\riba-ton-sas-zelen-fasul.jpg"
+  },
+  "salata-s-riba-ton": {
+    "name": "Салата с риба тон",
+    "slug": "salata-s-riba-ton",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/salata-s-riba-ton.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\salata-s-riba-ton.jpg"
+  },
+  "sandvich-s-pile-i-proteinov-sheyk": {
+    "name": "Сандвич с пиле и протеинов шейк",
+    "slug": "sandvich-s-pile-i-proteinov-sheyk",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/sandvich-s-pile-i-proteinov-sheyk.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\sandvich-s-pile-i-proteinov-sheyk.jpg"
+  },
+  "sandvich-s-pueshko": {
+    "name": "Сандвич с пуешко",
+    "slug": "sandvich-s-pueshko",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/sandvich-s-pueshko.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\sandvich-s-pueshko.jpg"
+  },
+  "sandvich-s-pueshko-i-proteinov-sheyk": {
+    "name": "Сандвич с пуешко и протеинов шейк",
+    "slug": "sandvich-s-pueshko-i-proteinov-sheyk",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/sandvich-s-pueshko-i-proteinov-sheyk.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\sandvich-s-pueshko-i-proteinov-sheyk.jpg"
+  },
+  "sardini-s-kartofi-i-zelena-salata": {
+    "name": "Сардини с картофи и зелена салата",
+    "slug": "sardini-s-kartofi-i-zelena-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/sardini-s-kartofi-i-zelena-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\sardini-s-kartofi-i-zelena-salata.jpg"
+  },
+  "sardini-sas-sladak-kartof-i-salata": {
+    "name": "Сардини със сладък картоф и салата",
+    "slug": "sardini-sas-sladak-kartof-i-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/sardini-sas-sladak-kartof-i-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\sardini-sas-sladak-kartof-i-salata.jpg"
+  },
+  "safrid-s-kartofi": {
+    "name": "Сафрид с картофи",
+    "slug": "safrid-s-kartofi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/safrid-s-kartofi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\safrid-s-kartofi.jpg"
+  },
+  "safrid-s-kartofi-i-salata": {
+    "name": "Сафрид с картофи и салата",
+    "slug": "safrid-s-kartofi-i-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/safrid-s-kartofi-i-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\safrid-s-kartofi-i-salata.jpg"
+  },
+  "safrid-s-presni-zelenchutsi": {
+    "name": "Сафрид с пресни зеленчуци",
+    "slug": "safrid-s-presni-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/safrid-s-presni-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\safrid-s-presni-zelenchutsi.jpg"
+  },
+  "sirene-krave": {
+    "name": "Сирене краве",
+    "slug": "sirene-krave",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/sirene-krave.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\sirene-krave.jpg"
+  },
+  "skaridi-s-kinoa": {
+    "name": "Скариди с киноа",
+    "slug": "skaridi-s-kinoa",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/skaridi-s-kinoa.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\skaridi-s-kinoa.jpg"
+  },
+  "skumriya-s-kartofi-i-salata": {
+    "name": "Скумрия с картофи и салата",
+    "slug": "skumriya-s-kartofi-i-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/skumriya-s-kartofi-i-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\skumriya-s-kartofi-i-salata.jpg"
+  },
+  "skumriya-s-kafyav-oriz-i-pecheni-zelenchutsi": {
+    "name": "Скумрия с кафяв ориз и печени зеленчуци",
+    "slug": "skumriya-s-kafyav-oriz-i-pecheni-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/skumriya-s-kafyav-oriz-i-pecheni-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\skumriya-s-kafyav-oriz-i-pecheni-zelenchutsi.jpg"
+  },
+  "skumriya-s-kafyav-oriz-i-spanak": {
+    "name": "Скумрия с кафяв ориз и спанак",
+    "slug": "skumriya-s-kafyav-oriz-i-spanak",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/skumriya-s-kafyav-oriz-i-spanak.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\skumriya-s-kafyav-oriz-i-spanak.jpg"
+  },
+  "skumriya-s-kinoa-i-pecheni-zelenchutsi": {
+    "name": "Скумрия с киноа и печени зеленчуци",
+    "slug": "skumriya-s-kinoa-i-pecheni-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/skumriya-s-kinoa-i-pecheni-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\skumriya-s-kinoa-i-pecheni-zelenchutsi.jpg"
+  },
+  "skumriya-s-pecheni-zelenchutsi": {
+    "name": "Скумрия с печени зеленчуци",
+    "slug": "skumriya-s-pecheni-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/skumriya-s-pecheni-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\skumriya-s-pecheni-zelenchutsi.jpg"
+  },
+  "sladak-kartof": {
+    "name": "Сладък картоф",
+    "slug": "sladak-kartof",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/sladak-kartof.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\sladak-kartof.jpg"
+  },
+  "sladak-kartof-pechen": {
+    "name": "Сладък картоф печен",
+    "slug": "sladak-kartof-pechen",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/sladak-kartof-pechen.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\sladak-kartof-pechen.jpg"
+  },
+  "smeseni-yadki": {
+    "name": "Смесени ядки",
+    "slug": "smeseni-yadki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/smeseni-yadki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\smeseni-yadki.jpg"
+  },
+  "smeseni-yadki-i-semena": {
+    "name": "Смесени ядки и семена",
+    "slug": "smeseni-yadki-i-semena",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/smeseni-yadki-i-semena.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\smeseni-yadki-i-semena.jpg"
+  },
+  "smeseni-yadki-i-susheni-plodove": {
+    "name": "Смесени ядки и сушени плодове",
+    "slug": "smeseni-yadki-i-susheni-plodove",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/smeseni-yadki-i-susheni-plodove.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\smeseni-yadki-i-susheni-plodove.jpg"
+  },
+  "smeseni-yadki-i-tamen-shokolad": {
+    "name": "Смесени ядки и тъмен шоколад",
+    "slug": "smeseni-yadki-i-tamen-shokolad",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/smeseni-yadki-i-tamen-shokolad.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\smeseni-yadki-i-tamen-shokolad.jpg"
+  },
+  "smeseni-yadki-i-finiki": {
+    "name": "Смесени ядки и финики",
+    "slug": "smeseni-yadki-i-finiki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/smeseni-yadki-i-finiki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\smeseni-yadki-i-finiki.jpg"
+  },
+  "smeseni-yadki-i-furmi": {
+    "name": "Смесени ядки и фурми",
+    "slug": "smeseni-yadki-i-furmi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/smeseni-yadki-i-furmi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\smeseni-yadki-i-furmi.jpg"
+  },
+  "smuti-boul-s-myusli": {
+    "name": "Смути боул с мюсли",
+    "slug": "smuti-boul-s-myusli",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/smuti-boul-s-myusli.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\smuti-boul-s-myusli.jpg"
+  },
+  "smuti-boul-s-myusli-i-plodove": {
+    "name": "Смути боул с мюсли и плодове",
+    "slug": "smuti-boul-s-myusli-i-plodove",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/smuti-boul-s-myusli-i-plodove.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\smuti-boul-s-myusli-i-plodove.jpg"
+  },
+  "smuti-boul-s-myusli-i-protein": {
+    "name": "Смути боул с мюсли и протеин",
+    "slug": "smuti-boul-s-myusli-i-protein",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/smuti-boul-s-myusli-i-protein.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\smuti-boul-s-myusli-i-protein.jpg"
+  },
+  "smuti-boul-s-protein-i-myusli": {
+    "name": "Смути боул с протеин и мюсли",
+    "slug": "smuti-boul-s-protein-i-myusli",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/smuti-boul-s-protein-i-myusli.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\smuti-boul-s-protein-i-myusli.jpg"
+  },
+  "smuti-s-protein": {
+    "name": "Смути с протеин",
+    "slug": "smuti-s-protein",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/smuti-s-protein.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\smuti-s-protein.jpg"
+  },
+  "smuti-s-protein-banan-i-yabalka": {
+    "name": "Смути с протеин, банан и ябълка",
+    "slug": "smuti-s-protein-banan-i-yabalka",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/smuti-s-protein-banan-i-yabalka.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\smuti-s-protein-banan-i-yabalka.jpg"
+  },
+  "smuti-s-protein-oveseni-yadki-i-plodove": {
+    "name": "Смути с протеин, овесени ядки и плодове",
+    "slug": "smuti-s-protein-oveseni-yadki-i-plodove",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/smuti-s-protein-oveseni-yadki-i-plodove.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\smuti-s-protein-oveseni-yadki-i-plodove.jpg"
+  },
+  "smuti-sas-spanak-i-yabalka": {
+    "name": "Смути със спанак и ябълка",
+    "slug": "smuti-sas-spanak-i-yabalka",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/smuti-sas-spanak-i-yabalka.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\smuti-sas-spanak-i-yabalka.jpg"
+  },
+  "spageti-s-mesni-kyufteta": {
+    "name": "Спагети с месни кюфтета",
+    "slug": "spageti-s-mesni-kyufteta",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/spageti-s-mesni-kyufteta.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\spageti-s-mesni-kyufteta.jpg"
+  },
+  "spanak-presen": {
+    "name": "Спанак пресен",
+    "slug": "spanak-presen",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/spanak-presen.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\spanak-presen.jpg"
+  },
+  "susheni-borovinki": {
+    "name": "Сушени боровинки",
+    "slug": "susheni-borovinki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/susheni-borovinki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\susheni-borovinki.jpg"
+  },
+  "susheni-kaysii": {
+    "name": "Сушени кайсии",
+    "slug": "susheni-kaysii",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/susheni-kaysii.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\susheni-kaysii.jpg"
+  },
+  "syomga-na-furna": {
+    "name": "Сьомга на фурна",
+    "slug": "syomga-na-furna",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/syomga-na-furna.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\syomga-na-furna.jpg"
+  },
+  "syomga-s-brokoli": {
+    "name": "Сьомга с броколи",
+    "slug": "syomga-s-brokoli",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/syomga-s-brokoli.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\syomga-s-brokoli.jpg"
+  },
+  "syomga-s-bulgur-i-asperzhi": {
+    "name": "Сьомга с булгур и аспержи",
+    "slug": "syomga-s-bulgur-i-asperzhi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/syomga-s-bulgur-i-asperzhi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\syomga-s-bulgur-i-asperzhi.jpg"
+  },
+  "syomga-s-kartofi-i-asperzhi": {
+    "name": "Сьомга с картофи и аспержи",
+    "slug": "syomga-s-kartofi-i-asperzhi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/syomga-s-kartofi-i-asperzhi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\syomga-s-kartofi-i-asperzhi.jpg"
+  },
+  "syomga-s-kafyav-oriz-i-asperzhi": {
+    "name": "Сьомга с кафяв ориз и аспержи",
+    "slug": "syomga-s-kafyav-oriz-i-asperzhi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/syomga-s-kafyav-oriz-i-asperzhi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\syomga-s-kafyav-oriz-i-asperzhi.jpg"
+  },
+  "syomga-s-kinoa-i-asperzhi": {
+    "name": "Сьомга с киноа и аспержи",
+    "slug": "syomga-s-kinoa-i-asperzhi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/syomga-s-kinoa-i-asperzhi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\syomga-s-kinoa-i-asperzhi.jpg"
+  },
+  "syomga-s-kinoa-i-pecheni-zelenchutsi": {
+    "name": "Сьомга с киноа и печени зеленчуци",
+    "slug": "syomga-s-kinoa-i-pecheni-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/syomga-s-kinoa-i-pecheni-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\syomga-s-kinoa-i-pecheni-zelenchutsi.jpg"
+  },
+  "syomga-sas-zelena-salata": {
+    "name": "Сьомга със зелена салата",
+    "slug": "syomga-sas-zelena-salata",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/syomga-sas-zelena-salata.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\syomga-sas-zelena-salata.jpg"
+  },
+  "syomga-sas-sladki-kartofi": {
+    "name": "Сьомга със сладки картофи",
+    "slug": "syomga-sas-sladki-kartofi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/syomga-sas-sladki-kartofi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\syomga-sas-sladki-kartofi.jpg"
+  },
+  "syomga-sas-sladak-kartof-i-asperzhi": {
+    "name": "Сьомга със сладък картоф и аспержи",
+    "slug": "syomga-sas-sladak-kartof-i-asperzhi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/syomga-sas-sladak-kartof-i-asperzhi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\syomga-sas-sladak-kartof-i-asperzhi.jpg"
+  },
+  "syomga-sas-sladak-kartof-i-spanak": {
+    "name": "Сьомга със сладък картоф и спанак",
+    "slug": "syomga-sas-sladak-kartof-i-spanak",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/syomga-sas-sladak-kartof-i-spanak.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\syomga-sas-sladak-kartof-i-spanak.jpg"
+  },
+  "syomga-sas-spanak-i-sladak-kartof": {
+    "name": "Сьомга със спанак и сладък картоф",
+    "slug": "syomga-sas-spanak-i-sladak-kartof",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/syomga-sas-spanak-i-sladak-kartof.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\syomga-sas-spanak-i-sladak-kartof.jpg"
+  },
+  "teleshki-stek": {
+    "name": "Телешки стек",
+    "slug": "teleshki-stek",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/teleshki-stek.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\teleshki-stek.jpg"
+  },
+  "teleshki-stek-s-kafyav-oriz-i-brokoli": {
+    "name": "Телешки стек с кафяв ориз и броколи",
+    "slug": "teleshki-stek-s-kafyav-oriz-i-brokoli",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/teleshki-stek-s-kafyav-oriz-i-brokoli.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\teleshki-stek-s-kafyav-oriz-i-brokoli.jpg"
+  },
+  "teleshki-stek-s-pecheni-zelenchutsi": {
+    "name": "Телешки стек с печени зеленчуци",
+    "slug": "teleshki-stek-s-pecheni-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/teleshki-stek-s-pecheni-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\teleshki-stek-s-pecheni-zelenchutsi.jpg"
+  },
+  "teleshko-meso": {
+    "name": "Телешко месо",
+    "slug": "teleshko-meso",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/teleshko-meso.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\teleshko-meso.jpg"
+  },
+  "teleshko-s-kartofeno-pyure": {
+    "name": "Телешко с картофено пюре",
+    "slug": "teleshko-s-kartofeno-pyure",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/teleshko-s-kartofeno-pyure.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\teleshko-s-kartofeno-pyure.jpg"
+  },
+  "teleshko-s-kartofeno-pyure-i-zelenchutsi": {
+    "name": "Телешко с картофено пюре и зеленчуци",
+    "slug": "teleshko-s-kartofeno-pyure-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/teleshko-s-kartofeno-pyure-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\teleshko-s-kartofeno-pyure-i-zelenchutsi.jpg"
+  },
+  "teleshko-s-kafyav-oriz-i-zelenchutsi": {
+    "name": "Телешко с кафяв ориз и зеленчуци",
+    "slug": "teleshko-s-kafyav-oriz-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/teleshko-s-kafyav-oriz-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\teleshko-s-kafyav-oriz-i-zelenchutsi.jpg"
+  },
+  "teleshko-s-kinoa-i-pecheni-zelenchutsi": {
+    "name": "Телешко с киноа и печени зеленчуци",
+    "slug": "teleshko-s-kinoa-i-pecheni-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/teleshko-s-kinoa-i-pecheni-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\teleshko-s-kinoa-i-pecheni-zelenchutsi.jpg"
+  },
+  "teleshko-s-oriz-i-zelenchutsi": {
+    "name": "Телешко с ориз и зеленчуци",
+    "slug": "teleshko-s-oriz-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/teleshko-s-oriz-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\teleshko-s-oriz-i-zelenchutsi.jpg"
+  },
+  "teleshko-sas-zelen-fasul": {
+    "name": "Телешко със зелен фасул",
+    "slug": "teleshko-sas-zelen-fasul",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/teleshko-sas-zelen-fasul.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\teleshko-sas-zelen-fasul.jpg"
+  },
+  "teleshko-sas-sladak-kartof": {
+    "name": "Телешко със сладък картоф",
+    "slug": "teleshko-sas-sladak-kartof",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/teleshko-sas-sladak-kartof.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\teleshko-sas-sladak-kartof.jpg"
+  },
+  "teleshko-sas-sladak-kartof-i-zelenchutsi": {
+    "name": "Телешко със сладък картоф и зеленчуци",
+    "slug": "teleshko-sas-sladak-kartof-i-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/teleshko-sas-sladak-kartof-i-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\teleshko-sas-sladak-kartof-i-zelenchutsi.jpg"
+  },
+  "tikveni-semki": {
+    "name": "Тиквени семки",
+    "slug": "tikveni-semki",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/tikveni-semki.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\tikveni-semki.jpg"
+  },
+  "tost-s-avokado": {
+    "name": "Тост с авокадо",
+    "slug": "tost-s-avokado",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/tost-s-avokado.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\tost-s-avokado.jpg"
+  },
+  "tost-s-avokado-i-proteinov-sheyk": {
+    "name": "Тост с авокадо и протеинов шейк",
+    "slug": "tost-s-avokado-i-proteinov-sheyk",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/tost-s-avokado-i-proteinov-sheyk.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\tost-s-avokado-i-proteinov-sheyk.jpg"
+  },
+  "tost-s-avokado-i-yaytse": {
+    "name": "Тост с авокадо и яйце",
+    "slug": "tost-s-avokado-i-yaytse",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/tost-s-avokado-i-yaytse.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\tost-s-avokado-i-yaytse.jpg"
+  },
+  "tamen-shokolad": {
+    "name": "Тъмен шоколад",
+    "slug": "tamen-shokolad",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/tamen-shokolad.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\tamen-shokolad.jpg"
+  },
+  "tamen-shokolad-85": {
+    "name": "Тъмен шоколад 85%",
+    "slug": "tamen-shokolad-85",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/tamen-shokolad-85.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\tamen-shokolad-85.jpg"
+  },
+  "frenski-tost-s-plodove": {
+    "name": "Френски тост с плодове",
+    "slug": "frenski-tost-s-plodove",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/frenski-tost-s-plodove.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\frenski-tost-s-plodove.jpg"
+  },
+  "frenski-tost-s-protein": {
+    "name": "Френски тост с протеин",
+    "slug": "frenski-tost-s-protein",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/frenski-tost-s-protein.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\frenski-tost-s-protein.jpg"
+  },
+  "frenski-tost-s-protein-i-plodove": {
+    "name": "Френски тост с протеин и плодове",
+    "slug": "frenski-tost-s-protein-i-plodove",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/frenski-tost-s-protein-i-plodove.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\frenski-tost-s-protein-i-plodove.jpg"
+  },
+  "frenski-tost-s-yagodi-i-protein": {
+    "name": "Френски тост с ягоди и протеин",
+    "slug": "frenski-tost-s-yagodi-i-protein",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/frenski-tost-s-yagodi-i-protein.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\frenski-tost-s-yagodi-i-protein.jpg"
+  },
+  "frenski-tost-s-yaytsa-i-plodove": {
+    "name": "Френски тост с яйца и плодове",
+    "slug": "frenski-tost-s-yaytsa-i-plodove",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/frenski-tost-s-yaytsa-i-plodove.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\frenski-tost-s-yaytsa-i-plodove.jpg"
+  },
+  "fastacheno-maslo": {
+    "name": "Фъстъчено масло",
+    "slug": "fastacheno-maslo",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/fastacheno-maslo.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\fastacheno-maslo.jpg"
+  },
+  "humus-s-prepecheni-filiyki-i-protein": {
+    "name": "Хумус с препечени филийки и протеин",
+    "slug": "humus-s-prepecheni-filiyki-i-protein",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/humus-s-prepecheni-filiyki-i-protein.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\humus-s-prepecheni-filiyki-i-protein.jpg"
+  },
+  "humus-sas-zelenchutsi": {
+    "name": "Хумус със зеленчуци",
+    "slug": "humus-sas-zelenchutsi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/humus-sas-zelenchutsi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\humus-sas-zelenchutsi.jpg"
+  },
+  "yabalka-s-bademi": {
+    "name": "Ябълка с бадеми",
+    "slug": "yabalka-s-bademi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yabalka-s-bademi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yabalka-s-bademi.jpg"
+  },
+  "yabalka-s-bademovo-maslo": {
+    "name": "Ябълка с бадемово масло",
+    "slug": "yabalka-s-bademovo-maslo",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yabalka-s-bademovo-maslo.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yabalka-s-bademovo-maslo.jpg"
+  },
+  "yabalka-s-kashu": {
+    "name": "Ябълка с кашу",
+    "slug": "yabalka-s-kashu",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yabalka-s-kashu.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yabalka-s-kashu.jpg"
+  },
+  "yabalka-s-orehi": {
+    "name": "Ябълка с орехи",
+    "slug": "yabalka-s-orehi",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yabalka-s-orehi.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yabalka-s-orehi.jpg"
+  },
+  "yabalka-s-fastacheno-maslo": {
+    "name": "Ябълка с фъстъчено масло",
+    "slug": "yabalka-s-fastacheno-maslo",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yabalka-s-fastacheno-maslo.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yabalka-s-fastacheno-maslo.jpg"
+  },
+  "yaytsa-benedikt-s-avokado": {
+    "name": "Яйца бенедикт с авокадо",
+    "slug": "yaytsa-benedikt-s-avokado",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yaytsa-benedikt-s-avokado.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yaytsa-benedikt-s-avokado.jpg"
+  },
+  "yaytsa-benedikt-s-avokado-i-syomga": {
+    "name": "Яйца бенедикт с авокадо и сьомга",
+    "slug": "yaytsa-benedikt-s-avokado-i-syomga",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yaytsa-benedikt-s-avokado-i-syomga.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yaytsa-benedikt-s-avokado-i-syomga.jpg"
+  },
+  "yaytsa-vareni": {
+    "name": "Яйца варени",
+    "slug": "yaytsa-vareni",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yaytsa-vareni.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yaytsa-vareni.jpg"
+  },
+  "yaytsa-vareni-s-avokado": {
+    "name": "Яйца варени с авокадо",
+    "slug": "yaytsa-vareni-s-avokado",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yaytsa-vareni-s-avokado.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yaytsa-vareni-s-avokado.jpg"
+  },
+  "yaytsa-i-avokado": {
+    "name": "Яйца и авокадо",
+    "slug": "yaytsa-i-avokado",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yaytsa-i-avokado.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yaytsa-i-avokado.jpg"
+  },
+  "yaytsa-na-ochi-s-avokado-i-bekon-ot-puyka": {
+    "name": "Яйца на очи с авокадо и бекон от пуйка",
+    "slug": "yaytsa-na-ochi-s-avokado-i-bekon-ot-puyka",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yaytsa-na-ochi-s-avokado-i-bekon-ot-puyka.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yaytsa-na-ochi-s-avokado-i-bekon-ot-puyka.jpg"
+  },
+  "yaytsa-na-ochi-s-avokado-syomga-i-hlyab": {
+    "name": "Яйца на очи с авокадо, сьомга и хляб",
+    "slug": "yaytsa-na-ochi-s-avokado-syomga-i-hlyab",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yaytsa-na-ochi-s-avokado-syomga-i-hlyab.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yaytsa-na-ochi-s-avokado-syomga-i-hlyab.jpg"
+  },
+  "yaytsa-na-ochi-s-hlyab": {
+    "name": "Яйца на очи с хляб",
+    "slug": "yaytsa-na-ochi-s-hlyab",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yaytsa-na-ochi-s-hlyab.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yaytsa-na-ochi-s-hlyab.jpg"
+  },
+  "yaytsa-na-ochi-sas-sirene-i-hlyab": {
+    "name": "Яйца на очи със сирене и хляб",
+    "slug": "yaytsa-na-ochi-sas-sirene-i-hlyab",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yaytsa-na-ochi-sas-sirene-i-hlyab.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yaytsa-na-ochi-sas-sirene-i-hlyab.jpg"
+  },
+  "yaytsa-s-avokado": {
+    "name": "Яйца с авокадо",
+    "slug": "yaytsa-s-avokado",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yaytsa-s-avokado.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yaytsa-s-avokado.jpg"
+  },
+  "yaytsa-s-avokado-i-palnozarnest-hlyab": {
+    "name": "Яйца с авокадо и пълнозърнест хляб",
+    "slug": "yaytsa-s-avokado-i-palnozarnest-hlyab",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yaytsa-s-avokado-i-palnozarnest-hlyab.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yaytsa-s-avokado-i-palnozarnest-hlyab.jpg"
+  },
+  "yaytsa-s-avokado-i-hlyab": {
+    "name": "Яйца с авокадо и хляб",
+    "slug": "yaytsa-s-avokado-i-hlyab",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yaytsa-s-avokado-i-hlyab.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yaytsa-s-avokado-i-hlyab.jpg"
+  },
+  "yaytsa-s-avokado-bekon-ot-puyka-i-palnozarnest-hlyab": {
+    "name": "Яйца с авокадо, бекон от пуйка и пълнозърнест хляб",
+    "slug": "yaytsa-s-avokado-bekon-ot-puyka-i-palnozarnest-hlyab",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yaytsa-s-avokado-bekon-ot-puyka-i-palnozarnest-hlyab.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yaytsa-s-avokado-bekon-ot-puyka-i-palnozarnest-hlyab.jpg"
+  },
+  "yaytsa-s-palnozarnest-hlyab": {
+    "name": "Яйца с пълнозърнест хляб",
+    "slug": "yaytsa-s-palnozarnest-hlyab",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yaytsa-s-palnozarnest-hlyab.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yaytsa-s-palnozarnest-hlyab.jpg"
+  },
+  "ovesena-kasha-s-orehi-i-banan": {
+    "name": "Овесена каша с орехи и банан",
+    "slug": "ovesena-kasha-s-orehi-i-banan",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/ovesena-kasha-s-orehi-i-banan.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\ovesena-kasha-s-orehi-i-banan.jpg"
+  },
+  "yaytse-vareno": {
+    "name": "Яйце варено",
+    "slug": "yaytse-vareno",
+    "imageUrl": "https://mrpsaqtmucxpawajfxfn.supabase.co/storage/v1/object/public/meal-images/yaytse-vareno.jpg",
+    "localPath": "D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\generated-meal-images\\optimized\\yaytse-vareno.jpg"
+  }
+}
