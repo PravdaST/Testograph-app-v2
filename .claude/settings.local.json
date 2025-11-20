@@ -1,7 +1,24 @@
 {
   "permissions": {
     "allow": [
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(powershell -Command \"$content = Get-Content lib\\data\\mock-meal-plan-*.ts -Raw; $matches = [regex]::Matches($content, \"\"name: ''([^'']+)''\"\"); $mealNames = $matches | Where-Object { $_Groups[1].Value -notmatch ''^(Овесени|Банан|Пилешки|Спанак|Ябълка|Протеинов|Моркови|Броколи|Кафяв|Зехтин|ingredient|name:)'' } | ForEach-Object { $_Groups[1].Value } | Sort-Object -Unique; $mealNames.Count\")",
+      "Bash(npm install:*)",
+      "Bash(npm run generate:meal-images:*)",
+      "Bash(node -e:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run dev:*)",
+      "Bash(next dev)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(nul)",
+      "Bash(powershell -Command \"Get-Content ''D:\\Automation\\All Testograph Ecosystem\\testograph-v2\\app\\api\\user\\daily-completion\\route.ts'' | Select-String -Pattern ''completionStatus'' -Context 2,2\")",
+      "Bash(npx tsx scripts/debug-completion.ts)",
+      "Bash(npx tsx:*)",
+      "Bash(curl:*)",
+      "Bash(timeout 5 tail:*)",
+      "Bash(timeout 3 tail:*)",
+      "Bash(timeout 8 tail:*)"
     ],
     "deny": [],
     "ask": []
