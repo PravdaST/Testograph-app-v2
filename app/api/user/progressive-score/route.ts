@@ -1,6 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 
+interface CompletionData {
+  date: string
+  completed: number
+  total: number
+}
+
 /**
  * GET /api/user/progressive-score?email={email}&date={date}
  * Calculate and return progressive score for a specific day
@@ -97,8 +103,8 @@ export async function GET(request: NextRequest) {
       .eq('email', email)
       .in('date', dates)
 
-    const completionMap = new Map(
-      completionData?.map((d: any) => [d.date, d]) || []
+    const completionMap = new Map<string, CompletionData>(
+      completionData?.map((d: CompletionData) => [d.date, d]) || []
     )
 
     // Calculate score for each day

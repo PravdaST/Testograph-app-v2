@@ -15,9 +15,12 @@ interface UserProgram {
   first_name?: string
   profile_picture_url?: string
   program_start_date?: string
+  program_end_date?: string
+  completed_at?: string
   workout_location?: 'home' | 'gym'
   dietary_preference?: 'omnivor' | 'vegetarian' | 'vegan' | 'pescatarian'
   total_score?: number
+  goal?: string
 }
 
 interface UserProgramContextType {

@@ -80,7 +80,7 @@ const DIETARY_PREFERENCE_NAMES = {
 
 export default function ProfilePage() {
   const router = useRouter()
-  const { email, userProgram, loading: contextLoading } = useUserProgram()
+  const { email, userProgram, loading: contextLoading, updateUserProgram } = useUserProgram()
   const [userStats, setUserStats] = useState<UserStats | null>(null)
   const [feedbackHistory, setFeedbackHistory] = useState<FeedbackSubmission[]>([])
   const [loading, setLoading] = useState(true)
@@ -182,7 +182,7 @@ export default function ProfilePage() {
       })
 
       if (response.ok) {
-        setUserProgram(prev => prev ? { ...prev, goal: goalText.trim() } : null)
+        updateUserProgram({ goal: goalText.trim() })
         setIsEditingGoal(false)
       }
     } catch (error) {
@@ -213,7 +213,7 @@ export default function ProfilePage() {
 
       if (response.ok) {
         const data = await response.json()
-        setUserProgram(prev => prev ? { ...prev, profile_picture_url: data.url } : null)
+        updateUserProgram({ profile_picture_url: data.url })
       } else {
         const errorData = await response.json()
         alert(errorData.error || 'Failed to upload profile picture')
@@ -243,7 +243,7 @@ export default function ProfilePage() {
       })
 
       if (response.ok) {
-        setUserProgram(prev => prev ? { ...prev, profile_picture_url: undefined } : null)
+        updateUserProgram({ profile_picture_url: undefined })
       } else {
         alert('Failed to delete profile picture')
       }
@@ -299,7 +299,7 @@ export default function ProfilePage() {
       })
 
       if (response.ok) {
-        setUserProgram(prev => prev ? { ...prev, workout_location: newLocation } : null)
+        updateUserProgram({ workout_location: newLocation })
       } else {
         alert('Грешка при промяна на локацията')
       }
@@ -325,7 +325,7 @@ export default function ProfilePage() {
       })
 
       if (response.ok) {
-        setUserProgram(prev => prev ? { ...prev, dietary_preference: newPreference } : null)
+        updateUserProgram({ dietary_preference: newPreference })
       } else {
         alert('Грешка при промяна на хранителното предпочитание')
       }
