@@ -383,7 +383,7 @@ export default function DashboardPage() {
 
   // Calculate streaks and perfect days
   useEffect(() => {
-    if (!completedDates || completedDates.length === 0) {
+    if (!completedDates || !Array.isArray(completedDates) || completedDates.length === 0) {
       setCurrentStreak(0)
       setPerfectDays(0)
       return
