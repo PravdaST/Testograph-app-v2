@@ -14,6 +14,7 @@ import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 import { MealCard } from '@/components/dashboard/MealCard'
+import { useUserProgram } from '@/contexts/UserProgramContext'
 import { applyDaySubstitutions, type SubstitutedMeal, type SubstitutedIngredient } from '@/lib/utils/dietary-substitution'
 import type { DietaryPreference } from '@/lib/data/dietary-substitutions'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
@@ -99,7 +100,7 @@ function getMealImageUrl(mealName: string): string | undefined {
 
 export default function NutritionPage() {
   const router = useRouter()
-  const [userProgram, setUserProgram] = useState<UserProgram | null>(null)
+  const { email, userProgram, loading: contextLoading } = useUserProgram()
   const [loading, setLoading] = useState(true)
   const [userName, setUserName] = useState<string>()
   const [programStartDate, setProgramStartDate] = useState<Date>(new Date())
@@ -110,34 +111,26 @@ export default function NutritionPage() {
   const [substitutingMeals, setSubstitutingMeals] = useState<Record<string, boolean>>({})
 
   // Load weekly completion status for calendar
-  const email = typeof window !== 'undefined' ? localStorage.getItem('quizEmail') : null
   const { completedDates } = useWeeklyCompletion(selectedDate, email)
 
   // Load user program
   useEffect(() => {
     const loadUserProgram = async () => {
+      if (!email || contextLoading) return
+
       try {
-        const email = localStorage.getItem('quizEmail')
-        if (!email) {
-          router.push('/quiz')
-          return
-        }
-
-        const response = await fetch(`/api/user/program?email=${encodeURIComponent(email)}`)
-        if (response.ok) {
-          const data = await response.json()
-          setUserProgram(data)
-
-          if (data.first_name) {
-            setUserName(data.first_name)
+        // Set user name from Context
+        if (userProgram) {
+          if (userProgram.first_name) {
+            setUserName(userProgram.first_name)
           } else {
             const emailUsername = email.split('@')[0]
             setUserName(emailUsername)
           }
 
           // Set program start date
-          if (data.program_start_date) {
-            setProgramStartDate(new Date(data.program_start_date))
+          if (userProgram.program_start_date) {
+            setProgramStartDate(new Date(userProgram.program_start_date))
           }
         }
 
@@ -153,19 +146,17 @@ export default function NutritionPage() {
         }
       } catch (error) {
         console.error('Error loading program:', error)
-        router.push('/quiz')
       } finally {
         setLoading(false)
       }
     }
 
     loadUserProgram()
-  }, [router])
+  }, [email, userProgram, contextLoading])
 
   // Load meals and substitutions for selected date
   useEffect(() => {
     const loadMealsForDate = async () => {
-      const email = localStorage.getItem('quizEmail')
       if (!email) return
 
       const dateKey = selectedDate.toISOString().split('T')[0]
@@ -192,10 +183,9 @@ export default function NutritionPage() {
     }
 
     loadMealsForDate()
-  }, [selectedDate])
+  }, [selectedDate, email])
 
   const handleMealToggle = async (mealNumber: number) => {
-    const email = localStorage.getItem('quizEmail')
     if (!email) return
 
     const dateKey = selectedDate.toISOString().split('T')[0]
@@ -241,7 +231,6 @@ export default function NutritionPage() {
   }
 
   const handleUndo = async (mealNumber: number) => {
-    const email = localStorage.getItem('quizEmail')
     if (!email) return
 
     const dateKey = selectedDate.toISOString().split('T')[0]
@@ -328,7 +317,6 @@ export default function NutritionPage() {
       }
 
       // Save substitution to database
-      const email = localStorage.getItem('quizEmail')
       if (email) {
         await fetch('/api/meals/substitutions', {
           method: 'POST',
