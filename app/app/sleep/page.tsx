@@ -13,13 +13,7 @@ import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
-
-interface UserProgram {
-  category: 'energy' | 'libido' | 'muscle'
-  first_name?: string
-  profile_picture_url?: string
-  program_start_date?: string
-}
+import { useUserProgram } from '@/contexts/UserProgramContext'
 
 interface SleepData {
   hours: number
@@ -50,14 +44,15 @@ const FEELINGS = [
 
 export default function SleepPage() {
   const router = useRouter()
-  const [userProgram, setUserProgram] = useState<UserProgram | null>(null)
+
+  // Use centralized user program state
+  const { userProgram, email, loading: contextLoading } = useUserProgram()
   const [loading, setLoading] = useState(true)
   const [userName, setUserName] = useState<string>()
   const [programStartDate, setProgramStartDate] = useState<Date>(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
 
   // Load weekly completion status for calendar
-  const email = typeof window !== 'undefined' ? localStorage.getItem('quizEmail') : null
   const { completedDates } = useWeeklyCompletion(selectedDate, email)
 
   // Today's sleep tracking
@@ -71,33 +66,23 @@ export default function SleepPage() {
   const [weeklyStats, setWeeklyStats] = useState<WeeklySleep[]>([])
   const [activeTooltip, setActiveTooltip] = useState<'hero' | 'hours' | 'average' | 'quality' | null>(null)
 
-  // Load user program and sleep data
+  // Load user program and sleep data from context
   useEffect(() => {
     const loadData = async () => {
+      if (contextLoading || !userProgram || !email) return
+
       try {
-        const email = localStorage.getItem('quizEmail')
-        if (!email) {
-          router.push('/quiz')
-          return
+        // Set user name from first_name or email fallback
+        if (userProgram.first_name) {
+          setUserName(userProgram.first_name)
+        } else {
+          const emailUsername = email.split('@')[0]
+          setUserName(emailUsername)
         }
 
-        // Load program
-        const response = await fetch(`/api/user/program?email=${encodeURIComponent(email)}`)
-        if (response.ok) {
-          const data = await response.json()
-          setUserProgram(data)
-
-          if (data.first_name) {
-            setUserName(data.first_name)
-          } else {
-            const emailUsername = email.split('@')[0]
-            setUserName(emailUsername)
-          }
-
-          // Set program start date
-          if (data.program_start_date) {
-            setProgramStartDate(new Date(data.program_start_date))
-          }
+        // Set program start date
+        if (userProgram.program_start_date) {
+          setProgramStartDate(new Date(userProgram.program_start_date))
         }
 
         // Load weekly stats (last 7 days)
@@ -133,12 +118,11 @@ export default function SleepPage() {
     }
 
     loadData()
-  }, [router])
+  }, [contextLoading, userProgram, email])
 
   // Load sleep data when selected date changes
   useEffect(() => {
     const loadSleepForDate = async () => {
-      const email = localStorage.getItem('quizEmail')
       if (!email) return
 
       const dateStr = selectedDate.toISOString().split('T')[0]
@@ -163,10 +147,9 @@ export default function SleepPage() {
     }
 
     loadSleepForDate()
-  }, [selectedDate])
+  }, [selectedDate, email])
 
   const handleSave = async () => {
-    const email = localStorage.getItem('quizEmail')
     if (!email) return
 
     try {

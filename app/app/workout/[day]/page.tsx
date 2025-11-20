@@ -19,6 +19,7 @@ import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
+import { useUserProgram } from '@/contexts/UserProgramContext'
 import { GENERAL_WARMUP } from '@/lib/data/warm-up-routines'
 import { GENERAL_COOLDOWN } from '@/lib/data/cool-down-routines'
 
@@ -45,15 +46,6 @@ import { MUSCLE_NORMAL_HOME_WORKOUTS } from '@/lib/data/mock-workouts-muscle-nor
 import { MUSCLE_NORMAL_GYM_WORKOUTS } from '@/lib/data/mock-workouts-muscle-normal-gym'
 import { MUSCLE_HIGH_HOME_WORKOUTS } from '@/lib/data/mock-workouts-muscle-high-home'
 import { MUSCLE_HIGH_GYM_WORKOUTS } from '@/lib/data/mock-workouts-muscle-high-gym'
-
-interface UserProgram {
-  category: 'energy' | 'libido' | 'muscle'
-  level: string
-  workout_location?: 'home' | 'gym'
-  first_name?: string
-  profile_picture_url?: string
-  program_start_date?: string
-}
 
 const CATEGORY_NAMES = {
   energy: 'Енергия и Виталност',
@@ -98,7 +90,8 @@ export default function WorkoutPage() {
   const params = useParams()
   const dayOfWeek = parseInt(params.day as string)
 
-  const [userProgram, setUserProgram] = useState<UserProgram | null>(null)
+  // Use centralized user program state
+  const { userProgram, email, loading: contextLoading } = useUserProgram()
   const [loading, setLoading] = useState(true)
   const [userName, setUserName] = useState<string>()
   const [programStartDate, setProgramStartDate] = useState<Date>(new Date())
@@ -115,7 +108,6 @@ export default function WorkoutPage() {
   }
 
   const [selectedDate, setSelectedDate] = useState(getDateForDayOfWeek(dayOfWeek))
-  const email = typeof window !== 'undefined' ? localStorage.getItem('quizEmail') : null
   const { completedDates } = useWeeklyCompletion(selectedDate, email)
   const [activeTooltip, setActiveTooltip] = useState<'hero' | null>(null)
   const [workoutSessionId, setWorkoutSessionId] = useState<string | null>(null)
@@ -129,64 +121,46 @@ export default function WorkoutPage() {
     router.push(`/app/workout/${dow}`)
   }
 
-  // Fetch user program to determine correct workout
+  // Set user name and program start date from context
   useEffect(() => {
-    const fetchUserProgram = async () => {
-      try {
-        const email = localStorage.getItem('quizEmail')
-        if (!email) {
-          router.push('/quiz')
-          return
-        }
-
-        const response = await fetch(`/api/user/program?email=${encodeURIComponent(email)}`)
-        if (response.ok) {
-          const data = await response.json()
-          setUserProgram({
-            category: data.category,
-            level: data.level,
-            workout_location: data.workout_location || 'gym',
-            first_name: data.first_name,
-            profile_picture_url: data.profile_picture_url,
-            program_start_date: data.program_start_date
-          })
-
-          // Set user name from first_name or email fallback
-          if (data.first_name) {
-            setUserName(data.first_name)
-          } else {
-            const emailUsername = email.split('@')[0]
-            setUserName(emailUsername)
-          }
-
-          // Set program start date
-          if (data.program_start_date) {
-            setProgramStartDate(new Date(data.program_start_date))
-          }
-        }
-
-        // Fetch completed workouts for this week
-        const historyResponse = await fetch(
-          `/api/workout/history/week?email=${encodeURIComponent(email)}`
-        )
-        if (historyResponse.ok) {
-          const historyData = await historyResponse.json()
-          setCompletedDays(historyData.completedByDayOfWeek || {})
-        }
-      } catch (error) {
-        console.error('Error fetching user program:', error)
-      } finally {
-        setLoading(false)
+    if (!contextLoading && userProgram && email) {
+      // Set user name from first_name or email fallback
+      if (userProgram.first_name) {
+        setUserName(userProgram.first_name)
+      } else {
+        const emailUsername = email.split('@')[0]
+        setUserName(emailUsername)
       }
-    }
 
-    fetchUserProgram()
-  }, [router])
+      // Set program start date
+      if (userProgram.program_start_date) {
+        setProgramStartDate(new Date(userProgram.program_start_date))
+      }
+
+      // Fetch completed workouts for this week
+      const fetchCompletedWorkouts = async () => {
+        try {
+          const historyResponse = await fetch(
+            `/api/workout/history/week?email=${encodeURIComponent(email)}`
+          )
+          if (historyResponse.ok) {
+            const historyData = await historyResponse.json()
+            setCompletedDays(historyData.completedByDayOfWeek || {})
+          }
+        } catch (error) {
+          console.error('Error fetching completed workouts:', error)
+        } finally {
+          setLoading(false)
+        }
+      }
+
+      fetchCompletedWorkouts()
+    }
+  }, [contextLoading, userProgram, email])
 
   // Load workout completion status when selected date changes
   useEffect(() => {
     const loadWorkoutForDate = async () => {
-      const email = localStorage.getItem('quizEmail')
       if (!email) return
 
       const dateStr = selectedDate.toISOString().split('T')[0]
@@ -223,7 +197,7 @@ export default function WorkoutPage() {
     }
 
     loadWorkoutForDate()
-  }, [selectedDate, dayOfWeek])
+  }, [selectedDate, dayOfWeek, email])
 
   // Get correct workouts based on user's program
   const workouts = userProgram
@@ -276,10 +250,9 @@ export default function WorkoutPage() {
   }
 
   const handleFinishWorkout = async () => {
-    try {
-      const email = localStorage.getItem('quizEmail')
-      if (!email) return
+    if (!email) return
 
+    try {
       // Save workout completion to database
       const response = await fetch('/api/workout/complete', {
         method: 'POST',

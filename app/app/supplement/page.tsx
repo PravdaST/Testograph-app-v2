@@ -13,13 +13,7 @@ import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
-
-interface UserProgram {
-  category: 'energy' | 'libido' | 'muscle'
-  first_name?: string
-  profile_picture_url?: string
-  program_start_date?: string
-}
+import { useUserProgram } from '@/contexts/UserProgramContext'
 
 interface TestoUpInventory {
   capsules_remaining: number
@@ -39,12 +33,13 @@ const DAY_NAMES = ['Нед', 'Пон', 'Вто', 'Сря', 'Чет', 'Пет', '
 
 export default function SupplementPage() {
   const router = useRouter()
-  const [userProgram, setUserProgram] = useState<UserProgram | null>(null)
+
+  // Use centralized user program state
+  const { userProgram, email, loading: contextLoading } = useUserProgram()
   const [loading, setLoading] = useState(true)
   const [userName, setUserName] = useState<string>()
   const [programStartDate, setProgramStartDate] = useState<Date>(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
-  const email = typeof window !== 'undefined' ? localStorage.getItem('quizEmail') : null
   const { completedDates } = useWeeklyCompletion(selectedDate, email)
   const [testoUpInventory, setTestoUpInventory] = useState<TestoUpInventory | null>(null)
   const [morningCompleted, setMorningCompleted] = useState(false)
@@ -74,33 +69,23 @@ export default function SupplementPage() {
     return () => clearInterval(interval)
   }, [])
 
-  // Load user program and tracking
+  // Load user program and tracking from context
   useEffect(() => {
     const loadData = async () => {
+      if (contextLoading || !userProgram || !email) return
+
       try {
-        const email = localStorage.getItem('quizEmail')
-        if (!email) {
-          router.push('/quiz')
-          return
+        // Set user name from first_name or email fallback
+        if (userProgram.first_name) {
+          setUserName(userProgram.first_name)
+        } else {
+          const emailUsername = email.split('@')[0]
+          setUserName(emailUsername)
         }
 
-        // Load program
-        const response = await fetch(`/api/user/program?email=${encodeURIComponent(email)}`)
-        if (response.ok) {
-          const data = await response.json()
-          setUserProgram(data)
-
-          if (data.first_name) {
-            setUserName(data.first_name)
-          } else {
-            const emailUsername = email.split('@')[0]
-            setUserName(emailUsername)
-          }
-
-          // Set program start date
-          if (data.program_start_date) {
-            setProgramStartDate(new Date(data.program_start_date))
-          }
+        // Set program start date
+        if (userProgram.program_start_date) {
+          setProgramStartDate(new Date(userProgram.program_start_date))
         }
 
         // Load inventory
@@ -138,12 +123,11 @@ export default function SupplementPage() {
     }
 
     loadData()
-  }, [router])
+  }, [contextLoading, userProgram, email])
 
   // Load supplement tracking for selected date
   useEffect(() => {
     const loadTrackingForDate = async () => {
-      const email = localStorage.getItem('quizEmail')
       if (!email) return
 
       const dateStr = selectedDate.toISOString().split('T')[0]
@@ -160,13 +144,11 @@ export default function SupplementPage() {
     }
 
     loadTrackingForDate()
-  }, [selectedDate])
+  }, [selectedDate, email])
 
   const handleDoseToggle = async (timeOfDay: 'morning' | 'evening') => {
     if (timeOfDay === 'morning' && morningCompleted) return
     if (timeOfDay === 'evening' && eveningCompleted) return
-
-    const email = localStorage.getItem('quizEmail')
     if (!email) return
 
     try {
