@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 import { WelcomeGuide } from '@/components/dashboard/WelcomeGuide'
 import { FeedbackModal } from '@/components/feedback/FeedbackModal'
+import { CycleCompleteModal } from '@/components/dashboard/CycleCompleteModal'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { ElectricBorder } from '@/components/ui/electric-border'
@@ -44,6 +45,7 @@ export default function DashboardPage() {
   const [showWelcome, setShowWelcome] = useState(false)
   const [showFeedback, setShowFeedback] = useState(false)
   const [feedbackDay, setFeedbackDay] = useState<FeedbackDay | null>(null)
+  const [showCycleComplete, setShowCycleComplete] = useState(false)
   const [userName, setUserName] = useState<string>()
   const [programStartDate, setProgramStartDate] = useState<Date>(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
@@ -435,6 +437,31 @@ export default function DashboardPage() {
     }
   }, [todayStats])
 
+  // Check if user completed 30-day cycle and has remaining capsules
+  useEffect(() => {
+    if (!userProgram || !testoUpInventory) return
+
+    const currentProgramDay = Math.max(
+      Math.floor((new Date().getTime() - programStartDate.getTime()) / (1000 * 60 * 60 * 24)) + 1,
+      1
+    )
+
+    // Check if cycle is complete and user has capsules for at least 1 more day
+    const isCycleComplete = currentProgramDay >= 30
+    const hasRemainingCapsules = testoUpInventory.capsules_remaining >= 2
+
+    if (isCycleComplete && hasRemainingCapsules) {
+      // Check if modal was already shown today
+      const today = new Date().toISOString().split('T')[0]
+      const lastShown = localStorage.getItem('cycleModalShownDate')
+
+      if (lastShown !== today) {
+        setShowCycleComplete(true)
+        localStorage.setItem('cycleModalShownDate', today)
+      }
+    }
+  }, [userProgram, testoUpInventory, programStartDate])
+
   // Helper function to get score color based on new thresholds
   // 0-50: Red (low progress)
   // 51-80: Orange (good progress)
@@ -558,6 +585,16 @@ export default function DashboardPage() {
       {showWelcome && <WelcomeGuide userName={userName} onComplete={handleWelcomeComplete} />}
       {showFeedback && feedbackDay && (
         <FeedbackModal day={feedbackDay} onComplete={handleFeedbackComplete} onSkip={handleFeedbackSkip} />
+      )}
+      {showCycleComplete && testoUpInventory && (
+        <CycleCompleteModal
+          isOpen={showCycleComplete}
+          onClose={() => setShowCycleComplete(false)}
+          email={localStorage.getItem('quizEmail') || ''}
+          capsulesRemaining={testoUpInventory.capsules_remaining}
+          daysRemaining={testoUpInventory.days_remaining}
+          currentCategory={userProgram.category}
+        />
       )}
 
       <TopNav programName={programName} userName={userName} profilePictureUrl={userProgram?.profile_picture_url} />
