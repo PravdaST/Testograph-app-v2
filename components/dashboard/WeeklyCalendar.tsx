@@ -197,7 +197,7 @@ export function WeeklyCalendar({
                 )}
 
                 {/* Program Day Number - Show from program start onwards (past, today, and future) */}
-                {!isDisabled && dayNumber > 0 && dayNumber <= 30 && (
+                {!isDisabled && dayNumber > 0 && (
                   <span
                     className={`text-xs ${
                       isSelected
