@@ -76,7 +76,7 @@ export function BottomNav({ onNavigate }: BottomNavProps) {
   ]
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-background/95 backdrop-blur-lg border-t border-border safe-area-inset-bottom">
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-lg border-t border-border safe-area-inset-bottom">
       <div className="container-mobile">
         <div className="flex items-center justify-around py-2">
           {tabs.map((tab) => {
