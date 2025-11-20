@@ -39,6 +39,12 @@ export function UserProgramProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null)
 
   const loadUserProgram = async () => {
+    // Only run on client-side
+    if (typeof window === 'undefined') {
+      setLoading(false)
+      return
+    }
+
     try {
       setLoading(true)
       setError(null)
@@ -55,7 +61,7 @@ export function UserProgramProvider({ children }: { children: ReactNode }) {
 
       if (!response.ok) {
         throw new Error('Failed to load user program')
-      }
+        }
 
       const data = await response.json()
       setUserProgram(data.program)
