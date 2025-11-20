@@ -1,30 +1,56 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { createClient } from '@/lib/supabase/server'
 
 /**
  * GET /api/user/program
  * Get user's program based on their latest quiz result
  *
- * Expects: email in query params or cookies
+ * SECURITY: Validates Supabase session before returning user data
+ * Expects: Authenticated user session
  * Returns: { category, level, program_data }
  */
 export async function GET(request: NextRequest) {
   try {
-    // Get email from query params or session storage
-    const { searchParams } = new URL(request.url)
-    const email = searchParams.get('email')
+    // Create client to check session
+    const supabase = await createClient()
 
-    if (!email) {
+    // 1. Check for valid Supabase session
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+
+    if (sessionError || !session) {
       return NextResponse.json(
-        { error: 'Email is required' },
-        { status: 400 }
+        { error: 'Unauthorized - No valid session' },
+        { status: 401 }
       )
     }
 
-    const supabase = createServiceClient()
+    // 2. Get email from session (trusted source)
+    const sessionEmail = session.user.email
 
-    // Get latest quiz result for this email
-    const { data: quizResult, error } = await (supabase
+    if (!sessionEmail) {
+      return NextResponse.json(
+        { error: 'Unauthorized - No email in session' },
+        { status: 401 }
+      )
+    }
+
+    // 3. Optional: Validate query param email matches session (for debugging)
+    const { searchParams } = new URL(request.url)
+    const queryEmail = searchParams.get('email')
+
+    if (queryEmail && queryEmail !== sessionEmail) {
+      console.warn(`⚠️ Email mismatch: query=${queryEmail}, session=${sessionEmail}`)
+      // Return session email data, not query email (security)
+    }
+
+    // Use session email as the trusted source
+    const email = sessionEmail
+
+    const supabaseService = createServiceClient()
+
+    // Get latest quiz result for this email (use service client to bypass RLS)
+    const { data: quizResult, error } = await (supabaseService
       .from('quiz_results_v2') as any)
       .select('*')
       .eq('email', email)

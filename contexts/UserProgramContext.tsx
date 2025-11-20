@@ -4,10 +4,12 @@
  * UserProgramContext
  * Centralized state management for user program data
  * Prevents duplicate API calls and improves performance
+ * Uses Supabase session for authentication
  */
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 
 interface UserProgram {
   category: 'energy' | 'libido' | 'muscle'
@@ -52,15 +54,41 @@ export function UserProgramProvider({ children }: { children: ReactNode }) {
       setLoading(true)
       setError(null)
 
-      const storedEmail = localStorage.getItem('quizEmail')
-      if (!storedEmail) {
-        router.push('/quiz')
+      const supabase = createClient()
+
+      // Get Supabase session
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+
+      if (sessionError) {
+        console.error('Session error:', sessionError)
+      }
+
+      let userEmail: string | null = null
+
+      // Priority 1: Use session email if exists
+      if (session?.user?.email) {
+        userEmail = session.user.email
+        // Sync with localStorage for compatibility
+        localStorage.setItem('quizEmail', userEmail)
+      } else {
+        // Priority 2: Fallback to localStorage (migration period)
+        const storedEmail = localStorage.getItem('quizEmail')
+        if (storedEmail) {
+          userEmail = storedEmail
+          console.warn('⚠️ Using localStorage fallback. Session not found.')
+        }
+      }
+
+      // If no email from either source, redirect to login
+      if (!userEmail) {
+        console.log('No session or stored email found. Redirecting to login...')
+        router.push('/login')
         return
       }
 
-      setEmail(storedEmail)
+      setEmail(userEmail)
 
-      const response = await fetch(`/api/user/program?email=${encodeURIComponent(storedEmail)}`)
+      const response = await fetch(`/api/user/program?email=${encodeURIComponent(userEmail)}`)
 
       if (!response.ok) {
         throw new Error('Failed to load user program')

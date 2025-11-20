@@ -12,6 +12,7 @@ import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { FeedbackHistory } from '@/components/profile/FeedbackHistory'
 import { useUserProgram } from '@/contexts/UserProgramContext'
+import { createClient } from '@/lib/supabase/client'
 import {
   User, Mail, Calendar, TrendingUp, ArrowLeft, Camera, Target, Edit2,
   Check, X, Loader2, Trash2, Settings, LogOut, Home,
@@ -279,10 +280,12 @@ export default function ProfilePage() {
     return Math.min(Math.round((daysPassed / totalDays) * 100), 100)
   }
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     if (confirm('Сигурни ли сте, че искате да излезете от профила?')) {
-      localStorage.removeItem('quizEmail')
-      router.push('/quiz')
+      const supabase = createClient()
+      await supabase.auth.signOut()
+      localStorage.clear()
+      router.push('/login')
     }
   }
 
