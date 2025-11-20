@@ -627,7 +627,7 @@ export default function DashboardPage() {
                   </div>
 
                   {/* Chart & Status */}
-                  <div className="flex items-center gap-6">
+                  <div className="flex flex-col items-center gap-3">
                     {weeklyCompletionRates.length > 0 && (
                       <svg width="140" height="60" viewBox="0 0 140 60" preserveAspectRatio="xMidYMid meet">
                       <defs>
@@ -662,15 +662,13 @@ export default function DashboardPage() {
                       />
                     </svg>
                   )}
-                    <div className="text-center">
-                      <div className={`text-base font-bold ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`}>
-                        {(() => {
-                          const s = selectedDayScore || userProgram.total_score
-                          if (s >= 81) return 'Отлично!'
-                          if (s >= 51) return 'Добър прогрес'
-                          return 'Следвай плана'
-                        })()}
-                      </div>
+                    <div className={`text-sm font-bold ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`}>
+                      {(() => {
+                        const s = selectedDayScore || userProgram.total_score
+                        if (s >= 81) return 'Отлично!'
+                        if (s >= 51) return 'Добър прогрес'
+                        return 'Следвай плана'
+                      })()}
                     </div>
                   </div>
                 </div>
