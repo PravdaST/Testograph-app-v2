@@ -887,194 +887,397 @@ export default function DashboardPage() {
           )}
 
           {/* Workout Card - Critical if not completed */}
-          <div
-            className="relative col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
-            style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
-            onClick={() => router.push(`/app/workout/${selectedDate.getDay() === 0 ? 7 : selectedDate.getDay()}`)}
-          >
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <Dumbbell className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-                <div className="text-lg font-bold">
-                  {selectedDayStats.workoutCompleted ? '1' : '0'}/1
-                </div>
-              </div>
-              {selectedDayStats.workoutCompleted ? (
-                <div className="flex items-center gap-1 text-[10px] text-success font-medium">
-                  <CheckCircle2 className="w-3 h-3" />
-                  <span>{selectedDayStats.workoutDuration ? `${selectedDayStats.workoutDuration} мин` : 'Завършено'}</span>
-                </div>
-              ) : (
-                <div className="text-[10px] text-muted-foreground">Не е завършено</div>
-              )}
-            </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setActiveTooltip(activeTooltip === 'workouts' ? null : 'workouts')
-              }}
-              className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
-            >
-              <Info className="w-3 h-3 text-muted-foreground" />
-            </button>
-            {activeTooltip === 'workouts' && typeof window !== 'undefined' && createPortal(
-              <>
-                <div
-                  className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setActiveTooltip(null)
-                  }}
-                />
-                <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <div className="text-sm font-bold text-foreground">Тренировки</div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setActiveTooltip(null)
-                      }}
-                      className="p-1 hover:bg-muted rounded-md transition-colors"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
+          {isSelectedDateToday && !selectedDayStats.workoutCompleted ? (
+            <ElectricBorder borderColor="from-blue-500 via-cyan-500 to-teal-500" className="col-span-1">
+              <div
+                className="relative bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+                style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
+                onClick={() => router.push(`/app/workout/${selectedDate.getDay() === 0 ? 7 : selectedDate.getDay()}`)}
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Dumbbell className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                    <div className="text-lg font-bold">
+                      {selectedDayStats.workoutCompleted ? '1' : '0'}/1
+                    </div>
                   </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Статус на тренировката за избрания ден. Редовните тренировки са ключови за повишаване на тестостерона.
-                  </p>
-                </div>
-              </>,
-              document.body
-            )}
-          </div>
-
-          <div
-            className="relative col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
-            style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
-            onClick={() => router.push('/app/sleep')}
-          >
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <Moon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-                <div className="text-lg font-bold">
-                  {selectedDayStats.sleepTracked ? (
-                    `${selectedDayStats.sleepHours}ч`
+                  {selectedDayStats.workoutCompleted ? (
+                    <div className="flex items-center gap-1 text-[10px] text-success font-medium">
+                      <CheckCircle2 className="w-3 h-3" />
+                      <span>{selectedDayStats.workoutDuration ? `${selectedDayStats.workoutDuration} мин` : 'Завършено'}</span>
+                    </div>
                   ) : (
-                    <span className="text-destructive">•</span>
+                    <div className="text-[10px] text-muted-foreground">Не е завършено</div>
                   )}
                 </div>
-              </div>
-              {selectedDayStats.sleepTracked ? (
-                <div className="flex items-center gap-1 text-[10px] text-success font-medium">
-                  <CheckCircle2 className="w-3 h-3" />
-                  <span>Качество: {selectedDayStats.sleepQuality || 'N/A'}/10</span>
-                </div>
-              ) : (
-                <div className="text-[10px] text-muted-foreground">Не е проследен</div>
-              )}
-            </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setActiveTooltip(activeTooltip === 'sleep' ? null : 'sleep')
-              }}
-              className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
-            >
-              <Info className="w-3 h-3 text-muted-foreground" />
-            </button>
-            {activeTooltip === 'sleep' && typeof window !== 'undefined' && createPortal(
-              <>
-                <div
-                  className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                <button
                   onClick={(e) => {
                     e.stopPropagation()
-                    setActiveTooltip(null)
+                    setActiveTooltip(activeTooltip === 'workouts' ? null : 'workouts')
                   }}
-                />
-                <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <div className="text-sm font-bold text-foreground">Сън</div>
-                    <button
+                  className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
+                >
+                  <Info className="w-3 h-3 text-muted-foreground" />
+                </button>
+                {activeTooltip === 'workouts' && typeof window !== 'undefined' && createPortal(
+                  <>
+                    <div
+                      className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
                       onClick={(e) => {
                         e.stopPropagation()
                         setActiveTooltip(null)
                       }}
-                      className="p-1 hover:bg-muted rounded-md transition-colors"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
+                    />
+                    <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <div className="text-sm font-bold text-foreground">Тренировки</div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setActiveTooltip(null)
+                          }}
+                          className="p-1 hover:bg-muted rounded-md transition-colors"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Статус на тренировката за избрания ден. Редовните тренировки са ключови за повишаване на тестостерона.
+                      </p>
+                    </div>
+                  </>,
+                  document.body
+                )}
+              </div>
+            </ElectricBorder>
+          ) : (
+            <div
+              className="relative col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+              style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
+              onClick={() => router.push(`/app/workout/${selectedDate.getDay() === 0 ? 7 : selectedDate.getDay()}`)}
+            >
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Dumbbell className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                  <div className="text-lg font-bold">
+                    {selectedDayStats.workoutCompleted ? '1' : '0'}/1
                   </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Брой часове сън за избрания ден. Целта е 7-9 часа качествен сън за оптимална хормонална функция.
-                  </p>
                 </div>
-              </>,
-              document.body
-            )}
-          </div>
+                {selectedDayStats.workoutCompleted ? (
+                  <div className="flex items-center gap-1 text-[10px] text-success font-medium">
+                    <CheckCircle2 className="w-3 h-3" />
+                    <span>{selectedDayStats.workoutDuration ? `${selectedDayStats.workoutDuration} мин` : 'Завършено'}</span>
+                  </div>
+                ) : (
+                  <div className="text-[10px] text-muted-foreground">Не е завършено</div>
+                )}
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setActiveTooltip(activeTooltip === 'workouts' ? null : 'workouts')
+                }}
+                className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
+              >
+                <Info className="w-3 h-3 text-muted-foreground" />
+              </button>
+              {activeTooltip === 'workouts' && typeof window !== 'undefined' && createPortal(
+                <>
+                  <div
+                    className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setActiveTooltip(null)
+                    }}
+                  />
+                  <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <div className="text-sm font-bold text-foreground">Тренировки</div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setActiveTooltip(null)
+                        }}
+                        className="p-1 hover:bg-muted rounded-md transition-colors"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Статус на тренировката за избрания ден. Редовните тренировки са ключови за повишаване на тестостерона.
+                    </p>
+                  </div>
+                </>,
+                document.body
+              )}
+            </div>
+          )}
 
-          <div
-            className="relative col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
-            style={{ animationDelay: '0.7s', animationFillMode: 'both' }}
-            onClick={() => router.push('/app/supplement')}
-          >
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <Pill className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
-                <div className="text-lg font-bold">
-                  {(selectedDayStats.testoUpMorning ? 1 : 0) + (selectedDayStats.testoUpEvening ? 1 : 0)}/2
+          {/* Sleep Card - Critical if not tracked */}
+          {isSelectedDateToday && !selectedDayStats.sleepTracked ? (
+            <ElectricBorder borderColor="from-purple-500 via-indigo-500 to-violet-500" className="col-span-1">
+              <div
+                className="relative bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+                style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
+                onClick={() => router.push('/app/sleep')}
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Moon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                    <div className="text-lg font-bold">
+                      {selectedDayStats.sleepTracked ? (
+                        `${selectedDayStats.sleepHours}ч`
+                      ) : (
+                        <span className="text-destructive">•</span>
+                      )}
+                    </div>
+                  </div>
+                  {selectedDayStats.sleepTracked ? (
+                    <div className="flex items-center gap-1 text-[10px] text-success font-medium">
+                      <CheckCircle2 className="w-3 h-3" />
+                      <span>Качество: {selectedDayStats.sleepQuality || 'N/A'}/10</span>
+                    </div>
+                  ) : (
+                    <div className="text-[10px] text-muted-foreground">Не е проследен</div>
+                  )}
                 </div>
-              </div>
-              {selectedDayStats.testoUpMorning && selectedDayStats.testoUpEvening ? (
-                <div className="flex items-center gap-1 text-[10px] text-success font-medium">
-                  <CheckCircle2 className="w-3 h-3" />
-                  <span>Пълен прием</span>
-                </div>
-              ) : selectedDayStats.testoUpMorning || selectedDayStats.testoUpEvening ? (
-                <div className="text-[10px] text-warning font-medium">Частичен прием</div>
-              ) : (
-                <div className="text-[10px] text-muted-foreground">Не е взет</div>
-              )}
-            </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setActiveTooltip(activeTooltip === 'testoup' ? null : 'testoup')
-              }}
-              className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
-            >
-              <Info className="w-3 h-3 text-muted-foreground" />
-            </button>
-            {activeTooltip === 'testoup' && typeof window !== 'undefined' && createPortal(
-              <>
-                <div
-                  className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                <button
                   onClick={(e) => {
                     e.stopPropagation()
-                    setActiveTooltip(null)
+                    setActiveTooltip(activeTooltip === 'sleep' ? null : 'sleep')
                   }}
-                />
-                <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <div className="text-sm font-bold text-foreground">TestoUp Compliance</div>
-                    <button
+                  className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
+                >
+                  <Info className="w-3 h-3 text-muted-foreground" />
+                </button>
+                {activeTooltip === 'sleep' && typeof window !== 'undefined' && createPortal(
+                  <>
+                    <div
+                      className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
                       onClick={(e) => {
                         e.stopPropagation()
                         setActiveTooltip(null)
                       }}
-                      className="p-1 hover:bg-muted rounded-md transition-colors"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
+                    />
+                    <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <div className="text-sm font-bold text-foreground">Сън</div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setActiveTooltip(null)
+                          }}
+                          className="p-1 hover:bg-muted rounded-md transition-colors"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Брой часове сън за избрания ден. Целта е 7-9 часа качествен сън за оптимална хормонална функция.
+                      </p>
+                    </div>
+                  </>,
+                  document.body
+                )}
+              </div>
+            </ElectricBorder>
+          ) : (
+            <div
+              className="relative col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+              style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
+              onClick={() => router.push('/app/sleep')}
+            >
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Moon className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                  <div className="text-lg font-bold">
+                    {selectedDayStats.sleepTracked ? (
+                      `${selectedDayStats.sleepHours}ч`
+                    ) : (
+                      <span className="text-destructive">•</span>
+                    )}
                   </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Брой взети дози за избрания ден. TestoUp се взема 2 пъти дневно (сутрин и вечер).
-                  </p>
                 </div>
-              </>,
-              document.body
-            )}
-          </div>
+                {selectedDayStats.sleepTracked ? (
+                  <div className="flex items-center gap-1 text-[10px] text-success font-medium">
+                    <CheckCircle2 className="w-3 h-3" />
+                    <span>Качество: {selectedDayStats.sleepQuality || 'N/A'}/10</span>
+                  </div>
+                ) : (
+                  <div className="text-[10px] text-muted-foreground">Не е проследен</div>
+                )}
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setActiveTooltip(activeTooltip === 'sleep' ? null : 'sleep')
+                }}
+                className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
+              >
+                <Info className="w-3 h-3 text-muted-foreground" />
+              </button>
+              {activeTooltip === 'sleep' && typeof window !== 'undefined' && createPortal(
+                <>
+                  <div
+                    className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setActiveTooltip(null)
+                    }}
+                  />
+                  <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <div className="text-sm font-bold text-foreground">Сън</div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setActiveTooltip(null)
+                        }}
+                        className="p-1 hover:bg-muted rounded-md transition-colors"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Брой часове сън за избрания ден. Целта е 7-9 часа качествен сън за оптимална хормонална функция.
+                    </p>
+                  </div>
+                </>,
+                document.body
+              )}
+            </div>
+          )}
+
+          {/* TestoUp Card - Critical if not fully taken (both doses) */}
+          {isSelectedDateToday && (!selectedDayStats.testoUpMorning || !selectedDayStats.testoUpEvening) ? (
+            <ElectricBorder borderColor="from-green-500 via-emerald-500 to-lime-500" className="col-span-1">
+              <div
+                className="relative bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+                style={{ animationDelay: '0.7s', animationFillMode: 'both' }}
+                onClick={() => router.push('/app/supplement')}
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    <Pill className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                    <div className="text-lg font-bold">
+                      {(selectedDayStats.testoUpMorning ? 1 : 0) + (selectedDayStats.testoUpEvening ? 1 : 0)}/2
+                    </div>
+                  </div>
+                  {selectedDayStats.testoUpMorning && selectedDayStats.testoUpEvening ? (
+                    <div className="flex items-center gap-1 text-[10px] text-success font-medium">
+                      <CheckCircle2 className="w-3 h-3" />
+                      <span>Пълен прием</span>
+                    </div>
+                  ) : selectedDayStats.testoUpMorning || selectedDayStats.testoUpEvening ? (
+                    <div className="text-[10px] text-warning font-medium">Частичен прием</div>
+                  ) : (
+                    <div className="text-[10px] text-muted-foreground">Не е взет</div>
+                  )}
+                </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    setActiveTooltip(activeTooltip === 'testoup' ? null : 'testoup')
+                  }}
+                  className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
+                >
+                  <Info className="w-3 h-3 text-muted-foreground" />
+                </button>
+                {activeTooltip === 'testoup' && typeof window !== 'undefined' && createPortal(
+                  <>
+                    <div
+                      className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setActiveTooltip(null)
+                      }}
+                    />
+                    <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <div className="text-sm font-bold text-foreground">TestoUp Compliance</div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation()
+                            setActiveTooltip(null)
+                          }}
+                          className="p-1 hover:bg-muted rounded-md transition-colors"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        Брой взети дози за избрания ден. TestoUp се взема 2 пъти дневно (сутрин и вечер).
+                      </p>
+                    </div>
+                  </>,
+                  document.body
+                )}
+              </div>
+            </ElectricBorder>
+          ) : (
+            <div
+              className="relative col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+              style={{ animationDelay: '0.7s', animationFillMode: 'both' }}
+              onClick={() => router.push('/app/supplement')}
+            >
+              <div className="space-y-2">
+                <div className="flex items-center gap-2">
+                  <Pill className="w-5 h-5 text-primary group-hover:scale-110 transition-transform" />
+                  <div className="text-lg font-bold">
+                    {(selectedDayStats.testoUpMorning ? 1 : 0) + (selectedDayStats.testoUpEvening ? 1 : 0)}/2
+                  </div>
+                </div>
+                {selectedDayStats.testoUpMorning && selectedDayStats.testoUpEvening ? (
+                  <div className="flex items-center gap-1 text-[10px] text-success font-medium">
+                    <CheckCircle2 className="w-3 h-3" />
+                    <span>Пълен прием</span>
+                  </div>
+                ) : selectedDayStats.testoUpMorning || selectedDayStats.testoUpEvening ? (
+                  <div className="text-[10px] text-warning font-medium">Частичен прием</div>
+                ) : (
+                  <div className="text-[10px] text-muted-foreground">Не е взет</div>
+                )}
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setActiveTooltip(activeTooltip === 'testoup' ? null : 'testoup')
+                }}
+                className="absolute top-2 right-2 rounded-md hover:bg-muted/50 transition-colors"
+              >
+                <Info className="w-3 h-3 text-muted-foreground" />
+              </button>
+              {activeTooltip === 'testoup' && typeof window !== 'undefined' && createPortal(
+                <>
+                  <div
+                    className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setActiveTooltip(null)
+                    }}
+                  />
+                  <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+                    <div className="flex items-start justify-between gap-2 mb-2">
+                      <div className="text-sm font-bold text-foreground">TestoUp Compliance</div>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          setActiveTooltip(null)
+                        }}
+                        className="p-1 hover:bg-muted rounded-md transition-colors"
+                      >
+                        <X className="w-4 h-4" />
+                      </button>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      Брой взети дози за избрания ден. TestoUp се взема 2 пъти дневно (сутрин и вечер).
+                    </p>
+                  </div>
+                </>,
+                document.body
+              )}
+            </div>
+          )}
 
           {/* Overall Progress Bar */}
           <div className="col-span-4 bg-background rounded-xl p-4 border border-border">
