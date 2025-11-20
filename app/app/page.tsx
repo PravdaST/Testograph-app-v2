@@ -15,7 +15,7 @@ import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { createClient } from '@/lib/supabase/client'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
-import { Target, TrendingUp, Utensils, Dumbbell, Moon, Pill, CheckCircle2, ArrowRight, Calendar, Info, X } from 'lucide-react'
+import { Target, TrendingUp, Utensils, Dumbbell, Moon, Pill, CheckCircle2, ArrowRight, Calendar, Info, X, MapPin, CalendarDays, PartyPopper, ThumbsUp, Sparkles, AlertTriangle } from 'lucide-react'
 import Link from 'next/link'
 import confetti from 'canvas-confetti'
 import type { FeedbackDay, FeedbackResponse } from '@/lib/data/feedback-questions'
@@ -717,9 +717,21 @@ export default function DashboardPage() {
           {/* Daily Tasks Header & Progress */}
           <div className="col-span-4 space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold text-muted-foreground">
-                {isSelectedDateToday ? '📍 ДНЕС - Твоите задачи' : `📅 ${selectedDate.toLocaleDateString('bg-BG', { day: 'numeric', month: 'long' })}`}
-              </h3>
+              <div className="flex items-center gap-2">
+                {isSelectedDateToday ? (
+                  <>
+                    <MapPin className="w-4 h-4 text-primary" />
+                    <h3 className="text-sm font-semibold text-muted-foreground">ДНЕС - Твоите задачи</h3>
+                  </>
+                ) : (
+                  <>
+                    <CalendarDays className="w-4 h-4 text-primary" />
+                    <h3 className="text-sm font-semibold text-muted-foreground">
+                      {selectedDate.toLocaleDateString('bg-BG', { day: 'numeric', month: 'long' })}
+                    </h3>
+                  </>
+                )}
+              </div>
               <span className="text-xs font-medium text-muted-foreground">{selectedDayProgress}/{selectedDayTotal}</span>
             </div>
           </div>
@@ -736,7 +748,10 @@ export default function DashboardPage() {
                 <div className="text-lg font-bold">{selectedDayStats.mealsCompleted}/{selectedDayStats.totalMeals}</div>
               </div>
               {selectedDayStats.mealsCompleted >= 3 ? (
-                <div className="text-[10px] text-success font-medium">✓ Цел постигната</div>
+                <div className="flex items-center gap-1 text-[10px] text-success font-medium">
+                  <CheckCircle2 className="w-3 h-3" />
+                  <span>Цел постигната</span>
+                </div>
               ) : (
                 <div className="text-[10px] text-muted-foreground">
                   Още {3 - selectedDayStats.mealsCompleted} до цел
@@ -796,8 +811,9 @@ export default function DashboardPage() {
                 </div>
               </div>
               {selectedDayStats.workoutCompleted ? (
-                <div className="text-[10px] text-success font-medium">
-                  ✓ {selectedDayStats.workoutDuration ? `${selectedDayStats.workoutDuration} мин` : 'Завършено'}
+                <div className="flex items-center gap-1 text-[10px] text-success font-medium">
+                  <CheckCircle2 className="w-3 h-3" />
+                  <span>{selectedDayStats.workoutDuration ? `${selectedDayStats.workoutDuration} мин` : 'Завършено'}</span>
                 </div>
               ) : (
                 <div className="text-[10px] text-muted-foreground">Не е завършено</div>
@@ -860,8 +876,9 @@ export default function DashboardPage() {
                 </div>
               </div>
               {selectedDayStats.sleepTracked ? (
-                <div className="text-[10px] text-success font-medium">
-                  ✓ Качество: {selectedDayStats.sleepQuality || 'N/A'}/10
+                <div className="flex items-center gap-1 text-[10px] text-success font-medium">
+                  <CheckCircle2 className="w-3 h-3" />
+                  <span>Качество: {selectedDayStats.sleepQuality || 'N/A'}/10</span>
                 </div>
               ) : (
                 <div className="text-[10px] text-muted-foreground">Не е проследен</div>
@@ -920,7 +937,10 @@ export default function DashboardPage() {
                 </div>
               </div>
               {selectedDayStats.testoUpMorning && selectedDayStats.testoUpEvening ? (
-                <div className="text-[10px] text-success font-medium">✓ Пълен прием</div>
+                <div className="flex items-center gap-1 text-[10px] text-success font-medium">
+                  <CheckCircle2 className="w-3 h-3" />
+                  <span>Пълен прием</span>
+                </div>
               ) : selectedDayStats.testoUpMorning || selectedDayStats.testoUpEvening ? (
                 <div className="text-[10px] text-warning font-medium">Частичен прием</div>
               ) : (
@@ -988,15 +1008,29 @@ export default function DashboardPage() {
               />
             </div>
             <div className="flex items-center justify-between mt-2">
-              <span className="text-[10px] text-muted-foreground">
-                {selectedDayProgress === selectedDayTotal
-                  ? '🎉 Перфектен ден!'
-                  : selectedDayProgress >= 3
-                    ? '👍 Добра работа!'
-                    : selectedDayProgress >= 2
-                      ? '💪 Продължавай!'
-                      : '⚠️ Нуждаеш се от повече усилие'}
-              </span>
+              <div className="flex items-center gap-1.5">
+                {selectedDayProgress === selectedDayTotal ? (
+                  <>
+                    <PartyPopper className="w-3.5 h-3.5 text-success" />
+                    <span className="text-[10px] text-success font-medium">Перфектен ден!</span>
+                  </>
+                ) : selectedDayProgress >= 3 ? (
+                  <>
+                    <ThumbsUp className="w-3.5 h-3.5 text-primary" />
+                    <span className="text-[10px] text-muted-foreground">Добра работа!</span>
+                  </>
+                ) : selectedDayProgress >= 2 ? (
+                  <>
+                    <Sparkles className="w-3.5 h-3.5 text-warning" />
+                    <span className="text-[10px] text-muted-foreground">Продължавай!</span>
+                  </>
+                ) : (
+                  <>
+                    <AlertTriangle className="w-3.5 h-3.5 text-destructive" />
+                    <span className="text-[10px] text-destructive">Нужно е повече усилие</span>
+                  </>
+                )}
+              </div>
               <span className="text-[10px] font-medium text-muted-foreground">{selectedDayProgress}/{selectedDayTotal} задачи</span>
             </div>
           </div>
