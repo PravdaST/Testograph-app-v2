@@ -63,20 +63,28 @@ function ToastItem({ toast, onDismiss }: { toast: Toast; onDismiss: () => void }
   const Icon = ICONS[toast.type]
   const styles = STYLES[toast.type]
 
+  // Determine ARIA role based on toast type
+  const role = toast.type === 'error' ? 'alert' : 'status'
+  const ariaLive = toast.type === 'error' ? 'assertive' : 'polite'
+
   return (
     <div
+      role={role}
+      aria-live={ariaLive}
+      aria-atomic="true"
       className={cn(
         'flex items-center gap-3 px-4 py-3 rounded-xl shadow-lg animate-slide-up',
         styles.bg
       )}
     >
-      <Icon className={cn('w-5 h-5 flex-shrink-0', styles.icon)} />
+      <Icon className={cn('w-5 h-5 flex-shrink-0', styles.icon)} aria-hidden="true" />
       <p className={cn('text-sm font-medium flex-1', styles.text)}>{toast.message}</p>
       <button
         onClick={onDismiss}
-        className={cn('p-1 rounded-lg hover:bg-white/20 transition-colors', styles.text)}
+        aria-label="Затвори известието"
+        className={cn('p-1 rounded-lg hover:bg-white/20 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50', styles.text)}
       >
-        <X className="w-4 h-4" />
+        <X className="w-4 h-4" aria-hidden="true" />
       </button>
     </div>
   )
