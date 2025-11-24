@@ -1,10 +1,11 @@
 /**
  * App Layout
- * Wraps all /app routes with UserProgramProvider and ToastProvider
+ * Wraps all /app routes with UserProgramProvider, ToastProvider, and ErrorBoundary
  */
 
 import { UserProgramProvider } from '@/contexts/UserProgramContext'
 import { ToastProvider } from '@/contexts/ToastContext'
+import { ErrorBoundary } from '@/components/ui/error-boundary'
 
 export default function AppLayout({
   children,
@@ -12,10 +13,12 @@ export default function AppLayout({
   children: React.ReactNode
 }) {
   return (
-    <UserProgramProvider>
-      <ToastProvider>
-        {children}
-      </ToastProvider>
-    </UserProgramProvider>
+    <ErrorBoundary>
+      <UserProgramProvider>
+        <ToastProvider>
+          {children}
+        </ToastProvider>
+      </UserProgramProvider>
+    </ErrorBoundary>
   )
 }
