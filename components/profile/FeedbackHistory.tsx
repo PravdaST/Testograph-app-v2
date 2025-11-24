@@ -8,6 +8,7 @@
 import { useState } from 'react'
 import { ChevronDown, ChevronUp, TrendingUp, Calendar } from 'lucide-react'
 import { getFeedbackQuestions } from '@/lib/data/feedback-questions'
+import { NoFeedbackEmptyState } from '@/components/ui/empty-state'
 
 interface FeedbackSubmission {
   id: string
@@ -28,12 +29,12 @@ export function FeedbackHistory({ submissions }: FeedbackHistoryProps) {
 
   if (submissions.length === 0) {
     return (
-      <div className="bg-background rounded-2xl p-8 text-center border border-border">
-        <TrendingUp className="w-12 h-12 mx-auto mb-3 text-muted-foreground" />
-        <p className="text-muted-foreground">Все още няма попълнен feedback</p>
-        <p className="text-sm text-muted-foreground mt-2">
-          Ще получиш напомняне на всеки 7 дена
-        </p>
+      <div className="bg-background rounded-2xl border border-border">
+        <NoFeedbackEmptyState>
+          <p className="text-xs text-muted-foreground">
+            Ще получиш напомняне на всеки 7 дена
+          </p>
+        </NoFeedbackEmptyState>
       </div>
     )
   }
