@@ -1,19 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { validateSessionAndEmail } from '@/lib/auth/validate-session'
 
 /**
  * GET /api/meals/complete
  * Get completed meals for a specific date
+ *
+ * SECURITY: Requires valid session, users can only access their own data
  */
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const email = searchParams.get('email')
+    const queryEmail = searchParams.get('email')
     const date = searchParams.get('date')
 
-    if (!email || !date) {
+    // Validate session and get authenticated user's email
+    const { email, error: authError } = await validateSessionAndEmail(queryEmail)
+    if (authError) return authError
+
+    if (!date) {
       return NextResponse.json(
-        { error: 'Email and date are required' },
+        { error: 'Date is required' },
         { status: 400 }
       )
     }
@@ -43,15 +50,21 @@ export async function GET(request: NextRequest) {
 /**
  * POST /api/meals/complete
  * Toggle meal completion (mark or unmark)
+ *
+ * SECURITY: Requires valid session, users can only modify their own data
  */
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { email, date, mealNumber } = body
+    const { email: bodyEmail, date, mealNumber } = body
 
-    if (!email || !date || mealNumber === undefined) {
+    // Validate session and get authenticated user's email
+    const { email, error: authError } = await validateSessionAndEmail(bodyEmail)
+    if (authError) return authError
+
+    if (!date || mealNumber === undefined) {
       return NextResponse.json(
-        { error: 'Email, date, and mealNumber are required' },
+        { error: 'Date and mealNumber are required' },
         { status: 400 }
       )
     }

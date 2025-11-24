@@ -226,8 +226,10 @@ export default function CategoryQuizPage({ params }: PageProps) {
     e.preventDefault()
     setEmailError('')
 
-    if (!email || !email.includes('@')) {
-      setEmailError('Моля въведи валиден email адрес')
+    // Proper email validation with regex (RFC 5322 simplified)
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!email || !emailRegex.test(email)) {
+      setEmailError('Моля въведи валиден email адрес (пример: name@domain.com)')
       return
     }
 

@@ -1,19 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { validateSessionAndEmail } from '@/lib/auth/validate-session'
 
 /**
  * GET /api/user/day-details?email={email}&date={date}
  * Get detailed task completion status for a specific day
+ *
+ * SECURITY: Requires valid session, users can only access their own data
  */
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const email = searchParams.get('email')
+    const queryEmail = searchParams.get('email')
     const date = searchParams.get('date')
 
-    if (!email || !date) {
+    // Validate session and get authenticated user's email
+    const { email, error } = await validateSessionAndEmail(queryEmail)
+    if (error) return error
+
+    if (!date) {
       return NextResponse.json(
-        { error: 'Email and date are required' },
+        { error: 'Date is required' },
         { status: 400 }
       )
     }

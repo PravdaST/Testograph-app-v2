@@ -1,19 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { validateSessionAndEmail } from '@/lib/auth/validate-session'
 
 /**
  * POST /api/user/upload-profile-picture
  * Uploads a profile picture to Supabase Storage and updates user record
+ *
+ * SECURITY: Requires valid session, users can only upload their own picture
  */
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData()
     const file = formData.get('file') as File
-    const email = formData.get('email') as string
+    const formEmail = formData.get('email') as string
 
-    if (!file || !email) {
+    // Validate session and get authenticated user's email
+    const { email, error } = await validateSessionAndEmail(formEmail)
+    if (error) return error
+
+    if (!file) {
       return NextResponse.json(
-        { error: 'File and email are required' },
+        { error: 'File is required' },
         { status: 400 }
       )
     }
@@ -100,18 +107,17 @@ export async function POST(request: NextRequest) {
 /**
  * DELETE /api/user/upload-profile-picture
  * Deletes the user's profile picture
+ *
+ * SECURITY: Requires valid session, users can only delete their own picture
  */
 export async function DELETE(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const email = searchParams.get('email')
+    const queryEmail = searchParams.get('email')
 
-    if (!email) {
-      return NextResponse.json(
-        { error: 'Email is required' },
-        { status: 400 }
-      )
-    }
+    // Validate session and get authenticated user's email
+    const { email, error } = await validateSessionAndEmail(queryEmail)
+    if (error) return error
 
     const supabase = createServiceClient()
 

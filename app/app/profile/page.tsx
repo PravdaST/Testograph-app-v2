@@ -11,6 +11,7 @@ import { createPortal } from 'react-dom'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { FeedbackHistory } from '@/components/profile/FeedbackHistory'
+import { DeleteAccountModal } from '@/components/profile/DeleteAccountModal'
 import { useUserProgram } from '@/contexts/UserProgramContext'
 import { createClient } from '@/lib/supabase/client'
 import {
@@ -96,6 +97,7 @@ export default function ProfilePage() {
   const [isUploadingPicture, setIsUploadingPicture] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [activeTooltip, setActiveTooltip] = useState<'hero' | null>(null)
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -338,35 +340,24 @@ export default function ProfilePage() {
     }
   }
 
-  const handleDeleteAccount = async () => {
+  const handleDeleteAccount = () => {
+    setShowDeleteModal(true)
+  }
+
+  const confirmDeleteAccount = async () => {
     if (!email) return
 
-    const confirmText = 'Наистина ли искате да изтриете профила си? Това действие е необратимо и ще изтрие всички ваши данни.'
+    const response = await fetch(`/api/user/delete-account?email=${encodeURIComponent(email)}`, {
+      method: 'DELETE',
+    })
 
-    if (!confirm(confirmText)) return
-
-    const doubleConfirm = prompt('Моля, напишете "ИЗТРИЙ" за потвърждение:')
-
-    if (doubleConfirm !== 'ИЗТРИЙ') {
-      alert('Изтриването е отменено')
-      return
-    }
-
-    try {
-      const response = await fetch(`/api/user/delete-account?email=${encodeURIComponent(email)}`, {
-        method: 'DELETE',
-      })
-
-      if (response.ok) {
-        localStorage.removeItem('quizEmail')
-        alert('Профилът е изтрит успешно')
-        router.push('/quiz')
-      } else {
-        alert('Грешка при изтриване на профила')
-      }
-    } catch (error) {
-      console.error('Error deleting account:', error)
-      alert('Грешка при изтриване на профила')
+    if (response.ok) {
+      const supabase = createClient()
+      await supabase.auth.signOut()
+      localStorage.clear()
+      router.push('/quiz')
+    } else {
+      throw new Error('Failed to delete account')
     }
   }
 
@@ -752,6 +743,13 @@ export default function ProfilePage() {
       </div>
 
       <BottomNav onNavigate={() => router.push('/app')} />
+
+      {/* Delete Account Modal */}
+      <DeleteAccountModal
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onConfirm={confirmDeleteAccount}
+      />
     </div>
   )
 }

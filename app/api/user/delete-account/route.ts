@@ -1,22 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { validateSession } from '@/lib/auth/validate-session'
 
 /**
  * DELETE /api/user/delete-account
  * Permanently deletes user account and all associated data
+ *
+ * SECURITY: Requires valid session and only allows deleting own account
  */
 export async function DELETE(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url)
-    const email = searchParams.get('email')
-
-    if (!email) {
-      return NextResponse.json(
-        { error: 'Email is required' },
-        { status: 400 }
+    // 1. Validate session - user must be authenticated
+    const { isValid, email, error } = await validateSession()
+    if (!isValid || !email) {
+      return error || NextResponse.json(
+        { error: 'Unauthorized' },
+        { status: 401 }
       )
     }
 
+    // 2. Optional: Check if query param email matches session (for logging)
+    const { searchParams } = new URL(request.url)
+    const queryEmail = searchParams.get('email')
+    if (queryEmail && queryEmail !== email) {
+      console.warn(`⚠️ Delete account attempt for different email: query=${queryEmail}, session=${email}`)
+      return NextResponse.json(
+        { error: 'Unauthorized - Cannot delete other user accounts' },
+        { status: 403 }
+      )
+    }
+
+    // Use session email (trusted source) for all operations
     const supabase = createServiceClient()
 
     // Delete all user data from all tables

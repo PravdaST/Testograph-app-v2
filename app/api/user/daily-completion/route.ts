@@ -1,21 +1,28 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { validateSessionAndEmail } from '@/lib/auth/validate-session'
 
 /**
  * GET /api/user/daily-completion?email={email}&startDate={date}&endDate={date}
  * Get daily completion status for a date range
  * Returns which days have all 4 tasks completed (meals, workout, sleep, testoup)
+ *
+ * SECURITY: Requires valid session, users can only access their own data
  */
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const email = searchParams.get('email')
+    const queryEmail = searchParams.get('email')
     const startDate = searchParams.get('startDate')
     const endDate = searchParams.get('endDate')
 
-    if (!email || !startDate || !endDate) {
+    // Validate session and get authenticated user's email
+    const { email, error } = await validateSessionAndEmail(queryEmail)
+    if (error) return error
+
+    if (!startDate || !endDate) {
       return NextResponse.json(
-        { error: 'Email, startDate, and endDate are required' },
+        { error: 'startDate and endDate are required' },
         { status: 400 }
       )
     }

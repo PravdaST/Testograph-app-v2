@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { validateSessionAndEmail } from '@/lib/auth/validate-session'
 
 interface CompletionData {
   date: string
@@ -10,6 +11,8 @@ interface CompletionData {
 /**
  * GET /api/user/progressive-score?email={email}&date={date}
  * Calculate and return progressive score for a specific day
+ *
+ * SECURITY: Requires valid session, users can only access their own data
  *
  * Logic:
  * - Start with user's initial quiz score (from user_programs.total_score)
@@ -23,12 +26,16 @@ interface CompletionData {
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const email = searchParams.get('email')
+    const queryEmail = searchParams.get('email')
     const dateParam = searchParams.get('date')
 
-    if (!email || !dateParam) {
+    // Validate session and get authenticated user's email
+    const { email, error } = await validateSessionAndEmail(queryEmail)
+    if (error) return error
+
+    if (!dateParam) {
       return NextResponse.json(
-        { error: 'Email and date are required' },
+        { error: 'Date is required' },
         { status: 400 }
       )
     }

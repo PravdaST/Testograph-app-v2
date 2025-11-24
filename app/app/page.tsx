@@ -538,13 +538,11 @@ export default function DashboardPage() {
     router.push(routes[section])
   }
 
-  // Calculate program day
-  const currentProgramDay = Math.min(
-    Math.max(
-      Math.floor((new Date().getTime() - programStartDate.getTime()) / (1000 * 60 * 60 * 24)) + 1,
-      1
-    ),
-    30
+  // Calculate program day (no upper limit - continues counting after Day 30)
+  // WeeklyCalendar handles the locking of days > 30 separately
+  const currentProgramDay = Math.max(
+    Math.floor((new Date().getTime() - programStartDate.getTime()) / (1000 * 60 * 60 * 24)) + 1,
+    1
   )
 
   // Calculate today's progress

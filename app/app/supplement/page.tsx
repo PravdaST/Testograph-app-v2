@@ -5,10 +5,10 @@
  * TestoUp tracking and information page
  */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import { createPortal } from 'react-dom'
-import { Pill, Sun, Moon, CheckCircle2, ShoppingCart, Clock, Lock, TrendingUp, Package, Info, X } from 'lucide-react'
+import { Pill, Sun, Moon, CheckCircle2, ShoppingCart, Clock, Lock, TrendingUp, Package, Info, X, Undo2 } from 'lucide-react'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
@@ -47,6 +47,8 @@ export default function SupplementPage() {
   const [timeUntilReset, setTimeUntilReset] = useState('')
   const [weeklyStats, setWeeklyStats] = useState<Record<number, { morning: boolean; evening: boolean }>>({})
   const [activeTooltip, setActiveTooltip] = useState<'hero' | null>(null)
+  const [undoToast, setUndoToast] = useState<{ visible: boolean; period: 'morning' | 'evening' | null }>({ visible: false, period: null })
+  const undoTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   // Countdown timer to midnight
   useEffect(() => {
@@ -153,7 +155,7 @@ export default function SupplementPage() {
 
     try {
       const today = new Date().toISOString().split('T')[0]
-      await fetch('/api/testoup/track', {
+      const response = await fetch('/api/testoup/track', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -165,11 +167,25 @@ export default function SupplementPage() {
         }),
       })
 
+      if (!response.ok) {
+        console.error('Failed to track dose')
+        return
+      }
+
       if (timeOfDay === 'morning') {
         setMorningCompleted(true)
       } else {
         setEveningCompleted(true)
       }
+
+      // Show undo toast
+      if (undoTimerRef.current) {
+        clearTimeout(undoTimerRef.current)
+      }
+      setUndoToast({ visible: true, period: timeOfDay })
+      undoTimerRef.current = setTimeout(() => {
+        setUndoToast({ visible: false, period: null })
+      }, 5000)
 
       // Refresh inventory
       const inventoryResponse = await fetch(`/api/testoup/inventory?email=${encodeURIComponent(email)}`)
@@ -179,6 +195,45 @@ export default function SupplementPage() {
       }
     } catch (error) {
       console.error('Error tracking dose:', error)
+    }
+  }
+
+  const handleUndoDose = async () => {
+    if (!undoToast.period || !email) return
+
+    try {
+      const today = new Date().toISOString().split('T')[0]
+      const response = await fetch(
+        `/api/testoup/track?email=${encodeURIComponent(email)}&date=${today}&period=${undoToast.period}`,
+        { method: 'DELETE' }
+      )
+
+      if (!response.ok) {
+        console.error('Failed to undo dose')
+        return
+      }
+
+      // Update local state
+      if (undoToast.period === 'morning') {
+        setMorningCompleted(false)
+      } else {
+        setEveningCompleted(false)
+      }
+
+      // Hide toast
+      if (undoTimerRef.current) {
+        clearTimeout(undoTimerRef.current)
+      }
+      setUndoToast({ visible: false, period: null })
+
+      // Refresh inventory
+      const inventoryResponse = await fetch(`/api/testoup/inventory?email=${encodeURIComponent(email)}`)
+      if (inventoryResponse.ok) {
+        const inventoryData = await inventoryResponse.json()
+        setTestoUpInventory(inventoryData)
+      }
+    } catch (error) {
+      console.error('Error undoing dose:', error)
     }
   }
 
@@ -449,6 +504,28 @@ export default function SupplementPage() {
       </div>
 
       <BottomNav onNavigate={() => router.push('/app')} />
+
+      {/* Undo Toast */}
+      {undoToast.visible && typeof window !== 'undefined' && createPortal(
+        <div className="fixed bottom-24 left-4 right-4 z-[99999] animate-slide-up">
+          <div className="max-w-md mx-auto bg-foreground text-background rounded-xl p-4 shadow-2xl flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <CheckCircle2 className="w-5 h-5 text-success flex-shrink-0" />
+              <span className="text-sm font-medium">
+                {undoToast.period === 'morning' ? 'Сутрешна' : 'Вечерна'} доза записана
+              </span>
+            </div>
+            <button
+              onClick={handleUndoDose}
+              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-background/20 hover:bg-background/30 transition-colors text-sm font-medium"
+            >
+              <Undo2 className="w-4 h-4" />
+              Отмени
+            </button>
+          </div>
+        </div>,
+        document.body
+      )}
     </div>
   )
 }

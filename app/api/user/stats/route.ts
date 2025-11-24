@@ -1,18 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { validateSessionAndEmail } from '@/lib/auth/validate-session'
 
 /**
  * GET /api/user/stats
  * Returns aggregated statistics for the user over the last 30 days
+ *
+ * SECURITY: Requires valid session, users can only access their own stats
  */
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const email = searchParams.get('email')
+    const queryEmail = searchParams.get('email')
 
-    if (!email) {
-      return NextResponse.json({ error: 'Email is required' }, { status: 400 })
-    }
+    // Validate session and get authenticated user's email
+    const { email, error } = await validateSessionAndEmail(queryEmail)
+    if (error) return error
 
     const supabase = createServiceClient()
 

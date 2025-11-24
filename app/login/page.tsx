@@ -17,25 +17,39 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [redirectPath, setRedirectPath] = useState('/app')
 
-  // Check if already logged in
+  // Check for redirect parameter and existing session
   useEffect(() => {
+    // Get redirect path from URL params (set by middleware)
+    const searchParams = new URLSearchParams(window.location.search)
+    const redirect = searchParams.get('redirect')
+    if (redirect && redirect.startsWith('/')) {
+      setRedirectPath(redirect)
+    }
+
+    // Check for error param (from middleware)
+    const errorParam = searchParams.get('error')
+    if (errorParam === 'session_check_failed') {
+      setError('Възникна проблем при проверка на сесията. Опитай отново.')
+    }
+
     const checkSession = async () => {
       const supabase = createClient()
       const { data } = await supabase.auth.getSession()
 
       if (data.session) {
-        // Already logged in
+        // Already logged in - redirect to intended destination
         const userEmail = data.session.user.email
         if (userEmail) {
           localStorage.setItem('quizEmail', userEmail)
-          router.push('/app')
+          router.push(redirectPath)
         }
       }
     }
 
     checkSession()
-  }, [router])
+  }, [router, redirectPath])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -65,8 +79,8 @@ export default function LoginPage() {
         // Login successful - save email to localStorage
         localStorage.setItem('quizEmail', email)
 
-        // Redirect to app
-        router.push('/app')
+        // Redirect to intended destination (from middleware redirect param)
+        router.push(redirectPath)
       }
     } catch (err) {
       console.error('Login error:', err)

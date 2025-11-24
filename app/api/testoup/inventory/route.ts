@@ -1,21 +1,21 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
+import { validateSessionAndEmail } from '@/lib/auth/validate-session'
 
 /**
  * GET /api/testoup/inventory
  * Get TestoUp capsule inventory for user
+ *
+ * SECURITY: Requires valid session, users can only access their own inventory
  */
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url)
-    const email = searchParams.get('email')
+    const queryEmail = searchParams.get('email')
 
-    if (!email) {
-      return NextResponse.json(
-        { error: 'Email is required' },
-        { status: 400 }
-      )
-    }
+    // Validate session and get authenticated user's email
+    const { email, error: authError } = await validateSessionAndEmail(queryEmail)
+    if (authError) return authError
 
     const supabase = createServiceClient()
 
@@ -67,18 +67,17 @@ export async function GET(request: NextRequest) {
 /**
  * POST /api/testoup/inventory
  * Refill TestoUp inventory (new bottle)
+ *
+ * SECURITY: Requires valid session, users can only refill their own inventory
  */
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { email } = body
+    const { email: bodyEmail } = body
 
-    if (!email) {
-      return NextResponse.json(
-        { error: 'Email is required' },
-        { status: 400 }
-      )
-    }
+    // Validate session and get authenticated user's email
+    const { email, error: authError } = await validateSessionAndEmail(bodyEmail)
+    if (authError) return authError
 
     const supabase = createServiceClient()
 
