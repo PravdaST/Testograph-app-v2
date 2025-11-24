@@ -25,7 +25,8 @@
       "Bash(npm view:*)",
       "WebSearch",
       "Bash(gemini:*)",
-      "Bash(xargs -I {} bash -c \"echo ''''=== {} ==='''' && head -30 {}\")"
+      "Bash(xargs -I {} bash -c \"echo ''''=== {} ==='''' && head -30 {}\")",
+      "Bash(cat:*)"
     ],
     "deny": [],
     "ask": []
