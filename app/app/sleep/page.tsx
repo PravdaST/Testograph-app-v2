@@ -14,6 +14,7 @@ import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
 import { useUserProgram } from '@/contexts/UserProgramContext'
+import { SkeletonHeroBanner, SkeletonWeeklyCalendar, SkeletonStatBox } from '@/components/ui/skeleton-card'
 
 interface SleepData {
   hours: number
@@ -198,9 +199,21 @@ export default function SleepPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset">
-        <TopNav programName="Зареждане..." userName={userName} />
-        <div className="flex items-center justify-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+        <TopNav programName="Сън" userName={userName} />
+        <div className="container-mobile py-6 pb-24 space-y-4">
+          <SkeletonHeroBanner />
+          <SkeletonWeeklyCalendar />
+          <div className="grid grid-cols-2 gap-3">
+            <SkeletonStatBox />
+            <SkeletonStatBox />
+          </div>
+          <div className="bg-background rounded-xl p-4 border border-border animate-pulse">
+            <div className="h-5 w-32 bg-muted rounded mb-4" />
+            <div className="space-y-3">
+              <div className="h-12 bg-muted rounded-lg" />
+              <div className="h-12 bg-muted rounded-lg" />
+            </div>
+          </div>
         </div>
         <BottomNav onNavigate={() => router.push('/app')} />
       </div>

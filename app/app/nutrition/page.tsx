@@ -18,6 +18,7 @@ import { useUserProgram } from '@/contexts/UserProgramContext'
 import { applyDaySubstitutions, type SubstitutedMeal, type SubstitutedIngredient } from '@/lib/utils/dietary-substitution'
 import type { DietaryPreference } from '@/lib/data/dietary-substitutions'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
+import { SkeletonHeroBanner, SkeletonMealCard, SkeletonWeeklyCalendar, SkeletonStatBox } from '@/components/ui/skeleton-card'
 import mealImagesMapping from '@/lib/data/meal-images-mapping.json'
 
 // Meal Plan Imports - LOW level
@@ -356,9 +357,25 @@ export default function NutritionPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset">
-        <TopNav programName="Зареждане..." userName={userName} />
-        <div className="flex items-center justify-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+        <TopNav programName="Хранене" userName={userName} />
+        <div className="container-mobile py-6 pb-24 space-y-4">
+          {/* Hero Skeleton */}
+          <SkeletonHeroBanner />
+          {/* Calendar Skeleton */}
+          <SkeletonWeeklyCalendar />
+          {/* Stats Skeleton */}
+          <div className="grid grid-cols-2 gap-3">
+            <SkeletonStatBox />
+            <SkeletonStatBox />
+          </div>
+          {/* Meal Cards Skeleton */}
+          <div className="space-y-3">
+            <SkeletonMealCard />
+            <SkeletonMealCard />
+            <SkeletonMealCard />
+            <SkeletonMealCard />
+            <SkeletonMealCard />
+          </div>
         </div>
         <BottomNav onNavigate={() => router.push('/app')} />
       </div>

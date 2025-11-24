@@ -98,7 +98,14 @@ export function UserProgramProvider({ children }: { children: ReactNode }) {
       setUserProgram(data)
     } catch (err) {
       console.error('Error loading user program:', err)
-      setError(err instanceof Error ? err.message : 'Unknown error')
+      // User-friendly Bulgarian error messages
+      if (err instanceof Error && err.message.includes('Failed to fetch')) {
+        setError('Проблем с връзката. Провери интернет връзката си.')
+      } else if (err instanceof Error && err.message.includes('401')) {
+        setError('Сесията изтече. Моля, влез отново.')
+      } else {
+        setError('Не можахме да заредим данните. Опитай отново.')
+      }
     } finally {
       setLoading(false)
     }

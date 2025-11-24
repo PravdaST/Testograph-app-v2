@@ -16,6 +16,7 @@ import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { ElectricBorder } from '@/components/ui/electric-border'
 import { SkeletonCard, SkeletonProgressBar, SkeletonQuizScore } from '@/components/ui/skeleton-card'
+import { ErrorState } from '@/components/ui/error-state'
 import { createClient } from '@/lib/supabase/client'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
 import { Target, TrendingUp, Utensils, Dumbbell, Moon, Pill, CheckCircle2, ArrowRight, Calendar, Info, X, MapPin, CalendarDays, PartyPopper, ThumbsUp, Sparkles, AlertTriangle } from 'lucide-react'
@@ -42,6 +43,7 @@ export default function DashboardPage() {
   const router = useRouter()
   const [userProgram, setUserProgram] = useState<UserProgram | null>(null)
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [showWelcome, setShowWelcome] = useState(false)
   const [showFeedback, setShowFeedback] = useState(false)
   const [feedbackDay, setFeedbackDay] = useState<FeedbackDay | null>(null)
@@ -272,9 +274,14 @@ export default function DashboardPage() {
             await checkFeedbackDue(email, new Date(data.program_start_date))
           }
         }
-      } catch (error) {
-        console.error('Error loading data:', error)
-        router.push('/quiz')
+      } catch (err) {
+        console.error('Error loading data:', err)
+        // Set user-friendly Bulgarian error message instead of redirecting
+        if (err instanceof Error && err.message.includes('Failed to fetch')) {
+          setError('Проблем с връзката. Провери интернет връзката си.')
+        } else {
+          setError('Не можахме да заредим данните. Опитай отново.')
+        }
       } finally {
         setLoading(false)
       }
@@ -565,10 +572,31 @@ export default function DashboardPage() {
 
   const selectedDayTotal = 4
 
+  // Retry function to reload data
+  const handleRetry = () => {
+    setError(null)
+    setLoading(true)
+    window.location.reload()
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary" />
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-background to-muted">
+        <TopNav programName="Dashboard" userName={userName} />
+        <ErrorState
+          message={error}
+          onRetry={handleRetry}
+          variant="default"
+        />
+        <BottomNav onNavigate={() => router.push('/app')} />
       </div>
     )
   }

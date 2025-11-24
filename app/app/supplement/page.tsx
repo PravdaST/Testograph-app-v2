@@ -14,6 +14,7 @@ import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
 import { useUserProgram } from '@/contexts/UserProgramContext'
+import { SkeletonHeroBanner, SkeletonWeeklyCalendar, SkeletonStatBox } from '@/components/ui/skeleton-card'
 
 interface TestoUpInventory {
   capsules_remaining: number
@@ -244,9 +245,34 @@ export default function SupplementPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset">
-        <TopNav programName="Зареждане..." userName={userName} />
-        <div className="flex items-center justify-center py-20">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-primary border-t-transparent"></div>
+        <TopNav programName="TestoUp" userName={userName} />
+        <div className="container-mobile py-6 pb-24 space-y-4">
+          <SkeletonHeroBanner />
+          <SkeletonWeeklyCalendar />
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-background rounded-xl p-4 border border-border animate-pulse">
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-6 h-6 bg-muted rounded" />
+                <div className="h-4 w-16 bg-muted rounded" />
+                <div className="h-3 w-20 bg-muted rounded" />
+              </div>
+            </div>
+            <div className="bg-background rounded-xl p-4 border border-border animate-pulse">
+              <div className="flex flex-col items-center gap-2">
+                <div className="w-6 h-6 bg-muted rounded" />
+                <div className="h-4 w-16 bg-muted rounded" />
+                <div className="h-3 w-20 bg-muted rounded" />
+              </div>
+            </div>
+          </div>
+          <div className="col-span-2 bg-background rounded-xl p-4 border border-border animate-pulse">
+            <div className="h-5 w-24 bg-muted rounded mb-4" />
+            <div className="grid grid-cols-2 gap-4 mb-4">
+              <SkeletonStatBox />
+              <SkeletonStatBox />
+            </div>
+            <div className="h-2 bg-muted rounded-full" />
+          </div>
         </div>
         <BottomNav onNavigate={() => router.push('/app')} />
       </div>
