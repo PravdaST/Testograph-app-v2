@@ -1,7 +1,25 @@
-import { Smartphone } from 'lucide-react'
+'use client'
+
+import { Smartphone, Monitor } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import QRCode from 'react-qr-code'
 
 export default function MobileOnlyPage() {
+  const router = useRouter()
+
+  const handleContinueOnDesktop = () => {
+    // Set flag to allow desktop access
+    localStorage.setItem('allowDesktop', 'true')
+
+    // Check if user is logged in
+    const quizEmail = localStorage.getItem('quizEmail')
+    if (quizEmail) {
+      router.push('/app')
+    } else {
+      router.push('/quiz')
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted flex items-center justify-center p-8">
       <div className="max-w-md text-center space-y-8">
@@ -23,7 +41,7 @@ export default function MobileOnlyPage() {
         </div>
 
         {/* Instructions */}
-        <div className="space-y-4 text-left bg-white rounded-lg p-6 shadow-sm border border-border">
+        <div className="space-y-4 text-left bg-background rounded-lg p-6 shadow-sm border border-border">
           <div className="space-y-2">
             <h2 className="font-semibold text-sm text-primary">
               За да използваш приложението:
@@ -37,18 +55,36 @@ export default function MobileOnlyPage() {
         </div>
 
         {/* QR Code */}
-        <div className="p-6 bg-white rounded-lg shadow-lg">
+        <div className="p-6 bg-background rounded-lg shadow-lg border border-border">
           <div className="mb-3">
-            <p className="text-sm font-semibold text-slate-900">
+            <p className="text-sm font-semibold">
               Сканирай с камерата на телефона
             </p>
           </div>
-          <QRCode
-            value="https://app.testograph.eu/"
-            size={256}
-            style={{ height: 'auto', maxWidth: '100%', width: '100%' }}
-            viewBox={`0 0 256 256`}
-          />
+          <div className="bg-white p-4 rounded-lg">
+            <QRCode
+              value="https://app.testograph.eu/"
+              size={256}
+              style={{ height: 'auto', maxWidth: '100%', width: '100%' }}
+              viewBox={`0 0 256 256`}
+            />
+          </div>
+        </div>
+
+        {/* Desktop Continue Button */}
+        <div className="pt-4 border-t border-border">
+          <button
+            onClick={handleContinueOnDesktop}
+            className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-muted hover:bg-muted/80 rounded-xl transition-colors group"
+          >
+            <Monitor className="w-5 h-5 text-muted-foreground group-hover:text-foreground transition-colors" />
+            <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
+              Продължи на Desktop въпреки това
+            </span>
+          </button>
+          <p className="mt-2 text-xs text-muted-foreground">
+            Някои функции може да не работят оптимално
+          </p>
         </div>
 
         {/* Footer */}

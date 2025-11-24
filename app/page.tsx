@@ -17,14 +17,17 @@ function HomePageContent() {
     // Check window width
     const isMobile = window.innerWidth <= 768
 
-    // Allow mobile view if: actual mobile, DevTools emulation, or override param
-    const shouldShowMobile = isMobile || isDevToolsMobile || mobileOverride
+    // Check if user has opted to use desktop version
+    const allowDesktop = localStorage.getItem('allowDesktop') === 'true'
 
-    if (!shouldShowMobile) {
-      // Desktop detected - redirect to mobile-only page
+    // Allow access if: actual mobile, DevTools emulation, override param, or desktop allowed
+    const shouldAllowAccess = isMobile || isDevToolsMobile || mobileOverride || allowDesktop
+
+    if (!shouldAllowAccess) {
+      // Desktop detected without permission - redirect to mobile-only page
       router.push('/mobile-only')
     } else {
-      // Mobile detected - check if user is already logged in
+      // Access allowed - check if user is already logged in
       const quizEmail = localStorage.getItem('quizEmail')
 
       if (quizEmail) {
