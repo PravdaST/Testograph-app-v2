@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -12,40 +13,40 @@ const config: Config = {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         primary: {
-          DEFAULT: '#000000',
-          foreground: '#ffffff',
+          DEFAULT: 'var(--primary)',
+          foreground: 'var(--primary-foreground)',
         },
         secondary: {
-          DEFAULT: '#f3f4f6',
-          foreground: '#000000',
+          DEFAULT: 'var(--secondary)',
+          foreground: 'var(--secondary-foreground)',
         },
         accent: {
-          DEFAULT: '#e5e7eb',
-          foreground: '#000000',
+          DEFAULT: 'var(--accent)',
+          foreground: 'var(--accent-foreground)',
         },
         muted: {
-          DEFAULT: '#f9fafb',
-          foreground: '#6b7280',
+          DEFAULT: 'var(--muted)',
+          foreground: 'var(--muted-foreground)',
         },
         success: {
-          DEFAULT: '#10b981',
-          foreground: '#ffffff',
+          DEFAULT: 'var(--success)',
+          foreground: 'var(--success-foreground)',
         },
         warning: {
-          DEFAULT: '#f59e0b',
-          foreground: '#ffffff',
+          DEFAULT: 'var(--warning)',
+          foreground: 'var(--warning-foreground)',
         },
         destructive: {
-          DEFAULT: '#ef4444',
-          foreground: '#ffffff',
+          DEFAULT: 'var(--destructive)',
+          foreground: 'var(--destructive-foreground)',
         },
         info: {
-          DEFAULT: '#3b82f6',
-          foreground: '#ffffff',
+          DEFAULT: 'var(--info)',
+          foreground: 'var(--info-foreground)',
         },
-        border: '#e5e7eb',
-        input: '#e5e7eb',
-        ring: '#000000',
+        border: 'var(--border)',
+        input: 'var(--input)',
+        ring: 'var(--ring)',
       },
       borderRadius: {
         lg: '0.75rem',

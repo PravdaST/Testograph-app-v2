@@ -15,12 +15,13 @@ import { DeleteAccountModal } from '@/components/profile/DeleteAccountModal'
 import { ConfirmModal } from '@/components/ui/confirm-modal'
 import { useUserProgram } from '@/contexts/UserProgramContext'
 import { useToast } from '@/contexts/ToastContext'
+import { useTheme } from '@/contexts/ThemeContext'
 import { createClient } from '@/lib/supabase/client'
 import {
   User, Mail, Calendar, TrendingUp, ArrowLeft, Camera, Target, Edit2,
   Check, X, Loader2, Trash2, Settings, LogOut, Home,
   Dumbbell as DumbbellIcon, AlertTriangle, Utensils, Moon, Pill,
-  BarChart3, Award, ChevronRight, Info, Leaf
+  BarChart3, Award, ChevronRight, Info, Leaf, Sun
 } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -85,6 +86,7 @@ const DIETARY_PREFERENCE_NAMES = {
 export default function ProfilePage() {
   const router = useRouter()
   const toast = useToast()
+  const { theme, resolvedTheme, setTheme } = useTheme()
   const { email, userProgram, loading: contextLoading, updateUserProgram } = useUserProgram()
   const [userStats, setUserStats] = useState<UserStats | null>(null)
   const [feedbackHistory, setFeedbackHistory] = useState<FeedbackSubmission[]>([])
@@ -714,6 +716,48 @@ export default function ProfilePage() {
               </div>
               <ChevronRight className="w-4 h-4 text-muted-foreground" />
             </button>
+
+            {/* Theme Toggle */}
+            <div className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 group">
+              <div className="flex items-center gap-3">
+                {resolvedTheme === 'dark' ? (
+                  <Moon className="w-5 h-5 text-blue-400" />
+                ) : (
+                  <Sun className="w-5 h-5 text-amber-500" />
+                )}
+                <div className="text-left">
+                  <p className="text-sm font-medium">Тъмен режим</p>
+                  <p className="text-xs text-muted-foreground">
+                    {theme === 'system' ? 'Системен' : resolvedTheme === 'dark' ? 'Включен' : 'Изключен'}
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2">
+                {/* Theme selector buttons */}
+                <button
+                  onClick={() => setTheme('light')}
+                  className={`p-2 rounded-lg transition-colors ${
+                    theme === 'light'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'hover:bg-muted'
+                  }`}
+                  title="Светъл"
+                >
+                  <Sun className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={() => setTheme('dark')}
+                  className={`p-2 rounded-lg transition-colors ${
+                    theme === 'dark'
+                      ? 'bg-primary text-primary-foreground'
+                      : 'hover:bg-muted'
+                  }`}
+                  title="Тъмен"
+                >
+                  <Moon className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
 
             {/* Logout */}
             <button
