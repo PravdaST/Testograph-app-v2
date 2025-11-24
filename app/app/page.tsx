@@ -5,7 +5,7 @@
  * Modern, interactive overview with quick stats and navigation
  */
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { createPortal } from 'react-dom'
 import { useRouter } from 'next/navigation'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
@@ -17,6 +17,7 @@ import { BottomNav } from '@/components/navigation/BottomNav'
 import { ElectricBorder } from '@/components/ui/electric-border'
 import { SkeletonCard, SkeletonProgressBar, SkeletonQuizScore } from '@/components/ui/skeleton-card'
 import { ErrorState } from '@/components/ui/error-state'
+import { PullToRefresh } from '@/components/ui/pull-to-refresh'
 import { createClient } from '@/lib/supabase/client'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
 import { Target, TrendingUp, Utensils, Dumbbell, Moon, Pill, CheckCircle2, ArrowRight, Calendar, Info, X, MapPin, CalendarDays, PartyPopper, ThumbsUp, Sparkles, AlertTriangle } from 'lucide-react'
@@ -289,6 +290,48 @@ export default function DashboardPage() {
 
     loadUserData()
   }, [router])
+
+  // Handle pull-to-refresh
+  const handleRefresh = useCallback(async () => {
+    if (!email) return
+
+    const today = new Date().toISOString().split('T')[0]
+
+    const [
+      testoUpResponse,
+      mealsResponse,
+      workoutResponse,
+      sleepResponse,
+      inventoryResponse
+    ] = await Promise.all([
+      fetch(`/api/testoup/track?email=${encodeURIComponent(email)}&date=${today}`),
+      fetch(`/api/meals/complete?email=${encodeURIComponent(email)}&date=${today}`),
+      fetch(`/api/workout/check?email=${encodeURIComponent(email)}&date=${today}`),
+      fetch(`/api/sleep/track?email=${encodeURIComponent(email)}&date=${today}`),
+      fetch(`/api/testoup/inventory?email=${encodeURIComponent(email)}`)
+    ])
+
+    if (testoUpResponse.ok) {
+      const data = await testoUpResponse.json()
+      setTodayStats(prev => ({ ...prev, testoUpMorning: data.morning_taken, testoUpEvening: data.evening_taken }))
+    }
+    if (mealsResponse.ok) {
+      const data = await mealsResponse.json()
+      setTodayStats(prev => ({ ...prev, mealsCompleted: data.completedMeals?.length || 0 }))
+    }
+    if (workoutResponse.ok) {
+      const data = await workoutResponse.json()
+      setTodayStats(prev => ({ ...prev, workoutCompleted: data.completed || false }))
+    }
+    if (sleepResponse.ok) {
+      const data = await sleepResponse.json()
+      setTodayStats(prev => ({ ...prev, sleepTracked: data.hours > 0 }))
+    }
+    if (inventoryResponse.ok) {
+      const data = await inventoryResponse.json()
+      setTestoUpInventory(data)
+    }
+  }, [email])
 
   // Trigger animations on load
   useEffect(() => {
@@ -625,7 +668,8 @@ export default function DashboardPage() {
 
       <TopNav programName={programName} userName={userName} profilePictureUrl={userProgram?.profile_picture_url} />
 
-      <div className="container-mobile py-6 pb-24 space-y-6">
+      <PullToRefresh onRefresh={handleRefresh} className="min-h-[calc(100vh-120px)]">
+        <div className="container-mobile py-6 pb-24 space-y-6">
         {/* Hero Section */}
         <div className="flex items-start justify-between gap-3">
           <h1 className="text-2xl font-bold">
@@ -1696,7 +1740,8 @@ export default function DashboardPage() {
             </div>
           </div>
         )}
-      </div>
+        </div>
+      </PullToRefresh>
 
       <BottomNav onNavigate={handleNavigation} />
     </div>
