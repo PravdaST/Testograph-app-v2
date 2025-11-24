@@ -18,7 +18,14 @@
       "Bash(curl:*)",
       "Bash(timeout 5 tail:*)",
       "Bash(timeout 3 tail:*)",
-      "Bash(timeout 8 tail:*)"
+      "Bash(timeout 8 tail:*)",
+      "Bash(timeout 60 tail:*)",
+      "Bash(npx playwright test:*)",
+      "Bash(npx @openctx/context7 search:*)",
+      "Bash(npm view:*)",
+      "WebSearch",
+      "Bash(gemini:*)",
+      "Bash(xargs -I {} bash -c \"echo ''''=== {} ==='''' && head -30 {}\")"
     ],
     "deny": [],
     "ask": []

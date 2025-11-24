@@ -12,6 +12,7 @@ import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { FeedbackHistory } from '@/components/profile/FeedbackHistory'
 import { DeleteAccountModal } from '@/components/profile/DeleteAccountModal'
+import { ConfirmModal } from '@/components/ui/confirm-modal'
 import { useUserProgram } from '@/contexts/UserProgramContext'
 import { createClient } from '@/lib/supabase/client'
 import {
@@ -98,6 +99,8 @@ export default function ProfilePage() {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [activeTooltip, setActiveTooltip] = useState<'hero' | null>(null)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [showLogoutModal, setShowLogoutModal] = useState(false)
+  const [showDeletePictureModal, setShowDeletePictureModal] = useState(false)
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -232,12 +235,13 @@ export default function ProfilePage() {
     }
   }
 
-  const handleDeleteProfilePicture = async () => {
+  const handleDeleteProfilePicture = () => {
     if (!email || !userProgram?.profile_picture_url) return
+    setShowDeletePictureModal(true)
+  }
 
-    if (!confirm('Сигурни ли сте, че искате да изтриете профилната снимка?')) {
-      return
-    }
+  const confirmDeleteProfilePicture = async () => {
+    if (!email) return
 
     setIsUploadingPicture(true)
     try {
@@ -247,12 +251,13 @@ export default function ProfilePage() {
 
       if (response.ok) {
         updateUserProgram({ profile_picture_url: undefined })
+        setShowDeletePictureModal(false)
       } else {
-        alert('Failed to delete profile picture')
+        alert('Грешка при изтриване на снимката')
       }
     } catch (error) {
       console.error('Error deleting profile picture:', error)
-      alert('Failed to delete profile picture')
+      alert('Грешка при изтриване на снимката')
     } finally {
       setIsUploadingPicture(false)
     }
@@ -282,13 +287,15 @@ export default function ProfilePage() {
     return Math.min(Math.round((daysPassed / totalDays) * 100), 100)
   }
 
-  const handleLogout = async () => {
-    if (confirm('Сигурни ли сте, че искате да излезете от профила?')) {
-      const supabase = createClient()
-      await supabase.auth.signOut()
-      localStorage.clear()
-      router.push('/login')
-    }
+  const handleLogout = () => {
+    setShowLogoutModal(true)
+  }
+
+  const confirmLogout = async () => {
+    const supabase = createClient()
+    await supabase.auth.signOut()
+    localStorage.clear()
+    router.push('/login')
   }
 
   const handleChangeWorkoutLocation = async () => {
@@ -749,6 +756,33 @@ export default function ProfilePage() {
         isOpen={showDeleteModal}
         onClose={() => setShowDeleteModal(false)}
         onConfirm={confirmDeleteAccount}
+      />
+
+      {/* Logout Confirm Modal */}
+      <ConfirmModal
+        isOpen={showLogoutModal}
+        onClose={() => setShowLogoutModal(false)}
+        onConfirm={confirmLogout}
+        title="Излез от профила"
+        message="Сигурни ли сте, че искате да излезете? Ще можете да влезете отново с имейла си."
+        confirmText="Излез"
+        cancelText="Отказ"
+        variant="default"
+        icon="logout"
+      />
+
+      {/* Delete Profile Picture Confirm Modal */}
+      <ConfirmModal
+        isOpen={showDeletePictureModal}
+        onClose={() => setShowDeletePictureModal(false)}
+        onConfirm={confirmDeleteProfilePicture}
+        title="Изтрий профилната снимка"
+        message="Сигурни ли сте, че искате да изтриете профилната си снимка?"
+        confirmText="Изтрий"
+        cancelText="Отказ"
+        variant="danger"
+        icon="trash"
+        isLoading={isUploadingPicture}
       />
     </div>
   )
