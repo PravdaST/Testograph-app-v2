@@ -16,6 +16,7 @@ import { ConfirmModal } from '@/components/ui/confirm-modal'
 import { useUserProgram } from '@/contexts/UserProgramContext'
 import { useToast } from '@/contexts/ToastContext'
 import { useTheme } from '@/contexts/ThemeContext'
+import { useUserStats, useFeedbackHistory } from '@/lib/hooks/useSWR'
 import { createClient } from '@/lib/supabase/client'
 import {
   User, Mail, Calendar, TrendingUp, ArrowLeft, Camera, Target, Edit2,
@@ -46,24 +47,6 @@ interface UserProgram {
   }
 }
 
-interface UserStats {
-  mealsCompleted: number
-  workoutsCompleted: number
-  averageSleepHours: number
-  testoUpCompliance: number
-  daysInProgram: number
-  periodDays: number
-}
-
-interface FeedbackSubmission {
-  id: string
-  program_day: number
-  submitted_at: string
-  feedback_responses: {
-    question_id: string
-    answer: string
-  }[]
-}
 
 const CATEGORY_NAMES = {
   energy: 'Енергия и Виталност',
@@ -88,9 +71,12 @@ export default function ProfilePage() {
   const toast = useToast()
   const { theme, resolvedTheme, setTheme } = useTheme()
   const { email, userProgram, loading: contextLoading, updateUserProgram } = useUserProgram()
-  const [userStats, setUserStats] = useState<UserStats | null>(null)
-  const [feedbackHistory, setFeedbackHistory] = useState<FeedbackSubmission[]>([])
-  const [loading, setLoading] = useState(true)
+
+  // SWR hooks for data fetching
+  const { stats: userStats, isLoading: statsLoading } = useUserStats()
+  const { submissions: feedbackHistory, isLoading: feedbackLoading } = useFeedbackHistory()
+
+  const loading = contextLoading || statsLoading || feedbackLoading
   const [userName, setUserName] = useState<string>()
   const [firstName, setFirstName] = useState<string>('')
   const [isEditingName, setIsEditingName] = useState(false)
@@ -107,55 +93,23 @@ export default function ProfilePage() {
   const [showDeletePictureModal, setShowDeletePictureModal] = useState(false)
 
   useEffect(() => {
-    const loadProfile = async () => {
-      if (!email || contextLoading) return
+    if (!email || !userProgram) return
 
-      try {
-        // Set goal and name from userProgram
-        if (userProgram) {
-          setGoalText(userProgram.goal || '')
+    // Set goal and name from userProgram
+    setGoalText(userProgram.goal || '')
 
-          // Set firstName and userName for TopNav
-          if (userProgram.first_name) {
-            setFirstName(userProgram.first_name)
-            setNameText(userProgram.first_name)
-            setUserName(userProgram.first_name)
-          } else {
-            const namePart = email.split('@')[0]
-            setUserName(namePart)
-            setFirstName('')
-            setNameText('')
-          }
-        }
-
-        // Fetch feedback history
-        const feedbackResponse = await fetch(
-          `/api/feedback/history?email=${encodeURIComponent(email)}`
-        )
-
-        if (feedbackResponse.ok) {
-          const feedbackData = await feedbackResponse.json()
-          setFeedbackHistory(feedbackData.submissions || [])
-        }
-
-        // Fetch user statistics
-        const statsResponse = await fetch(
-          `/api/user/stats?email=${encodeURIComponent(email)}`
-        )
-
-        if (statsResponse.ok) {
-          const statsData = await statsResponse.json()
-          setUserStats(statsData)
-        }
-      } catch (error) {
-        console.error('Error loading profile:', error)
-      } finally {
-        setLoading(false)
-      }
+    // Set firstName and userName for TopNav
+    if (userProgram.first_name) {
+      setFirstName(userProgram.first_name)
+      setNameText(userProgram.first_name)
+      setUserName(userProgram.first_name)
+    } else {
+      const namePart = email.split('@')[0]
+      setUserName(namePart)
+      setFirstName('')
+      setNameText('')
     }
-
-    loadProfile()
-  }, [email, userProgram, contextLoading])
+  }, [email, userProgram])
 
   const handleSaveName = async () => {
     if (!email || !nameText.trim()) return
