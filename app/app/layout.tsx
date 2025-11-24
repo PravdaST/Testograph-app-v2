@@ -1,12 +1,12 @@
 /**
  * App Layout
- * Wraps all /app routes with UserProgramProvider, ToastProvider, ErrorBoundary, and PageTransition
+ * Wraps all /app routes with UserProgramProvider, ToastProvider, ErrorBoundary, and SwipeableLayout
  */
 
 import { UserProgramProvider } from '@/contexts/UserProgramContext'
 import { ToastProvider } from '@/contexts/ToastContext'
 import { ErrorBoundary } from '@/components/ui/error-boundary'
-import { PageTransition } from '@/components/ui/page-transition'
+import { SwipeableLayout } from '@/components/layout/SwipeableLayout'
 
 export default function AppLayout({
   children,
@@ -17,9 +17,9 @@ export default function AppLayout({
     <ErrorBoundary>
       <UserProgramProvider>
         <ToastProvider>
-          <PageTransition>
+          <SwipeableLayout>
             {children}
-          </PageTransition>
+          </SwipeableLayout>
         </ToastProvider>
       </UserProgramProvider>
     </ErrorBoundary>
