@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import { ThemeProvider } from '@/contexts/ThemeContext'
+import { RegisterServiceWorker } from '@/components/pwa/RegisterServiceWorker'
 import './globals.css'
 
 const geistSans = Geist({
@@ -56,6 +57,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <ThemeProvider>
+          <RegisterServiceWorker />
           {children}
         </ThemeProvider>
       </body>
