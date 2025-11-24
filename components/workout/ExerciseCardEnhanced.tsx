@@ -8,6 +8,7 @@
 import { useState, useEffect } from 'react'
 import { CheckCircle2, Timer, Info, TrendingUp } from 'lucide-react'
 import type { Exercise } from '@/lib/data/mock-workouts'
+import { useToast } from '@/contexts/ToastContext'
 
 interface SetLog {
   setNumber: number
@@ -49,6 +50,7 @@ export function ExerciseCardEnhanced({
   workoutSessionId,
   onAllSetsComplete,
 }: ExerciseCardEnhancedProps) {
+  const toast = useToast()
   const [showNotes, setShowNotes] = useState(false)
   const [gifError, setGifError] = useState(false)
   const [previousWorkout, setPreviousWorkout] = useState<PreviousSet[]>([])
@@ -155,7 +157,7 @@ export function ExerciseCardEnhanced({
     // Validate input
     const reps = parseInt(setLog.reps)
     if (!setLog.reps || isNaN(reps) || reps < 1) {
-      alert('Моля въведи брой повторения')
+      toast.warning('Моля въведи брой повторения')
       return
     }
 
@@ -199,7 +201,7 @@ export function ExerciseCardEnhanced({
       }
     } catch (error) {
       console.error('Error saving set:', error)
-      alert('Грешка при запазване. Моля опитай отново.')
+      toast.error('Грешка при запазване. Моля опитай отново.')
     }
   }
 

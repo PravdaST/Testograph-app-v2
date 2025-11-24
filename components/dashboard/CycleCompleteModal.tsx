@@ -9,6 +9,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { PartyPopper, RefreshCw, ClipboardList, Loader2, X } from 'lucide-react'
+import { useToast } from '@/contexts/ToastContext'
 
 interface CycleCompleteModalProps {
   isOpen: boolean
@@ -28,6 +29,7 @@ export function CycleCompleteModal({
   currentCategory,
 }: CycleCompleteModalProps) {
   const router = useRouter()
+  const toast = useToast()
   const [isRestarting, setIsRestarting] = useState(false)
 
   if (!isOpen) return null
@@ -50,7 +52,7 @@ export function CycleCompleteModal({
       window.location.reload()
     } catch (error) {
       console.error('Error restarting cycle:', error)
-      alert('Грешка при рестартиране на цикъла. Опитай отново.')
+      toast.error('Грешка при рестартиране на цикъла. Опитай отново.')
       setIsRestarting(false)
     }
   }

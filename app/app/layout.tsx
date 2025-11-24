@@ -1,9 +1,10 @@
 /**
  * App Layout
- * Wraps all /app routes with UserProgramProvider for centralized state
+ * Wraps all /app routes with UserProgramProvider and ToastProvider
  */
 
 import { UserProgramProvider } from '@/contexts/UserProgramContext'
+import { ToastProvider } from '@/contexts/ToastContext'
 
 export default function AppLayout({
   children,
@@ -12,7 +13,9 @@ export default function AppLayout({
 }) {
   return (
     <UserProgramProvider>
-      {children}
+      <ToastProvider>
+        {children}
+      </ToastProvider>
     </UserProgramProvider>
   )
 }

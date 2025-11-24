@@ -15,6 +15,7 @@ import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 import { MealCard } from '@/components/dashboard/MealCard'
 import { useUserProgram } from '@/contexts/UserProgramContext'
+import { useToast } from '@/contexts/ToastContext'
 import { applyDaySubstitutions, type SubstitutedMeal, type SubstitutedIngredient } from '@/lib/utils/dietary-substitution'
 import type { DietaryPreference } from '@/lib/data/dietary-substitutions'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
@@ -101,6 +102,7 @@ function getMealImageUrl(mealName: string): string | undefined {
 
 export default function NutritionPage() {
   const router = useRouter()
+  const toast = useToast()
   const { email, userProgram, loading: contextLoading } = useUserProgram()
   const [loading, setLoading] = useState(true)
   const [userName, setUserName] = useState<string>()
@@ -227,7 +229,7 @@ export default function NutritionPage() {
       }
     } catch (error) {
       console.error('Error toggling meal:', error)
-      alert('Не успяхме да запазим промяната. Моля опитайте отново.')
+      toast.error('Не успяхме да запазим промяната. Моля опитайте отново.')
     }
   }
 
@@ -262,7 +264,7 @@ export default function NutritionPage() {
       })
     } catch (error) {
       console.error('Error undoing substitution:', error)
-      alert('Не успяхме да възстановим оригиналната храна. Моля опитайте отново.')
+      toast.error('Не успяхме да възстановим оригиналната храна. Моля опитайте отново.')
     }
   }
 
@@ -343,7 +345,7 @@ export default function NutritionPage() {
       }))
     } catch (error) {
       console.error('Error substituting meal:', error)
-      alert('Не успяхме да заменим храната. Моля опитайте отново.')
+      toast.error('Не успяхме да заменим храната. Моля опитайте отново.')
     } finally {
       // Clear loading state
       setSubstitutingMeals(prev => {

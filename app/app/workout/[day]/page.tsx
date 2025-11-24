@@ -20,6 +20,7 @@ import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
 import { useUserProgram } from '@/contexts/UserProgramContext'
+import { useToast } from '@/contexts/ToastContext'
 import { GENERAL_WARMUP } from '@/lib/data/warm-up-routines'
 import { GENERAL_COOLDOWN } from '@/lib/data/cool-down-routines'
 
@@ -88,6 +89,7 @@ function getWorkoutsForCategoryAndLocation(
 export default function WorkoutPage() {
   const router = useRouter()
   const params = useParams()
+  const toast = useToast()
   const dayOfWeek = parseInt(params.day as string)
 
   // Use centralized user program state
@@ -269,7 +271,7 @@ export default function WorkoutPage() {
       })
 
       if (response.ok) {
-        alert('Браво! Тренировката е завършена успешно! 💪')
+        toast.success('Браво! Тренировката е завършена успешно!')
 
         // Clear local storage for this workout
         localStorage.removeItem(`workout-${dayOfWeek}`)
@@ -285,11 +287,11 @@ export default function WorkoutPage() {
 
         router.push('/app')
       } else {
-        alert('Възникна грешка при записване на тренировката')
+        toast.error('Възникна грешка при записване на тренировката')
       }
     } catch (error) {
       console.error('Error finishing workout:', error)
-      alert('Възникна грешка при записване на тренировката')
+      toast.error('Възникна грешка при записване на тренировката')
     }
   }
 

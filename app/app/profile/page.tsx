@@ -14,6 +14,7 @@ import { FeedbackHistory } from '@/components/profile/FeedbackHistory'
 import { DeleteAccountModal } from '@/components/profile/DeleteAccountModal'
 import { ConfirmModal } from '@/components/ui/confirm-modal'
 import { useUserProgram } from '@/contexts/UserProgramContext'
+import { useToast } from '@/contexts/ToastContext'
 import { createClient } from '@/lib/supabase/client'
 import {
   User, Mail, Calendar, TrendingUp, ArrowLeft, Camera, Target, Edit2,
@@ -83,6 +84,7 @@ const DIETARY_PREFERENCE_NAMES = {
 
 export default function ProfilePage() {
   const router = useRouter()
+  const toast = useToast()
   const { email, userProgram, loading: contextLoading, updateUserProgram } = useUserProgram()
   const [userStats, setUserStats] = useState<UserStats | null>(null)
   const [feedbackHistory, setFeedbackHistory] = useState<FeedbackSubmission[]>([])
@@ -220,13 +222,14 @@ export default function ProfilePage() {
       if (response.ok) {
         const data = await response.json()
         updateUserProgram({ profile_picture_url: data.url })
+        toast.success('Профилната снимка е качена успешно')
       } else {
         const errorData = await response.json()
-        alert(errorData.error || 'Failed to upload profile picture')
+        toast.error(errorData.error || 'Грешка при качване на снимката')
       }
     } catch (error) {
       console.error('Error uploading profile picture:', error)
-      alert('Failed to upload profile picture')
+      toast.error('Грешка при качване на снимката')
     } finally {
       setIsUploadingPicture(false)
       if (fileInputRef.current) {
@@ -252,12 +255,13 @@ export default function ProfilePage() {
       if (response.ok) {
         updateUserProgram({ profile_picture_url: undefined })
         setShowDeletePictureModal(false)
+        toast.success('Профилната снимка е изтрита')
       } else {
-        alert('Грешка при изтриване на снимката')
+        toast.error('Грешка при изтриване на снимката')
       }
     } catch (error) {
       console.error('Error deleting profile picture:', error)
-      alert('Грешка при изтриване на снимката')
+      toast.error('Грешка при изтриване на снимката')
     } finally {
       setIsUploadingPicture(false)
     }
@@ -312,12 +316,13 @@ export default function ProfilePage() {
 
       if (response.ok) {
         updateUserProgram({ workout_location: newLocation })
+        toast.success(`Локацията е променена на ${LOCATION_NAMES[newLocation]}`)
       } else {
-        alert('Грешка при промяна на локацията')
+        toast.error('Грешка при промяна на локацията')
       }
     } catch (error) {
       console.error('Error changing workout location:', error)
-      alert('Грешка при промяна на локацията')
+      toast.error('Грешка при промяна на локацията')
     }
   }
 
@@ -338,12 +343,13 @@ export default function ProfilePage() {
 
       if (response.ok) {
         updateUserProgram({ dietary_preference: newPreference })
+        toast.success(`Хранителното предпочитание е ${DIETARY_PREFERENCE_NAMES[newPreference]}`)
       } else {
-        alert('Грешка при промяна на хранителното предпочитание')
+        toast.error('Грешка при промяна на хранителното предпочитание')
       }
     } catch (error) {
       console.error('Error changing dietary preference:', error)
-      alert('Грешка при промяна на хранителното предпочитание')
+      toast.error('Грешка при промяна на хранителното предпочитание')
     }
   }
 
