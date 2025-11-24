@@ -8,6 +8,7 @@
 import { useState, useRef, useCallback, ReactNode } from 'react'
 import { RefreshCw } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useHaptic } from '@/lib/hooks/useHaptic'
 
 interface PullToRefreshProps {
   onRefresh: () => Promise<void>
@@ -30,6 +31,8 @@ export function PullToRefresh({
   const containerRef = useRef<HTMLDivElement>(null)
   const startY = useRef(0)
   const currentY = useRef(0)
+  const hasVibrated = useRef(false)
+  const haptic = useHaptic()
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
     // Only allow pull-to-refresh when scrolled to top
@@ -51,15 +54,25 @@ export function PullToRefresh({
       const resistance = 0.5
       const pull = Math.min(diff * resistance, maxPull)
       setPullDistance(pull)
+
+      // Haptic feedback when threshold is reached
+      if (pull >= threshold && !hasVibrated.current) {
+        haptic.light()
+        hasVibrated.current = true
+      } else if (pull < threshold) {
+        hasVibrated.current = false
+      }
     }
-  }, [isPulling, isRefreshing, maxPull])
+  }, [isPulling, isRefreshing, maxPull, threshold, haptic])
 
   const handleTouchEnd = useCallback(async () => {
     if (!isPulling) return
     setIsPulling(false)
+    hasVibrated.current = false
 
     if (pullDistance >= threshold && !isRefreshing) {
-      // Trigger refresh
+      // Trigger refresh with haptic
+      haptic.success()
       setIsRefreshing(true)
       setPullDistance(60) // Keep spinner visible during refresh
 
@@ -73,7 +86,7 @@ export function PullToRefresh({
       // Snap back
       setPullDistance(0)
     }
-  }, [isPulling, pullDistance, threshold, isRefreshing, onRefresh])
+  }, [isPulling, pullDistance, threshold, isRefreshing, onRefresh, haptic])
 
   // Calculate progress (0 to 1)
   const progress = Math.min(pullDistance / threshold, 1)

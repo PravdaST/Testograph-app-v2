@@ -10,6 +10,7 @@ import { createPortal } from 'react-dom'
 import { useEffect, useRef, useCallback } from 'react'
 import { AlertTriangle, LogOut, Trash2, X, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useHaptic } from '@/lib/hooks/useHaptic'
 
 type ConfirmVariant = 'danger' | 'warning' | 'default'
 
@@ -69,8 +70,10 @@ export function ConfirmModal({
   const styles = VARIANT_STYLES[variant]
   const modalRef = useRef<HTMLDivElement>(null)
   const cancelButtonRef = useRef<HTMLButtonElement>(null)
+  const haptic = useHaptic()
 
   const handleConfirm = async () => {
+    haptic.medium()
     await onConfirm()
   }
 

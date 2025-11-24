@@ -104,6 +104,16 @@ export function ToastProvider({ children }: { children: ReactNode }) {
 
       setToasts((prev) => [...prev, toast])
 
+      // Haptic feedback based on toast type
+      if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+        try {
+          if (type === 'error') navigator.vibrate([50, 100, 50])
+          else if (type === 'warning') navigator.vibrate(25)
+          else if (type === 'success') navigator.vibrate([10, 50, 10])
+          else navigator.vibrate(10)
+        } catch { /* Silently fail */ }
+      }
+
       if (duration > 0) {
         setTimeout(() => removeToast(id), duration)
       }
