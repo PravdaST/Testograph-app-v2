@@ -55,6 +55,7 @@ export function ExerciseCardEnhanced({
   const [gifError, setGifError] = useState(false)
   const [previousWorkout, setPreviousWorkout] = useState<PreviousSet[]>([])
   const [loadingHistory, setLoadingHistory] = useState(true)
+  const [validationErrors, setValidationErrors] = useState<Record<number, boolean>>({})
 
   // Set logs state
   const [setLogs, setSetLogs] = useState<SetLog[]>(() =>
@@ -157,9 +158,12 @@ export function ExerciseCardEnhanced({
     // Validate input
     const reps = parseInt(setLog.reps)
     if (!setLog.reps || isNaN(reps) || reps < 1) {
+      setValidationErrors(prev => ({ ...prev, [setNumber]: true }))
       toast.warning('Моля въведи брой повторения')
       return
     }
+    // Clear validation error
+    setValidationErrors(prev => ({ ...prev, [setNumber]: false }))
 
     const weight = setLog.weight ? parseFloat(setLog.weight) : null
 
@@ -219,6 +223,10 @@ export function ExerciseCardEnhanced({
         s.setNumber === setNumber ? { ...s, reps: value } : s
       )
     )
+    // Clear validation error when user types
+    if (validationErrors[setNumber]) {
+      setValidationErrors(prev => ({ ...prev, [setNumber]: false }))
+    }
   }
 
   const completedCount = setLogs.filter(s => s.completed).length
@@ -370,8 +378,8 @@ export function ExerciseCardEnhanced({
 
               {/* Reps Input */}
               <div className="flex-1">
-                <label className="text-xs text-muted-foreground block mb-1">
-                  Повторения
+                <label className={`text-xs block mb-1 ${validationErrors[setLog.setNumber] ? 'text-destructive' : 'text-muted-foreground'}`}>
+                  Повторения {validationErrors[setLog.setNumber] && '*'}
                 </label>
                 <input
                   type="number"
@@ -380,7 +388,11 @@ export function ExerciseCardEnhanced({
                   onChange={(e) => handleRepsChange(setLog.setNumber, e.target.value)}
                   disabled={setLog.completed}
                   placeholder={String(exercise.reps)}
-                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm disabled:opacity-60 disabled:cursor-not-allowed"
+                  className={`w-full px-3 py-2 rounded-lg border bg-background text-sm disabled:opacity-60 disabled:cursor-not-allowed transition-colors ${
+                    validationErrors[setLog.setNumber]
+                      ? 'border-destructive focus:border-destructive focus:ring-1 focus:ring-destructive/30'
+                      : 'border-border focus:border-primary focus:ring-1 focus:ring-primary/30'
+                  }`}
                 />
               </div>
 
