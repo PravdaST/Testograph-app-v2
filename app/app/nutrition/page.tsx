@@ -109,7 +109,7 @@ export default function NutritionPage() {
   const [programStartDate, setProgramStartDate] = useState<Date>(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [completedMeals, setCompletedMeals] = useState<Record<string, number[]>>({})
-  const [activeTooltip, setActiveTooltip] = useState<'hero' | 'progress' | 'calories' | 'protein' | null>(null)
+  const [activeTooltip, setActiveTooltip] = useState<'progress' | 'calories' | 'protein' | null>(null)
   const [substitutedMeals, setSubstitutedMeals] = useState<Record<string, Record<number, SubstitutedMeal>>>({})
   const [substitutingMeals, setSubstitutingMeals] = useState<Record<string, boolean>>({})
 
@@ -484,61 +484,10 @@ export default function NutritionPage() {
           </div>
         )}
 
-        {/* Hero Section */}
-        <div
-          className="relative bg-gradient-to-r from-primary/20 to-primary/10 rounded-2xl p-6 border-2 border-primary/30 animate-fade-in"
-          style={{ animationDelay: '0.1s', animationFillMode: 'both' }}
-        >
-          <div className="flex items-start gap-4">
-            <div className="p-3 rounded-xl bg-primary/20">
-              <Utensils className="w-6 h-6 text-primary" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-2xl font-bold mb-1">Хранителен план</h1>
-              <p className="text-sm text-muted-foreground">
-                Персонализиран според твоите цели
-              </p>
-            </div>
-          </div>
-          <button
-            onClick={(e) => {
-              e.stopPropagation()
-              setActiveTooltip(activeTooltip === 'hero' ? null : 'hero')
-            }}
-            className="absolute top-4 right-4 p-1 rounded-md hover:bg-muted/50 transition-colors"
-          >
-            <Info className="w-3 h-3 text-muted-foreground" />
-          </button>
-          {activeTooltip === 'hero' && typeof window !== 'undefined' && createPortal(
-            <>
-              <div
-                className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setActiveTooltip(null)
-                }}
-              />
-              <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <div className="text-sm font-bold text-foreground">Хранителен план</div>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      setActiveTooltip(null)
-                    }}
-                    className="p-1 hover:bg-muted rounded-md transition-colors"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  Персонализиран хранителен план според твоята цел и ниво. Всеки ден получаваш балансирани хранения с точни калории и макрос.
-                </p>
-              </div>
-            </>,
-            document.body
-          )}
-        </div>
+        {/* Page Title */}
+        <h1 className="text-xl font-bold px-1 animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
+          Хранителен План
+        </h1>
 
         {/* Weekly Calendar */}
         <div className="animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
