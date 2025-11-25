@@ -5,8 +5,8 @@
  * Enhanced version with weight/reps logging and history display
  */
 
-import { useState, useEffect } from 'react'
-import { CheckCircle2, Timer, Info, TrendingUp } from 'lucide-react'
+import { useState, useEffect, useRef } from 'react'
+import { CheckCircle2, Timer, Info, TrendingUp, Pause, Play, X } from 'lucide-react'
 import type { Exercise } from '@/lib/data/mock-workouts'
 import { useToast } from '@/contexts/ToastContext'
 
@@ -56,6 +56,12 @@ export function ExerciseCardEnhanced({
   const [previousWorkout, setPreviousWorkout] = useState<PreviousSet[]>([])
   const [loadingHistory, setLoadingHistory] = useState(true)
   const [validationErrors, setValidationErrors] = useState<Record<number, boolean>>({})
+
+  // Rest Timer state
+  const [restTimeRemaining, setRestTimeRemaining] = useState(0)
+  const [isRestTimerActive, setIsRestTimerActive] = useState(false)
+  const [isRestTimerPaused, setIsRestTimerPaused] = useState(false)
+  const restTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   // Set logs state
   const [setLogs, setSetLogs] = useState<SetLog[]>(() =>
@@ -141,6 +147,61 @@ export function ExerciseCardEnhanced({
     loadTodaySets()
   }, [email, date, exercise.name_bg])
 
+  // Rest Timer effect
+  useEffect(() => {
+    if (isRestTimerActive && !isRestTimerPaused && restTimeRemaining > 0) {
+      restTimerRef.current = setInterval(() => {
+        setRestTimeRemaining(prev => {
+          if (prev <= 1) {
+            // Timer finished
+            setIsRestTimerActive(false)
+            setIsRestTimerPaused(false)
+            // Vibrate if supported
+            if (navigator.vibrate) {
+              navigator.vibrate([200, 100, 200])
+            }
+            toast.success('Почивката приключи! Готов за следващата серия 💪')
+            return 0
+          }
+          return prev - 1
+        })
+      }, 1000)
+    }
+
+    return () => {
+      if (restTimerRef.current) {
+        clearInterval(restTimerRef.current)
+        restTimerRef.current = null
+      }
+    }
+  }, [isRestTimerActive, isRestTimerPaused, restTimeRemaining, toast])
+
+  // Start rest timer
+  const startRestTimer = () => {
+    setRestTimeRemaining(exercise.rest_seconds)
+    setIsRestTimerActive(true)
+    setIsRestTimerPaused(false)
+  }
+
+  // Pause/Resume rest timer
+  const toggleRestTimerPause = () => {
+    setIsRestTimerPaused(prev => !prev)
+  }
+
+  // Stop rest timer
+  const stopRestTimer = () => {
+    setIsRestTimerActive(false)
+    setIsRestTimerPaused(false)
+    setRestTimeRemaining(0)
+  }
+
+  // Format seconds to MM:SS
+  const formatRestTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60)
+    const secs = seconds % 60
+    return `${mins}:${secs.toString().padStart(2, '0')}`
+  }
+
   const handleSetComplete = async (setNumber: number) => {
     const setLog = setLogs[setNumber - 1]
 
@@ -202,6 +263,11 @@ export function ExerciseCardEnhanced({
       const allComplete = updatedLogs.every(s => s.completed)
       if (allComplete && onAllSetsComplete) {
         onAllSetsComplete()
+      }
+
+      // Start rest timer if not the last set
+      if (!allComplete) {
+        startRestTimer()
       }
     } catch (error) {
       console.error('Error saving set:', error)
@@ -335,6 +401,64 @@ export function ExerciseCardEnhanced({
           </div>
         )}
       </div>
+
+      {/* Rest Timer */}
+      {isRestTimerActive && (
+        <div className="mx-4 mt-4 p-4 bg-primary/10 border-2 border-primary/30 rounded-xl animate-fade-in">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+                <Timer className="w-5 h-5 text-primary" />
+              </div>
+              <div>
+                <p className="text-sm font-medium text-primary">Почивка</p>
+                <p className="text-xs text-muted-foreground">{exercise.rest_seconds}s препоръчителна</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className={`text-3xl font-bold tabular-nums ${isRestTimerPaused ? 'text-warning' : 'text-primary'}`}>
+                {formatRestTime(restTimeRemaining)}
+              </span>
+            </div>
+          </div>
+          {/* Progress bar */}
+          <div className="mt-3 h-2 bg-primary/20 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-primary transition-all duration-1000 ease-linear"
+              style={{ width: `${(restTimeRemaining / exercise.rest_seconds) * 100}%` }}
+            />
+          </div>
+          {/* Controls */}
+          <div className="mt-3 flex gap-2">
+            <button
+              onClick={toggleRestTimerPause}
+              className={`flex-1 py-2 rounded-lg font-medium text-sm flex items-center justify-center gap-2 transition-colors ${
+                isRestTimerPaused
+                  ? 'bg-primary text-white hover:bg-primary/90'
+                  : 'bg-warning/20 text-warning hover:bg-warning/30'
+              }`}
+            >
+              {isRestTimerPaused ? (
+                <>
+                  <Play className="w-4 h-4" />
+                  Продължи
+                </>
+              ) : (
+                <>
+                  <Pause className="w-4 h-4" />
+                  Пауза
+                </>
+              )}
+            </button>
+            <button
+              onClick={stopRestTimer}
+              className="px-4 py-2 rounded-lg bg-muted text-muted-foreground hover:bg-muted/80 transition-colors"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Set Logging */}
       <div className="p-4 space-y-3">
