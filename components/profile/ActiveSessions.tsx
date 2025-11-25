@@ -88,9 +88,9 @@ export function ActiveSessions({ email }: ActiveSessionsProps) {
 
   if (loading) {
     return (
-      <div className="bg-background rounded-2xl p-5 border border-border">
-        <div className="flex items-center justify-center py-12">
-          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      <div className="bg-background rounded-2xl p-3 sm:p-5 border border-border">
+        <div className="flex items-center justify-center py-8 sm:py-12">
+          <Loader2 className="w-6 h-6 sm:w-8 sm:h-8 animate-spin text-primary" />
         </div>
       </div>
     )
@@ -129,49 +129,49 @@ export function ActiveSessions({ email }: ActiveSessionsProps) {
   const DeviceIcon = deviceInfo.icon
 
   return (
-    <div className="bg-background rounded-2xl p-5 border border-border">
+    <div className="bg-background rounded-2xl p-3 sm:p-5 border border-border">
       {/* Header */}
-      <div className="flex items-center gap-2 mb-4">
-        <Smartphone className="w-5 h-5 text-primary" />
-        <h2 className="font-bold">Активни сесии</h2>
+      <div className="flex items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+        <Smartphone className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+        <h2 className="font-bold text-sm sm:text-base">Активни сесии</h2>
       </div>
 
       {/* Current Session Card */}
-      <div className="bg-muted/30 rounded-xl p-4 mb-4">
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-              <DeviceIcon className="w-5 h-5 text-primary" />
+      <div className="bg-muted/30 rounded-xl p-3 sm:p-4 mb-3 sm:mb-4">
+        <div className="flex items-start justify-between mb-2 sm:mb-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <DeviceIcon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
             </div>
             <div>
-              <div className="font-medium">{deviceInfo.type}</div>
-              <div className="text-xs text-muted-foreground">Текуща сесия</div>
+              <div className="font-medium text-sm sm:text-base">{deviceInfo.type}</div>
+              <div className="text-[10px] sm:text-xs text-muted-foreground">Текуща сесия</div>
             </div>
           </div>
-          <span className="text-xs px-2 py-1 bg-green-500/10 text-green-600 dark:text-green-400 rounded">
+          <span className="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 bg-green-500/10 text-green-600 dark:text-green-400 rounded">
             Активна
           </span>
         </div>
 
         {/* Session Details */}
-        <div className="space-y-2 text-sm">
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Clock className="w-4 h-4" />
-            <span>Последно влизане: {lastSignIn}</span>
+        <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
+          <div className="flex items-center gap-1.5 sm:gap-2 text-muted-foreground">
+            <Clock className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+            <span className="truncate">Вход: {lastSignIn}</span>
           </div>
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Calendar className="w-4 h-4" />
-            <span>Изтича на: {expiresAt}</span>
+          <div className="flex items-center gap-1.5 sm:gap-2 text-muted-foreground">
+            <Calendar className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+            <span className="truncate">Изтича: {expiresAt}</span>
           </div>
         </div>
       </div>
 
       {/* Info Note */}
-      <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 mb-4">
-        <div className="flex items-start gap-2">
-          <AlertTriangle className="w-4 h-4 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
-          <p className="text-xs text-amber-600 dark:text-amber-400">
-            Supabase показва само текущата сесия. Използвайте бутона по-долу за излизане от всички устройства.
+      <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-2 sm:p-3 mb-3 sm:mb-4">
+        <div className="flex items-start gap-1.5 sm:gap-2">
+          <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
+          <p className="text-[10px] sm:text-xs text-amber-600 dark:text-amber-400">
+            Supabase показва само текущата сесия. Използвайте бутона за излизане от всички устройства.
           </p>
         </div>
       </div>
@@ -180,17 +180,17 @@ export function ActiveSessions({ email }: ActiveSessionsProps) {
       <button
         onClick={handleSignOutAllDevices}
         disabled={isSigningOut}
-        className="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-600 dark:text-red-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full flex items-center justify-center gap-1.5 sm:gap-2 p-2.5 sm:p-3 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-600 dark:text-red-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isSigningOut ? (
           <>
-            <Loader2 className="w-4 h-4 animate-spin" />
-            <span className="text-sm font-medium">Излизане...</span>
+            <Loader2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" />
+            <span className="text-xs sm:text-sm font-medium">Излизане...</span>
           </>
         ) : (
           <>
-            <LogOut className="w-4 h-4" />
-            <span className="text-sm font-medium">Излез от всички устройства</span>
+            <LogOut className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span className="text-xs sm:text-sm font-medium">Излез от всички устройства</span>
           </>
         )}
       </button>
