@@ -25,7 +25,7 @@ import {
   User, Mail, Calendar, TrendingUp, ArrowLeft, Camera, Target, Edit2,
   Check, X, Loader2, Trash2, Settings, LogOut, Home,
   Dumbbell as DumbbellIcon, AlertTriangle, Utensils, Moon, Pill,
-  BarChart3, Award, ChevronRight, Info, Leaf, Sun
+  BarChart3, Award, ChevronRight, Info, Leaf, Sun, Download
 } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -111,6 +111,7 @@ export default function ProfilePage() {
   const [emailPassword, setEmailPassword] = useState('')
   const [isChangingEmail, setIsChangingEmail] = useState(false)
   const [emailError, setEmailError] = useState('')
+  const [isExportingData, setIsExportingData] = useState(false)
 
   useEffect(() => {
     if (!email || !userProgram) return
@@ -487,6 +488,35 @@ export default function ProfilePage() {
 
   const handleDeleteAccount = () => {
     setShowDeleteModal(true)
+  }
+
+  const handleExportData = async () => {
+    setIsExportingData(true)
+
+    try {
+      const response = await fetch('/api/user/export-data')
+
+      if (response.ok) {
+        const blob = await response.blob()
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement('a')
+        a.href = url
+        a.download = `testograph_data_${email?.replace('@', '_')}_${new Date().toISOString().split('T')[0]}.json`
+        document.body.appendChild(a)
+        a.click()
+        window.URL.revokeObjectURL(url)
+        document.body.removeChild(a)
+
+        toast.success('Данните са изтеглени успешно!')
+      } else {
+        toast.error('Грешка при изтегляне на данните')
+      }
+    } catch (error) {
+      console.error('Error exporting data:', error)
+      toast.error('Грешка при изтегляне на данните')
+    } finally {
+      setIsExportingData(false)
+    }
   }
 
   const confirmDeleteAccount = async () => {
@@ -1030,6 +1060,28 @@ export default function ProfilePage() {
                 </button>
               </div>
             </div>
+
+            {/* Export Data (GDPR) */}
+            <button
+              onClick={handleExportData}
+              disabled={isExportingData}
+              className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group disabled:opacity-50"
+            >
+              <div className="flex items-center gap-3">
+                <Download className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                <div className="text-left">
+                  <p className="text-sm font-medium">Изтегли данните си</p>
+                  <p className="text-xs text-muted-foreground">
+                    Експортирай всички данни (GDPR)
+                  </p>
+                </div>
+              </div>
+              {isExportingData ? (
+                <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
+              ) : (
+                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+              )}
+            </button>
 
             {/* Logout */}
             <button
