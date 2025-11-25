@@ -102,6 +102,7 @@ export default function ProfilePage() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [isChangingPassword, setIsChangingPassword] = useState(false)
   const [passwordError, setPasswordError] = useState('')
+  const [isResendingEmail, setIsResendingEmail] = useState(false)
 
   useEffect(() => {
     if (!email || !userProgram) return
@@ -393,6 +394,30 @@ export default function ProfilePage() {
     }
   }
 
+  const handleResendVerificationEmail = async () => {
+    setIsResendingEmail(true)
+
+    try {
+      const response = await fetch('/api/user/resend-verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        toast.success('Verification email е изпратен! Проверете входящата си поща.')
+      } else {
+        toast.error(data.error || 'Грешка при изпращане на email')
+      }
+    } catch (error) {
+      console.error('Error resending verification email:', error)
+      toast.error('Грешка при изпращане на verification email')
+    } finally {
+      setIsResendingEmail(false)
+    }
+  }
+
   const handleDeleteAccount = () => {
     setShowDeleteModal(true)
   }
@@ -657,21 +682,44 @@ export default function ProfilePage() {
               </div>
 
               {/* Email Verification Status */}
-              <div className="space-y-1">
+              <div className="space-y-1 col-span-2">
                 <div className="text-xs text-muted-foreground">Email статус</div>
-                <div className="flex items-center gap-2">
-                  {userProgram.is_email_verified ? (
-                    <>
-                      <Check className="w-4 h-4 text-green-600" />
-                      <span className="text-sm font-medium text-green-600">Потвърден</span>
-                    </>
-                  ) : (
-                    <>
-                      <AlertTriangle className="w-4 h-4 text-amber-600" />
-                      <span className="text-sm font-medium text-amber-600">Не потвърден</span>
-                    </>
-                  )}
-                </div>
+                {userProgram.is_email_verified ? (
+                  <div className="flex items-center gap-2 p-3 rounded-lg bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900">
+                    <Check className="w-5 h-5 text-green-600" />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium text-green-700 dark:text-green-400">Email потвърден</p>
+                      <p className="text-xs text-green-600 dark:text-green-500">Вашият email адрес е верифициран</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="p-3 rounded-lg bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900">
+                    <div className="flex items-start gap-2 mb-2">
+                      <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-amber-700 dark:text-amber-400">Email не е потвърден</p>
+                        <p className="text-xs text-amber-600 dark:text-amber-500">Моля потвърдете email адреса си</p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={handleResendVerificationEmail}
+                      disabled={isResendingEmail}
+                      className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-amber-600 text-white text-sm rounded-lg hover:bg-amber-700 transition-colors disabled:opacity-50"
+                    >
+                      {isResendingEmail ? (
+                        <>
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          Изпраща се...
+                        </>
+                      ) : (
+                        <>
+                          <Mail className="w-4 h-4" />
+                          Изпрати verification email
+                        </>
+                      )}
+                    </button>
+                  </div>
+                )}
               </div>
 
               {/* Program Days */}
