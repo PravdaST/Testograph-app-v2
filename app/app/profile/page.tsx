@@ -13,6 +13,7 @@ import { BottomNav } from '@/components/navigation/BottomNav'
 import { FeedbackHistory } from '@/components/profile/FeedbackHistory'
 import { DeleteAccountModal } from '@/components/profile/DeleteAccountModal'
 import { ConfirmModal } from '@/components/ui/confirm-modal'
+import { ProgressPhotoGallery } from '@/components/profile/ProgressPhotoGallery'
 import { useUserProgram } from '@/contexts/UserProgramContext'
 import { useToast } from '@/contexts/ToastContext'
 import { useTheme } from '@/contexts/ThemeContext'
@@ -834,6 +835,9 @@ export default function ProfilePage() {
             </div>
           </div>
         )}
+
+        {/* Progress Photo Gallery */}
+        {email && <ProgressPhotoGallery email={email} />}
 
         {/* Goal Section */}
         <div className="bg-background rounded-2xl p-5 border border-border">
