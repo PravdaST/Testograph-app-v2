@@ -608,19 +608,19 @@ export default function NutritionPage() {
 
           {/* Calories */}
           <div
-            className="relative bg-background rounded-2xl p-4 border border-border animate-fade-in"
+            className="relative bg-background rounded-xl p-2.5 border border-border animate-fade-in"
             style={{ animationDelay: '0.35s', animationFillMode: 'both' }}
           >
-            <div className="flex items-center justify-between mb-2">
-              <Flame className="w-4 h-4 text-orange-500" />
-              <span className="text-[10px] font-medium text-orange-500">{caloriesPercent}%</span>
+            <div className="flex items-center justify-between mb-1">
+              <Flame className="w-3.5 h-3.5 text-orange-500" />
+              <span className="text-[9px] font-medium text-orange-500">{caloriesPercent}%</span>
             </div>
-            <div className="text-xl font-bold mb-0.5">
+            <div className="text-sm font-bold leading-tight">
               <span className="text-foreground">{totalCalories}</span>
-              <span className="text-muted-foreground font-normal text-sm">/{targetCalories}</span>
+              <span className="text-muted-foreground font-normal text-[10px]">/{targetCalories}</span>
             </div>
-            <div className="text-xs text-muted-foreground mb-2">Калории</div>
-            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+            <div className="text-[10px] text-muted-foreground mb-1">Калории</div>
+            <div className="h-1 bg-muted rounded-full overflow-hidden">
               <div
                 className="h-full bg-orange-500 transition-all duration-500"
                 style={{ width: `${Math.min(caloriesPercent, 100)}%` }}
@@ -630,19 +630,19 @@ export default function NutritionPage() {
 
           {/* Protein */}
           <div
-            className="relative bg-background rounded-2xl p-4 border border-border animate-fade-in"
+            className="relative bg-background rounded-xl p-2.5 border border-border animate-fade-in"
             style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
           >
-            <div className="flex items-center justify-between mb-2">
-              <Drumstick className="w-4 h-4 text-red-500" />
-              <span className="text-[10px] font-medium text-red-500">{proteinPercent}%</span>
+            <div className="flex items-center justify-between mb-1">
+              <Drumstick className="w-3.5 h-3.5 text-red-500" />
+              <span className="text-[9px] font-medium text-red-500">{proteinPercent}%</span>
             </div>
-            <div className="text-xl font-bold mb-0.5">
+            <div className="text-sm font-bold leading-tight">
               <span className="text-foreground">{totalProtein}</span>
-              <span className="text-muted-foreground font-normal text-sm">/{targetProtein}g</span>
+              <span className="text-muted-foreground font-normal text-[10px]">/{targetProtein}g</span>
             </div>
-            <div className="text-xs text-muted-foreground mb-2">Протеин</div>
-            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+            <div className="text-[10px] text-muted-foreground mb-1">Протеин</div>
+            <div className="h-1 bg-muted rounded-full overflow-hidden">
               <div
                 className="h-full bg-red-500 transition-all duration-500"
                 style={{ width: `${Math.min(proteinPercent, 100)}%` }}
@@ -652,19 +652,19 @@ export default function NutritionPage() {
 
           {/* Carbs */}
           <div
-            className="relative bg-background rounded-2xl p-4 border border-border animate-fade-in"
+            className="relative bg-background rounded-xl p-2.5 border border-border animate-fade-in"
             style={{ animationDelay: '0.45s', animationFillMode: 'both' }}
           >
-            <div className="flex items-center justify-between mb-2">
-              <Wheat className="w-4 h-4 text-yellow-600" />
-              <span className="text-[10px] font-medium text-yellow-600">{carbsPercent}%</span>
+            <div className="flex items-center justify-between mb-1">
+              <Wheat className="w-3.5 h-3.5 text-yellow-600" />
+              <span className="text-[9px] font-medium text-yellow-600">{carbsPercent}%</span>
             </div>
-            <div className="text-xl font-bold mb-0.5">
+            <div className="text-sm font-bold leading-tight">
               <span className="text-foreground">{totalCarbs}</span>
-              <span className="text-muted-foreground font-normal text-sm">/{targetCarbs}g</span>
+              <span className="text-muted-foreground font-normal text-[10px]">/{targetCarbs}g</span>
             </div>
-            <div className="text-xs text-muted-foreground mb-2">Въгл.</div>
-            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+            <div className="text-[10px] text-muted-foreground mb-1">Въгл.</div>
+            <div className="h-1 bg-muted rounded-full overflow-hidden">
               <div
                 className="h-full bg-yellow-600 transition-all duration-500"
                 style={{ width: `${Math.min(carbsPercent, 100)}%` }}
@@ -674,19 +674,19 @@ export default function NutritionPage() {
 
           {/* Fats */}
           <div
-            className="relative bg-background rounded-2xl p-4 border border-border animate-fade-in"
+            className="relative bg-background rounded-xl p-2.5 border border-border animate-fade-in"
             style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
           >
-            <div className="flex items-center justify-between mb-2">
-              <Droplet className="w-4 h-4 text-blue-500" />
-              <span className="text-[10px] font-medium text-blue-500">{fatsPercent}%</span>
+            <div className="flex items-center justify-between mb-1">
+              <Droplet className="w-3.5 h-3.5 text-blue-500" />
+              <span className="text-[9px] font-medium text-blue-500">{fatsPercent}%</span>
             </div>
-            <div className="text-xl font-bold mb-0.5">
+            <div className="text-sm font-bold leading-tight">
               <span className="text-foreground">{totalFats}</span>
-              <span className="text-muted-foreground font-normal text-sm">/{targetFats}g</span>
+              <span className="text-muted-foreground font-normal text-[10px]">/{targetFats}g</span>
             </div>
-            <div className="text-xs text-muted-foreground mb-2">Мазнини</div>
-            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+            <div className="text-[10px] text-muted-foreground mb-1">Мазнини</div>
+            <div className="h-1 bg-muted rounded-full overflow-hidden">
               <div
                 className="h-full bg-blue-500 transition-all duration-500"
                 style={{ width: `${Math.min(fatsPercent, 100)}%` }}
