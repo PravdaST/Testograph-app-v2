@@ -9,7 +9,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createPortal } from 'react-dom'
-import { Utensils, Flame, TrendingUp, Award, Info, X, Leaf } from 'lucide-react'
+import { Utensils, Flame, TrendingUp, Award, Info, X, Leaf, Droplets, Plus, Minus } from 'lucide-react'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
@@ -112,9 +112,21 @@ export default function NutritionPage() {
   const [activeTooltip, setActiveTooltip] = useState<'progress' | 'calories' | 'protein' | null>(null)
   const [substitutedMeals, setSubstitutedMeals] = useState<Record<string, Record<number, SubstitutedMeal>>>({})
   const [substitutingMeals, setSubstitutingMeals] = useState<Record<string, boolean>>({})
+  const [waterGlasses, setWaterGlasses] = useState<Record<string, number>>({})
+  const [updatingWater, setUpdatingWater] = useState(false)
 
   // Load weekly completion status for calendar
   const { completedDates } = useWeeklyCompletion(selectedDate, email)
+
+  // Water target based on category and level (glasses per day, 1 glass = 250ml)
+  const getWaterTarget = (category: string, level: string): number => {
+    const targets: Record<string, Record<string, number>> = {
+      energy: { low: 8, normal: 10, high: 12 },    // 2L, 2.5L, 3L
+      muscle: { low: 10, normal: 12, high: 14 },   // 2.5L, 3L, 3.5L
+      libido: { low: 8, normal: 10, high: 12 },    // 2L, 2.5L, 3L
+    }
+    return targets[category]?.[level.toLowerCase()] || 10
+  }
 
   // Load user program
   useEffect(() => {
@@ -181,6 +193,16 @@ export default function NutritionPage() {
         setSubstitutedMeals(prev => ({
           ...prev,
           [dateKey]: subsData.substitutions || {}
+        }))
+      }
+
+      // Load water tracking
+      const waterResponse = await fetch(`/api/water/track?date=${dateKey}`)
+      if (waterResponse.ok) {
+        const waterData = await waterResponse.json()
+        setWaterGlasses(prev => ({
+          ...prev,
+          [dateKey]: waterData.glasses || 0
         }))
       }
     }
@@ -356,6 +378,46 @@ export default function NutritionPage() {
     }
   }
 
+  const handleWaterUpdate = async (delta: number) => {
+    if (!email || updatingWater) return
+
+    const dateKey = selectedDate.toISOString().split('T')[0]
+    const currentGlasses = waterGlasses[dateKey] || 0
+    const newGlasses = Math.max(0, Math.min(20, currentGlasses + delta))
+
+    if (newGlasses === currentGlasses) return
+
+    setUpdatingWater(true)
+
+    // Optimistic update
+    setWaterGlasses(prev => ({
+      ...prev,
+      [dateKey]: newGlasses
+    }))
+
+    try {
+      const response = await fetch('/api/water/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ date: dateKey, glasses: newGlasses }),
+      })
+
+      if (!response.ok) {
+        // Revert on error
+        setWaterGlasses(prev => ({
+          ...prev,
+          [dateKey]: currentGlasses
+        }))
+        throw new Error('Failed to update water')
+      }
+    } catch (error) {
+      console.error('Error updating water:', error)
+      toast.error('Грешка при запазване на водата')
+    } finally {
+      setUpdatingWater(false)
+    }
+  }
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset">
@@ -447,6 +509,13 @@ export default function NutritionPage() {
   const proteinPercent = targetProtein > 0 ? Math.round((totalProtein / targetProtein) * 100) : 0
   const carbsPercent = targetCarbs > 0 ? Math.round((totalCarbs / targetCarbs) * 100) : 0
   const fatsPercent = targetFats > 0 ? Math.round((totalFats / targetFats) * 100) : 0
+
+  // Water tracking
+  const waterTarget = getWaterTarget(userProgram.category, userProgram.level)
+  const currentWater = waterGlasses[dateKey] || 0
+  const waterPercent = waterTarget > 0 ? Math.round((currentWater / waterTarget) * 100) : 0
+  const waterMl = currentWater * 250
+  const waterTargetMl = waterTarget * 250
 
   // Dietary preference display names
   const dietaryPreferenceNames: Record<DietaryPreference, string> = {
@@ -732,6 +801,69 @@ export default function NutritionPage() {
                 style={{ width: `${Math.min(fatsPercent, 100)}%` }}
               />
             </div>
+          </div>
+        </div>
+
+        {/* Water Tracking */}
+        <div
+          className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-2xl p-4 border border-cyan-500/20 animate-fade-in"
+          style={{ animationDelay: '0.65s', animationFillMode: 'both' }}
+        >
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-xl bg-cyan-500/20">
+                <Droplets className="w-5 h-5 text-cyan-500" />
+              </div>
+              <div>
+                <div className="text-sm font-bold">Хидратация</div>
+                <div className="text-xs text-muted-foreground">
+                  {waterMl}ml / {waterTargetMl}ml ({waterPercent}%)
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => handleWaterUpdate(-1)}
+                disabled={updatingWater || currentWater <= 0}
+                className="p-2 rounded-lg bg-background border border-border hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <Minus className="w-4 h-4" />
+              </button>
+
+              <div className="w-16 text-center">
+                <div className="text-2xl font-bold text-cyan-600">{currentWater}</div>
+                <div className="text-[10px] text-muted-foreground">чаши</div>
+              </div>
+
+              <button
+                onClick={() => handleWaterUpdate(1)}
+                disabled={updatingWater || currentWater >= 20}
+                className="p-2 rounded-lg bg-cyan-500 text-white hover:bg-cyan-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                <Plus className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Progress bar */}
+          <div className="mt-3 h-2 bg-background/50 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-500"
+              style={{ width: `${Math.min(waterPercent, 100)}%` }}
+            />
+          </div>
+
+          {/* Glass indicators */}
+          <div className="mt-2 flex gap-1 justify-center flex-wrap">
+            {Array.from({ length: waterTarget }).map((_, i) => (
+              <div
+                key={i}
+                className={`w-2 h-3 rounded-sm transition-colors ${
+                  i < currentWater ? 'bg-cyan-500' : 'bg-muted'
+                }`}
+              />
+            ))}
           </div>
         </div>
 
