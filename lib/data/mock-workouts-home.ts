@@ -13,7 +13,7 @@ export const HOME_WORKOUTS: WorkoutProgram[] = [
     duration: 45,
     exercises: [
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Клекове',
         name_en: 'bodyweight squat',
         sets: 4,
@@ -42,7 +42,7 @@ export const HOME_WORKOUTS: WorkoutProgram[] = [
       {
         exercisedb_id: '1ZFqTDN',
         name_bg: 'Джъмпинг Джакс',
-        name_en: 'air bike',
+        name_en: 'jack jump',
         sets: 3,
         reps: '30-45s',
         rest_seconds: 45,
@@ -137,7 +137,7 @@ export const HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Изпълнявайте движението експлозивно.',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк',
         name_en: 'plank',
         sets: 3,
