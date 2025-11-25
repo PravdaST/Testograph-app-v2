@@ -554,7 +554,7 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
               {selectedPhoto.notes && (
                 <div className="pt-3 border-t border-border">
                   <div className="text-xs text-muted-foreground mb-1">Бележки:</div>
-                  <p className="text-sm">{selectedPhoto.notes}</p>
+                  <p className="text-sm text-foreground">{selectedPhoto.notes}</p>
                 </div>
               )}
             </div>
