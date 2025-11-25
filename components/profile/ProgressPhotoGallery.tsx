@@ -343,11 +343,21 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
             </button>
           )}
           <button
+            onClick={() => {
+              setIsCameraMode(true)
+              setShowUploadModal(true)
+            }}
+            className="p-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+            title="Снимай с камера"
+          >
+            <Camera className="w-5 h-5" />
+          </button>
+          <button
             onClick={() => setShowUploadModal(true)}
             className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
           >
             <Upload className="w-4 h-4" />
-            <span>Качи снимка</span>
+            <span>Качи</span>
           </button>
         </div>
       </div>
