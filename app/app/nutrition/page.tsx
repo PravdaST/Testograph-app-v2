@@ -663,7 +663,7 @@ export default function NutritionPage() {
               <span className="text-foreground">{totalCarbs}</span>
               <span className="text-muted-foreground font-normal text-sm">/{targetCarbs}g</span>
             </div>
-            <div className="text-xs text-muted-foreground mb-2">Въглехидрати</div>
+            <div className="text-xs text-muted-foreground mb-2">Въгл.</div>
             <div className="h-1.5 bg-muted rounded-full overflow-hidden">
               <div
                 className="h-full bg-yellow-600 transition-all duration-500"
