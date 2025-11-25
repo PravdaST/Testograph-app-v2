@@ -91,3 +91,34 @@ export function findMultipleExerciseIds(queries: string[]): Record<string, strin
 
   return result
 }
+
+/**
+ * Check if exercise is bodyweight (no equipment needed)
+ * Returns true for exercises where weight input doesn't make sense
+ */
+export function isBodyweightExercise(exerciseId: string): boolean {
+  const exercise = getExerciseById(exerciseId)
+  if (!exercise) return false
+
+  // Check if equipment is "body weight" or similar
+  const bodyweightEquipments = ['body weight', 'assisted', 'leverage machine']
+  return exercise.equipments.some(eq =>
+    bodyweightEquipments.includes(eq.toLowerCase())
+  )
+}
+
+/**
+ * Check if exercise requires weight tracking
+ * Returns true for exercises that use external weights (dumbbells, barbells, etc.)
+ */
+export function requiresWeightInput(exerciseId: string): boolean {
+  const exercise = getExerciseById(exerciseId)
+  if (!exercise) return true // Default to showing weight input
+
+  // Equipments that require weight tracking
+  const weightEquipments = ['barbell', 'dumbbell', 'kettlebell', 'ez barbell', 'olympic barbell', 'trap bar', 'weighted']
+
+  return exercise.equipments.some(eq =>
+    weightEquipments.some(we => eq.toLowerCase().includes(we))
+  )
+}

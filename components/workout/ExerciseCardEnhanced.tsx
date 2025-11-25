@@ -9,6 +9,7 @@ import { useState, useEffect, useRef } from 'react'
 import { CheckCircle2, Timer, Info, TrendingUp, Pause, Play, X } from 'lucide-react'
 import type { Exercise } from '@/lib/data/mock-workouts'
 import { useToast } from '@/contexts/ToastContext'
+import { requiresWeightInput } from '@/lib/data/exercise-helpers'
 
 interface SetLog {
   setNumber: number
@@ -303,6 +304,9 @@ export function ExerciseCardEnhanced({
   const isTimeBased = repsStr.includes('мин') || repsStr.includes('s') || repsStr.includes('сек')
   const isCardio = isTimeBased || exercise.rest_seconds === 0
 
+  // Check if exercise needs weight input (based on equipment type from exercises.json)
+  const needsWeightInput = requiresWeightInput(exercise.exercisedb_id)
+
   return (
     <div
       className={`
@@ -475,6 +479,17 @@ export function ExerciseCardEnhanced({
 
           // Completed sets - compact view
           if (setLog.completed) {
+            // Format display based on exercise type
+            let completedDisplay: string
+            if (isTimeBased) {
+              completedDisplay = `${exercise.reps} завършени`
+            } else if (needsWeightInput) {
+              completedDisplay = `${setLog.weight ? `${setLog.weight}kg` : 'BW'} × ${setLog.reps}`
+            } else {
+              // Bodyweight exercise - only show reps
+              completedDisplay = `${setLog.reps} повт.`
+            }
+
             return (
               <div
                 key={setLog.setNumber}
@@ -484,10 +499,7 @@ export function ExerciseCardEnhanced({
                   <span className="text-xs font-bold text-success">{isTimeBased ? '✓' : `S${setLog.setNumber}`}</span>
                 </div>
                 <span className="text-sm text-muted-foreground">
-                  {isTimeBased
-                    ? `${exercise.reps} завършени`
-                    : `${setLog.weight ? `${setLog.weight}kg` : 'BW'} × ${setLog.reps}`
-                  }
+                  {completedDisplay}
                 </span>
                 <CheckCircle2 className="w-4 h-4 text-success ml-auto" />
               </div>
@@ -553,24 +565,26 @@ export function ExerciseCardEnhanced({
                   </div>
                 </div>
 
-                {/* Weight Input */}
-                <div className="flex-1">
-                  <label className="text-xs text-muted-foreground block mb-1">
-                    Тежест (kg)
-                  </label>
-                  <input
-                    type="number"
-                    step="0.5"
-                    min="0"
-                    value={setLog.weight}
-                    onChange={(e) => handleWeightChange(setLog.setNumber, e.target.value)}
-                    placeholder="0"
-                    className="w-full px-3 py-2 rounded-lg border border-primary/30 bg-background text-sm focus:border-primary focus:ring-1 focus:ring-primary/30"
-                  />
-                </div>
+                {/* Weight Input - only for exercises that need it */}
+                {needsWeightInput && (
+                  <div className="flex-1">
+                    <label className="text-xs text-muted-foreground block mb-1">
+                      Тежест (kg)
+                    </label>
+                    <input
+                      type="number"
+                      step="0.5"
+                      min="0"
+                      value={setLog.weight}
+                      onChange={(e) => handleWeightChange(setLog.setNumber, e.target.value)}
+                      placeholder="0"
+                      className="w-full px-3 py-2 rounded-lg border border-primary/30 bg-background text-sm focus:border-primary focus:ring-1 focus:ring-primary/30"
+                    />
+                  </div>
+                )}
 
                 {/* Reps Input */}
-                <div className="flex-1">
+                <div className={needsWeightInput ? "flex-1" : "flex-[2]"}>
                   <label className={`text-xs block mb-1 ${validationErrors[setLog.setNumber] ? 'text-destructive' : 'text-muted-foreground'}`}>
                     Повторения {validationErrors[setLog.setNumber] && '*'}
                   </label>
