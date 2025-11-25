@@ -308,10 +308,10 @@ export function MeasurementsTracker({ email }: MeasurementsTrackerProps) {
       {/* Table View - Cards on mobile, Table on desktop */}
       {selectedView === 'table' && measurements.length > 0 && (
         <>
-          {/* Mobile: Cards */}
-          <div className="sm:hidden space-y-2">
+          {/* Mobile: Horizontal scroll cards */}
+          <div className="sm:hidden flex gap-2 overflow-x-auto pb-2 -mx-3 px-3 snap-x snap-mandatory scrollbar-hide">
             {measurements.map((m) => (
-              <div key={m.id} className="p-3 bg-muted/20 rounded-xl border border-border/50">
+              <div key={m.id} className="flex-shrink-0 w-[calc(50%-4px)] snap-start p-3 bg-muted/20 rounded-xl border border-border/50">
                 <div className="flex items-start justify-between mb-2">
                   <div className="text-sm font-medium">
                     {new Date(m.date).toLocaleDateString('bg-BG', {
@@ -332,7 +332,7 @@ export function MeasurementsTracker({ email }: MeasurementsTrackerProps) {
                     )}
                   </button>
                 </div>
-                <div className="grid grid-cols-3 gap-2 text-xs">
+                <div className="grid grid-cols-2 gap-1.5 text-xs">
                   {m.weight && (
                     <div>
                       <span className="text-muted-foreground">Тегло</span>
