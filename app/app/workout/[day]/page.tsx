@@ -10,6 +10,7 @@ import { useRouter, useParams } from 'next/navigation'
 import { createPortal } from 'react-dom'
 import { ArrowLeft, Dumbbell, CheckCircle2, TrendingUp, History, Sparkles, Utensils, Moon, Timer, Info, X } from 'lucide-react'
 import Link from 'next/link'
+import confetti from 'canvas-confetti'
 import { ExerciseCardEnhanced } from '@/components/workout/ExerciseCardEnhanced'
 import { WarmUpSection } from '@/components/workout/WarmUpSection'
 import { CoolDownSection } from '@/components/workout/CoolDownSection'
@@ -276,20 +277,6 @@ export default function WorkoutPage() {
     }
   }, [completedSets, dayOfWeek])
 
-  const handleSetToggle = (exerciseIndex: number, setNumber: number) => {
-    setCompletedSets((prev) => {
-      const exerciseSets = prev[exerciseIndex] || []
-      const isCompleted = exerciseSets.includes(setNumber)
-
-      return {
-        ...prev,
-        [exerciseIndex]: isCompleted
-          ? exerciseSets.filter((s) => s !== setNumber)
-          : [...exerciseSets, setNumber].sort((a, b) => a - b),
-      }
-    })
-  }
-
   const handleFinishWorkout = async () => {
     if (!email) return
 
@@ -310,7 +297,35 @@ export default function WorkoutPage() {
       })
 
       if (response.ok) {
-        toast.success('Браво! Тренировката е завършена успешно!')
+        // Trigger confetti celebration!
+        const duration = 2000
+        const animationEnd = Date.now() + duration
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 99999 }
+
+        const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min
+
+        const interval = setInterval(() => {
+          const timeLeft = animationEnd - Date.now()
+
+          if (timeLeft <= 0) {
+            return clearInterval(interval)
+          }
+
+          const particleCount = 50 * (timeLeft / duration)
+
+          confetti({
+            ...defaults,
+            particleCount,
+            origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+          })
+          confetti({
+            ...defaults,
+            particleCount,
+            origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+          })
+        }, 250)
+
+        toast.success('Браво! Тренировката е завършена успешно! 🎉')
 
         // Clear local storage for this workout
         localStorage.removeItem(`workout-${dayOfWeek}`)
@@ -548,7 +563,9 @@ export default function WorkoutPage() {
               <div className="grid grid-cols-7 gap-2">
                 {[1, 2, 3, 4, 5, 6, 7].map((day) => {
                   const isCompleted = completedDays[day]
-                  const isRestDay = day === 2 || day === 5 // Example rest days
+                  // Check if this day is a rest day from workout data
+                  const dayWorkout = workouts.find((w) => w.day_of_week === day)
+                  const isRestDay = !dayWorkout || dayWorkout.duration === 0
                   return (
                     <div
                       key={day}
@@ -655,9 +672,9 @@ export default function WorkoutPage() {
               e.stopPropagation()
               setActiveTooltip(activeTooltip === 'hero' ? null : 'hero')
             }}
-            className="absolute top-4 right-4 p-1 rounded-md hover:bg-muted/50 transition-colors z-10"
+            className="absolute top-4 right-4 p-2 rounded-lg hover:bg-muted/50 transition-colors z-10"
           >
-            <Info className="w-3 h-3 text-muted-foreground" />
+            <Info className="w-4 h-4 text-muted-foreground" />
           </button>
           {activeTooltip === 'hero' && typeof window !== 'undefined' && createPortal(
             <>
@@ -668,7 +685,7 @@ export default function WorkoutPage() {
                   setActiveTooltip(null)
                 }}
               />
-              <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
+              <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-background border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
                 <div className="flex items-start justify-between gap-2 mb-2">
                   <div className="text-sm font-bold text-foreground">Тренировка</div>
                   <button
@@ -780,17 +797,20 @@ export default function WorkoutPage() {
           <CoolDownSection exercises={GENERAL_COOLDOWN} />
         </div>
 
-        {/* Finish Button */}
-        {progressPercentage === 100 && (
-          <div className="sticky bottom-4 animate-slide-up">
+        {/* Finish Button - Always visible */}
+        {!completedDays[dayOfWeek] && (
+          <div className="sticky bottom-20 animate-slide-up">
             <Button
               size="lg"
               fullWidth
               onClick={handleFinishWorkout}
-              className="shadow-lg"
+              disabled={progressPercentage < 100}
+              className={`shadow-lg ${progressPercentage < 100 ? 'opacity-50' : ''}`}
             >
               <CheckCircle2 className="w-5 h-5 mr-2" />
-              Завърши тренировката
+              {progressPercentage < 100
+                ? `Завърши (${progressPercentage}% готово)`
+                : 'Завърши тренировката'}
             </Button>
           </div>
         )}
