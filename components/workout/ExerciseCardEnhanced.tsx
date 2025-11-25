@@ -298,8 +298,9 @@ export function ExerciseCardEnhanced({
   const completedCount = setLogs.filter(s => s.completed).length
   const isFullyCompleted = completedCount === exercise.sets
 
-  // Detect exercise type
-  const isTimeBased = typeof exercise.reps === 'string' && exercise.reps.includes('мин')
+  // Detect exercise type - time-based exercises don't need weight/reps inputs
+  const repsStr = String(exercise.reps)
+  const isTimeBased = repsStr.includes('мин') || repsStr.includes('s') || repsStr.includes('сек')
   const isCardio = isTimeBased || exercise.rest_seconds === 0
 
   return (
