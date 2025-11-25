@@ -6,7 +6,7 @@
  */
 
 import { useState, useEffect } from 'react'
-import { LogOut, Smartphone, Calendar, Clock, Loader2, AlertTriangle } from 'lucide-react'
+import { LogOut, Smartphone, Monitor, Calendar, Clock, Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useToast } from '@/contexts/ToastContext'
 
@@ -120,9 +120,9 @@ export function ActiveSessions({ email }: ActiveSessionsProps) {
   // Parse user agent for basic device info
   const getDeviceInfo = (userAgent: string) => {
     if (userAgent.includes('Mobile') || userAgent.includes('Android') || userAgent.includes('iPhone')) {
-      return { type: 'Mobile', icon: Smartphone }
+      return { type: 'Мобилно устройство', icon: Smartphone }
     }
-    return { type: 'Desktop', icon: Smartphone }
+    return { type: 'Компютър', icon: Monitor }
   }
 
   const deviceInfo = getDeviceInfo(sessionInfo.userAgent)
@@ -131,48 +131,35 @@ export function ActiveSessions({ email }: ActiveSessionsProps) {
   return (
     <div className="bg-background rounded-2xl p-3 sm:p-5 border border-border">
       {/* Header */}
-      <div className="flex items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4">
-        <Smartphone className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-        <h2 className="font-bold text-sm sm:text-base">Активни сесии</h2>
+      <div className="flex items-center justify-between mb-3 sm:mb-4">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <DeviceIcon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+          <h2 className="font-bold text-sm sm:text-base">Текуща сесия</h2>
+        </div>
+        <span className="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 bg-green-500/10 text-green-600 dark:text-green-400 rounded">
+          Активна
+        </span>
       </div>
 
-      {/* Current Session Card */}
-      <div className="bg-muted/30 rounded-xl p-3 sm:p-4 mb-3 sm:mb-4">
-        <div className="flex items-start justify-between mb-2 sm:mb-3">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-              <DeviceIcon className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-            </div>
-            <div>
-              <div className="font-medium text-sm sm:text-base">{deviceInfo.type}</div>
-              <div className="text-[10px] sm:text-xs text-muted-foreground">Текуща сесия</div>
-            </div>
-          </div>
-          <span className="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 sm:py-1 bg-green-500/10 text-green-600 dark:text-green-400 rounded">
-            Активна
+      {/* Session Info */}
+      <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-4">
+        <div className="flex items-center justify-between text-xs sm:text-sm">
+          <span className="text-muted-foreground">Устройство:</span>
+          <span className="font-medium">{deviceInfo.type}</span>
+        </div>
+        <div className="flex items-center justify-between text-xs sm:text-sm">
+          <span className="text-muted-foreground flex items-center gap-1">
+            <Clock className="w-3 h-3" />
+            Вход:
           </span>
+          <span className="font-medium">{lastSignIn}</span>
         </div>
-
-        {/* Session Details */}
-        <div className="space-y-1.5 sm:space-y-2 text-xs sm:text-sm">
-          <div className="flex items-center gap-1.5 sm:gap-2 text-muted-foreground">
-            <Clock className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-            <span className="truncate">Вход: {lastSignIn}</span>
-          </div>
-          <div className="flex items-center gap-1.5 sm:gap-2 text-muted-foreground">
-            <Calendar className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-            <span className="truncate">Изтича: {expiresAt}</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Info Note */}
-      <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-2 sm:p-3 mb-3 sm:mb-4">
-        <div className="flex items-start gap-1.5 sm:gap-2">
-          <AlertTriangle className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-amber-600 dark:text-amber-400 mt-0.5 flex-shrink-0" />
-          <p className="text-[10px] sm:text-xs text-amber-600 dark:text-amber-400">
-            Supabase показва само текущата сесия. Използвайте бутона за излизане от всички устройства.
-          </p>
+        <div className="flex items-center justify-between text-xs sm:text-sm">
+          <span className="text-muted-foreground flex items-center gap-1">
+            <Calendar className="w-3 h-3" />
+            Изтича:
+          </span>
+          <span className="font-medium">{expiresAt}</span>
         </div>
       </div>
 
