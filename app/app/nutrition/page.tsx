@@ -8,7 +8,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Flame, TrendingUp, Award, Leaf, Droplets, Plus, Minus } from 'lucide-react'
+import { Flame, TrendingUp, Leaf, Droplets, Plus, Minus, Drumstick, Wheat, Droplet } from 'lucide-react'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
@@ -634,7 +634,7 @@ export default function NutritionPage() {
             style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
           >
             <div className="flex items-center justify-between mb-2">
-              <Award className="w-4 h-4 text-red-500" />
+              <Drumstick className="w-4 h-4 text-red-500" />
               <span className="text-[10px] font-medium text-red-500">{proteinPercent}%</span>
             </div>
             <div className="text-xl font-bold mb-0.5">
@@ -656,10 +656,8 @@ export default function NutritionPage() {
             style={{ animationDelay: '0.45s', animationFillMode: 'both' }}
           >
             <div className="flex items-center justify-between mb-2">
-              <svg className="w-4 h-4 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-              </svg>
-              <span className="text-[10px] font-medium text-blue-500">{carbsPercent}%</span>
+              <Wheat className="w-4 h-4 text-yellow-600" />
+              <span className="text-[10px] font-medium text-yellow-600">{carbsPercent}%</span>
             </div>
             <div className="text-xl font-bold mb-0.5">
               <span className="text-foreground">{totalCarbs}</span>
@@ -668,7 +666,7 @@ export default function NutritionPage() {
             <div className="text-xs text-muted-foreground mb-2">Въглехидрати</div>
             <div className="h-1.5 bg-muted rounded-full overflow-hidden">
               <div
-                className="h-full bg-blue-500 transition-all duration-500"
+                className="h-full bg-yellow-600 transition-all duration-500"
                 style={{ width: `${Math.min(carbsPercent, 100)}%` }}
               />
             </div>
@@ -680,11 +678,8 @@ export default function NutritionPage() {
             style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
           >
             <div className="flex items-center justify-between mb-2">
-              <svg className="w-4 h-4 text-yellow-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M8 12a4 4 0 0 1 8 0"/>
-              </svg>
-              <span className="text-[10px] font-medium text-yellow-500">{fatsPercent}%</span>
+              <Droplet className="w-4 h-4 text-blue-500" />
+              <span className="text-[10px] font-medium text-blue-500">{fatsPercent}%</span>
             </div>
             <div className="text-xl font-bold mb-0.5">
               <span className="text-foreground">{totalFats}</span>
@@ -693,7 +688,7 @@ export default function NutritionPage() {
             <div className="text-xs text-muted-foreground mb-2">Мазнини</div>
             <div className="h-1.5 bg-muted rounded-full overflow-hidden">
               <div
-                className="h-full bg-yellow-500 transition-all duration-500"
+                className="h-full bg-blue-500 transition-all duration-500"
                 style={{ width: `${Math.min(fatsPercent, 100)}%` }}
               />
             </div>
