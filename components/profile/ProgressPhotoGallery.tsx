@@ -754,10 +754,10 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
               />
             </div>
 
-            <div className="bg-background/90 backdrop-blur rounded-lg p-4 space-y-3">
+            <div className="bg-black/70 backdrop-blur rounded-lg p-4 space-y-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-lg font-bold">
+                  <div className="text-lg font-bold text-white">
                     {new Date(selectedPhoto.date).toLocaleDateString('bg-BG', {
                       day: 'numeric',
                       month: 'long',
@@ -765,12 +765,12 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
                     })}
                   </div>
                   {selectedPhoto.weight && (
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-white/70">
                       Тегло: {selectedPhoto.weight} kg
                     </div>
                   )}
                   {selectedPhoto.body_fat_pct && (
-                    <div className="text-sm text-muted-foreground">
+                    <div className="text-sm text-white/70">
                       Мазнини: {selectedPhoto.body_fat_pct}%
                     </div>
                   )}
@@ -779,16 +779,16 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
                   onClick={() => {
                     setShowDeleteModal(true)
                   }}
-                  className="p-2 bg-destructive/10 hover:bg-destructive/20 text-destructive rounded-lg transition-colors"
+                  className="p-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors"
                 >
                   <Trash2 className="w-5 h-5" />
                 </button>
               </div>
 
               {selectedPhoto.notes && (
-                <div className="pt-3 border-t border-border">
-                  <div className="text-xs text-muted-foreground mb-1">Бележки:</div>
-                  <p className="text-sm text-foreground">{selectedPhoto.notes}</p>
+                <div className="pt-3 border-t border-white/20">
+                  <div className="text-xs text-white/50 mb-1">Бележки:</div>
+                  <p className="text-sm text-white">{selectedPhoto.notes}</p>
                 </div>
               )}
             </div>
