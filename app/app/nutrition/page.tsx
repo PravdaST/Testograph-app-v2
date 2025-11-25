@@ -109,7 +109,7 @@ export default function NutritionPage() {
   const [programStartDate, setProgramStartDate] = useState<Date>(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [completedMeals, setCompletedMeals] = useState<Record<string, number[]>>({})
-  const [activeTooltip, setActiveTooltip] = useState<'progress' | 'calories' | 'protein' | null>(null)
+  const [activeTooltip, setActiveTooltip] = useState<'calories' | 'protein' | null>(null)
   const [substitutedMeals, setSubstitutedMeals] = useState<Record<string, Record<number, SubstitutedMeal>>>({})
   const [substitutingMeals, setSubstitutingMeals] = useState<Record<string, boolean>>({})
   const [waterGlasses, setWaterGlasses] = useState<Record<string, number>>({})
@@ -553,10 +553,19 @@ export default function NutritionPage() {
           </div>
         )}
 
-        {/* Page Title */}
-        <h1 className="text-xl font-bold px-1 animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
-          Хранителен План
-        </h1>
+        {/* Page Title + Mini Progress */}
+        <div className="flex items-center justify-between animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
+          <h1 className="text-xl font-bold px-1">Хранителен План</h1>
+
+          {/* Mini Progress */}
+          <div className="flex items-center gap-2 bg-primary/10 rounded-xl px-3 py-2 border border-primary/20">
+            <TrendingUp className="w-4 h-4 text-primary" />
+            <div className="flex items-center gap-1.5">
+              <span className="text-lg font-bold text-primary">{completedToday.length}/{mealsForDay.length}</span>
+              <span className="text-[10px] text-muted-foreground">хранения</span>
+            </div>
+          </div>
+        </div>
 
         {/* Weekly Calendar */}
         <div className="animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
@@ -570,67 +579,6 @@ export default function NutritionPage() {
 
         {/* Bento Grid - Stats */}
         <div className="grid grid-cols-4 gap-3 md:gap-4">
-          {/* Meals Progress (2x1) */}
-          <div
-            className="relative col-span-2 bg-gradient-to-br from-primary/20 to-primary/10 rounded-2xl p-4 border-2 border-primary/30 animate-fade-in"
-            style={{ animationDelay: '0.3s', animationFillMode: 'both' }}
-          >
-            <div className="flex items-center gap-2 mb-2">
-              <TrendingUp className="w-4 h-4 text-primary" />
-              <h3 className="text-sm font-bold">Прогрес</h3>
-            </div>
-
-            <div className="text-3xl font-bold text-primary mb-1">
-              {completedToday.length}/{mealsForDay.length}
-            </div>
-            <div className="text-[10px] text-muted-foreground mb-2">Изядени хранения</div>
-
-            <div className="h-1.5 bg-background/50 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-primary transition-all"
-                style={{ width: `${(completedToday.length / mealsForDay.length) * 100}%` }}
-              />
-            </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setActiveTooltip(activeTooltip === 'progress' ? null : 'progress')
-              }}
-              className="absolute top-2 right-2 p-1 rounded-md hover:bg-muted/50 transition-colors"
-            >
-              <Info className="w-3 h-3 text-muted-foreground" />
-            </button>
-            {activeTooltip === 'progress' && typeof window !== 'undefined' && createPortal(
-              <>
-                <div
-                  className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setActiveTooltip(null)
-                  }}
-                />
-                <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <div className="text-sm font-bold text-foreground">Прогрес на хранения</div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setActiveTooltip(null)
-                      }}
-                      className="p-1 hover:bg-muted rounded-md transition-colors"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Проследи колко хранения си завършил за избрания ден. Маркирай всяко хранене като завършено, за да следиш прогреса си.
-                  </p>
-                </div>
-              </>,
-              document.body
-            )}
-          </div>
-
           {/* Water Tracking (2x1) */}
           <div
             className="relative col-span-2 bg-gradient-to-br from-cyan-500/20 to-cyan-500/10 rounded-2xl p-4 border-2 border-cyan-500/30 animate-fade-in"
