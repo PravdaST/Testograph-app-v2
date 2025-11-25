@@ -16,6 +16,7 @@ import { ConfirmModal } from '@/components/ui/confirm-modal'
 import { ProgressPhotoGallery } from '@/components/profile/ProgressPhotoGallery'
 import { MeasurementsTracker } from '@/components/profile/MeasurementsTracker'
 import { ProgramHistory } from '@/components/profile/ProgramHistory'
+import { ActiveSessions } from '@/components/profile/ActiveSessions'
 import { useUserProgram } from '@/contexts/UserProgramContext'
 import { useToast } from '@/contexts/ToastContext'
 import { useTheme } from '@/contexts/ThemeContext'
@@ -876,6 +877,9 @@ export default function ProfilePage() {
 
         {/* Program History */}
         {email && <ProgramHistory email={email} />}
+
+        {/* Active Sessions */}
+        {email && <ActiveSessions email={email} />}
 
         {/* Goal Section */}
         <div className="bg-background rounded-2xl p-5 border border-border">
