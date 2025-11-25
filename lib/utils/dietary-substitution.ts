@@ -146,6 +146,7 @@ export function applyMealSubstitutions(
     carbs: number
     fats: number
     ingredients: MealIngredient[]
+    recipe?: Recipe
   },
   preference: DietaryPreference
 ): SubstitutedMeal {
@@ -193,6 +194,7 @@ export function applyMealSubstitutions(
     carbs: meal.carbs,
     fats: meal.fats,
     ingredients: substitutedIngredients,
+    recipe: meal.recipe, // Preserve recipe for dietary substitutions
     substitution_count: substitutionCount,
     name_updated: nameUpdated,
   }
@@ -214,6 +216,7 @@ export function applyDaySubstitutions(
     carbs: number
     fats: number
     ingredients: MealIngredient[]
+    recipe?: Recipe
   }[],
   preference: DietaryPreference
 ): SubstitutedMeal[] {
