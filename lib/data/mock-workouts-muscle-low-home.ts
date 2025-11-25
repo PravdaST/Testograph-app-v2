@@ -138,7 +138,7 @@ export const MUSCLE_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
     duration: 45,
     exercises: [
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Клекове',
         name_en: 'squat',
         sets: 4,
@@ -165,7 +165,7 @@ export const MUSCLE_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Задържане 2s горе',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк',
         name_en: 'plank',
         sets: 3,

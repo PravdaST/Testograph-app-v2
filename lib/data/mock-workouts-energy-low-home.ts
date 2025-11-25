@@ -44,7 +44,7 @@ export const ENERGY_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Умерено темпо, загряване на тялото',
       },
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Леки клекове',
         name_en: 'bodyweight squat',
         sets: 2,
@@ -62,7 +62,7 @@ export const ENERGY_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Алтернатива на стандартните опори',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк (леко)',
         name_en: 'plank',
         sets: 2,
@@ -106,7 +106,7 @@ export const ENERGY_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Леко повишено темпо спрямо седмица 1-2',
       },
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Клекове',
         name_en: 'bodyweight squat',
         sets: 3,
@@ -142,16 +142,16 @@ export const ENERGY_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
     duration: 35,
     exercises: [
       {
-        exercisedb_id: 'eL6Lz0v',
-        name_bg: 'Високи колене (леко)',
-        name_en: 'high knees',
+        exercisedb_id: 'RJgzwny',
+        name_bg: 'Планински катерач (леко)',
+        name_en: 'mountain climber',
         sets: 2,
         reps: '30s',
         rest_seconds: 45,
         notes: 'Умерено темпо, не форсирайте',
       },
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Клекове',
         name_en: 'bodyweight squat',
         sets: 3,
@@ -169,7 +169,7 @@ export const ENERGY_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'На колене ако е нужно',
       },
       {
-        exercisedb_id: 'RRWFUcw',
+        exercisedb_id: 'IZVHb27',
         name_bg: 'Планк странично',
         name_en: 'side plank',
         sets: 2,
@@ -214,7 +214,7 @@ export const ENERGY_LOW_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Без скок, контролирано движение',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк',
         name_en: 'plank',
         sets: 3,

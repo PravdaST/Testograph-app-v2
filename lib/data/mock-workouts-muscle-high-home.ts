@@ -149,7 +149,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
     duration: 70,
     exercises: [
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Пистолет клекове',
         name_en: 'pistol squat',
         sets: 5,
@@ -167,7 +167,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Задният крак повдигнат',
       },
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Клекове с темп (обем)',
         name_en: 'high volume tempo squat',
         sets: 5,
@@ -194,7 +194,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Задна част на бедрата',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк (напреднал)',
         name_en: 'advanced plank',
         sets: 4,
@@ -329,7 +329,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
     duration: 65,
     exercises: [
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Клекове (предизвикателство 100 повторения)',
         name_en: 'squat 100 rep challenge',
         sets: 1,
@@ -365,7 +365,7 @@ export const MUSCLE_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Непрекъснато напрежение',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк комбинация',
         name_en: 'plank combo',
         sets: 4,

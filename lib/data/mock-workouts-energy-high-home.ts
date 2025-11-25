@@ -68,16 +68,16 @@ export const ENERGY_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Ръцете напускат земята',
       },
       {
-        exercisedb_id: 'eL6Lz0v',
-        name_bg: 'Високи колене',
-        name_en: 'high knees',
+        exercisedb_id: 'RJgzwny',
+        name_bg: 'Планински катерач',
+        name_en: 'mountain climber',
         sets: 4,
         reps: '45s',
         rest_seconds: 30,
         notes: 'Максимална скорост и височина',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк с докосване до рамо',
         name_en: 'plank shoulder tap',
         sets: 3,
@@ -95,9 +95,9 @@ export const ENERGY_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
     duration: 55,
     exercises: [
       {
-        exercisedb_id: 'eL6Lz0v',
-        name_bg: 'Спринт на място',
-        name_en: 'sprint in place',
+        exercisedb_id: 'RJgzwny',
+        name_bg: 'Планински катерач интензивно',
+        name_en: 'mountain climber',
         sets: 6,
         reps: '30s',
         rest_seconds: 30,
@@ -149,7 +149,7 @@ export const ENERGY_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
     duration: 60,
     exercises: [
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Клекове с темп',
         name_en: 'tempo squat',
         sets: 5,
@@ -194,7 +194,7 @@ export const ENERGY_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Рамене под натоварване',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк (дълъг)',
         name_en: 'extended plank hold',
         sets: 3,
@@ -239,16 +239,16 @@ export const ENERGY_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: '4 минути - експлозивност',
       },
       {
-        exercisedb_id: 'eL6Lz0v',
-        name_bg: 'Високи колене (табата)',
-        name_en: 'high knees tabata',
+        exercisedb_id: 'RJgzwny',
+        name_bg: 'Планински катерач (табата)',
+        name_en: 'mountain climber tabata',
         sets: 8,
         reps: '20s работа / 10s почивка',
         rest_seconds: 10,
         notes: '4 минути - максимална скорост',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк джакс',
         name_en: 'plank jacks',
         sets: 4,
@@ -293,7 +293,7 @@ export const ENERGY_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Задържане 2s горе',
       },
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Пистол клекове (асистирани)',
         name_en: 'pistol squat assisted',
         sets: 4,
@@ -311,7 +311,7 @@ export const ENERGY_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Бързи повторения',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк с повдигане на крак',
         name_en: 'plank leg lift',
         sets: 3,
@@ -338,7 +338,7 @@ export const ENERGY_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Умерено до високо темпо',
       },
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Леки клекове',
         name_en: 'light squat',
         sets: 3,
@@ -365,7 +365,7 @@ export const ENERGY_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Стречинг и мобилност за възстановяване',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк (леко задържане)',
         name_en: 'light plank hold',
         sets: 2,

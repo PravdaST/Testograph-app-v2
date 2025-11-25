@@ -29,7 +29,7 @@ export const LIBIDO_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
     duration: 45,
     exercises: [
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Клекове с тегло на тялото',
         name_en: 'bodyweight squat',
         sets: 5,
@@ -162,7 +162,7 @@ export const LIBIDO_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Пълно тяло, високо кардио. Стимулира хормони.',
       },
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Клекове',
         name_en: 'bodyweight squat',
         sets: 4,
@@ -198,7 +198,7 @@ export const LIBIDO_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Експлозивна сила за долна част.',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк',
         name_en: 'plank',
         sets: 3,

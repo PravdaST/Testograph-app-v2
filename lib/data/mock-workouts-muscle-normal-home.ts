@@ -128,7 +128,7 @@ export const MUSCLE_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Хванете се за каса на врата и правете къдрене.',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк',
         name_en: 'plank',
         sets: 3,
@@ -146,7 +146,7 @@ export const MUSCLE_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
     duration: 60,
     exercises: [
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Клекове',
         name_en: 'bodyweight squat',
         sets: 5,
@@ -236,7 +236,7 @@ export const MUSCLE_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Развива странни дялове на рамената.',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк',
         name_en: 'plank',
         sets: 4,
@@ -353,7 +353,7 @@ export const MUSCLE_NORMAL_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Ако имате лост, правете негативи (скачаш горе, бавно надолу).',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк',
         name_en: 'plank',
         sets: 3,

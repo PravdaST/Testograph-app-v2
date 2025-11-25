@@ -41,7 +41,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Максимална височина, пълна амплитуда',
       },
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Пистол клекове (асистирани)',
         name_en: 'pistol squat',
         sets: 4,
@@ -68,7 +68,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Експлозивна смяна',
       },
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Клекове с темп (тежки)',
         name_en: 'tempo squat',
         sets: 4,
@@ -131,7 +131,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Ако е лесно, повдигни краката',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Динамичен планк',
         name_en: 'dynamic plank',
         sets: 4,
@@ -166,7 +166,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Пълна амплитуда, без пауза',
       },
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Клекове (високо повторение)',
         name_en: 'high rep squat',
         sets: 5,
@@ -220,7 +220,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
     duration: 60,
     exercises: [
       {
-        exercisedb_id: 'TUZLh71',
+        exercisedb_id: 'LIlE5Tn',
         name_bg: 'Клекове (пирамида)',
         name_en: 'pyramid squat',
         sets: 5,
@@ -301,7 +301,7 @@ export const LIBIDO_HIGH_HOME_WORKOUTS: WorkoutProgram[] = [
         notes: 'Контролирано',
       },
       {
-        exercisedb_id: 'VBAWRPG',
+        exercisedb_id: 'KhHJ338',
         name_bg: 'Планк комбинация',
         name_en: 'plank combo',
         sets: 3,
