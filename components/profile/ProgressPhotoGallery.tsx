@@ -559,11 +559,11 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+        <div className="flex gap-2 sm:gap-3 overflow-x-auto pb-2 -mx-3 px-3 sm:mx-0 sm:px-0 snap-x snap-mandatory scrollbar-hide">
           {photos.map((photo) => (
             <div
               key={photo.id}
-              className={`relative group ${
+              className={`relative group flex-shrink-0 w-[calc(50%-4px)] sm:w-[calc(33.333%-8px)] snap-start ${
                 compareMode
                   ? comparePhotos.find((p) => p.id === photo.id)
                     ? 'ring-2 ring-primary'
@@ -586,7 +586,7 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
                   className="object-cover transition-transform group-hover:scale-105"
                 />
               </div>
-              <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/70 to-transparent text-white text-xs">
+              <div className="absolute bottom-0 left-0 right-0 p-1.5 sm:p-2 bg-gradient-to-t from-black/70 to-transparent text-white text-[10px] sm:text-xs">
                 <div className="font-medium">
                   {new Date(photo.date).toLocaleDateString('bg-BG', {
                     day: 'numeric',
@@ -596,7 +596,7 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
                 {photo.weight && <div>{photo.weight} kg</div>}
               </div>
               {compareMode && comparePhotos.find((p) => p.id === photo.id) && (
-                <div className="absolute top-2 right-2 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold">
+                <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 w-5 h-5 sm:w-6 sm:h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-[10px] sm:text-xs font-bold">
                   {comparePhotos.findIndex((p) => p.id === photo.id) + 1}
                 </div>
               )}
