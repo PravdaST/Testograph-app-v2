@@ -67,8 +67,8 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
     }
   }, [cameraStream])
 
-  // Start camera when camera mode is activated
-  const startCamera = useCallback(async () => {
+  // Start camera with specific facing mode
+  const startCameraWithMode = useCallback(async (mode: 'user' | 'environment') => {
     try {
       // Stop any existing stream first
       if (cameraStream) {
@@ -77,7 +77,7 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
 
       const constraints: MediaStreamConstraints = {
         video: {
-          facingMode: facingMode,
+          facingMode: mode,
           width: { ideal: 1080 },
           height: { ideal: 1440 },
         },
@@ -90,14 +90,19 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
 
       if (videoRef.current) {
         videoRef.current.srcObject = stream
-        videoRef.current.play()
+        await videoRef.current.play()
       }
     } catch (error) {
       console.error('Error accessing camera:', error)
       toast.error('Няма достъп до камерата. Моля, разрешете достъпа в настройките.')
       setIsCameraMode(false)
     }
-  }, [facingMode, cameraStream, toast])
+  }, [cameraStream, toast])
+
+  // Start camera with current facing mode
+  const startCamera = useCallback(async () => {
+    await startCameraWithMode(facingMode)
+  }, [facingMode, startCameraWithMode])
 
   // Stop camera
   const stopCamera = useCallback(() => {
@@ -116,14 +121,15 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
     const newFacingMode = facingMode === 'user' ? 'environment' : 'user'
     setFacingMode(newFacingMode)
 
-    if (isCameraActive) {
-      stopCamera()
-      // Small delay to ensure camera is fully stopped
-      setTimeout(() => {
-        startCamera()
-      }, 100)
+    // Stop current stream
+    if (cameraStream) {
+      cameraStream.getTracks().forEach(track => track.stop())
+      setCameraStream(null)
     }
-  }, [facingMode, isCameraActive, stopCamera, startCamera])
+
+    // Start with new mode directly (don't rely on state update)
+    await startCameraWithMode(newFacingMode)
+  }, [facingMode, cameraStream, startCameraWithMode])
 
   // Capture photo from camera
   const capturePhoto = useCallback(() => {
