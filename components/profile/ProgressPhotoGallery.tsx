@@ -437,29 +437,29 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
   }
 
   return (
-    <div className="bg-background rounded-2xl p-5 border border-border">
+    <div className="bg-background rounded-2xl p-3 sm:p-5 border border-border">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <Camera className="w-5 h-5 text-primary" />
-          <h2 className="font-bold">Progress Photos</h2>
-          <span className="text-xs text-muted-foreground">({photos.length})</span>
+      <div className="flex items-center justify-between mb-3 sm:mb-4">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <Camera className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+          <h2 className="font-bold text-sm sm:text-base">Progress Photos</h2>
+          <span className="text-[10px] sm:text-xs text-muted-foreground">({photos.length})</span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {photos.length >= 2 && (
             <button
               onClick={() => {
                 setCompareMode(!compareMode)
                 setComparePhotos([])
               }}
-              className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-colors ${
+              className={`p-2 rounded-lg transition-colors ${
                 compareMode
                   ? 'bg-primary text-primary-foreground'
                   : 'border border-border hover:bg-muted'
               }`}
+              title="Сравни снимки"
             >
               <ArrowLeftRight className="w-4 h-4" />
-              <span className="text-sm">Сравни</span>
             </button>
           )}
           <button
@@ -470,14 +470,15 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
             className="p-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
             title="Снимай с камера"
           >
-            <Camera className="w-5 h-5" />
+            <Camera className="w-4 h-4 sm:w-5 sm:h-5" />
           </button>
           <button
             onClick={() => setShowUploadModal(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+            className="p-2 sm:px-4 sm:py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2"
+            title="Качи снимка"
           >
             <Upload className="w-4 h-4" />
-            <span>Качи</span>
+            <span className="hidden sm:inline text-sm">Качи</span>
           </button>
         </div>
       </div>
@@ -558,7 +559,7 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
           {photos.map((photo) => (
             <div
               key={photo.id}
@@ -609,10 +610,10 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
 
       {/* Upload Modal */}
       {showUploadModal && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-background rounded-2xl max-w-md w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold">
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-end sm:items-center justify-center sm:p-4">
+          <div className="bg-background rounded-t-2xl sm:rounded-2xl w-full sm:max-w-md p-4 sm:p-6 shadow-2xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <h2 className="text-lg sm:text-xl font-bold">
                 {isCameraMode ? 'Снимай' : 'Добави снимка'}
               </h2>
               <button
@@ -626,7 +627,7 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
               </button>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {/* Mode Toggle - Only show if no preview yet */}
               {!previewUrl && !isCameraActive && (
                 <div className="grid grid-cols-2 gap-2 p-1 bg-muted rounded-lg">
@@ -856,71 +857,79 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
 
       {/* Photo Detail Modal (Lightbox) */}
       {selectedPhoto && !compareMode && (
-        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black/90 z-50 flex flex-col sm:items-center sm:justify-center">
+          {/* Close button - fixed position */}
           <button
             onClick={() => setSelectedPhoto(null)}
-            className="absolute top-4 right-4 p-2 bg-background/20 hover:bg-background/30 rounded-lg transition-colors"
+            className="absolute top-2 right-2 sm:top-4 sm:right-4 p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors z-10"
           >
-            <X className="w-6 h-6 text-white" />
+            <X className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
           </button>
 
-          <div className="max-w-2xl w-full">
-            <div className="relative aspect-[9/16] rounded-lg overflow-hidden mb-4">
-              <Image
-                src={selectedPhoto.photo_url}
-                alt={`Progress ${selectedPhoto.date}`}
-                fill
-                className="object-contain"
-              />
-            </div>
-
-            <div className="bg-black/70 backdrop-blur rounded-lg p-4 space-y-3">
-              <div className="flex items-center justify-between">
-                <div>
-                  <div className="text-lg font-bold text-white">
-                    {new Date(selectedPhoto.date).toLocaleDateString('bg-BG', {
-                      day: 'numeric',
-                      month: 'long',
-                      year: 'numeric',
-                    })}
-                  </div>
-                  {selectedPhoto.weight && (
-                    <div className="text-sm text-white/70">
-                      Тегло: {selectedPhoto.weight} kg
-                    </div>
-                  )}
-                  {selectedPhoto.body_fat_pct && (
-                    <div className="text-sm text-white/70">
-                      Мазнини: {selectedPhoto.body_fat_pct}%
-                    </div>
-                  )}
-                </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => downloadWithWatermark(selectedPhoto)}
-                    className="p-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-colors"
-                    title="Изтегли снимката"
-                  >
-                    <Download className="w-5 h-5" />
-                  </button>
-                  <button
-                    onClick={() => {
-                      setShowDeleteModal(true)
-                    }}
-                    className="p-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors"
-                    title="Изтрий снимката"
-                  >
-                    <Trash2 className="w-5 h-5" />
-                  </button>
-                </div>
+          {/* Scrollable content on mobile */}
+          <div className="flex-1 overflow-y-auto p-3 sm:p-4 flex items-center justify-center">
+            <div className="max-w-2xl w-full">
+              {/* Photo - constrained height on mobile */}
+              <div className="relative aspect-[9/16] rounded-lg overflow-hidden mb-3 sm:mb-4 max-h-[55vh] sm:max-h-[65vh]">
+                <Image
+                  src={selectedPhoto.photo_url}
+                  alt={`Progress ${selectedPhoto.date}`}
+                  fill
+                  className="object-contain"
+                />
               </div>
 
-              {selectedPhoto.notes && (
-                <div className="pt-3 border-t border-white/20">
-                  <div className="text-xs text-white/50 mb-1">Бележки:</div>
-                  <p className="text-sm text-white">{selectedPhoto.notes}</p>
+              {/* Info panel */}
+              <div className="bg-black/70 backdrop-blur rounded-lg p-3 sm:p-4 space-y-2 sm:space-y-3">
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1 min-w-0">
+                    <div className="text-base sm:text-lg font-bold text-white">
+                      {new Date(selectedPhoto.date).toLocaleDateString('bg-BG', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                      })}
+                    </div>
+                    <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1">
+                      {selectedPhoto.weight && (
+                        <div className="text-xs sm:text-sm text-white/70">
+                          Тегло: {selectedPhoto.weight} kg
+                        </div>
+                      )}
+                      {selectedPhoto.body_fat_pct && (
+                        <div className="text-xs sm:text-sm text-white/70">
+                          Мазнини: {selectedPhoto.body_fat_pct}%
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+                    <button
+                      onClick={() => downloadWithWatermark(selectedPhoto)}
+                      className="p-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-colors"
+                      title="Изтегли снимката"
+                    >
+                      <Download className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </button>
+                    <button
+                      onClick={() => {
+                        setShowDeleteModal(true)
+                      }}
+                      className="p-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors"
+                      title="Изтрий снимката"
+                    >
+                      <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                    </button>
+                  </div>
                 </div>
-              )}
+
+                {selectedPhoto.notes && (
+                  <div className="pt-2 sm:pt-3 border-t border-white/20">
+                    <div className="text-[10px] sm:text-xs text-white/50 mb-1">Бележки:</div>
+                    <p className="text-xs sm:text-sm text-white">{selectedPhoto.notes}</p>
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
