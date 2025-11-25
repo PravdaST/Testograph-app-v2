@@ -2,29 +2,21 @@
 
 /**
  * SwipeableLayout Component
- * Wraps app pages with swipe navigation and page transitions
+ * Wraps app pages with page transitions (swipe navigation disabled)
  */
 
 import { ReactNode } from 'react'
-import { Swipeable } from '@/components/ui/swipeable'
 import { PageTransition } from '@/components/ui/page-transition'
-import { useSwipeNavigation } from '@/lib/hooks/useSwipeNavigation'
 
 interface SwipeableLayoutProps {
   children: ReactNode
 }
 
 export function SwipeableLayout({ children }: SwipeableLayoutProps) {
-  const { canSwipeLeft, canSwipeRight, swipeLeft, swipeRight } = useSwipeNavigation()
-
+  // Swipe navigation disabled - users navigate via bottom nav or buttons
   return (
-    <Swipeable
-      onSwipeLeft={canSwipeLeft ? swipeLeft : undefined}
-      onSwipeRight={canSwipeRight ? swipeRight : undefined}
-      showIndicators={true}
-      className="min-h-screen"
-    >
+    <div className="min-h-screen">
       <PageTransition>{children}</PageTransition>
-    </Swipeable>
+    </div>
   )
 }
