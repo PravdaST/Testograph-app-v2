@@ -441,7 +441,6 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
       {/* Header */}
       <div className="flex items-center justify-between mb-3 sm:mb-4">
         <div className="flex items-center gap-1.5 sm:gap-2">
-          <Camera className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
           <h2 className="font-bold text-sm sm:text-base">Progress Photos</h2>
           <span className="text-[10px] sm:text-xs text-muted-foreground">({photos.length})</span>
         </div>
