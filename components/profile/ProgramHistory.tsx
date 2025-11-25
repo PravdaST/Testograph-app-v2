@@ -7,7 +7,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { History, Loader2, CheckCircle2, Clock, XCircle, Trash2, Plus } from 'lucide-react'
+import { History, Loader2, CheckCircle2, Clock, XCircle, Trash2, Plus, Lock } from 'lucide-react'
 import { useToast } from '@/contexts/ToastContext'
 
 interface Program {
@@ -120,7 +120,16 @@ export function ProgramHistory({ email }: ProgramHistoryProps) {
     }
   }
 
+  // Count incomplete programs (not completed)
+  const incompletePrograms = programs.filter((p) => p.status !== 'completed')
+  const canAddNewProgram = incompletePrograms.length < 2
+  const MAX_INCOMPLETE_PROGRAMS = 2
+
   const handleAddProgram = () => {
+    if (!canAddNewProgram) {
+      toast.error(`Максимум ${MAX_INCOMPLETE_PROGRAMS} незавършени програми. Завършете или изтрийте една програма.`)
+      return
+    }
     router.push('/quiz')
   }
 
@@ -145,11 +154,20 @@ export function ProgramHistory({ email }: ProgramHistoryProps) {
         </div>
         <button
           onClick={handleAddProgram}
-          className="p-2 sm:px-3 sm:py-1.5 text-sm bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-1.5"
-          title="Добави нова програма"
+          disabled={!canAddNewProgram}
+          className={`p-2 sm:px-3 sm:py-1.5 text-sm rounded-lg transition-colors flex items-center gap-1.5 ${
+            canAddNewProgram
+              ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+              : 'bg-muted text-muted-foreground cursor-not-allowed'
+          }`}
+          title={canAddNewProgram ? 'Добави нова програма' : 'Максимум 2 незавършени програми'}
         >
-          <Plus className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
-          <span className="hidden sm:inline">Нова</span>
+          {canAddNewProgram ? (
+            <Plus className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+          ) : (
+            <Lock className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+          )}
+          <span className="hidden sm:inline">{canAddNewProgram ? 'Нова' : 'Лимит'}</span>
         </button>
       </div>
 
