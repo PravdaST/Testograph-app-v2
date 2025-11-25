@@ -65,7 +65,13 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Return program data
+    // Get account metadata from Supabase Auth
+    const accountCreatedAt = session.user.created_at
+    const lastSignInAt = session.user.last_sign_in_at
+    const emailConfirmedAt = session.user.email_confirmed_at
+    const isEmailVerified = !!emailConfirmedAt
+
+    // Return program data + account metadata
     return NextResponse.json({
       email: quizResult.email,
       first_name: quizResult.first_name,
@@ -86,6 +92,11 @@ export async function GET(request: NextRequest) {
       profile_picture_url: quizResult.profile_picture_url,
       goal: quizResult.goal,
       program_end_date: quizResult.program_end_date,
+      // Account metadata from Supabase Auth
+      account_created_at: accountCreatedAt,
+      last_sign_in_at: lastSignInAt,
+      email_confirmed_at: emailConfirmedAt,
+      is_email_verified: isEmailVerified,
     })
   } catch (error) {
     console.error('Error fetching user program:', error)

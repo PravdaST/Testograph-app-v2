@@ -23,6 +23,11 @@ interface UserProgram {
   dietary_preference?: 'omnivor' | 'vegetarian' | 'vegan' | 'pescatarian'
   total_score?: number
   goal?: string
+  // Account metadata from Supabase Auth
+  account_created_at?: string
+  last_sign_in_at?: string
+  email_confirmed_at?: string | null
+  is_email_verified?: boolean
 }
 
 interface UserProgramContextType {

@@ -26,7 +26,8 @@
       "WebSearch",
       "Bash(gemini:*)",
       "Bash(xargs -I {} bash -c \"echo ''''=== {} ==='''' && head -30 {}\")",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(npx supabase status)"
     ],
     "deny": [],
     "ask": []

@@ -45,6 +45,11 @@ interface UserProgram {
     sleep_recovery: number
     context: number
   }
+  // Account metadata from Supabase Auth
+  account_created_at?: string
+  last_sign_in_at?: string
+  email_confirmed_at?: string | null
+  is_email_verified?: boolean
 }
 
 
@@ -533,6 +538,82 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
+
+        {/* Account Info Card */}
+        {userProgram && (
+          <div className="bg-background rounded-2xl p-5 border border-border">
+            <div className="flex items-center gap-2 mb-4">
+              <User className="w-5 h-5 text-primary" />
+              <h2 className="font-bold">Account Information</h2>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              {/* Account Created */}
+              <div className="space-y-1">
+                <div className="text-xs text-muted-foreground">Регистриран на</div>
+                <div className="text-sm font-medium">
+                  {userProgram.account_created_at
+                    ? new Date(userProgram.account_created_at).toLocaleDateString('bg-BG', {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                      })
+                    : '-'}
+                </div>
+              </div>
+
+              {/* Last Login */}
+              <div className="space-y-1">
+                <div className="text-xs text-muted-foreground">Последен вход</div>
+                <div className="text-sm font-medium">
+                  {userProgram.last_sign_in_at
+                    ? new Date(userProgram.last_sign_in_at).toLocaleDateString('bg-BG', {
+                        day: 'numeric',
+                        month: 'short',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })
+                    : '-'}
+                </div>
+              </div>
+
+              {/* Email Verification Status */}
+              <div className="space-y-1">
+                <div className="text-xs text-muted-foreground">Email статус</div>
+                <div className="flex items-center gap-2">
+                  {userProgram.is_email_verified ? (
+                    <>
+                      <Check className="w-4 h-4 text-green-600" />
+                      <span className="text-sm font-medium text-green-600">Потвърден</span>
+                    </>
+                  ) : (
+                    <>
+                      <AlertTriangle className="w-4 h-4 text-amber-600" />
+                      <span className="text-sm font-medium text-amber-600">Не потвърден</span>
+                    </>
+                  )}
+                </div>
+              </div>
+
+              {/* Program Days */}
+              <div className="space-y-1">
+                <div className="text-xs text-muted-foreground">Дни в програмата</div>
+                <div className="text-sm font-medium">
+                  {userProgram.completed_at
+                    ? Math.max(
+                        Math.ceil(
+                          (new Date().getTime() - new Date(userProgram.completed_at).getTime()) /
+                            (1000 * 60 * 60 * 24)
+                        ),
+                        1
+                      )
+                    : '-'}{' '}
+                  дни
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Stats Grid (4 tiles) */}
         {userStats && (
