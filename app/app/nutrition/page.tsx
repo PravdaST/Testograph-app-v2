@@ -419,7 +419,13 @@ export default function NutritionPage() {
 
   const completedToday = completedMeals[dateKey] || []
 
-  // Calculate total calories and protein
+  // Calculate TARGET values from all meals for the day
+  const targetCalories = mealsForDay.reduce((sum, meal) => sum + meal.calories, 0)
+  const targetProtein = mealsForDay.reduce((sum, meal) => sum + meal.protein, 0)
+  const targetCarbs = mealsForDay.reduce((sum, meal) => sum + meal.carbs, 0)
+  const targetFats = mealsForDay.reduce((sum, meal) => sum + meal.fats, 0)
+
+  // Calculate CONSUMED values from completed meals only
   const totalCalories = mealsForDay
     .filter(meal => completedToday.includes(meal.meal_number))
     .reduce((sum, meal) => sum + meal.calories, 0)
@@ -427,6 +433,20 @@ export default function NutritionPage() {
   const totalProtein = mealsForDay
     .filter(meal => completedToday.includes(meal.meal_number))
     .reduce((sum, meal) => sum + meal.protein, 0)
+
+  const totalCarbs = mealsForDay
+    .filter(meal => completedToday.includes(meal.meal_number))
+    .reduce((sum, meal) => sum + meal.carbs, 0)
+
+  const totalFats = mealsForDay
+    .filter(meal => completedToday.includes(meal.meal_number))
+    .reduce((sum, meal) => sum + meal.fats, 0)
+
+  // Calculate percentages
+  const caloriesPercent = targetCalories > 0 ? Math.round((totalCalories / targetCalories) * 100) : 0
+  const proteinPercent = targetProtein > 0 ? Math.round((totalProtein / targetProtein) * 100) : 0
+  const carbsPercent = targetCarbs > 0 ? Math.round((totalCarbs / targetCarbs) * 100) : 0
+  const fatsPercent = targetFats > 0 ? Math.round((totalFats / targetFats) * 100) : 0
 
   // Dietary preference display names
   const dietaryPreferenceNames: Record<DietaryPreference, string> = {
@@ -598,9 +618,21 @@ export default function NutritionPage() {
             className="relative bg-background rounded-2xl p-4 border border-border animate-fade-in"
             style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
           >
-            <Flame className="w-5 h-5 text-primary mb-2" />
-            <div className="text-3xl font-bold text-primary mb-1">{totalCalories}</div>
-            <div className="text-xs text-muted-foreground">Калории</div>
+            <div className="flex items-center justify-between mb-2">
+              <Flame className="w-4 h-4 text-orange-500" />
+              <span className="text-[10px] font-medium text-orange-500">{caloriesPercent}%</span>
+            </div>
+            <div className="text-xl font-bold mb-0.5">
+              <span className="text-foreground">{totalCalories}</span>
+              <span className="text-muted-foreground font-normal text-sm">/{targetCalories}</span>
+            </div>
+            <div className="text-xs text-muted-foreground mb-2">Калории</div>
+            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+              <div
+                className="h-full bg-orange-500 transition-all duration-500"
+                style={{ width: `${Math.min(caloriesPercent, 100)}%` }}
+              />
+            </div>
             <button
               onClick={(e) => {
                 e.stopPropagation()
@@ -633,7 +665,7 @@ export default function NutritionPage() {
                     </button>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Общ брой калории от завършените хранения за избрания ден. Помага ти да поддържаш енергийния си баланс.
+                    Консумирани {totalCalories} от {targetCalories} калории за деня ({caloriesPercent}%). Маркирай храненията като завършени за точно проследяване.
                   </p>
                 </div>
               </>,
@@ -646,9 +678,21 @@ export default function NutritionPage() {
             className="relative bg-background rounded-2xl p-4 border border-border animate-fade-in"
             style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
           >
-            <Award className="w-5 h-5 text-primary mb-2" />
-            <div className="text-3xl font-bold text-primary mb-1">{totalProtein}g</div>
-            <div className="text-xs text-muted-foreground">Протеин</div>
+            <div className="flex items-center justify-between mb-2">
+              <Award className="w-4 h-4 text-red-500" />
+              <span className="text-[10px] font-medium text-red-500">{proteinPercent}%</span>
+            </div>
+            <div className="text-xl font-bold mb-0.5">
+              <span className="text-foreground">{totalProtein}</span>
+              <span className="text-muted-foreground font-normal text-sm">/{targetProtein}g</span>
+            </div>
+            <div className="text-xs text-muted-foreground mb-2">Протеин</div>
+            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+              <div
+                className="h-full bg-red-500 transition-all duration-500"
+                style={{ width: `${Math.min(proteinPercent, 100)}%` }}
+              />
+            </div>
             <button
               onClick={(e) => {
                 e.stopPropagation()
@@ -681,12 +725,64 @@ export default function NutritionPage() {
                     </button>
                   </div>
                   <p className="text-sm text-muted-foreground leading-relaxed">
-                    Общо грамове протеин от завършените хранения. Протеинът е ключов за производството на тестостерон и мускулната маса.
+                    Консумирани {totalProtein}g от {targetProtein}g протеин ({proteinPercent}%). Протеинът е ключов за тестостерона и мускулната маса.
                   </p>
                 </div>
               </>,
               document.body
             )}
+          </div>
+        </div>
+
+        {/* Macros Row - Carbs & Fats */}
+        <div className="grid grid-cols-2 gap-3">
+          {/* Carbs */}
+          <div
+            className="relative bg-background rounded-2xl p-4 border border-border animate-fade-in"
+            style={{ animationDelay: '0.55s', animationFillMode: 'both' }}
+          >
+            <div className="flex items-center justify-between mb-2">
+              <svg className="w-4 h-4 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+              </svg>
+              <span className="text-[10px] font-medium text-blue-500">{carbsPercent}%</span>
+            </div>
+            <div className="text-xl font-bold mb-0.5">
+              <span className="text-foreground">{totalCarbs}</span>
+              <span className="text-muted-foreground font-normal text-sm">/{targetCarbs}g</span>
+            </div>
+            <div className="text-xs text-muted-foreground mb-2">Въглехидрати</div>
+            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+              <div
+                className="h-full bg-blue-500 transition-all duration-500"
+                style={{ width: `${Math.min(carbsPercent, 100)}%` }}
+              />
+            </div>
+          </div>
+
+          {/* Fats */}
+          <div
+            className="relative bg-background rounded-2xl p-4 border border-border animate-fade-in"
+            style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
+          >
+            <div className="flex items-center justify-between mb-2">
+              <svg className="w-4 h-4 text-yellow-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 12a4 4 0 0 1 8 0"/>
+              </svg>
+              <span className="text-[10px] font-medium text-yellow-500">{fatsPercent}%</span>
+            </div>
+            <div className="text-xl font-bold mb-0.5">
+              <span className="text-foreground">{totalFats}</span>
+              <span className="text-muted-foreground font-normal text-sm">/{targetFats}g</span>
+            </div>
+            <div className="text-xs text-muted-foreground mb-2">Мазнини</div>
+            <div className="h-1.5 bg-muted rounded-full overflow-hidden">
+              <div
+                className="h-full bg-yellow-500 transition-all duration-500"
+                style={{ width: `${Math.min(fatsPercent, 100)}%` }}
+              />
+            </div>
           </div>
         </div>
 
