@@ -588,6 +588,7 @@ export default function NutritionPage() {
               <Droplets className="w-4 h-4 text-cyan-500" />
               <span className="text-sm font-medium">Вода</span>
               <span className="text-lg font-bold text-cyan-600">{currentWater}/{waterTarget}</span>
+              <span className="text-[10px] text-muted-foreground">Чаша 250мл.</span>
             </div>
             <div className="flex items-center gap-1">
               <button
