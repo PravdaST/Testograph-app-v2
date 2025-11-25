@@ -94,9 +94,9 @@ export function ProgramHistory({ email }: ProgramHistoryProps) {
 
   if (loading) {
     return (
-      <div className="bg-background rounded-2xl p-5 border border-border">
-        <div className="flex items-center justify-center py-12">
-          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      <div className="bg-background rounded-2xl p-3 sm:p-5 border border-border">
+        <div className="flex items-center justify-center py-8 sm:py-12">
+          <Loader2 className="w-6 h-6 sm:w-8 sm:h-8 animate-spin text-primary" />
         </div>
       </div>
     )
@@ -108,16 +108,16 @@ export function ProgramHistory({ email }: ProgramHistoryProps) {
   }
 
   return (
-    <div className="bg-background rounded-2xl p-5 border border-border">
+    <div className="bg-background rounded-2xl p-3 sm:p-5 border border-border">
       {/* Header */}
-      <div className="flex items-center gap-2 mb-4">
-        <History className="w-5 h-5 text-primary" />
-        <h2 className="font-bold">Program History</h2>
-        <span className="text-xs text-muted-foreground">({programs.length} програми)</span>
+      <div className="flex items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+        <History className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+        <h2 className="font-bold text-sm sm:text-base">Program History</h2>
+        <span className="text-[10px] sm:text-xs text-muted-foreground">({programs.length} програми)</span>
       </div>
 
       {/* Programs List */}
-      <div className="space-y-3">
+      <div className="space-y-2 sm:space-y-3">
         {programs.map((program, index) => {
           const isExpanded = expandedId === program.id
           const isCurrentProgram = index === 0
@@ -136,25 +136,25 @@ export function ProgramHistory({ email }: ProgramHistoryProps) {
               {/* Header - Always Visible */}
               <button
                 onClick={() => setExpandedId(isExpanded ? null : program.id)}
-                className="w-full p-4 flex items-center justify-between hover:bg-muted/20 transition-colors"
+                className="w-full p-3 sm:p-4 flex items-center justify-between hover:bg-muted/20 transition-colors"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                   {/* Status Icon */}
-                  <div className={`p-2 rounded-lg ${statusConfig.bg} ${statusConfig.border} border`}>
-                    <StatusIcon className={`w-4 h-4 ${statusConfig.color}`} />
+                  <div className={`p-1.5 sm:p-2 rounded-lg ${statusConfig.bg} ${statusConfig.border} border`}>
+                    <StatusIcon className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${statusConfig.color}`} />
                   </div>
 
                   {/* Program Info */}
                   <div className="text-left">
-                    <div className="flex items-center gap-2">
-                      <span className="font-medium">{CATEGORY_NAMES[program.category]}</span>
+                    <div className="flex items-center gap-1.5 sm:gap-2">
+                      <span className="font-medium text-sm sm:text-base">{CATEGORY_NAMES[program.category]}</span>
                       {isCurrentProgram && (
-                        <span className="text-xs px-2 py-0.5 bg-primary text-primary-foreground rounded">
+                        <span className="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 bg-primary text-primary-foreground rounded">
                           Текуща
                         </span>
                       )}
                     </div>
-                    <div className="text-xs text-muted-foreground">
+                    <div className="text-[10px] sm:text-xs text-muted-foreground">
                       {program.completed_at &&
                         new Date(program.completed_at).toLocaleDateString('bg-BG', {
                           day: 'numeric',
@@ -167,55 +167,55 @@ export function ProgramHistory({ email }: ProgramHistoryProps) {
 
                 {/* Expand Icon */}
                 {isExpanded ? (
-                  <ChevronDown className="w-5 h-5 text-muted-foreground" />
+                  <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
                 ) : (
-                  <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
                 )}
               </button>
 
               {/* Expanded Content */}
               {isExpanded && (
-                <div className="px-4 pb-4 space-y-3 border-t border-border/50">
+                <div className="px-3 sm:px-4 pb-3 sm:pb-4 space-y-2 sm:space-y-3 border-t border-border/50">
                   {/* Stats Grid */}
-                  <div className="grid grid-cols-3 gap-3 mt-3">
+                  <div className="grid grid-cols-3 gap-2 sm:gap-3 mt-2 sm:mt-3">
                     {/* Quiz Score */}
-                    <div className="p-3 bg-background/50 rounded-lg">
-                      <div className="flex items-center gap-2 mb-1">
-                        <Award className="w-3.5 h-3.5 text-primary" />
-                        <span className="text-xs text-muted-foreground">Quiz Score</span>
+                    <div className="p-2 sm:p-3 bg-background/50 rounded-lg">
+                      <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
+                        <Award className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary" />
+                        <span className="text-[10px] sm:text-xs text-muted-foreground">Score</span>
                       </div>
-                      <div className="text-lg font-bold">{program.total_score}</div>
+                      <div className="text-base sm:text-lg font-bold">{program.total_score}</div>
                     </div>
 
                     {/* Days in Program */}
-                    <div className="p-3 bg-background/50 rounded-lg">
-                      <div className="flex items-center gap-2 mb-1">
-                        <Calendar className="w-3.5 h-3.5 text-primary" />
-                        <span className="text-xs text-muted-foreground">Дни</span>
+                    <div className="p-2 sm:p-3 bg-background/50 rounded-lg">
+                      <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
+                        <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary" />
+                        <span className="text-[10px] sm:text-xs text-muted-foreground">Дни</span>
                       </div>
-                      <div className="text-lg font-bold">{program.daysInProgram}</div>
+                      <div className="text-base sm:text-lg font-bold">{program.daysInProgram}</div>
                     </div>
 
                     {/* Progress % */}
-                    <div className="p-3 bg-background/50 rounded-lg">
-                      <div className="flex items-center gap-2 mb-1">
-                        <TrendingUp className="w-3.5 h-3.5 text-primary" />
-                        <span className="text-xs text-muted-foreground">Прогрес</span>
+                    <div className="p-2 sm:p-3 bg-background/50 rounded-lg">
+                      <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
+                        <TrendingUp className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary" />
+                        <span className="text-[10px] sm:text-xs text-muted-foreground">Прогрес</span>
                       </div>
-                      <div className="text-lg font-bold">{program.progressPct}%</div>
+                      <div className="text-base sm:text-lg font-bold">{program.progressPct}%</div>
                     </div>
                   </div>
 
                   {/* Additional Info */}
-                  <div className="space-y-2 text-sm">
+                  <div className="space-y-1 sm:space-y-2 text-xs sm:text-sm">
                     {program.level && (
-                      <div className="flex items-center justify-between py-1">
+                      <div className="flex items-center justify-between py-0.5 sm:py-1">
                         <span className="text-muted-foreground">Ниво:</span>
                         <span className="font-medium">{program.level}</span>
                       </div>
                     )}
                     {program.workout_location && (
-                      <div className="flex items-center justify-between py-1">
+                      <div className="flex items-center justify-between py-0.5 sm:py-1">
                         <span className="text-muted-foreground">Локация:</span>
                         <span className="font-medium">
                           {program.workout_location === 'home' ? 'Вкъщи' : 'Фитнес'}
@@ -223,7 +223,7 @@ export function ProgramHistory({ email }: ProgramHistoryProps) {
                       </div>
                     )}
                     {program.dietary_preference && (
-                      <div className="flex items-center justify-between py-1">
+                      <div className="flex items-center justify-between py-0.5 sm:py-1">
                         <span className="text-muted-foreground">Диета:</span>
                         <span className="font-medium capitalize">{program.dietary_preference}</span>
                       </div>
@@ -232,20 +232,20 @@ export function ProgramHistory({ email }: ProgramHistoryProps) {
 
                   {/* Goal */}
                   {program.goal && (
-                    <div className="pt-3 border-t border-border/50">
-                      <div className="flex items-center gap-2 mb-2">
-                        <Target className="w-4 h-4 text-primary" />
-                        <span className="text-xs font-medium">Цел:</span>
+                    <div className="pt-2 sm:pt-3 border-t border-border/50">
+                      <div className="flex items-center gap-1.5 sm:gap-2 mb-1 sm:mb-2">
+                        <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
+                        <span className="text-[10px] sm:text-xs font-medium">Цел:</span>
                       </div>
-                      <p className="text-sm text-muted-foreground">{program.goal}</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">{program.goal}</p>
                     </div>
                   )}
 
                   {/* Status Badge */}
-                  <div className="flex items-center justify-center pt-2">
-                    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg ${statusConfig.bg} ${statusConfig.border} border`}>
-                      <StatusIcon className={`w-4 h-4 ${statusConfig.color}`} />
-                      <span className={`text-sm font-medium ${statusConfig.color}`}>
+                  <div className="flex items-center justify-center pt-1 sm:pt-2">
+                    <div className={`inline-flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg ${statusConfig.bg} ${statusConfig.border} border`}>
+                      <StatusIcon className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${statusConfig.color}`} />
+                      <span className={`text-xs sm:text-sm font-medium ${statusConfig.color}`}>
                         {statusConfig.label}
                       </span>
                     </div>
