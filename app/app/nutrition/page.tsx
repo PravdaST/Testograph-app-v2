@@ -579,30 +579,38 @@ export default function NutritionPage() {
         <div className="grid grid-cols-4 gap-3 md:gap-4">
           {/* Water Tracking - Compact Full Row */}
           <div
-            className="col-span-4 flex items-center justify-between bg-cyan-500/10 rounded-xl px-3 py-2.5 border border-cyan-500/20 animate-fade-in"
+            className="col-span-4 bg-cyan-500/10 rounded-xl px-3 py-2.5 border border-cyan-500/20 animate-fade-in"
             style={{ animationDelay: '0.3s', animationFillMode: 'both' }}
           >
-            <div className="flex items-center gap-2">
-              <Droplets className="w-4 h-4 text-cyan-500" />
-              <span className="text-sm font-medium">Вода</span>
-              <span className="text-lg font-bold text-cyan-600">{currentWater}/{waterTarget}</span>
-              <span className="text-[10px] text-muted-foreground">Чаша 250мл.</span>
+            <div className="flex items-center justify-between mb-1.5">
+              <div className="flex items-center gap-2">
+                <Droplets className="w-4 h-4 text-cyan-500" />
+                <span className="text-sm font-medium">Вода</span>
+                <span className="text-lg font-bold text-cyan-600">{currentWater}/{waterTarget}</span>
+                <span className="text-[10px] text-muted-foreground">Чаша 250мл.</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => handleWaterUpdate(-1)}
+                  disabled={updatingWater || currentWater <= 0}
+                  className="p-1 rounded-md hover:bg-cyan-500/20 transition-colors disabled:opacity-30"
+                >
+                  <Minus className="w-3.5 h-3.5 text-cyan-600" />
+                </button>
+                <button
+                  onClick={() => handleWaterUpdate(1)}
+                  disabled={updatingWater || currentWater >= 20}
+                  className="p-1.5 rounded-md bg-cyan-500 text-white hover:bg-cyan-600 transition-colors disabled:opacity-30"
+                >
+                  <Plus className="w-3.5 h-3.5" />
+                </button>
+              </div>
             </div>
-            <div className="flex items-center gap-1">
-              <button
-                onClick={() => handleWaterUpdate(-1)}
-                disabled={updatingWater || currentWater <= 0}
-                className="p-1 rounded-md hover:bg-cyan-500/20 transition-colors disabled:opacity-30"
-              >
-                <Minus className="w-3.5 h-3.5 text-cyan-600" />
-              </button>
-              <button
-                onClick={() => handleWaterUpdate(1)}
-                disabled={updatingWater || currentWater >= 20}
-                className="p-1.5 rounded-md bg-cyan-500 text-white hover:bg-cyan-600 transition-colors disabled:opacity-30"
-              >
-                <Plus className="w-3.5 h-3.5" />
-              </button>
+            <div className="h-1 bg-cyan-500/20 rounded-full overflow-hidden">
+              <div
+                className="h-full bg-cyan-500 transition-all duration-500"
+                style={{ width: `${Math.min(waterPercent, 100)}%` }}
+              />
             </div>
           </div>
 
