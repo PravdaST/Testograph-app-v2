@@ -12,8 +12,6 @@ import { ArrowLeft, Dumbbell, CheckCircle2, TrendingUp, History, Sparkles, Utens
 import Link from 'next/link'
 import confetti from 'canvas-confetti'
 import { ExerciseCardEnhanced } from '@/components/workout/ExerciseCardEnhanced'
-import { WarmUpSection } from '@/components/workout/WarmUpSection'
-import { CoolDownSection } from '@/components/workout/CoolDownSection'
 import { Button } from '@/components/ui/Button'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
@@ -21,8 +19,6 @@ import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
 import { useUserProgram } from '@/contexts/UserProgramContext'
 import { useToast } from '@/contexts/ToastContext'
-import { GENERAL_WARMUP } from '@/lib/data/warm-up-routines'
-import { GENERAL_COOLDOWN } from '@/lib/data/cool-down-routines'
 
 // Workout Imports - ENERGY
 import { ENERGY_LOW_HOME_WORKOUTS } from '@/lib/data/mock-workouts-energy-low-home'
@@ -753,9 +749,17 @@ export default function WorkoutPage() {
           </div>
         </div>
 
-        {/* Warm-Up Section */}
-        <div className="animate-fade-in" style={{ animationDelay: '0.35s', animationFillMode: 'both' }}>
-          <WarmUpSection exercises={GENERAL_WARMUP} />
+        {/* Warm-Up Tip Banner */}
+        <div
+          className="flex items-center gap-3 p-3 bg-warning/10 border border-warning/30 rounded-xl animate-fade-in"
+          style={{ animationDelay: '0.3s', animationFillMode: 'both' }}
+        >
+          <div className="p-2 rounded-lg bg-warning/20">
+            <Sparkles className="w-4 h-4 text-warning" />
+          </div>
+          <p className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">Съвет:</span> Загрей 5-10 мин. преди тренировка с леко кардио и динамични упражнения.
+          </p>
         </div>
 
         {/* Exercise List */}
@@ -792,9 +796,17 @@ export default function WorkoutPage() {
           ))}
         </div>
 
-        {/* Cool-Down Section */}
-        <div className="animate-fade-in" style={{ animationDelay: `${0.4 + workout.exercises.length * 0.05 + 0.1}s`, animationFillMode: 'both' }}>
-          <CoolDownSection exercises={GENERAL_COOLDOWN} />
+        {/* Cool-Down Tip Banner */}
+        <div
+          className="flex items-center gap-3 p-3 bg-success/10 border border-success/30 rounded-xl animate-fade-in"
+          style={{ animationDelay: `${0.4 + workout.exercises.length * 0.05}s`, animationFillMode: 'both' }}
+        >
+          <div className="p-2 rounded-lg bg-success/20">
+            <Moon className="w-4 h-4 text-success" />
+          </div>
+          <p className="text-sm text-muted-foreground">
+            <span className="font-medium text-foreground">След тренировка:</span> Разтегни се 5-10 мин. за по-бързо възстановяване.
+          </p>
         </div>
 
         {/* Finish Button - Always visible */}

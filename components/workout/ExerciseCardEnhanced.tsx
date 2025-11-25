@@ -378,8 +378,8 @@ export function ExerciseCardEnhanced({
         )}
       </div>
 
-      {/* GIF Demo */}
-      <div className="relative aspect-video bg-muted overflow-hidden">
+      {/* GIF Demo - Compact */}
+      <div className="relative h-48 bg-muted overflow-hidden">
         {!gifError ? (
           <img
             src={gifUrl}
@@ -460,88 +460,108 @@ export function ExerciseCardEnhanced({
         </div>
       )}
 
-      {/* Set Logging */}
-      <div className="p-4 space-y-3">
-        {setLogs.map((setLog) => (
-          <div
-            key={setLog.setNumber}
-            className={`
-              p-3 rounded-xl border-2 transition-all
-              ${
-                setLog.completed
-                  ? 'bg-success/10 border-success/30'
-                  : 'bg-muted/30 border-border'
-              }
-            `}
-          >
-            <div className="flex items-center gap-3">
-              {/* Set Number */}
-              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-background border border-border flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-xs text-muted-foreground">S</div>
-                  <div className="text-sm font-bold">{setLog.setNumber}</div>
-                </div>
-              </div>
+      {/* Set Logging - Progressive Disclosure */}
+      <div className="p-4 space-y-2">
+        {setLogs.map((setLog, index) => {
+          // Find first incomplete set index
+          const firstIncompleteIndex = setLogs.findIndex(s => !s.completed)
+          const isActive = index === firstIncompleteIndex
+          const isFuture = !setLog.completed && index > firstIncompleteIndex
 
-              {/* Weight Input */}
-              <div className="flex-1">
-                <label className="text-xs text-muted-foreground block mb-1">
-                  Тежест (kg)
-                </label>
-                <input
-                  type="number"
-                  step="0.5"
-                  min="0"
-                  value={setLog.weight}
-                  onChange={(e) => handleWeightChange(setLog.setNumber, e.target.value)}
-                  disabled={setLog.completed}
-                  placeholder="0"
-                  className="w-full px-3 py-2 rounded-lg border border-border bg-background text-sm disabled:opacity-60 disabled:cursor-not-allowed"
-                />
-              </div>
-
-              {/* Reps Input */}
-              <div className="flex-1">
-                <label className={`text-xs block mb-1 ${validationErrors[setLog.setNumber] ? 'text-destructive' : 'text-muted-foreground'}`}>
-                  Повторения {validationErrors[setLog.setNumber] && '*'}
-                </label>
-                <input
-                  type="number"
-                  min="1"
-                  value={setLog.reps}
-                  onChange={(e) => handleRepsChange(setLog.setNumber, e.target.value)}
-                  disabled={setLog.completed}
-                  placeholder={String(exercise.reps)}
-                  className={`w-full px-3 py-2 rounded-lg border bg-background text-sm disabled:opacity-60 disabled:cursor-not-allowed transition-colors ${
-                    validationErrors[setLog.setNumber]
-                      ? 'border-destructive focus:border-destructive focus:ring-1 focus:ring-destructive/30'
-                      : 'border-border focus:border-primary focus:ring-1 focus:ring-primary/30'
-                  }`}
-                />
-              </div>
-
-              {/* Complete Button */}
-              <button
-                onClick={() => handleSetComplete(setLog.setNumber)}
-                disabled={setLog.completed && false} // Allow uncomplete
-                className={`
-                  flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center transition-all
-                  ${
-                    setLog.completed
-                      ? 'bg-success text-white'
-                      : 'bg-primary text-primary-foreground hover:bg-primary/90'
-                  }
-                `}
+          // Completed sets - compact view
+          if (setLog.completed) {
+            return (
+              <div
+                key={setLog.setNumber}
+                className="flex items-center gap-2 p-2 rounded-lg bg-success/10 border border-success/30"
               >
-                {setLog.completed ? (
-                  <CheckCircle2 className="w-5 h-5" />
-                ) : (
+                <div className="w-6 h-6 rounded bg-success/20 flex items-center justify-center">
+                  <span className="text-xs font-bold text-success">S{setLog.setNumber}</span>
+                </div>
+                <span className="text-sm text-muted-foreground">
+                  {setLog.weight ? `${setLog.weight}kg` : 'BW'} × {setLog.reps}
+                </span>
+                <CheckCircle2 className="w-4 h-4 text-success ml-auto" />
+              </div>
+            )
+          }
+
+          // Future sets - hidden or collapsed
+          if (isFuture) {
+            return (
+              <div
+                key={setLog.setNumber}
+                className="flex items-center gap-2 p-2 rounded-lg bg-muted/20 border border-border/50 opacity-40"
+              >
+                <div className="w-6 h-6 rounded bg-muted flex items-center justify-center">
+                  <span className="text-xs font-medium text-muted-foreground">S{setLog.setNumber}</span>
+                </div>
+                <span className="text-xs text-muted-foreground">Изчакваща серия</span>
+              </div>
+            )
+          }
+
+          // Active set - full input view
+          return (
+            <div
+              key={setLog.setNumber}
+              className="p-3 rounded-xl border-2 border-primary/30 bg-primary/5 animate-fade-in"
+            >
+              <div className="flex items-center gap-3">
+                {/* Set Number */}
+                <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/20 border border-primary/30 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-xs text-primary/70">S</div>
+                    <div className="text-sm font-bold text-primary">{setLog.setNumber}</div>
+                  </div>
+                </div>
+
+                {/* Weight Input */}
+                <div className="flex-1">
+                  <label className="text-xs text-muted-foreground block mb-1">
+                    Тежест (kg)
+                  </label>
+                  <input
+                    type="number"
+                    step="0.5"
+                    min="0"
+                    value={setLog.weight}
+                    onChange={(e) => handleWeightChange(setLog.setNumber, e.target.value)}
+                    placeholder="0"
+                    className="w-full px-3 py-2 rounded-lg border border-primary/30 bg-background text-sm focus:border-primary focus:ring-1 focus:ring-primary/30"
+                  />
+                </div>
+
+                {/* Reps Input */}
+                <div className="flex-1">
+                  <label className={`text-xs block mb-1 ${validationErrors[setLog.setNumber] ? 'text-destructive' : 'text-muted-foreground'}`}>
+                    Повторения {validationErrors[setLog.setNumber] && '*'}
+                  </label>
+                  <input
+                    type="number"
+                    min="1"
+                    value={setLog.reps}
+                    onChange={(e) => handleRepsChange(setLog.setNumber, e.target.value)}
+                    placeholder={String(exercise.reps)}
+                    className={`w-full px-3 py-2 rounded-lg border bg-background text-sm transition-colors ${
+                      validationErrors[setLog.setNumber]
+                        ? 'border-destructive focus:border-destructive focus:ring-1 focus:ring-destructive/30'
+                        : 'border-primary/30 focus:border-primary focus:ring-1 focus:ring-primary/30'
+                    }`}
+                  />
+                </div>
+
+                {/* Complete Button */}
+                <button
+                  onClick={() => handleSetComplete(setLog.setNumber)}
+                  className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center bg-primary text-primary-foreground hover:bg-primary/90 transition-all"
+                >
                   <span className="text-xs font-bold">✓</span>
-                )}
-              </button>
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
     </div>
   )
