@@ -59,7 +59,11 @@ export function MeasurementsTracker({ email }: MeasurementsTrackerProps) {
       const data = await response.json()
 
       if (response.ok && data.success) {
-        setMeasurements(data.measurements)
+        // Sort by date descending (newest first)
+        const sorted = [...data.measurements].sort((a, b) =>
+          new Date(b.date).getTime() - new Date(a.date).getTime()
+        )
+        setMeasurements(sorted)
       } else {
         console.error('Error loading measurements:', data.error)
       }
