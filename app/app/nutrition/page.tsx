@@ -579,9 +579,9 @@ export default function NutritionPage() {
 
         {/* Bento Grid - Stats */}
         <div className="grid grid-cols-4 gap-3 md:gap-4">
-          {/* Water Tracking - Compact */}
+          {/* Water Tracking - Compact Full Row */}
           <div
-            className="col-span-2 flex items-center justify-between bg-cyan-500/10 rounded-xl px-3 py-2.5 border border-cyan-500/20 animate-fade-in"
+            className="col-span-4 flex items-center justify-between bg-cyan-500/10 rounded-xl px-3 py-2.5 border border-cyan-500/20 animate-fade-in"
             style={{ animationDelay: '0.3s', animationFillMode: 'both' }}
           >
             <div className="flex items-center gap-2">
