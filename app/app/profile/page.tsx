@@ -96,6 +96,12 @@ export default function ProfilePage() {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [showLogoutModal, setShowLogoutModal] = useState(false)
   const [showDeletePictureModal, setShowDeletePictureModal] = useState(false)
+  const [showChangePasswordModal, setShowChangePasswordModal] = useState(false)
+  const [currentPassword, setCurrentPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [isChangingPassword, setIsChangingPassword] = useState(false)
+  const [passwordError, setPasswordError] = useState('')
 
   useEffect(() => {
     if (!email || !userProgram) return
@@ -311,6 +317,79 @@ export default function ProfilePage() {
     } catch (error) {
       console.error('Error changing dietary preference:', error)
       toast.error('Грешка при промяна на хранителното предпочитание')
+    }
+  }
+
+  const handleChangePassword = () => {
+    setShowChangePasswordModal(true)
+    setPasswordError('')
+    setCurrentPassword('')
+    setNewPassword('')
+    setConfirmPassword('')
+  }
+
+  const validatePasswordStrength = (password: string): string | null => {
+    if (password.length < 8) {
+      return 'Паролата трябва да е поне 8 символа'
+    }
+    if (!/[A-Z]/.test(password)) {
+      return 'Паролата трябва да съдържа поне една главна буква'
+    }
+    if (!/[a-z]/.test(password)) {
+      return 'Паролата трябва да съдържа поне една малка буква'
+    }
+    if (!/[0-9]/.test(password)) {
+      return 'Паролата трябва да съдържа поне една цифра'
+    }
+    return null
+  }
+
+  const confirmChangePassword = async () => {
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      setPasswordError('Всички полета са задължителни')
+      return
+    }
+
+    if (newPassword !== confirmPassword) {
+      setPasswordError('Новата парола и потвърждението не съвпадат')
+      return
+    }
+
+    const strengthError = validatePasswordStrength(newPassword)
+    if (strengthError) {
+      setPasswordError(strengthError)
+      return
+    }
+
+    setIsChangingPassword(true)
+    setPasswordError('')
+
+    try {
+      const response = await fetch('/api/user/change-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          currentPassword,
+          newPassword,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        toast.success('Паролата е променена успешно')
+        setShowChangePasswordModal(false)
+        setCurrentPassword('')
+        setNewPassword('')
+        setConfirmPassword('')
+      } else {
+        setPasswordError(data.error || 'Грешка при промяна на паролата')
+      }
+    } catch (error) {
+      console.error('Error changing password:', error)
+      setPasswordError('Грешка при промяна на паролата')
+    } finally {
+      setIsChangingPassword(false)
     }
   }
 
@@ -712,6 +791,23 @@ export default function ProfilePage() {
           </div>
 
           <div className="space-y-2">
+            {/* Change Password */}
+            <button
+              onClick={handleChangePassword}
+              className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
+            >
+              <div className="flex items-center gap-3">
+                <Settings className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                <div className="text-left">
+                  <p className="text-sm font-medium">Смени паролата</p>
+                  <p className="text-xs text-muted-foreground">
+                    Промени паролата за достъп до профила
+                  </p>
+                </div>
+              </div>
+              <ChevronRight className="w-4 h-4 text-muted-foreground" />
+            </button>
+
             {/* Workout Location */}
             {userProgram?.workout_location && (
               <button
@@ -869,6 +965,97 @@ export default function ProfilePage() {
         icon="trash"
         isLoading={isUploadingPicture}
       />
+
+      {/* Change Password Modal */}
+      {showChangePasswordModal && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-background rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold">Смени паролата</h2>
+              <button
+                onClick={() => setShowChangePasswordModal(false)}
+                className="p-2 hover:bg-muted rounded-lg transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              {/* Current Password */}
+              <div>
+                <label className="text-sm font-medium mb-2 block">Текуща парола</label>
+                <input
+                  type="password"
+                  value={currentPassword}
+                  onChange={(e) => setCurrentPassword(e.target.value)}
+                  className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Въведете текущата си парола"
+                />
+              </div>
+
+              {/* New Password */}
+              <div>
+                <label className="text-sm font-medium mb-2 block">Нова парола</label>
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Въведете нова парола"
+                />
+                <p className="text-xs text-muted-foreground mt-1">
+                  Поне 8 символа, главна буква, малка буква и цифра
+                </p>
+              </div>
+
+              {/* Confirm New Password */}
+              <div>
+                <label className="text-sm font-medium mb-2 block">Потвърди нова парола</label>
+                <input
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Въведете новата парола отново"
+                />
+              </div>
+
+              {/* Error Message */}
+              {passwordError && (
+                <div className="flex items-center gap-2 p-3 bg-destructive/10 border border-destructive/30 rounded-lg">
+                  <AlertTriangle className="w-4 h-4 text-destructive" />
+                  <p className="text-sm text-destructive">{passwordError}</p>
+                </div>
+              )}
+
+              {/* Actions */}
+              <div className="flex gap-3 pt-2">
+                <button
+                  onClick={() => setShowChangePasswordModal(false)}
+                  className="flex-1 px-4 py-2 border border-border rounded-lg hover:bg-muted transition-colors"
+                  disabled={isChangingPassword}
+                >
+                  Отказ
+                </button>
+                <button
+                  onClick={confirmChangePassword}
+                  disabled={isChangingPassword}
+                  className="flex-1 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  {isChangingPassword ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Запазване...
+                    </>
+                  ) : (
+                    'Смени паролата'
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
