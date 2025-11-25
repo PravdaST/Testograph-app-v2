@@ -91,7 +91,7 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
         video: {
           facingMode: mode,
           width: { ideal: 1080 },
-          height: { ideal: 1440 },
+          height: { ideal: 1920 }, // 9:16 aspect ratio
         },
         audio: false,
       }
@@ -496,7 +496,7 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
 
               return (
                 <div key={photo.id} className="space-y-2">
-                  <div className="relative aspect-[3/4] rounded-lg overflow-hidden">
+                  <div className="relative aspect-[9/16] rounded-lg overflow-hidden">
                     <Image
                       src={photo.photo_url}
                       alt={`Progress ${index + 1}`}
@@ -577,7 +577,7 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
                 }
               }}
             >
-              <div className="aspect-[3/4] rounded-lg overflow-hidden bg-muted">
+              <div className="aspect-[9/16] rounded-lg overflow-hidden bg-muted">
                 <Image
                   src={photo.photo_url}
                   alt={`Progress ${photo.date}`}
@@ -658,7 +658,7 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
               {/* Camera View */}
               {isCameraMode && !previewUrl && (
                 <div className="relative">
-                  <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-black">
+                  <div className="relative aspect-[9/16] rounded-lg overflow-hidden bg-black">
                     <video
                       ref={videoRef}
                       autoPlay
@@ -738,7 +738,7 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
               {/* Preview (from file upload or camera capture) */}
               {previewUrl && selectedFile && (
                 <div className="space-y-2">
-                  <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden">
+                  <div className="relative w-full aspect-[9/16] rounded-lg overflow-hidden">
                     <Image
                       src={previewUrl}
                       alt="Preview"
@@ -865,7 +865,7 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
           </button>
 
           <div className="max-w-2xl w-full">
-            <div className="relative aspect-[3/4] rounded-lg overflow-hidden mb-4">
+            <div className="relative aspect-[9/16] rounded-lg overflow-hidden mb-4">
               <Image
                 src={selectedPhoto.photo_url}
                 alt={`Progress ${selectedPhoto.date}`}
