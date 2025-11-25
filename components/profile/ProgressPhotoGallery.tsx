@@ -70,8 +70,8 @@ export function ProgressPhotoGallery({ email, onModalChange }: ProgressPhotoGall
 
   // Notify parent when modal opens/closes (for hiding BottomNav)
   useEffect(() => {
-    onModalChange?.(showUploadModal)
-  }, [showUploadModal, onModalChange])
+    onModalChange?.(showUploadModal || !!selectedPhoto)
+  }, [showUploadModal, selectedPhoto, onModalChange])
 
   // Lock body scroll when modal is open
   useEffect(() => {
@@ -865,12 +865,13 @@ export function ProgressPhotoGallery({ email, onModalChange }: ProgressPhotoGall
           <div className="flex-1 overflow-y-auto p-3 sm:p-4 flex items-center justify-center">
             <div className="max-w-2xl w-full">
               {/* Photo - constrained height on mobile */}
-              <div className="relative aspect-[9/16] rounded-lg overflow-hidden mb-3 sm:mb-4 max-h-[55vh] sm:max-h-[65vh]">
+              <div className="relative rounded-lg overflow-hidden mb-3 sm:mb-4 max-h-[55vh] sm:max-h-[65vh] flex items-center justify-center bg-black/50">
                 <Image
                   src={selectedPhoto.photo_url}
                   alt={`Progress ${selectedPhoto.date}`}
-                  fill
-                  className="object-contain"
+                  width={400}
+                  height={711}
+                  className="object-contain max-h-[55vh] sm:max-h-[65vh] w-auto h-auto"
                 />
               </div>
 
