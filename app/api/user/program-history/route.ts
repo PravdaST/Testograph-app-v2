@@ -98,3 +98,93 @@ export async function GET(request: NextRequest) {
     )
   }
 }
+
+/**
+ * DELETE /api/user/program-history?id={programId}
+ * Delete a program from user's history (cannot delete active/current program)
+ */
+export async function DELETE(request: NextRequest) {
+  try {
+    const supabase = await createClient()
+    const { searchParams } = new URL(request.url)
+    const programId = searchParams.get('id')
+
+    if (!programId) {
+      return NextResponse.json(
+        { error: 'Missing program ID' },
+        { status: 400 }
+      )
+    }
+
+    // 1. Get session
+    const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+
+    if (sessionError || !session) {
+      return NextResponse.json(
+        { error: 'Unauthorized - Няма активна сесия' },
+        { status: 401 }
+      )
+    }
+
+    const email = session.user.email
+
+    if (!email) {
+      return NextResponse.json(
+        { error: 'Unauthorized - Няма email в сесията' },
+        { status: 401 }
+      )
+    }
+
+    // 2. Check if program belongs to user and is not the current/active one
+    const supabaseService = createServiceClient()
+
+    // Get all programs to find the current one
+    const { data: programs, error: fetchError } = await (supabaseService
+      .from('quiz_results_v2') as any)
+      .select('id, created_at')
+      .eq('email', email)
+      .order('created_at', { ascending: false })
+
+    if (fetchError) {
+      console.error('Error fetching programs:', fetchError)
+      return NextResponse.json(
+        { error: 'Грешка при проверка на програмите' },
+        { status: 500 }
+      )
+    }
+
+    // Check if trying to delete the most recent (current) program
+    if (programs && programs.length > 0 && programs[0].id === programId) {
+      return NextResponse.json(
+        { error: 'Не можете да изтриете текущата програма' },
+        { status: 400 }
+      )
+    }
+
+    // 3. Delete the program
+    const { error: deleteError } = await (supabaseService
+      .from('quiz_results_v2') as any)
+      .delete()
+      .eq('id', programId)
+      .eq('email', email)
+
+    if (deleteError) {
+      console.error('Error deleting program:', deleteError)
+      return NextResponse.json(
+        { error: 'Грешка при изтриване на програмата' },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json({
+      success: true,
+      message: 'Програмата е изтрита успешно',
+    })
+  } catch (error) {
+    console.error('Error in DELETE program-history:', error)
+    return NextResponse.json(
+      { error: 'Вътрешна грешка на сървъра' },
+      { status: 500 }
+    )
+  }
+}

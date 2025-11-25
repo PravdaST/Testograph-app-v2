@@ -6,7 +6,9 @@
  */
 
 import { useState, useEffect } from 'react'
-import { History, ChevronDown, ChevronRight, Calendar, Target, Award, TrendingUp, Loader2, CheckCircle2, Clock, XCircle } from 'lucide-react'
+import { useRouter } from 'next/navigation'
+import { History, Loader2, CheckCircle2, Clock, XCircle, Trash2, Plus } from 'lucide-react'
+import { useToast } from '@/contexts/ToastContext'
 
 interface Program {
   id: string
@@ -62,9 +64,11 @@ const STATUS_CONFIG = {
 }
 
 export function ProgramHistory({ email }: ProgramHistoryProps) {
+  const router = useRouter()
+  const toast = useToast()
   const [programs, setPrograms] = useState<Program[]>([])
   const [loading, setLoading] = useState(true)
-  const [expandedId, setExpandedId] = useState<string | null>(null)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
 
   useEffect(() => {
     loadPrograms()
@@ -78,10 +82,6 @@ export function ProgramHistory({ email }: ProgramHistoryProps) {
 
       if (response.ok && data.success) {
         setPrograms(data.programs)
-        // Auto-expand first program if multiple programs exist
-        if (data.programs.length > 1) {
-          setExpandedId(data.programs[0].id)
-        }
       } else {
         console.error('Error loading program history:', data.error)
       }
@@ -90,6 +90,38 @@ export function ProgramHistory({ email }: ProgramHistoryProps) {
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleDeleteProgram = async (programId: string) => {
+    if (!confirm('Сигурни ли сте, че искате да изтриете тази програма?')) {
+      return
+    }
+
+    setDeletingId(programId)
+
+    try {
+      const response = await fetch(`/api/user/program-history?id=${programId}`, {
+        method: 'DELETE',
+      })
+
+      const data = await response.json()
+
+      if (response.ok && data.success) {
+        toast.success('Програмата е изтрита')
+        setPrograms(programs.filter((p) => p.id !== programId))
+      } else {
+        toast.error(data.error || 'Грешка при изтриване')
+      }
+    } catch (error) {
+      console.error('Error deleting program:', error)
+      toast.error('Грешка при изтриване на програмата')
+    } finally {
+      setDeletingId(null)
+    }
+  }
+
+  const handleAddProgram = () => {
+    router.push('/quiz')
   }
 
   if (loading) {
@@ -102,24 +134,28 @@ export function ProgramHistory({ email }: ProgramHistoryProps) {
     )
   }
 
-  // Only show if user has more than 1 program (show history)
-  if (programs.length <= 1) {
-    return null
-  }
-
   return (
     <div className="bg-background rounded-2xl p-3 sm:p-5 border border-border">
       {/* Header */}
-      <div className="flex items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4">
-        <History className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
-        <h2 className="font-bold text-sm sm:text-base">Program History</h2>
-        <span className="text-[10px] sm:text-xs text-muted-foreground">({programs.length} програми)</span>
+      <div className="flex items-center justify-between mb-3 sm:mb-4">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <History className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+          <h2 className="font-bold text-sm sm:text-base">Програми</h2>
+          <span className="text-[10px] sm:text-xs text-muted-foreground">({programs.length})</span>
+        </div>
+        <button
+          onClick={handleAddProgram}
+          className="p-2 sm:px-3 sm:py-1.5 text-sm bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-1.5"
+          title="Добави нова програма"
+        >
+          <Plus className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+          <span className="hidden sm:inline">Нова</span>
+        </button>
       </div>
 
-      {/* Programs List */}
-      <div className="space-y-2 sm:space-y-3">
+      {/* Programs List - Horizontal scroll on mobile */}
+      <div className="flex gap-2 overflow-x-auto pb-2 -mx-3 px-3 sm:mx-0 sm:px-0 snap-x snap-mandatory scrollbar-hide">
         {programs.map((program, index) => {
-          const isExpanded = expandedId === program.id
           const isCurrentProgram = index === 0
           const statusConfig = STATUS_CONFIG[program.status]
           const StatusIcon = statusConfig.icon
@@ -127,131 +163,69 @@ export function ProgramHistory({ email }: ProgramHistoryProps) {
           return (
             <div
               key={program.id}
-              className={`border rounded-xl overflow-hidden transition-all ${
+              className={`flex-shrink-0 w-[calc(50%-4px)] sm:w-[calc(50%-8px)] snap-start border rounded-xl overflow-hidden transition-all ${
                 isCurrentProgram
                   ? 'border-primary/50 bg-primary/5'
                   : statusConfig.border + ' ' + statusConfig.bg
               }`}
             >
-              {/* Header - Always Visible */}
-              <button
-                onClick={() => setExpandedId(isExpanded ? null : program.id)}
-                className="w-full p-3 sm:p-4 flex items-center justify-between hover:bg-muted/20 transition-colors"
-              >
-                <div className="flex items-center gap-2 sm:gap-3">
-                  {/* Status Icon */}
-                  <div className={`p-1.5 sm:p-2 rounded-lg ${statusConfig.bg} ${statusConfig.border} border`}>
-                    <StatusIcon className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${statusConfig.color}`} />
+              {/* Program Card */}
+              <div className="p-3 sm:p-4">
+                {/* Header with delete button */}
+                <div className="flex items-start justify-between mb-2">
+                  <div className={`p-1.5 rounded-lg ${statusConfig.bg} ${statusConfig.border} border`}>
+                    <StatusIcon className={`w-3 h-3 sm:w-3.5 sm:h-3.5 ${statusConfig.color}`} />
                   </div>
-
-                  {/* Program Info */}
-                  <div className="text-left">
-                    <div className="flex items-center gap-1.5 sm:gap-2">
-                      <span className="font-medium text-sm sm:text-base">{CATEGORY_NAMES[program.category]}</span>
-                      {isCurrentProgram && (
-                        <span className="text-[10px] sm:text-xs px-1.5 sm:px-2 py-0.5 bg-primary text-primary-foreground rounded">
-                          Текуща
-                        </span>
+                  {!isCurrentProgram && (
+                    <button
+                      onClick={() => handleDeleteProgram(program.id)}
+                      disabled={deletingId === program.id}
+                      className="p-1 hover:bg-destructive/10 rounded text-destructive transition-colors disabled:opacity-50"
+                      title="Изтрий програмата"
+                    >
+                      {deletingId === program.id ? (
+                        <Loader2 className="w-3 h-3 animate-spin" />
+                      ) : (
+                        <Trash2 className="w-3 h-3" />
                       )}
-                    </div>
-                    <div className="text-[10px] sm:text-xs text-muted-foreground">
-                      {program.completed_at &&
-                        new Date(program.completed_at).toLocaleDateString('bg-BG', {
-                          day: 'numeric',
-                          month: 'long',
-                          year: 'numeric',
-                        })}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Expand Icon */}
-                {isExpanded ? (
-                  <ChevronDown className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
-                ) : (
-                  <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
-                )}
-              </button>
-
-              {/* Expanded Content */}
-              {isExpanded && (
-                <div className="px-3 sm:px-4 pb-3 sm:pb-4 space-y-2 sm:space-y-3 border-t border-border/50">
-                  {/* Stats Grid */}
-                  <div className="grid grid-cols-3 gap-2 sm:gap-3 mt-2 sm:mt-3">
-                    {/* Quiz Score */}
-                    <div className="p-2 sm:p-3 bg-background/50 rounded-lg">
-                      <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
-                        <Award className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary" />
-                        <span className="text-[10px] sm:text-xs text-muted-foreground">Score</span>
-                      </div>
-                      <div className="text-base sm:text-lg font-bold">{program.total_score}</div>
-                    </div>
-
-                    {/* Days in Program */}
-                    <div className="p-2 sm:p-3 bg-background/50 rounded-lg">
-                      <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
-                        <Calendar className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary" />
-                        <span className="text-[10px] sm:text-xs text-muted-foreground">Дни</span>
-                      </div>
-                      <div className="text-base sm:text-lg font-bold">{program.daysInProgram}</div>
-                    </div>
-
-                    {/* Progress % */}
-                    <div className="p-2 sm:p-3 bg-background/50 rounded-lg">
-                      <div className="flex items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
-                        <TrendingUp className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-primary" />
-                        <span className="text-[10px] sm:text-xs text-muted-foreground">Прогрес</span>
-                      </div>
-                      <div className="text-base sm:text-lg font-bold">{program.progressPct}%</div>
-                    </div>
-                  </div>
-
-                  {/* Additional Info */}
-                  <div className="space-y-1 sm:space-y-2 text-xs sm:text-sm">
-                    {program.level && (
-                      <div className="flex items-center justify-between py-0.5 sm:py-1">
-                        <span className="text-muted-foreground">Ниво:</span>
-                        <span className="font-medium">{program.level}</span>
-                      </div>
-                    )}
-                    {program.workout_location && (
-                      <div className="flex items-center justify-between py-0.5 sm:py-1">
-                        <span className="text-muted-foreground">Локация:</span>
-                        <span className="font-medium">
-                          {program.workout_location === 'home' ? 'Вкъщи' : 'Фитнес'}
-                        </span>
-                      </div>
-                    )}
-                    {program.dietary_preference && (
-                      <div className="flex items-center justify-between py-0.5 sm:py-1">
-                        <span className="text-muted-foreground">Диета:</span>
-                        <span className="font-medium capitalize">{program.dietary_preference}</span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Goal */}
-                  {program.goal && (
-                    <div className="pt-2 sm:pt-3 border-t border-border/50">
-                      <div className="flex items-center gap-1.5 sm:gap-2 mb-1 sm:mb-2">
-                        <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-primary" />
-                        <span className="text-[10px] sm:text-xs font-medium">Цел:</span>
-                      </div>
-                      <p className="text-xs sm:text-sm text-muted-foreground">{program.goal}</p>
-                    </div>
+                    </button>
                   )}
+                </div>
 
-                  {/* Status Badge */}
-                  <div className="flex items-center justify-center pt-1 sm:pt-2">
-                    <div className={`inline-flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg ${statusConfig.bg} ${statusConfig.border} border`}>
-                      <StatusIcon className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${statusConfig.color}`} />
-                      <span className={`text-xs sm:text-sm font-medium ${statusConfig.color}`}>
-                        {statusConfig.label}
-                      </span>
-                    </div>
+                {/* Category Name */}
+                <div className="mb-1">
+                  <span className="font-medium text-xs sm:text-sm line-clamp-2">
+                    {CATEGORY_NAMES[program.category]}
+                  </span>
+                  {isCurrentProgram && (
+                    <span className="ml-1 text-[8px] sm:text-[10px] px-1 py-0.5 bg-primary text-primary-foreground rounded">
+                      Текуща
+                    </span>
+                  )}
+                </div>
+
+                {/* Date */}
+                <div className="text-[10px] sm:text-xs text-muted-foreground mb-2">
+                  {program.completed_at &&
+                    new Date(program.completed_at).toLocaleDateString('bg-BG', {
+                      day: 'numeric',
+                      month: 'short',
+                      year: 'numeric',
+                    })}
+                </div>
+
+                {/* Stats */}
+                <div className="grid grid-cols-2 gap-1.5 text-xs">
+                  <div>
+                    <span className="text-muted-foreground text-[10px]">Score</span>
+                    <div className="font-medium">{program.total_score}</div>
+                  </div>
+                  <div>
+                    <span className="text-muted-foreground text-[10px]">Дни</span>
+                    <div className="font-medium">{program.daysInProgram}</div>
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           )
         })}
