@@ -8,8 +8,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { createPortal } from 'react-dom'
-import { Utensils, Flame, TrendingUp, Award, Info, X, Leaf, Droplets, Plus, Minus } from 'lucide-react'
+import { Flame, TrendingUp, Award, Leaf, Droplets, Plus, Minus } from 'lucide-react'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
@@ -109,7 +108,6 @@ export default function NutritionPage() {
   const [programStartDate, setProgramStartDate] = useState<Date>(new Date())
   const [selectedDate, setSelectedDate] = useState(new Date())
   const [completedMeals, setCompletedMeals] = useState<Record<string, number[]>>({})
-  const [activeTooltip, setActiveTooltip] = useState<'calories' | 'protein' | null>(null)
   const [substitutedMeals, setSubstitutedMeals] = useState<Record<string, Record<number, SubstitutedMeal>>>({})
   const [substitutingMeals, setSubstitutingMeals] = useState<Record<string, boolean>>({})
   const [waterGlasses, setWaterGlasses] = useState<Record<string, number>>({})
@@ -608,10 +606,10 @@ export default function NutritionPage() {
             </div>
           </div>
 
-          {/* Calories (1x1) */}
+          {/* Calories */}
           <div
             className="relative bg-background rounded-2xl p-4 border border-border animate-fade-in"
-            style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
+            style={{ animationDelay: '0.35s', animationFillMode: 'both' }}
           >
             <div className="flex items-center justify-between mb-2">
               <Flame className="w-4 h-4 text-orange-500" />
@@ -628,50 +626,12 @@ export default function NutritionPage() {
                 style={{ width: `${Math.min(caloriesPercent, 100)}%` }}
               />
             </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setActiveTooltip(activeTooltip === 'calories' ? null : 'calories')
-              }}
-              className="absolute top-2 right-2 p-1 rounded-md hover:bg-muted/50 transition-colors"
-            >
-              <Info className="w-3 h-3 text-muted-foreground" />
-            </button>
-            {activeTooltip === 'calories' && typeof window !== 'undefined' && createPortal(
-              <>
-                <div
-                  className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setActiveTooltip(null)
-                  }}
-                />
-                <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <div className="text-sm font-bold text-foreground">Дневни калории</div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setActiveTooltip(null)
-                      }}
-                      className="p-1 hover:bg-muted rounded-md transition-colors"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Консумирани {totalCalories} от {targetCalories} калории за деня ({caloriesPercent}%). Маркирай храненията като завършени за точно проследяване.
-                  </p>
-                </div>
-              </>,
-              document.body
-            )}
           </div>
 
-          {/* Protein (1x1) */}
+          {/* Protein */}
           <div
             className="relative bg-background rounded-2xl p-4 border border-border animate-fade-in"
-            style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
+            style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
           >
             <div className="flex items-center justify-between mb-2">
               <Award className="w-4 h-4 text-red-500" />
@@ -688,53 +648,12 @@ export default function NutritionPage() {
                 style={{ width: `${Math.min(proteinPercent, 100)}%` }}
               />
             </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation()
-                setActiveTooltip(activeTooltip === 'protein' ? null : 'protein')
-              }}
-              className="absolute top-2 right-2 p-1 rounded-md hover:bg-muted/50 transition-colors"
-            >
-              <Info className="w-3 h-3 text-muted-foreground" />
-            </button>
-            {activeTooltip === 'protein' && typeof window !== 'undefined' && createPortal(
-              <>
-                <div
-                  className="fixed inset-0 bg-black/40 z-[99998] animate-fade-in"
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    setActiveTooltip(null)
-                  }}
-                />
-                <div className="fixed left-4 right-4 top-1/2 -translate-y-1/2 p-4 bg-white border-2 border-primary/20 rounded-xl shadow-2xl z-[99999] animate-fade-in">
-                  <div className="flex items-start justify-between gap-2 mb-2">
-                    <div className="text-sm font-bold text-foreground">Дневен протеин</div>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        setActiveTooltip(null)
-                      }}
-                      className="p-1 hover:bg-muted rounded-md transition-colors"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    Консумирани {totalProtein}g от {targetProtein}g протеин ({proteinPercent}%). Протеинът е ключов за тестостерона и мускулната маса.
-                  </p>
-                </div>
-              </>,
-              document.body
-            )}
           </div>
-        </div>
 
-        {/* Macros Row - Carbs & Fats */}
-        <div className="grid grid-cols-2 gap-3">
           {/* Carbs */}
           <div
             className="relative bg-background rounded-2xl p-4 border border-border animate-fade-in"
-            style={{ animationDelay: '0.55s', animationFillMode: 'both' }}
+            style={{ animationDelay: '0.45s', animationFillMode: 'both' }}
           >
             <div className="flex items-center justify-between mb-2">
               <svg className="w-4 h-4 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -758,7 +677,7 @@ export default function NutritionPage() {
           {/* Fats */}
           <div
             className="relative bg-background rounded-2xl p-4 border border-border animate-fade-in"
-            style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
+            style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
           >
             <div className="flex items-center justify-between mb-2">
               <svg className="w-4 h-4 text-yellow-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
