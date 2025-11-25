@@ -24,9 +24,10 @@ interface ProgressPhoto {
 
 interface ProgressPhotoGalleryProps {
   email: string
+  onModalChange?: (isOpen: boolean) => void
 }
 
-export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
+export function ProgressPhotoGallery({ email, onModalChange }: ProgressPhotoGalleryProps) {
   const toast = useToast()
   const fileInputRef = useRef<HTMLInputElement>(null)
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -66,6 +67,11 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
       }
     }
   }, [cameraStream])
+
+  // Notify parent when modal opens/closes (for hiding BottomNav)
+  useEffect(() => {
+    onModalChange?.(showUploadModal)
+  }, [showUploadModal, onModalChange])
 
   // Lock body scroll when modal is open
   useEffect(() => {

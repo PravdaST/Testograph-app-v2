@@ -113,6 +113,7 @@ export default function ProfilePage() {
   const [isChangingEmail, setIsChangingEmail] = useState(false)
   const [emailError, setEmailError] = useState('')
   const [isExportingData, setIsExportingData] = useState(false)
+  const [isPhotoModalOpen, setIsPhotoModalOpen] = useState(false)
 
   useEffect(() => {
     if (!email || !userProgram) return
@@ -870,7 +871,7 @@ export default function ProfilePage() {
         )}
 
         {/* Progress Photo Gallery */}
-        {email && <ProgressPhotoGallery email={email} />}
+        {email && <ProgressPhotoGallery email={email} onModalChange={setIsPhotoModalOpen} />}
 
         {/* Body Measurements Tracker */}
         {email && <MeasurementsTracker email={email} />}
@@ -1127,7 +1128,7 @@ export default function ProfilePage() {
         <FeedbackHistory submissions={feedbackHistory} />
       </div>
 
-      <BottomNav onNavigate={() => router.push('/app')} />
+      {!isPhotoModalOpen && <BottomNav onNavigate={() => router.push('/app')} />}
 
       {/* Delete Account Modal */}
       <DeleteAccountModal
