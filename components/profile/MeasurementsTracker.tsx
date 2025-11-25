@@ -194,21 +194,21 @@ export function MeasurementsTracker({ email }: MeasurementsTrackerProps) {
   const chartData = prepareChartData()
 
   return (
-    <div className="bg-background rounded-2xl p-5 border border-border">
+    <div className="bg-background rounded-2xl p-3 sm:p-5 border border-border">
       {/* Header */}
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
-          <Scale className="w-5 h-5 text-primary" />
-          <h2 className="font-bold">Body Measurements</h2>
-          <span className="text-xs text-muted-foreground">({measurements.length})</span>
+      <div className="flex items-center justify-between mb-3 sm:mb-4">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <Scale className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+          <h2 className="font-bold text-sm sm:text-base">Body Measurements</h2>
+          <span className="text-[10px] sm:text-xs text-muted-foreground">({measurements.length})</span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           {/* View Toggle */}
           {measurements.length > 0 && (
-            <div className="flex items-center gap-1 bg-muted/30 rounded-lg p-1">
+            <div className="flex items-center gap-0.5 sm:gap-1 bg-muted/30 rounded-lg p-0.5 sm:p-1">
               <button
                 onClick={() => setSelectedView('table')}
-                className={`px-3 py-1 rounded text-xs transition-colors ${
+                className={`px-2 sm:px-3 py-1 rounded text-[10px] sm:text-xs transition-colors ${
                   selectedView === 'table'
                     ? 'bg-background shadow-sm'
                     : 'hover:bg-background/50'
@@ -218,7 +218,7 @@ export function MeasurementsTracker({ email }: MeasurementsTrackerProps) {
               </button>
               <button
                 onClick={() => setSelectedView('chart')}
-                className={`px-3 py-1 rounded text-xs transition-colors ${
+                className={`px-2 sm:px-3 py-1 rounded text-[10px] sm:text-xs transition-colors ${
                   selectedView === 'chart'
                     ? 'bg-background shadow-sm'
                     : 'hover:bg-background/50'
@@ -230,10 +230,11 @@ export function MeasurementsTracker({ email }: MeasurementsTrackerProps) {
           )}
           <button
             onClick={() => setShowAddModal(true)}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-sm bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+            className="p-2 sm:px-3 sm:py-1.5 text-sm bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-1.5"
+            title="Добави измерване"
           >
-            <Plus className="w-3.5 h-3.5" />
-            Добави измерване
+            <Plus className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+            <span className="hidden sm:inline">Добави</span>
           </button>
         </div>
       </div>
@@ -304,56 +305,125 @@ export function MeasurementsTracker({ email }: MeasurementsTrackerProps) {
         </div>
       )}
 
-      {/* Table View */}
+      {/* Table View - Cards on mobile, Table on desktop */}
       {selectedView === 'table' && measurements.length > 0 && (
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border">
-                <th className="text-left p-2 font-medium text-muted-foreground">Дата</th>
-                <th className="text-right p-2 font-medium text-muted-foreground">Тегло</th>
-                <th className="text-right p-2 font-medium text-muted-foreground">Мазнини</th>
-                <th className="text-right p-2 font-medium text-muted-foreground">Талия</th>
-                <th className="text-right p-2 font-medium text-muted-foreground">Гърди</th>
-                <th className="text-right p-2 font-medium text-muted-foreground">Ръце</th>
-                <th className="text-right p-2 font-medium text-muted-foreground">Крака</th>
-                <th className="text-right p-2"></th>
-              </tr>
-            </thead>
-            <tbody>
-              {measurements.map((m) => (
-                <tr key={m.id} className="border-b border-border/50 hover:bg-muted/30">
-                  <td className="p-2">
+        <>
+          {/* Mobile: Cards */}
+          <div className="sm:hidden space-y-2">
+            {measurements.map((m) => (
+              <div key={m.id} className="p-3 bg-muted/20 rounded-xl border border-border/50">
+                <div className="flex items-start justify-between mb-2">
+                  <div className="text-sm font-medium">
                     {new Date(m.date).toLocaleDateString('bg-BG', {
                       day: 'numeric',
                       month: 'short',
                       year: 'numeric',
                     })}
-                  </td>
-                  <td className="text-right p-2">{m.weight ? `${m.weight} kg` : '-'}</td>
-                  <td className="text-right p-2">{m.body_fat_pct ? `${m.body_fat_pct}%` : '-'}</td>
-                  <td className="text-right p-2">{m.waist ? `${m.waist} cm` : '-'}</td>
-                  <td className="text-right p-2">{m.chest ? `${m.chest} cm` : '-'}</td>
-                  <td className="text-right p-2">{m.arms ? `${m.arms} cm` : '-'}</td>
-                  <td className="text-right p-2">{m.legs ? `${m.legs} cm` : '-'}</td>
-                  <td className="text-right p-2">
-                    <button
-                      onClick={() => handleDeleteMeasurement(m.id)}
-                      disabled={deletingId === m.id}
-                      className="p-1 hover:bg-destructive/10 rounded text-destructive transition-colors disabled:opacity-50"
-                    >
-                      {deletingId === m.id ? (
-                        <Loader2 className="w-4 h-4 animate-spin" />
-                      ) : (
-                        <Trash2 className="w-4 h-4" />
-                      )}
-                    </button>
-                  </td>
+                  </div>
+                  <button
+                    onClick={() => handleDeleteMeasurement(m.id)}
+                    disabled={deletingId === m.id}
+                    className="p-1 hover:bg-destructive/10 rounded text-destructive transition-colors disabled:opacity-50"
+                  >
+                    {deletingId === m.id ? (
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    ) : (
+                      <Trash2 className="w-3.5 h-3.5" />
+                    )}
+                  </button>
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-xs">
+                  {m.weight && (
+                    <div>
+                      <span className="text-muted-foreground">Тегло</span>
+                      <div className="font-medium">{m.weight} kg</div>
+                    </div>
+                  )}
+                  {m.body_fat_pct && (
+                    <div>
+                      <span className="text-muted-foreground">Мазнини</span>
+                      <div className="font-medium">{m.body_fat_pct}%</div>
+                    </div>
+                  )}
+                  {m.waist && (
+                    <div>
+                      <span className="text-muted-foreground">Талия</span>
+                      <div className="font-medium">{m.waist} cm</div>
+                    </div>
+                  )}
+                  {m.chest && (
+                    <div>
+                      <span className="text-muted-foreground">Гърди</span>
+                      <div className="font-medium">{m.chest} cm</div>
+                    </div>
+                  )}
+                  {m.arms && (
+                    <div>
+                      <span className="text-muted-foreground">Ръце</span>
+                      <div className="font-medium">{m.arms} cm</div>
+                    </div>
+                  )}
+                  {m.legs && (
+                    <div>
+                      <span className="text-muted-foreground">Крака</span>
+                      <div className="font-medium">{m.legs} cm</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Desktop: Table */}
+          <div className="hidden sm:block overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border">
+                  <th className="text-left p-2 font-medium text-muted-foreground">Дата</th>
+                  <th className="text-right p-2 font-medium text-muted-foreground">Тегло</th>
+                  <th className="text-right p-2 font-medium text-muted-foreground">Мазнини</th>
+                  <th className="text-right p-2 font-medium text-muted-foreground">Талия</th>
+                  <th className="text-right p-2 font-medium text-muted-foreground">Гърди</th>
+                  <th className="text-right p-2 font-medium text-muted-foreground">Ръце</th>
+                  <th className="text-right p-2 font-medium text-muted-foreground">Крака</th>
+                  <th className="text-right p-2"></th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {measurements.map((m) => (
+                  <tr key={m.id} className="border-b border-border/50 hover:bg-muted/30">
+                    <td className="p-2">
+                      {new Date(m.date).toLocaleDateString('bg-BG', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric',
+                      })}
+                    </td>
+                    <td className="text-right p-2">{m.weight ? `${m.weight} kg` : '-'}</td>
+                    <td className="text-right p-2">{m.body_fat_pct ? `${m.body_fat_pct}%` : '-'}</td>
+                    <td className="text-right p-2">{m.waist ? `${m.waist} cm` : '-'}</td>
+                    <td className="text-right p-2">{m.chest ? `${m.chest} cm` : '-'}</td>
+                    <td className="text-right p-2">{m.arms ? `${m.arms} cm` : '-'}</td>
+                    <td className="text-right p-2">{m.legs ? `${m.legs} cm` : '-'}</td>
+                    <td className="text-right p-2">
+                      <button
+                        onClick={() => handleDeleteMeasurement(m.id)}
+                        disabled={deletingId === m.id}
+                        className="p-1 hover:bg-destructive/10 rounded text-destructive transition-colors disabled:opacity-50"
+                      >
+                        {deletingId === m.id ? (
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                        ) : (
+                          <Trash2 className="w-4 h-4" />
+                        )}
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
 
       {/* Empty State */}
@@ -375,10 +445,10 @@ export function MeasurementsTracker({ email }: MeasurementsTrackerProps) {
 
       {/* Add/Edit Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-background rounded-2xl max-w-lg w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold">Добави измерване</h2>
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-end sm:items-center justify-center sm:p-4">
+          <div className="bg-background rounded-t-2xl sm:rounded-2xl w-full sm:max-w-lg p-4 pb-24 sm:p-6 sm:pb-6 shadow-2xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <h2 className="text-lg sm:text-xl font-bold">Добави измерване</h2>
               <button
                 onClick={() => {
                   setShowAddModal(false)
@@ -390,7 +460,7 @@ export function MeasurementsTracker({ email }: MeasurementsTrackerProps) {
               </button>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {/* Date */}
               <div>
                 <label className="text-sm font-medium mb-2 block flex items-center gap-2">
