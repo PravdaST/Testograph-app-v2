@@ -103,6 +103,11 @@ export default function ProfilePage() {
   const [isChangingPassword, setIsChangingPassword] = useState(false)
   const [passwordError, setPasswordError] = useState('')
   const [isResendingEmail, setIsResendingEmail] = useState(false)
+  const [showChangeEmailModal, setShowChangeEmailModal] = useState(false)
+  const [newEmail, setNewEmail] = useState('')
+  const [emailPassword, setEmailPassword] = useState('')
+  const [isChangingEmail, setIsChangingEmail] = useState(false)
+  const [emailError, setEmailError] = useState('')
 
   useEffect(() => {
     if (!email || !userProgram) return
@@ -415,6 +420,65 @@ export default function ProfilePage() {
       toast.error('Грешка при изпращане на verification email')
     } finally {
       setIsResendingEmail(false)
+    }
+  }
+
+  const handleChangeEmail = () => {
+    setShowChangeEmailModal(true)
+    setEmailError('')
+    setNewEmail('')
+    setEmailPassword('')
+  }
+
+  const validateEmailFormat = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  }
+
+  const confirmChangeEmail = async () => {
+    if (!newEmail || !emailPassword) {
+      setEmailError('Email и парола са задължителни')
+      return
+    }
+
+    if (!validateEmailFormat(newEmail)) {
+      setEmailError('Невалиден email формат')
+      return
+    }
+
+    if (newEmail.toLowerCase() === email?.toLowerCase()) {
+      setEmailError('Новият email е същият като текущия')
+      return
+    }
+
+    setIsChangingEmail(true)
+    setEmailError('')
+
+    try {
+      const response = await fetch('/api/user/change-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          newEmail,
+          password: emailPassword,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        toast.success('Verification email е изпратен! Проверете входящата поща на новия адрес.')
+        setShowChangeEmailModal(false)
+        setNewEmail('')
+        setEmailPassword('')
+      } else {
+        setEmailError(data.error || 'Грешка при промяна на email')
+      }
+    } catch (error) {
+      console.error('Error changing email:', error)
+      setEmailError('Грешка при промяна на email')
+    } finally {
+      setIsChangingEmail(false)
     }
   }
 
@@ -856,6 +920,23 @@ export default function ProfilePage() {
               <ChevronRight className="w-4 h-4 text-muted-foreground" />
             </button>
 
+            {/* Change Email */}
+            <button
+              onClick={handleChangeEmail}
+              className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
+            >
+              <div className="flex items-center gap-3">
+                <Mail className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                <div className="text-left">
+                  <p className="text-sm font-medium">Смени email адреса</p>
+                  <p className="text-xs text-muted-foreground">
+                    Промени email адреса за вход в профила
+                  </p>
+                </div>
+              </div>
+              <ChevronRight className="w-4 h-4 text-muted-foreground" />
+            </button>
+
             {/* Workout Location */}
             {userProgram?.workout_location && (
               <button
@@ -1097,6 +1178,98 @@ export default function ProfilePage() {
                     </>
                   ) : (
                     'Смени паролата'
+                  )}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Change Email Modal */}
+      {showChangeEmailModal && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+          <div className="bg-background rounded-2xl max-w-md w-full p-6 shadow-2xl">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold">Смени email адреса</h2>
+              <button
+                onClick={() => setShowChangeEmailModal(false)}
+                className="p-2 hover:bg-muted rounded-lg transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <div className="space-y-4">
+              {/* Current Email Display */}
+              <div>
+                <label className="text-sm font-medium mb-2 block">Текущ email</label>
+                <div className="px-4 py-2 rounded-lg border border-border bg-muted/30 text-muted-foreground">
+                  {email}
+                </div>
+              </div>
+
+              {/* New Email */}
+              <div>
+                <label className="text-sm font-medium mb-2 block">Нов email адрес</label>
+                <input
+                  type="email"
+                  value={newEmail}
+                  onChange={(e) => setNewEmail(e.target.value)}
+                  className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Въведете нов email адрес"
+                />
+              </div>
+
+              {/* Password Confirmation */}
+              <div>
+                <label className="text-sm font-medium mb-2 block">Потвърди паролата</label>
+                <input
+                  type="password"
+                  value={emailPassword}
+                  onChange={(e) => setEmailPassword(e.target.value)}
+                  className="w-full px-4 py-2 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                  placeholder="Въведете паролата си за потвърждение"
+                />
+              </div>
+
+              {/* Info Message */}
+              <div className="flex items-start gap-2 p-3 bg-primary/10 border border-primary/30 rounded-lg">
+                <AlertTriangle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                <p className="text-xs text-muted-foreground">
+                  Ще изпратим verification email към новия адрес. Трябва да кликнете на линка в email-а за да потвърдите промяната.
+                </p>
+              </div>
+
+              {/* Error Message */}
+              {emailError && (
+                <div className="flex items-center gap-2 p-3 bg-destructive/10 border border-destructive/30 rounded-lg">
+                  <AlertTriangle className="w-4 h-4 text-destructive" />
+                  <p className="text-sm text-destructive">{emailError}</p>
+                </div>
+              )}
+
+              {/* Actions */}
+              <div className="flex gap-3 pt-2">
+                <button
+                  onClick={() => setShowChangeEmailModal(false)}
+                  className="flex-1 px-4 py-2 border border-border rounded-lg hover:bg-muted transition-colors"
+                  disabled={isChangingEmail}
+                >
+                  Отказ
+                </button>
+                <button
+                  onClick={confirmChangeEmail}
+                  disabled={isChangingEmail}
+                  className="flex-1 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  {isChangingEmail ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      Изпращане...
+                    </>
+                  ) : (
+                    'Промени email'
                   )}
                 </button>
               </div>
