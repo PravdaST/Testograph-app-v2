@@ -553,10 +553,32 @@ export default function NutritionPage() {
           </div>
         )}
 
-        {/* Page Title */}
-        <h1 className="text-xl font-bold px-1 animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
-          Хранителен План
-        </h1>
+        {/* Page Title + Compact Water Tracker */}
+        <div className="flex items-center justify-between animate-fade-in" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
+          <h1 className="text-xl font-bold px-1">Хранителен План</h1>
+
+          {/* Compact Water Tracker */}
+          <div className="flex items-center gap-2 bg-cyan-500/10 rounded-xl px-3 py-2 border border-cyan-500/20">
+            <Droplets className="w-4 h-4 text-cyan-500" />
+            <div className="flex items-center gap-1">
+              <button
+                onClick={() => handleWaterUpdate(-1)}
+                disabled={updatingWater || currentWater <= 0}
+                className="p-1 rounded-md hover:bg-cyan-500/20 transition-colors disabled:opacity-30"
+              >
+                <Minus className="w-3 h-3 text-cyan-600" />
+              </button>
+              <span className="text-sm font-bold text-cyan-600 w-8 text-center">{currentWater}/{waterTarget}</span>
+              <button
+                onClick={() => handleWaterUpdate(1)}
+                disabled={updatingWater || currentWater >= 20}
+                className="p-1 rounded-md hover:bg-cyan-500/20 transition-colors disabled:opacity-30"
+              >
+                <Plus className="w-3 h-3 text-cyan-600" />
+              </button>
+            </div>
+          </div>
+        </div>
 
         {/* Weekly Calendar */}
         <div className="animate-fade-in" style={{ animationDelay: '0.2s', animationFillMode: 'both' }}>
@@ -801,69 +823,6 @@ export default function NutritionPage() {
                 style={{ width: `${Math.min(fatsPercent, 100)}%` }}
               />
             </div>
-          </div>
-        </div>
-
-        {/* Water Tracking */}
-        <div
-          className="bg-gradient-to-r from-cyan-500/10 to-blue-500/10 rounded-2xl p-4 border border-cyan-500/20 animate-fade-in"
-          style={{ animationDelay: '0.65s', animationFillMode: 'both' }}
-        >
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-xl bg-cyan-500/20">
-                <Droplets className="w-5 h-5 text-cyan-500" />
-              </div>
-              <div>
-                <div className="text-sm font-bold">Хидратация</div>
-                <div className="text-xs text-muted-foreground">
-                  {waterMl}ml / {waterTargetMl}ml ({waterPercent}%)
-                </div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => handleWaterUpdate(-1)}
-                disabled={updatingWater || currentWater <= 0}
-                className="p-2 rounded-lg bg-background border border-border hover:bg-muted transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <Minus className="w-4 h-4" />
-              </button>
-
-              <div className="w-16 text-center">
-                <div className="text-2xl font-bold text-cyan-600">{currentWater}</div>
-                <div className="text-[10px] text-muted-foreground">чаши</div>
-              </div>
-
-              <button
-                onClick={() => handleWaterUpdate(1)}
-                disabled={updatingWater || currentWater >= 20}
-                className="p-2 rounded-lg bg-cyan-500 text-white hover:bg-cyan-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-              >
-                <Plus className="w-4 h-4" />
-              </button>
-            </div>
-          </div>
-
-          {/* Progress bar */}
-          <div className="mt-3 h-2 bg-background/50 rounded-full overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-cyan-500 to-blue-500 transition-all duration-500"
-              style={{ width: `${Math.min(waterPercent, 100)}%` }}
-            />
-          </div>
-
-          {/* Glass indicators */}
-          <div className="mt-2 flex gap-1 justify-center flex-wrap">
-            {Array.from({ length: waterTarget }).map((_, i) => (
-              <div
-                key={i}
-                className={`w-2 h-3 rounded-sm transition-colors ${
-                  i < currentWater ? 'bg-cyan-500' : 'bg-muted'
-                }`}
-              />
-            ))}
           </div>
         </div>
 
