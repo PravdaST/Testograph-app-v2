@@ -3,10 +3,11 @@
 /**
  * Progress Photo Gallery Component
  * Visual progress tracking with before/after comparison
+ * Supports both file upload and direct camera capture
  */
 
-import { useState, useEffect, useRef } from 'react'
-import { Camera, X, Upload, Calendar, Scale, Percent, Trash2, Loader2, Image as ImageIcon, ArrowLeftRight } from 'lucide-react'
+import { useState, useEffect, useRef, useCallback } from 'react'
+import { Camera, X, Upload, Calendar, Scale, Percent, Trash2, Loader2, Image as ImageIcon, ArrowLeftRight, Video, SwitchCamera, Circle } from 'lucide-react'
 import Image from 'next/image'
 import { useToast } from '@/contexts/ToastContext'
 
@@ -28,6 +29,8 @@ interface ProgressPhotoGalleryProps {
 export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
   const toast = useToast()
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const [photos, setPhotos] = useState<ProgressPhoto[]>([])
   const [loading, setLoading] = useState(true)
@@ -45,9 +48,128 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
   const [compareMode, setCompareMode] = useState(false)
   const [comparePhotos, setComparePhotos] = useState<ProgressPhoto[]>([])
 
+  // Camera states
+  const [isCameraMode, setIsCameraMode] = useState(false)
+  const [isCameraActive, setIsCameraActive] = useState(false)
+  const [cameraStream, setCameraStream] = useState<MediaStream | null>(null)
+  const [facingMode, setFacingMode] = useState<'user' | 'environment'>('environment')
+
   useEffect(() => {
     loadPhotos()
   }, [email])
+
+  // Cleanup camera stream on unmount
+  useEffect(() => {
+    return () => {
+      if (cameraStream) {
+        cameraStream.getTracks().forEach(track => track.stop())
+      }
+    }
+  }, [cameraStream])
+
+  // Start camera when camera mode is activated
+  const startCamera = useCallback(async () => {
+    try {
+      // Stop any existing stream first
+      if (cameraStream) {
+        cameraStream.getTracks().forEach(track => track.stop())
+      }
+
+      const constraints: MediaStreamConstraints = {
+        video: {
+          facingMode: facingMode,
+          width: { ideal: 1080 },
+          height: { ideal: 1440 },
+        },
+        audio: false,
+      }
+
+      const stream = await navigator.mediaDevices.getUserMedia(constraints)
+      setCameraStream(stream)
+      setIsCameraActive(true)
+
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream
+        videoRef.current.play()
+      }
+    } catch (error) {
+      console.error('Error accessing camera:', error)
+      toast.error('Няма достъп до камерата. Моля, разрешете достъпа в настройките.')
+      setIsCameraMode(false)
+    }
+  }, [facingMode, cameraStream, toast])
+
+  // Stop camera
+  const stopCamera = useCallback(() => {
+    if (cameraStream) {
+      cameraStream.getTracks().forEach(track => track.stop())
+      setCameraStream(null)
+    }
+    setIsCameraActive(false)
+    if (videoRef.current) {
+      videoRef.current.srcObject = null
+    }
+  }, [cameraStream])
+
+  // Switch between front and back camera
+  const switchCamera = useCallback(async () => {
+    const newFacingMode = facingMode === 'user' ? 'environment' : 'user'
+    setFacingMode(newFacingMode)
+
+    if (isCameraActive) {
+      stopCamera()
+      // Small delay to ensure camera is fully stopped
+      setTimeout(() => {
+        startCamera()
+      }, 100)
+    }
+  }, [facingMode, isCameraActive, stopCamera, startCamera])
+
+  // Capture photo from camera
+  const capturePhoto = useCallback(() => {
+    if (!videoRef.current || !canvasRef.current) return
+
+    const video = videoRef.current
+    const canvas = canvasRef.current
+    const context = canvas.getContext('2d')
+
+    if (!context) return
+
+    // Set canvas dimensions to match video
+    canvas.width = video.videoWidth
+    canvas.height = video.videoHeight
+
+    // Draw the video frame to canvas
+    context.drawImage(video, 0, 0, canvas.width, canvas.height)
+
+    // Convert canvas to blob
+    canvas.toBlob(
+      (blob) => {
+        if (blob) {
+          // Create File from blob
+          const file = new File([blob], `camera_${Date.now()}.jpg`, { type: 'image/jpeg' })
+          setSelectedFile(file)
+
+          // Create preview URL
+          const url = URL.createObjectURL(blob)
+          setPreviewUrl(url)
+
+          // Stop camera after capture
+          stopCamera()
+          setIsCameraMode(false)
+        }
+      },
+      'image/jpeg',
+      0.9
+    )
+  }, [stopCamera])
+
+  // Start camera when entering camera mode
+  useEffect(() => {
+    if (isCameraMode && !isCameraActive && showUploadModal) {
+      startCamera()
+    }
+  }, [isCameraMode, isCameraActive, showUploadModal, startCamera])
 
   const loadPhotos = async () => {
     setLoading(true)
@@ -141,6 +263,8 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
     setUploadWeight('')
     setUploadBodyFat('')
     setUploadNotes('')
+    setIsCameraMode(false)
+    stopCamera()
     if (fileInputRef.current) {
       fileInputRef.current.value = ''
     }
@@ -350,12 +474,17 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
         </div>
       )}
 
+      {/* Hidden canvas for camera capture */}
+      <canvas ref={canvasRef} className="hidden" />
+
       {/* Upload Modal */}
       {showUploadModal && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
           <div className="bg-background rounded-2xl max-w-md w-full p-6 shadow-2xl max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold">Качи Progress Снимка</h2>
+              <h2 className="text-xl font-bold">
+                {isCameraMode ? 'Снимай' : 'Добави снимка'}
+              </h2>
               <button
                 onClick={() => {
                   setShowUploadModal(false)
@@ -368,29 +497,101 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
             </div>
 
             <div className="space-y-4">
-              {/* File Upload */}
-              <div>
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/jpeg,image/jpg,image/png,image/webp"
-                  onChange={handleFileSelect}
-                  className="hidden"
-                />
-                <button
-                  onClick={() => fileInputRef.current?.click()}
-                  className="w-full p-8 border-2 border-dashed border-border rounded-lg hover:bg-muted/50 transition-colors"
-                >
-                  {previewUrl ? (
-                    <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden">
-                      <Image
-                        src={previewUrl}
-                        alt="Preview"
-                        fill
-                        className="object-cover"
-                      />
+              {/* Mode Toggle - Only show if no preview yet */}
+              {!previewUrl && !isCameraActive && (
+                <div className="grid grid-cols-2 gap-2 p-1 bg-muted rounded-lg">
+                  <button
+                    onClick={() => setIsCameraMode(false)}
+                    className={`flex items-center justify-center gap-2 px-4 py-2 rounded-md transition-colors ${
+                      !isCameraMode
+                        ? 'bg-background shadow text-foreground'
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    <Upload className="w-4 h-4" />
+                    <span className="text-sm">Качи</span>
+                  </button>
+                  <button
+                    onClick={() => setIsCameraMode(true)}
+                    className={`flex items-center justify-center gap-2 px-4 py-2 rounded-md transition-colors ${
+                      isCameraMode
+                        ? 'bg-background shadow text-foreground'
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    <Video className="w-4 h-4" />
+                    <span className="text-sm">Снимай</span>
+                  </button>
+                </div>
+              )}
+
+              {/* Camera View */}
+              {isCameraMode && !previewUrl && (
+                <div className="relative">
+                  <div className="relative aspect-[3/4] rounded-lg overflow-hidden bg-black">
+                    <video
+                      ref={videoRef}
+                      autoPlay
+                      playsInline
+                      muted
+                      className="w-full h-full object-cover"
+                    />
+                    {!isCameraActive && (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <Loader2 className="w-8 h-8 animate-spin text-white" />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Camera Controls */}
+                  {isCameraActive && (
+                    <div className="absolute bottom-4 left-0 right-0 flex items-center justify-center gap-4">
+                      {/* Switch Camera */}
+                      <button
+                        onClick={switchCamera}
+                        className="p-3 bg-white/20 backdrop-blur rounded-full hover:bg-white/30 transition-colors"
+                      >
+                        <SwitchCamera className="w-6 h-6 text-white" />
+                      </button>
+
+                      {/* Capture Button */}
+                      <button
+                        onClick={capturePhoto}
+                        className="p-4 bg-white rounded-full hover:bg-white/90 transition-colors shadow-lg"
+                      >
+                        <Circle className="w-8 h-8 text-primary fill-primary" />
+                      </button>
+
+                      {/* Cancel */}
+                      <button
+                        onClick={() => {
+                          stopCamera()
+                          setIsCameraMode(false)
+                        }}
+                        className="p-3 bg-white/20 backdrop-blur rounded-full hover:bg-white/30 transition-colors"
+                      >
+                        <X className="w-6 h-6 text-white" />
+                      </button>
                     </div>
-                  ) : (
+                  )}
+                </div>
+              )}
+
+              {/* File Upload (when not in camera mode and no preview) */}
+              {!isCameraMode && !previewUrl && (
+                <div>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept="image/jpeg,image/jpg,image/png,image/webp"
+                    capture="environment"
+                    onChange={handleFileSelect}
+                    className="hidden"
+                  />
+                  <button
+                    onClick={() => fileInputRef.current?.click()}
+                    className="w-full p-8 border-2 border-dashed border-border rounded-lg hover:bg-muted/50 transition-colors"
+                  >
                     <div className="text-center">
                       <Camera className="w-12 h-12 text-muted-foreground mx-auto mb-2" />
                       <p className="text-sm text-muted-foreground">
@@ -400,9 +601,32 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
                         JPEG, PNG, WebP (макс. 10MB)
                       </p>
                     </div>
-                  )}
-                </button>
-              </div>
+                  </button>
+                </div>
+              )}
+
+              {/* Preview (from file upload or camera capture) */}
+              {previewUrl && selectedFile && (
+                <div className="space-y-2">
+                  <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden">
+                    <Image
+                      src={previewUrl}
+                      alt="Preview"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <button
+                    onClick={() => {
+                      setSelectedFile(null)
+                      setPreviewUrl(null)
+                    }}
+                    className="w-full text-sm text-muted-foreground hover:text-foreground transition-colors py-2"
+                  >
+                    Избери друга снимка
+                  </button>
+                </div>
+              )}
 
               {/* Date */}
               <div>
