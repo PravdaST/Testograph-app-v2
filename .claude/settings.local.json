@@ -27,7 +27,8 @@
       "Bash(gemini:*)",
       "Bash(xargs -I {} bash -c \"echo ''''=== {} ==='''' && head -30 {}\")",
       "Bash(cat:*)",
-      "Bash(npx supabase status)"
+      "Bash(npx supabase status)",
+      "Bash(npx supabase db push:*)"
     ],
     "deny": [],
     "ask": []

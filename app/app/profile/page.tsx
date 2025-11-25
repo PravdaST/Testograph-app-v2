@@ -942,125 +942,125 @@ export default function ProfilePage() {
         </div>
 
         {/* Settings & Actions */}
-        <div className="bg-background rounded-2xl p-5 border border-border">
-          <div className="flex items-center gap-2 mb-4">
-            <Settings className="w-5 h-5 text-primary" />
-            <h2 className="font-bold">Настройки</h2>
+        <div className="bg-background rounded-2xl p-3 sm:p-5 border border-border">
+          <div className="flex items-center gap-1.5 sm:gap-2 mb-3 sm:mb-4">
+            <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
+            <h2 className="font-bold text-sm sm:text-base">Настройки</h2>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-1.5 sm:space-y-2">
             {/* Change Password */}
             <button
               onClick={handleChangePassword}
-              className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
+              className="w-full flex items-center justify-between p-2.5 sm:p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
             >
-              <div className="flex items-center gap-3">
-                <Settings className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Settings className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                 <div className="text-left">
-                  <p className="text-sm font-medium">Смени паролата</p>
-                  <p className="text-xs text-muted-foreground">
-                    Промени паролата за достъп до профила
+                  <p className="text-xs sm:text-sm font-medium">Смени паролата</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">
+                    Промени паролата за достъп
                   </p>
                 </div>
               </div>
-              <ChevronRight className="w-4 h-4 text-muted-foreground" />
+              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground" />
             </button>
 
             {/* Change Email */}
             <button
               onClick={handleChangeEmail}
-              className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
+              className="w-full flex items-center justify-between p-2.5 sm:p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
             >
-              <div className="flex items-center gap-3">
-                <Mail className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                 <div className="text-left">
-                  <p className="text-sm font-medium">Смени email адреса</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs sm:text-sm font-medium">Смени email адреса</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">
                     Промени email адреса за вход в профила
                   </p>
                 </div>
               </div>
-              <ChevronRight className="w-4 h-4 text-muted-foreground" />
+              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground" />
             </button>
 
             {/* Workout Location */}
             {userProgram?.workout_location && (
               <button
                 onClick={handleChangeWorkoutLocation}
-                className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
+                className="w-full flex items-center justify-between p-2.5 sm:p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3">
                   {userProgram.workout_location === 'home' ? (
-                    <Home className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                    <Home className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                   ) : (
-                    <DumbbellIcon className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                    <DumbbellIcon className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                   )}
                   <div className="text-left">
-                    <p className="text-sm font-medium">Тренировъчна локация</p>
-                    <p className="text-xs text-muted-foreground">
-                      Текуща: {LOCATION_NAMES[userProgram.workout_location]}
+                    <p className="text-xs sm:text-sm font-medium">Тренировъчна локация</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">
+                      {LOCATION_NAMES[userProgram.workout_location]}
                     </p>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground" />
               </button>
             )}
 
             {/* Dietary Preference */}
             <button
               onClick={handleChangeDietaryPreference}
-              className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
+              className="w-full flex items-center justify-between p-2.5 sm:p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
             >
-              <div className="flex items-center gap-3">
-                <Leaf className="w-5 h-5 text-green-600 group-hover:text-green-700 transition-colors" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Leaf className="w-4 h-4 sm:w-5 sm:h-5 text-green-600 group-hover:text-green-700 transition-colors" />
                 <div className="text-left">
-                  <p className="text-sm font-medium">Хранително предпочитание</p>
-                  <p className="text-xs text-muted-foreground">
-                    Текущо: {DIETARY_PREFERENCE_NAMES[userProgram?.dietary_preference || 'omnivor']}
+                  <p className="text-xs sm:text-sm font-medium">Хранително предпочитание</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">
+                    {DIETARY_PREFERENCE_NAMES[userProgram?.dietary_preference || 'omnivor']}
                   </p>
                 </div>
               </div>
-              <ChevronRight className="w-4 h-4 text-muted-foreground" />
+              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground" />
             </button>
 
             {/* Theme Toggle */}
-            <div className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 group">
-              <div className="flex items-center gap-3">
+            <div className="w-full flex items-center justify-between p-2.5 sm:p-4 rounded-xl bg-muted/30 group">
+              <div className="flex items-center gap-2 sm:gap-3">
                 {resolvedTheme === 'dark' ? (
-                  <Moon className="w-5 h-5 text-blue-400" />
+                  <Moon className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" />
                 ) : (
-                  <Sun className="w-5 h-5 text-amber-500" />
+                  <Sun className="w-4 h-4 sm:w-5 sm:h-5 text-amber-500" />
                 )}
                 <div className="text-left">
-                  <p className="text-sm font-medium">Тъмен режим</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs sm:text-sm font-medium">Тъмен режим</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground">
                     {theme === 'system' ? 'Системен' : resolvedTheme === 'dark' ? 'Включен' : 'Изключен'}
                   </p>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 {/* Theme selector buttons */}
                 <button
                   onClick={() => setTheme('light')}
-                  className={`p-2 rounded-lg transition-colors ${
+                  className={`p-1.5 sm:p-2 rounded-lg transition-colors ${
                     theme === 'light'
                       ? 'bg-primary text-primary-foreground'
                       : 'hover:bg-muted'
                   }`}
                   title="Светъл"
                 >
-                  <Sun className="w-4 h-4" />
+                  <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
                 <button
                   onClick={() => setTheme('dark')}
-                  className={`p-2 rounded-lg transition-colors ${
+                  className={`p-1.5 sm:p-2 rounded-lg transition-colors ${
                     theme === 'dark'
                       ? 'bg-primary text-primary-foreground'
                       : 'hover:bg-muted'
                   }`}
                   title="Тъмен"
                 >
-                  <Moon className="w-4 h-4" />
+                  <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 </button>
               </div>
             </div>
@@ -1069,56 +1069,56 @@ export default function ProfilePage() {
             <button
               onClick={handleExportData}
               disabled={isExportingData}
-              className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group disabled:opacity-50"
+              className="w-full flex items-center justify-between p-2.5 sm:p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group disabled:opacity-50"
             >
-              <div className="flex items-center gap-3">
-                <Download className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Download className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                 <div className="text-left">
-                  <p className="text-sm font-medium">Изтегли данните си</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs sm:text-sm font-medium">Изтегли данните си</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">
                     Експортирай всички данни (GDPR)
                   </p>
                 </div>
               </div>
               {isExportingData ? (
-                <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
+                <Loader2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin text-muted-foreground" />
               ) : (
-                <ChevronRight className="w-4 h-4 text-muted-foreground" />
+                <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground" />
               )}
             </button>
 
             {/* Logout */}
             <button
               onClick={handleLogout}
-              className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
+              className="w-full flex items-center justify-between p-2.5 sm:p-4 rounded-xl bg-muted/30 hover:bg-muted/50 transition-colors group"
             >
-              <div className="flex items-center gap-3">
-                <LogOut className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <LogOut className="w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground group-hover:text-primary transition-colors" />
                 <div className="text-left">
-                  <p className="text-sm font-medium">Излез от профила</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs sm:text-sm font-medium">Излез от профила</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">
                     Ще можете да влезете отново с имейла си
                   </p>
                 </div>
               </div>
-              <ChevronRight className="w-4 h-4 text-muted-foreground" />
+              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-muted-foreground" />
             </button>
 
             {/* Delete Account */}
             <button
               onClick={handleDeleteAccount}
-              className="w-full flex items-center justify-between p-4 rounded-xl bg-destructive/10 hover:bg-destructive/20 transition-colors border border-destructive/30 group"
+              className="w-full flex items-center justify-between p-2.5 sm:p-4 rounded-xl bg-destructive/10 hover:bg-destructive/20 transition-colors border border-destructive/30 group"
             >
-              <div className="flex items-center gap-3">
-                <AlertTriangle className="w-5 h-5 text-destructive" />
+              <div className="flex items-center gap-2 sm:gap-3">
+                <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-destructive" />
                 <div className="text-left">
-                  <p className="text-sm font-medium text-destructive">Изтрий профила</p>
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs sm:text-sm font-medium text-destructive">Изтрий профила</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground hidden sm:block">
                     Необратимо изтриване на всички данни
                   </p>
                 </div>
               </div>
-              <ChevronRight className="w-4 h-4 text-destructive" />
+              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-destructive" />
             </button>
           </div>
         </div>
