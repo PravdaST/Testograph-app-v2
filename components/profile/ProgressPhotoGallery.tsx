@@ -67,6 +67,18 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
     }
   }, [cameraStream])
 
+  // Lock body scroll when modal is open
+  useEffect(() => {
+    if (showUploadModal || selectedPhoto) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [showUploadModal, selectedPhoto])
+
   // Start camera with specific facing mode
   const startCameraWithMode = useCallback(async (mode: 'user' | 'environment') => {
     try {
