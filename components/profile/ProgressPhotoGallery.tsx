@@ -7,7 +7,7 @@
  */
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import { Camera, X, Upload, Calendar, Scale, Percent, Trash2, Loader2, Image as ImageIcon, ArrowLeftRight, Video, SwitchCamera, Circle } from 'lucide-react'
+import { Camera, X, Upload, Calendar, Scale, Percent, Trash2, Loader2, Image as ImageIcon, ArrowLeftRight, Video, SwitchCamera, Circle, Download } from 'lucide-react'
 import Image from 'next/image'
 import { useToast } from '@/contexts/ToastContext'
 
@@ -305,6 +305,108 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
       toast.error('Можете да сравните само 2 снимки')
     }
   }
+
+  // Download photo with watermark
+  const downloadWithWatermark = useCallback(async (photo: ProgressPhoto) => {
+    try {
+      toast.success('Подготвяне на снимката...')
+
+      // Create canvas
+      const canvas = document.createElement('canvas')
+      const ctx = canvas.getContext('2d')
+      if (!ctx) return
+
+      // Load the photo
+      const img = new window.Image()
+      img.crossOrigin = 'anonymous'
+
+      await new Promise((resolve, reject) => {
+        img.onload = resolve
+        img.onerror = reject
+        img.src = photo.photo_url
+      })
+
+      // Set canvas size to image size
+      canvas.width = img.width
+      canvas.height = img.height
+
+      // Draw the photo
+      ctx.drawImage(img, 0, 0)
+
+      // Load watermark logo
+      const logo = new window.Image()
+      logo.crossOrigin = 'anonymous'
+
+      await new Promise((resolve, reject) => {
+        logo.onload = resolve
+        logo.onerror = reject
+        logo.src = '/testograph_white_logo.png'
+      })
+
+      // Calculate watermark size (15% of image width)
+      const watermarkWidth = img.width * 0.15
+      const watermarkHeight = (logo.height / logo.width) * watermarkWidth
+
+      // Position: bottom right with padding
+      const padding = img.width * 0.03
+      const x = img.width - watermarkWidth - padding
+      const y = img.height - watermarkHeight - padding - 30 // Extra space for text
+
+      // Add semi-transparent background for watermark
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.4)'
+      const bgPadding = 15
+      ctx.fillRect(
+        x - bgPadding,
+        y - bgPadding,
+        watermarkWidth + bgPadding * 2,
+        watermarkHeight + 40 + bgPadding * 2
+      )
+
+      // Draw logo
+      ctx.drawImage(logo, x, y, watermarkWidth, watermarkHeight)
+
+      // Add text below logo
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)'
+      ctx.font = `bold ${Math.max(14, img.width * 0.018)}px Arial`
+      ctx.textAlign = 'center'
+      ctx.fillText('app.testograph.eu', x + watermarkWidth / 2, y + watermarkHeight + 25)
+
+      // Add date watermark in top left
+      const dateText = new Date(photo.date).toLocaleDateString('bg-BG', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
+      ctx.fillRect(padding, padding, ctx.measureText(dateText).width + 30, 40)
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)'
+      ctx.font = `bold ${Math.max(16, img.width * 0.02)}px Arial`
+      ctx.textAlign = 'left'
+      ctx.fillText(dateText, padding + 15, padding + 28)
+
+      // Convert to blob and download
+      canvas.toBlob(
+        (blob) => {
+          if (blob) {
+            const url = URL.createObjectURL(blob)
+            const a = document.createElement('a')
+            a.href = url
+            a.download = `testograph-progress-${photo.date}.jpg`
+            document.body.appendChild(a)
+            a.click()
+            document.body.removeChild(a)
+            URL.revokeObjectURL(url)
+            toast.success('Снимката е изтеглена!')
+          }
+        },
+        'image/jpeg',
+        0.95
+      )
+    } catch (error) {
+      console.error('Error downloading photo:', error)
+      toast.error('Грешка при изтегляне на снимката')
+    }
+  }, [toast])
 
   if (loading) {
     return (
@@ -775,14 +877,24 @@ export function ProgressPhotoGallery({ email }: ProgressPhotoGalleryProps) {
                     </div>
                   )}
                 </div>
-                <button
-                  onClick={() => {
-                    setShowDeleteModal(true)
-                  }}
-                  className="p-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors"
-                >
-                  <Trash2 className="w-5 h-5" />
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => downloadWithWatermark(selectedPhoto)}
+                    className="p-2 bg-white/20 hover:bg-white/30 text-white rounded-lg transition-colors"
+                    title="Изтегли снимката"
+                  >
+                    <Download className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowDeleteModal(true)
+                    }}
+                    className="p-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg transition-colors"
+                    title="Изтрий снимката"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
 
               {selectedPhoto.notes && (
