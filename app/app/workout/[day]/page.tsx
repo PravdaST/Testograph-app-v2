@@ -11,7 +11,6 @@ import { createPortal } from 'react-dom'
 import { ArrowLeft, Dumbbell, CheckCircle2, TrendingUp, History, Sparkles, Utensils, Moon, Timer, Info, X } from 'lucide-react'
 import Link from 'next/link'
 import { ExerciseCardEnhanced } from '@/components/workout/ExerciseCardEnhanced'
-import { WorkoutTimer } from '@/components/workout/WorkoutTimer'
 import { WarmUpSection } from '@/components/workout/WarmUpSection'
 import { CoolDownSection } from '@/components/workout/CoolDownSection'
 import { Button } from '@/components/ui/Button'
@@ -113,6 +112,7 @@ export default function WorkoutPage() {
   const { completedDates } = useWeeklyCompletion(selectedDate, email)
   const [activeTooltip, setActiveTooltip] = useState<'hero' | null>(null)
   const [workoutSessionId, setWorkoutSessionId] = useState<string | null>(null)
+  const [setsFromDatabase, setSetsFromDatabase] = useState<Record<string, number[]>>({})
 
   // Handle date change from calendar
   const handleDateChange = (date: Date) => {
@@ -177,11 +177,6 @@ export default function WorkoutPage() {
           ...prev,
           [dayOfWeek]: data.completed
         }))
-
-        // Clear localStorage progress if workout is completed
-        if (data.completed) {
-          setCompletedSets({})
-        }
       }
 
       // Load workout session for this date
@@ -194,6 +189,28 @@ export default function WorkoutPage() {
           setWorkoutSessionId(sessionData.session.id)
         } else {
           setWorkoutSessionId(null)
+        }
+      }
+
+      // Load completed sets from database to sync progress
+      const setsResponse = await fetch(
+        `/api/workout/sets?email=${encodeURIComponent(email)}&date=${dateStr}`
+      )
+      if (setsResponse.ok) {
+        const setsData = await setsResponse.json()
+        if (setsData.sets && setsData.sets.length > 0) {
+          // Group sets by exercise name and convert to completedSets format
+          const setsFromDb: Record<string, number[]> = {}
+          setsData.sets.forEach((set: { exercise_name: string; set_number: number }) => {
+            if (!setsFromDb[set.exercise_name]) {
+              setsFromDb[set.exercise_name] = []
+            }
+            setsFromDb[set.exercise_name].push(set.set_number)
+          })
+          // Store for later mapping when workout is available
+          setSetsFromDatabase(setsFromDb)
+        } else {
+          setSetsFromDatabase({})
         }
       }
     }
@@ -219,15 +236,37 @@ export default function WorkoutPage() {
     Record<number, number[]>
   >({})
 
-  // Load saved progress from localStorage
+  // Sync completed sets from database when workout data is available
   useEffect(() => {
+    if (!workout || Object.keys(setsFromDatabase).length === 0) return
+
+    // Map exercise names to indices
+    const mappedSets: Record<number, number[]> = {}
+    workout.exercises.forEach((exercise, index) => {
+      const exerciseSets = setsFromDatabase[exercise.name_bg]
+      if (exerciseSets && exerciseSets.length > 0) {
+        mappedSets[index] = exerciseSets.sort((a, b) => a - b)
+      }
+    })
+
+    // Only update if we have data from DB
+    if (Object.keys(mappedSets).length > 0) {
+      setCompletedSets(mappedSets)
+    }
+  }, [workout, setsFromDatabase])
+
+  // Load saved progress from localStorage (fallback if no DB data)
+  useEffect(() => {
+    // Skip if we already have data from database
+    if (Object.keys(setsFromDatabase).length > 0) return
+
     const saved = localStorage.getItem(`workout-${dayOfWeek}`)
     if (saved) {
       setCompletedSets(JSON.parse(saved))
     }
-  }, [dayOfWeek])
+  }, [dayOfWeek, setsFromDatabase])
 
-  // Save progress to localStorage
+  // Save progress to localStorage (backup)
   useEffect(() => {
     if (Object.keys(completedSets).length > 0) {
       localStorage.setItem(
@@ -597,7 +636,15 @@ export default function WorkoutPage() {
               <Dumbbell className="w-6 h-6 text-primary" />
             </div>
             <div className="flex-1">
-              <h1 className="text-2xl font-bold mb-1">{workout.name}</h1>
+              <div className="flex items-center gap-2 mb-1">
+                <h1 className="text-2xl font-bold">{workout.name}</h1>
+                {completedDays[dayOfWeek] && (
+                  <span className="px-2 py-0.5 bg-success text-white text-xs font-medium rounded-full flex items-center gap-1">
+                    <CheckCircle2 className="w-3 h-3" />
+                    Завършена
+                  </span>
+                )}
+              </div>
               <p className="text-sm text-muted-foreground">
                 {workout.duration} минути • {totalExercises} упражнения
               </p>
@@ -687,18 +734,6 @@ export default function WorkoutPage() {
             <div className="text-3xl font-bold text-primary mb-1 animate-count-up">{totalExercises}</div>
             <div className="text-xs text-muted-foreground">упражнения</div>
           </div>
-        </div>
-
-        {/* Workout Timer */}
-        <div className="animate-fade-in" style={{ animationDelay: '0.3s', animationFillMode: 'both' }}>
-          <WorkoutTimer
-            workoutName={workout.name}
-            targetDuration={workout.duration}
-            dayOfWeek={dayOfWeek}
-            onWorkoutComplete={(duration) => {
-              console.log('Workout completed in', duration, 'minutes')
-            }}
-          />
         </div>
 
         {/* Warm-Up Section */}
