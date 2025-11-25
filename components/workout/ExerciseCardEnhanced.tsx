@@ -298,6 +298,10 @@ export function ExerciseCardEnhanced({
   const completedCount = setLogs.filter(s => s.completed).length
   const isFullyCompleted = completedCount === exercise.sets
 
+  // Detect exercise type
+  const isTimeBased = typeof exercise.reps === 'string' && exercise.reps.includes('мин')
+  const isCardio = isTimeBased || exercise.rest_seconds === 0
+
   return (
     <div
       className={`
@@ -343,8 +347,8 @@ export function ExerciseCardEnhanced({
           </div>
         </div>
 
-        {/* Previous Workout Info */}
-        {!loadingHistory && previousWorkout.length > 0 && (
+        {/* Previous Workout Info - only show for strength exercises */}
+        {!isTimeBased && !loadingHistory && previousWorkout.length > 0 && (
           <div className="mt-3 p-2 bg-primary/5 rounded-lg border border-primary/20">
             <div className="flex items-center gap-1 text-xs text-primary font-medium mb-1">
               <TrendingUp className="w-3 h-3" />
@@ -476,10 +480,13 @@ export function ExerciseCardEnhanced({
                 className="flex items-center gap-2 p-2 rounded-lg bg-success/10 border border-success/30"
               >
                 <div className="w-6 h-6 rounded bg-success/20 flex items-center justify-center">
-                  <span className="text-xs font-bold text-success">S{setLog.setNumber}</span>
+                  <span className="text-xs font-bold text-success">{isTimeBased ? '✓' : `S${setLog.setNumber}`}</span>
                 </div>
                 <span className="text-sm text-muted-foreground">
-                  {setLog.weight ? `${setLog.weight}kg` : 'BW'} × {setLog.reps}
+                  {isTimeBased
+                    ? `${exercise.reps} завършени`
+                    : `${setLog.weight ? `${setLog.weight}kg` : 'BW'} × ${setLog.reps}`
+                  }
                 </span>
                 <CheckCircle2 className="w-4 h-4 text-success ml-auto" />
               </div>
@@ -501,7 +508,36 @@ export function ExerciseCardEnhanced({
             )
           }
 
-          // Active set - full input view
+          // Active set - different UI for time-based vs strength exercises
+          if (isTimeBased) {
+            // Simple UI for cardio/time-based exercises
+            return (
+              <div
+                key={setLog.setNumber}
+                className="p-4 rounded-xl border-2 border-primary/30 bg-primary/5 animate-fade-in"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 rounded-lg bg-primary/20">
+                      <Timer className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <p className="font-medium text-foreground">{exercise.reps}</p>
+                      <p className="text-xs text-muted-foreground">Натисни когато завършиш</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => handleSetComplete(setLog.setNumber)}
+                    className="px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 transition-all font-medium"
+                  >
+                    Готово
+                  </button>
+                </div>
+              </div>
+            )
+          }
+
+          // Full input view for strength exercises
           return (
             <div
               key={setLog.setNumber}
