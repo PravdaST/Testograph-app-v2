@@ -70,8 +70,11 @@ export function ProgressPhotoGallery({ email, onModalChange }: ProgressPhotoGall
 
   // Notify parent when modal opens/closes (for hiding BottomNav)
   useEffect(() => {
-    onModalChange?.(showUploadModal || !!selectedPhoto)
-  }, [showUploadModal, selectedPhoto, onModalChange])
+    if (onModalChange) {
+      onModalChange(showUploadModal || !!selectedPhoto)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showUploadModal, selectedPhoto])
 
   // Lock body scroll when modal is open
   useEffect(() => {
