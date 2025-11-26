@@ -4,6 +4,8 @@
  * Uses free models for personalized coaching in Bulgarian
  */
 
+import { buildKnowledgeBasePrompt } from './knowledge-base'
+
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions'
 
 // Free models - ordered by preference (all verified to exist on OpenRouter)
@@ -90,7 +92,8 @@ export function buildSystemPrompt(context: UserContext): string {
 - НЕ давай медицински съвети или диагнози
 - При здравословни оплаквания -> препоръчвай консултация с лекар
 - НЕ обещавай конкретни резултати
-- Фокусирай се върху lifestyle оптимизации`
+- Фокусирай се върху lifestyle оптимизации
+${buildKnowledgeBasePrompt()}`
 }
 
 /**
