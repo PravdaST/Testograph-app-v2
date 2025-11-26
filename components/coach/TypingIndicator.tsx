@@ -5,14 +5,12 @@
  * Shows animated dots when AI is responding
  */
 
-import { Bot } from 'lucide-react'
-
 export function TypingIndicator() {
   return (
     <div className="flex gap-3 animate-message-in">
       {/* Avatar */}
-      <div className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600">
-        <Bot className="w-4 h-4 text-white" />
+      <div className="flex-shrink-0 w-8 h-8 rounded-full overflow-hidden">
+        <img src="/coach-avatar.png" alt="К. Богданов" className="w-full h-full object-cover" />
       </div>
 
       {/* Typing Bubble */}

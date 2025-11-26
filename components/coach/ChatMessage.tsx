@@ -5,16 +5,18 @@
  * Displays user or AI assistant messages with appropriate styling
  */
 
+import Image from 'next/image'
 import { cn } from '@/lib/utils'
-import { Bot, User } from 'lucide-react'
+import { User } from 'lucide-react'
 
 interface ChatMessageProps {
   role: 'user' | 'assistant'
   content: string
   isStreaming?: boolean
+  userProfilePicture?: string | null
 }
 
-export function ChatMessage({ role, content, isStreaming }: ChatMessageProps) {
+export function ChatMessage({ role, content, isStreaming, userProfilePicture }: ChatMessageProps) {
   const isUser = role === 'user'
 
   return (
@@ -27,14 +29,30 @@ export function ChatMessage({ role, content, isStreaming }: ChatMessageProps) {
       {/* Avatar */}
       <div
         className={cn(
-          'flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center',
+          'flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center overflow-hidden',
           isUser ? 'bg-primary' : 'bg-gradient-to-br from-blue-500 to-purple-600'
         )}
       >
         {isUser ? (
-          <User className="w-4 h-4 text-primary-foreground" />
+          userProfilePicture ? (
+            <Image
+              src={userProfilePicture}
+              alt="Profile"
+              width={32}
+              height={32}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <User className="w-4 h-4 text-primary-foreground" />
+          )
         ) : (
-          <Bot className="w-4 h-4 text-white" />
+          <Image
+            src="/coach-avatar.png"
+            alt="AI Coach"
+            width={32}
+            height={32}
+            className="w-full h-full object-cover"
+          />
         )}
       </div>
 
