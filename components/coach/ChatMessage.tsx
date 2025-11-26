@@ -79,7 +79,20 @@ function parseContent(content: string): { text: string; links: LinkItem[] } {
   // 5. Clean up any raw URLs that might have leaked through
   processedContent = processedContent.replace(/https?:\/\/[^\s]+/g, '')
 
-  // 6. Clean up extra whitespace and newlines
+  // 6. Clean up markdown formatting that slipped through
+  // Remove ** bold markers
+  processedContent = processedContent.replace(/\*\*([^*]+)\*\*/g, '$1')
+  // Remove * italic markers or list items
+  processedContent = processedContent.replace(/^\*\s+/gm, '')
+  processedContent = processedContent.replace(/\*([^*]+)\*/g, '$1')
+  // Remove - list items at start of line
+  processedContent = processedContent.replace(/^-\s+/gm, '')
+  // Remove # headers
+  processedContent = processedContent.replace(/^#+\s*/gm, '')
+  // Remove bullet points •
+  processedContent = processedContent.replace(/^•\s*/gm, '')
+
+  // 7. Clean up extra whitespace and newlines
   processedContent = processedContent.replace(/\n{3,}/g, '\n\n').trim()
 
   return { text: processedContent, links }
