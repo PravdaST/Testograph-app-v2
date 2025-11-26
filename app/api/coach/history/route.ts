@@ -11,6 +11,7 @@ import { createServiceClient } from '@/lib/supabase/server'
 import {
   getProactiveGreeting,
   UserContext,
+  getProgramContext,
 } from '@/lib/openrouter/coach-client'
 
 export interface ChatMessageResponse {
@@ -138,17 +139,26 @@ async function fetchUserContext(
       (Date.now() - programStart.getTime()) / (1000 * 60 * 60 * 24)
     ) + 1
 
+  // Get category and level for program context
+  const category = quizResult.data?.category || 'energy'
+  const level = quizResult.data?.determined_level || 'normal'
+  const workoutLocation = quizResult.data?.workout_location || 'gym'
+
+  // Get full program context (today's meals and workout)
+  const programContext = getProgramContext(category, level, workoutLocation)
+
   return {
     firstName: quizResult.data?.first_name || email.split('@')[0],
     email,
-    category: quizResult.data?.category || 'energy',
-    level: quizResult.data?.determined_level || 'normal',
+    category,
+    level,
     programDay: Math.min(programDay, 30),
     progressScore: progressScore.data?.score || 50,
     completedTasks: todayCompletion.data?.completed || 0,
     totalTasks: 4,
-    workoutLocation: quizResult.data?.workout_location || 'gym',
+    workoutLocation,
     dietaryPreference: quizResult.data?.dietary_preference || 'omnivor',
     capsulesRemaining: inventory.data?.capsules_remaining || 0,
+    programContext, // Full program context for AI
   }
 }

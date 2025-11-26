@@ -68,7 +68,7 @@ export const ChatInput = memo(function ChatInput({
   return (
     <div className="fixed bottom-16 left-0 right-0 z-40 bg-background/95 backdrop-blur-lg border-t border-border safe-area-inset-bottom">
       <form onSubmit={handleSubmit} className="container-mobile py-3">
-        <div className="flex items-end gap-3">
+        <div className="flex items-center gap-3">
           {/* Input Container */}
           <div className="flex-1 relative">
             <textarea

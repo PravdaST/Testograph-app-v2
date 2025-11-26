@@ -2,9 +2,11 @@
  * OpenRouter AI Coach Client
  *
  * Uses free models for personalized coaching in Bulgarian
+ * Now with FULL program access: meals, workouts, alternatives
  */
 
 import { buildKnowledgeBasePrompt } from './knowledge-base'
+import { getProgramContext, buildProgramContextPrompt, type ProgramContext } from './program-context'
 
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions'
 
@@ -33,7 +35,13 @@ export interface UserContext {
   workoutLocation: 'home' | 'gym'
   dietaryPreference: string
   capsulesRemaining: number
+  // Full program context (meals, workouts)
+  programContext?: ProgramContext
 }
+
+// Re-export ProgramContext and helper for use in API routes
+export type { ProgramContext }
+export { getProgramContext }
 
 export interface ChatMessage {
   role: 'user' | 'assistant' | 'system'
@@ -93,6 +101,8 @@ export function buildSystemPrompt(context: UserContext): string {
 - При здравословни оплаквания -> препоръчвай консултация с лекар
 - НЕ обещавай конкретни резултати
 - Фокусирай се върху lifestyle оптимизации
+
+${context.programContext ? buildProgramContextPrompt(context.programContext) : ''}
 ${buildKnowledgeBasePrompt()}`
 }
 
