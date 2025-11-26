@@ -1,44 +1,23 @@
 'use client'
 
 import { useEffect, Suspense } from 'react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 function HomePageContent() {
   const router = useRouter()
-  const searchParams = useSearchParams()
 
   useEffect(() => {
-    // Check for mobile override in URL (for testing with DevTools)
-    const mobileOverride = searchParams.get('mobile') === 'true'
+    // Check if user is already logged in
+    const quizEmail = localStorage.getItem('quizEmail')
 
-    // Check if DevTools mobile emulation is active
-    const isDevToolsMobile = /Mobile|Android|iPhone/i.test(navigator.userAgent)
-
-    // Check window width
-    const isMobile = window.innerWidth <= 768
-
-    // Check if user has opted to use desktop version
-    const allowDesktop = localStorage.getItem('allowDesktop') === 'true'
-
-    // Allow access if: actual mobile, DevTools emulation, override param, or desktop allowed
-    const shouldAllowAccess = isMobile || isDevToolsMobile || mobileOverride || allowDesktop
-
-    if (!shouldAllowAccess) {
-      // Desktop detected without permission - redirect to mobile-only page
-      router.push('/mobile-only')
+    if (quizEmail) {
+      // User has completed quiz and logged in - redirect to app
+      router.push('/app')
     } else {
-      // Access allowed - check if user is already logged in
-      const quizEmail = localStorage.getItem('quizEmail')
-
-      if (quizEmail) {
-        // User has completed quiz and logged in - redirect to app
-        router.push('/app')
-      } else {
-        // New user - redirect to quiz
-        router.push('/quiz')
-      }
+      // New user - redirect to quiz
+      router.push('/quiz')
     }
-  }, [router, searchParams])
+  }, [router])
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-950">
