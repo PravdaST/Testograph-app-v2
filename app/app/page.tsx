@@ -20,19 +20,11 @@ import { ErrorState } from '@/components/ui/error-state'
 import { PullToRefresh } from '@/components/ui/pull-to-refresh'
 import { createClient } from '@/lib/supabase/client'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
+import { useUserProgram } from '@/contexts/UserProgramContext'
 import { Target, TrendingUp, Utensils, Dumbbell, Moon, Pill, CheckCircle2, ArrowRight, Calendar, Info, X, MapPin, CalendarDays, PartyPopper, ThumbsUp, Sparkles, AlertTriangle } from 'lucide-react'
 import Link from 'next/link'
 import confetti from 'canvas-confetti'
 import type { FeedbackDay, FeedbackResponse } from '@/lib/data/feedback-questions'
-
-interface UserProgram {
-  category: 'energy' | 'libido' | 'muscle'
-  level: string
-  total_score: number
-  workout_location?: 'home' | 'gym'
-  profile_picture_url?: string
-  program_start_date?: string
-}
 
 const CATEGORY_NAMES = {
   energy: 'Енергия и Виталност',
@@ -42,7 +34,10 @@ const CATEGORY_NAMES = {
 
 export default function DashboardPage() {
   const router = useRouter()
-  const [userProgram, setUserProgram] = useState<UserProgram | null>(null)
+
+  // Use centralized user program state from context
+  const { userProgram, email, loading: contextLoading, error: contextError } = useUserProgram()
+
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [showWelcome, setShowWelcome] = useState(false)
@@ -106,8 +101,7 @@ export default function DashboardPage() {
   const [selectedDayScore, setSelectedDayScore] = useState(0)
   const [selectedDayCompliance, setSelectedDayCompliance] = useState(0)
 
-  // Weekly completion hook
-  const email = typeof window !== 'undefined' ? localStorage.getItem('quizEmail') : null
+  // Weekly completion hook - uses email from context
   const { completedDates } = useWeeklyCompletion(selectedDate, email)
 
   // Check if selected date is today
@@ -147,17 +141,26 @@ export default function DashboardPage() {
     }
   }
 
-  // Load user data
+  // Load dashboard data (uses userProgram from context)
   useEffect(() => {
-    const loadUserData = async () => {
+    const loadDashboardData = async () => {
+      // Wait for context to load
+      if (contextLoading) return
+
+      // Handle context errors
+      if (contextError) {
+        setError(contextError)
+        setLoading(false)
+        return
+      }
+
+      // Redirect if no user program (handled by context)
+      if (!userProgram || !email) {
+        setLoading(false)
+        return
+      }
+
       try {
-        const email = localStorage.getItem('quizEmail')
-
-        if (!email) {
-          router.push('/login')
-          return
-        }
-
         // Check access
         const accessResponse = await fetch(`/api/user/access?email=${encodeURIComponent(email)}`)
         if (accessResponse.ok) {
@@ -168,25 +171,13 @@ export default function DashboardPage() {
           }
         }
 
-        // Fetch user program
-        const response = await fetch(`/api/user/program?email=${encodeURIComponent(email)}`)
-        if (!response.ok) {
-          if (response.status === 404) {
-            router.push('/quiz')
-            return
-          }
-          throw new Error('Failed to fetch program')
+        // Use userProgram from context (no duplicate API call)
+        if (userProgram.program_start_date) {
+          setProgramStartDate(new Date(userProgram.program_start_date))
         }
 
-        const data = await response.json()
-        setUserProgram(data)
-
-        if (data.program_start_date) {
-          setProgramStartDate(new Date(data.program_start_date))
-        }
-
-        if (data.first_name) {
-          setUserName(data.first_name)
+        if (userProgram.first_name) {
+          setUserName(userProgram.first_name)
         } else {
           const emailUsername = email.split('@')[0]
           setUserName(emailUsername)
@@ -271,8 +262,8 @@ export default function DashboardPage() {
         if (!hasSeenWelcome) {
           setShowWelcome(true)
         } else {
-          if (data.program_start_date) {
-            await checkFeedbackDue(email, new Date(data.program_start_date))
+          if (userProgram.program_start_date) {
+            await checkFeedbackDue(email, new Date(userProgram.program_start_date))
           }
         }
       } catch (err) {
@@ -288,8 +279,8 @@ export default function DashboardPage() {
       }
     }
 
-    loadUserData()
-  }, [router])
+    loadDashboardData()
+  }, [contextLoading, contextError, userProgram, email, router])
 
   // Handle pull-to-refresh
   const handleRefresh = useCallback(async () => {

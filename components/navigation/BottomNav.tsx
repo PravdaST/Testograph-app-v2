@@ -6,7 +6,7 @@
  */
 
 import { useRouter, usePathname } from 'next/navigation'
-import { Utensils, Dumbbell, Moon, Pill } from 'lucide-react'
+import { Utensils, Dumbbell, Moon, Pill, Bot } from 'lucide-react'
 
 interface BottomNavProps {
   onNavigate?: (section: 'meals' | 'workout' | 'sleep' | 'supplement') => void
@@ -22,12 +22,13 @@ export function BottomNav({ onNavigate }: BottomNavProps) {
     if (pathname.includes('/workout')) return 'workout'
     if (pathname.includes('/sleep')) return 'sleep'
     if (pathname.includes('/supplement')) return 'supplement'
+    if (pathname.includes('/coach')) return 'coach'
     return null // No tab active (e.g., on dashboard or profile)
   }
 
   const activeTab = getActiveTab()
 
-  const handleClick = (tab: 'meals' | 'workout' | 'sleep' | 'supplement') => {
+  const handleClick = (tab: 'meals' | 'workout' | 'sleep' | 'supplement' | 'coach') => {
     // Navigate to dedicated pages
     if (tab === 'meals') {
       router.push('/app/nutrition')
@@ -56,6 +57,11 @@ export function BottomNav({ onNavigate }: BottomNavProps) {
       return
     }
 
+    if (tab === 'coach') {
+      router.push('/app/coach')
+      return
+    }
+
     // Fallback for any other navigation
     onNavigate?.(tab)
   }
@@ -80,6 +86,11 @@ export function BottomNav({ onNavigate }: BottomNavProps) {
       id: 'supplement' as const,
       label: 'TestoUp',
       icon: Pill,
+    },
+    {
+      id: 'coach' as const,
+      label: 'Коуч',
+      icon: Bot,
     },
   ]
 

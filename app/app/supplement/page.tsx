@@ -98,26 +98,6 @@ export default function SupplementPage() {
           setTestoUpInventory(inventoryData)
         }
 
-        // Load weekly stats (last 7 days)
-        const weekStats: Record<number, { morning: boolean; evening: boolean }> = {}
-        for (let i = 0; i < 7; i++) {
-          const date = new Date()
-          date.setDate(date.getDate() - i)
-          const dateStr = date.toISOString().split('T')[0]
-
-          const dayResponse = await fetch(`/api/testoup/track?email=${encodeURIComponent(email)}&date=${dateStr}`)
-          if (dayResponse.ok) {
-            const dayData = await dayResponse.json()
-            weekStats[6 - i] = {
-              morning: dayData.morning_taken || false,
-              evening: dayData.evening_taken || false
-            }
-          } else {
-            weekStats[6 - i] = { morning: false, evening: false }
-          }
-        }
-        setWeeklyStats(weekStats)
-
       } catch (error) {
         console.error('Error loading data:', error)
       } finally {
@@ -128,7 +108,7 @@ export default function SupplementPage() {
     loadData()
   }, [contextLoading, userProgram, email])
 
-  // Load supplement tracking for selected date
+  // Load supplement tracking and weekly stats for selected date
   useEffect(() => {
     const loadTrackingForDate = async () => {
       if (!email) return
@@ -144,6 +124,35 @@ export default function SupplementPage() {
         setMorningCompleted(false)
         setEveningCompleted(false)
       }
+
+      // Load weekly stats (7 days ending with selected date) - parallel fetching
+      const dates = Array.from({ length: 7 }, (_, i) => {
+        const date = new Date(selectedDate)
+        date.setDate(selectedDate.getDate() - (6 - i)) // 6 days before to selected date
+        return date.toISOString().split('T')[0]
+      })
+
+      const weeklyPromises = dates.map(async (date, index) => {
+        try {
+          const response = await fetch(`/api/testoup/track?email=${encodeURIComponent(email)}&date=${date}`)
+          if (response.ok) {
+            const data = await response.json()
+            return {
+              index,
+              morning: data.morning_taken || false,
+              evening: data.evening_taken || false
+            }
+          }
+        } catch { }
+        return { index, morning: false, evening: false }
+      })
+
+      const results = await Promise.all(weeklyPromises)
+      const weekStats: Record<number, { morning: boolean; evening: boolean }> = {}
+      results.forEach(({ index, morning, evening }) => {
+        weekStats[index] = { morning, evening }
+      })
+      setWeeklyStats(weekStats)
     }
 
     loadTrackingForDate()

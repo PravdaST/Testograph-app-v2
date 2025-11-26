@@ -195,7 +195,7 @@ export default function NutritionPage() {
       }
 
       // Load water tracking
-      const waterResponse = await fetch(`/api/water/track?date=${dateKey}`)
+      const waterResponse = await fetch(`/api/water/track?email=${encodeURIComponent(email)}&date=${dateKey}`)
       if (waterResponse.ok) {
         const waterData = await waterResponse.json()
         setWaterGlasses(prev => ({
@@ -397,7 +397,7 @@ export default function NutritionPage() {
       const response = await fetch('/api/water/track', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ date: dateKey, glasses: newGlasses }),
+        body: JSON.stringify({ email, date: dateKey, glasses: newGlasses }),
       })
 
       if (!response.ok) {

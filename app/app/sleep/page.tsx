@@ -8,12 +8,13 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { createPortal } from 'react-dom'
-import { Moon, Star, Sun, CloudRain, Battery, TrendingUp, CheckCircle2, Clock, Award, Info, X } from 'lucide-react'
+import { Moon, Star, Sun, CloudRain, Battery, TrendingUp, CheckCircle2, Clock, Award, Info, X, Loader2 } from 'lucide-react'
 import { TopNav } from '@/components/navigation/TopNav'
 import { BottomNav } from '@/components/navigation/BottomNav'
 import { WeeklyCalendar } from '@/components/dashboard/WeeklyCalendar'
 import { useWeeklyCompletion } from '@/lib/hooks/useWeeklyCompletion'
 import { useUserProgram } from '@/contexts/UserProgramContext'
+import { useToast } from '@/contexts/ToastContext'
 import { SkeletonHeroBanner, SkeletonWeeklyCalendar, SkeletonStatBox } from '@/components/ui/skeleton-card'
 
 interface SleepData {
@@ -45,6 +46,7 @@ const FEELINGS = [
 
 export default function SleepPage() {
   const router = useRouter()
+  const toast = useToast()
 
   // Use centralized user program state
   const { userProgram, email, loading: contextLoading } = useUserProgram()
@@ -66,8 +68,9 @@ export default function SleepPage() {
   // Weekly stats
   const [weeklyStats, setWeeklyStats] = useState<WeeklySleep[]>([])
   const [activeTooltip, setActiveTooltip] = useState<'hero' | 'hours' | 'average' | 'quality' | null>(null)
+  const [isSaving, setIsSaving] = useState(false)
 
-  // Load user program and sleep data from context
+  // Load user program data from context
   useEffect(() => {
     const loadData = async () => {
       if (contextLoading || !userProgram || !email) return
@@ -86,31 +89,6 @@ export default function SleepPage() {
           setProgramStartDate(new Date(userProgram.program_start_date))
         }
 
-        // Load weekly stats (last 7 days)
-        const weekStats: WeeklySleep[] = []
-        for (let i = 0; i < 7; i++) {
-          const date = new Date()
-          date.setDate(date.getDate() - i)
-          const dateStr = date.toISOString().split('T')[0]
-
-          const dayResponse = await fetch(`/api/sleep/track?email=${encodeURIComponent(email)}&date=${dateStr}`)
-          if (dayResponse.ok) {
-            const dayData: SleepData = await dayResponse.json()
-            weekStats.unshift({
-              date: dateStr,
-              hours: dayData.hours || 0,
-              quality: dayData.quality || 0,
-            })
-          } else {
-            weekStats.unshift({
-              date: dateStr,
-              hours: 0,
-              quality: 0,
-            })
-          }
-        }
-        setWeeklyStats(weekStats)
-
       } catch (error) {
         console.error('Error loading data:', error)
       } finally {
@@ -121,7 +99,7 @@ export default function SleepPage() {
     loadData()
   }, [contextLoading, userProgram, email])
 
-  // Load sleep data when selected date changes
+  // Load sleep data and weekly stats when selected date changes
   useEffect(() => {
     const loadSleepForDate = async () => {
       if (!email) return
@@ -145,6 +123,29 @@ export default function SleepPage() {
           setHasTrackedToday(false)
         }
       }
+
+      // Load weekly stats (7 days ending with selected date) - parallel fetching
+      const dates = Array.from({ length: 7 }, (_, i) => {
+        const date = new Date(selectedDate)
+        date.setDate(selectedDate.getDate() - (6 - i)) // 6 days before to selected date
+        return date.toISOString().split('T')[0]
+      })
+
+      const weeklyPromises = dates.map(async (date) => {
+        try {
+          const response = await fetch(`/api/sleep/track?email=${encodeURIComponent(email)}&date=${date}`)
+          if (response.ok) {
+            const data: SleepData = await response.json()
+            return { date, hours: data.hours || 0, quality: data.quality || 0 }
+          }
+        } catch {
+          // Ignore individual fetch errors
+        }
+        return { date, hours: 0, quality: 0 }
+      })
+
+      const weekStats = await Promise.all(weeklyPromises)
+      setWeeklyStats(weekStats)
     }
 
     loadSleepForDate()
@@ -153,9 +154,11 @@ export default function SleepPage() {
   const handleSave = async () => {
     if (!email) return
 
+    setIsSaving(true)
+
     try {
       const dateStr = selectedDate.toISOString().split('T')[0]
-      await fetch('/api/sleep/track', {
+      const response = await fetch('/api/sleep/track', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -170,29 +173,42 @@ export default function SleepPage() {
         }),
       })
 
+      if (!response.ok) {
+        throw new Error('Failed to save sleep data')
+      }
+
       setHasTrackedToday(true)
 
-      // Refresh weekly stats
-      const weekStats: WeeklySleep[] = []
-      for (let i = 0; i < 7; i++) {
-        const date = new Date()
-        date.setDate(date.getDate() - i)
-        const dateStrLoop = date.toISOString().split('T')[0]
+      // Refresh weekly stats (7 days ending with selected date) - parallel fetching
+      const dates = Array.from({ length: 7 }, (_, i) => {
+        const date = new Date(selectedDate)
+        date.setDate(selectedDate.getDate() - (6 - i))
+        return date.toISOString().split('T')[0]
+      })
 
-        const dayResponse = await fetch(`/api/sleep/track?email=${encodeURIComponent(email)}&date=${dateStrLoop}`)
-        if (dayResponse.ok) {
-          const dayData: SleepData = await dayResponse.json()
-          weekStats.unshift({
-            date: dateStrLoop,
-            hours: dayData.hours || 0,
-            quality: dayData.quality || 0,
-          })
+      const weeklyPromises = dates.map(async (date) => {
+        try {
+          const dayResponse = await fetch(`/api/sleep/track?email=${encodeURIComponent(email)}&date=${date}`)
+          if (dayResponse.ok) {
+            const dayData: SleepData = await dayResponse.json()
+            return { date, hours: dayData.hours || 0, quality: dayData.quality || 0 }
+          }
+        } catch {
+          // Ignore individual fetch errors
         }
-      }
+        return { date, hours: 0, quality: 0 }
+      })
+
+      const weekStats = await Promise.all(weeklyPromises)
       setWeeklyStats(weekStats)
+
+      toast.success('Данните за сън са запазени')
 
     } catch (error) {
       console.error('Error saving sleep data:', error)
+      toast.error('Грешка при запазване')
+    } finally {
+      setIsSaving(false)
     }
   }
 
@@ -512,7 +528,7 @@ export default function SleepPage() {
                   className={`w-10 h-10 ${
                     star <= quality
                       ? 'fill-primary text-primary'
-                      : 'text-muted-foreground'
+                      : 'text-border stroke-[1.5]'
                   }`}
                 />
               </button>
@@ -580,11 +596,21 @@ export default function SleepPage() {
         {/* Save Button */}
         <button
           onClick={handleSave}
-          className="w-full py-3 px-4 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all flex items-center justify-center gap-2 animate-fade-in"
+          disabled={isSaving}
+          className="w-full py-3 px-4 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all flex items-center justify-center gap-2 animate-fade-in disabled:opacity-50 disabled:cursor-not-allowed"
           style={{ animationDelay: '0.9s', animationFillMode: 'both' }}
         >
-          <CheckCircle2 className="w-5 h-5" />
-          Запази
+          {isSaving ? (
+            <>
+              <Loader2 className="w-5 h-5 animate-spin" />
+              Запазване...
+            </>
+          ) : (
+            <>
+              <CheckCircle2 className="w-5 h-5" />
+              Запази
+            </>
+          )}
         </button>
 
         {/* Weekly Stats Graph */}
@@ -608,14 +634,14 @@ export default function SleepPage() {
                   <div className="text-xs font-medium mb-2">{DAY_NAMES[dayOfWeek]}</div>
                   <div className="relative">
                     <div
-                      className={`w-8 h-24 rounded-full ${
+                      className={`w-8 h-24 rounded-full border-2 ${
                         dayStat.hours === 0
-                          ? 'bg-muted'
+                          ? 'bg-muted/50 border-border border-dashed'
                           : dayStat.hours < 6
-                          ? 'bg-destructive/30'
+                          ? 'bg-destructive/30 border-destructive/50'
                           : dayStat.hours < 7.5
-                          ? 'bg-warning/30'
-                          : 'bg-success/30'
+                          ? 'bg-warning/30 border-warning/50'
+                          : 'bg-success/30 border-success/50'
                       }`}
                     >
                       <div
