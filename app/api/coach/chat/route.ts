@@ -67,7 +67,7 @@ export async function POST(request: NextRequest) {
 
     // 6. Save user message to database
     console.log('💾 Saving user message to database...')
-    const { error: insertError } = await supabase.from('coach_messages').insert({
+    const { error: insertError } = await (supabase.from('coach_messages') as any).insert({
       email,
       role: 'user',
       content: message,
@@ -108,7 +108,7 @@ export async function POST(request: NextRequest) {
             if (data === '[DONE]') {
               // Save complete response to database
               if (fullResponse) {
-                await supabase.from('coach_messages').insert({
+                await (supabase.from('coach_messages') as any).insert({
                   email,
                   role: 'assistant',
                   content: fullResponse,
@@ -169,27 +169,23 @@ async function fetchUserContext(
   // Parallel queries for performance
   const [quizResult, todayCompletion, progressScore, inventory] =
     await Promise.all([
-      supabase
-        .from('quiz_results_v2')
+      (supabase.from('quiz_results_v2') as any)
         .select('*')
         .eq('email', email)
         .order('created_at', { ascending: false })
         .limit(1)
         .single(),
-      supabase
-        .from('user_daily_completion')
+      (supabase.from('user_daily_completion') as any)
         .select('*')
         .eq('email', email)
         .eq('date', today)
         .maybeSingle(),
-      supabase
-        .from('daily_progress_scores')
+      (supabase.from('daily_progress_scores') as any)
         .select('score')
         .eq('email', email)
         .eq('date', today)
         .maybeSingle(),
-      supabase
-        .from('testoup_inventory')
+      (supabase.from('testoup_inventory') as any)
         .select('capsules_remaining')
         .eq('email', email)
         .maybeSingle(),
@@ -227,8 +223,7 @@ async function fetchChatHistory(
   supabase: ReturnType<typeof createServiceClient>,
   limit: number
 ): Promise<{ role: string; content: string }[]> {
-  const { data } = await supabase
-    .from('coach_messages')
+  const { data } = await (supabase.from('coach_messages') as any)
     .select('role, content')
     .eq('email', email)
     .order('created_at', { ascending: false })

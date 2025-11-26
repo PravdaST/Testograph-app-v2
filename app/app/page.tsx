@@ -420,12 +420,12 @@ export default function DashboardPage() {
           }
         } else {
           // Fallback to initial score
-          setSelectedDayScore(userProgram.total_score)
+          setSelectedDayScore(userProgram.total_score ?? 50)
           setSelectedDayCompliance(0)
         }
       } catch (error) {
         console.error('Error fetching progressive score:', error)
-        setSelectedDayScore(userProgram.total_score)
+        setSelectedDayScore(userProgram.total_score ?? 50)
         setSelectedDayCompliance(0)
       }
     }
@@ -693,7 +693,7 @@ export default function DashboardPage() {
               <path
                 d="M 0,50 C 20,30 30,30 50,50 C 70,70 80,70 100,50 L 100,100 L 0,100 Z"
                 fill={(() => {
-                  const s = selectedDayScore || userProgram.total_score
+                  const s = selectedDayScore || userProgram.total_score || 50
                   if (s >= 81) return 'hsl(142, 76%, 36%, 0.08)'
                   if (s >= 51) return 'hsl(38, 92%, 50%, 0.08)'
                   return 'hsl(0, 84%, 60%, 0.08)'
@@ -721,8 +721,8 @@ export default function DashboardPage() {
                 {/* Row 1: Header */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${getScoreColorBg(selectedDayScore || userProgram.total_score)}`}>
-                      <Target className={`w-6 h-6 ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`} />
+                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${getScoreColorBg(selectedDayScore || userProgram.total_score || 50)}`}>
+                      <Target className={`w-6 h-6 ${getScoreColorClass(selectedDayScore || userProgram.total_score || 50)}`} />
                     </div>
                     <div>
                       <div className="text-base font-bold text-muted-foreground">Симптоми Score</div>
@@ -756,15 +756,15 @@ export default function DashboardPage() {
                   <div className="flex items-center gap-8">
                     <div className="flex flex-col items-center justify-center gap-1">
                       <div className="text-sm text-muted-foreground">Начален</div>
-                      <div className={`text-4xl font-bold ${getScoreColorClass(userProgram.total_score)}`}>
-                        {userProgram.total_score}
+                      <div className={`text-4xl font-bold ${getScoreColorClass(userProgram.total_score ?? 50)}`}>
+                        {userProgram.total_score ?? 50}
                       </div>
                     </div>
-                    <ArrowRight className={`w-6 h-6 ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`} />
+                    <ArrowRight className={`w-6 h-6 ${getScoreColorClass(selectedDayScore || userProgram.total_score || 50)}`} />
                     <div className="flex flex-col items-center justify-center gap-1">
                       <div className="text-sm text-muted-foreground">Текущ</div>
-                      <div className={`text-5xl font-bold ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`}>
-                        {selectedDayScore || userProgram.total_score}
+                      <div className={`text-5xl font-bold ${getScoreColorClass(selectedDayScore || userProgram.total_score || 50)}`}>
+                        {selectedDayScore || userProgram.total_score || 50}
                       </div>
                     </div>
                   </div>
@@ -775,8 +775,8 @@ export default function DashboardPage() {
                       <svg width="140" height="60" viewBox="0 0 140 60" preserveAspectRatio="xMidYMid meet">
                       <defs>
                         <linearGradient id="score-gradient-mini" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" stopColor={getScoreColorHSL(selectedDayScore || userProgram.total_score)} stopOpacity="0.3" />
-                          <stop offset="100%" stopColor={getScoreColorHSL(selectedDayScore || userProgram.total_score)} stopOpacity="0" />
+                          <stop offset="0%" stopColor={getScoreColorHSL(selectedDayScore || userProgram.total_score || 50)} stopOpacity="0.3" />
+                          <stop offset="100%" stopColor={getScoreColorHSL(selectedDayScore || userProgram.total_score || 50)} stopOpacity="0" />
                         </linearGradient>
                       </defs>
                       <path
@@ -799,15 +799,15 @@ export default function DashboardPage() {
                           return `${x},${y}`
                         }).join(' ')}
                         fill="none"
-                        stroke={getScoreColorHSL(selectedDayScore || userProgram.total_score)}
+                        stroke={getScoreColorHSL(selectedDayScore || userProgram.total_score || 50)}
                         strokeWidth="2.5"
                         strokeLinecap="round"
                       />
                     </svg>
                   )}
-                    <div className={`text-sm font-bold ${getScoreColorClass(selectedDayScore || userProgram.total_score)}`}>
+                    <div className={`text-sm font-bold ${getScoreColorClass(selectedDayScore || userProgram.total_score || 50)}`}>
                       {(() => {
-                        const s = selectedDayScore || userProgram.total_score
+                        const s = selectedDayScore || userProgram.total_score || 50
                         if (s >= 81) return 'Отлично!'
                         if (s >= 51) return 'Добър прогрес'
                         return 'Следвай плана'

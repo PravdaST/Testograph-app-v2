@@ -37,8 +37,7 @@ export async function GET(request: NextRequest) {
 
     // 3. Fetch chat history and user context in parallel
     const [historyResult, userContext] = await Promise.all([
-      supabase
-        .from('coach_messages')
+      (supabase.from('coach_messages') as any)
         .select('id, role, content, created_at, is_proactive')
         .eq('email', email)
         .order('created_at', { ascending: false })
@@ -63,8 +62,7 @@ export async function GET(request: NextRequest) {
       proactiveGreeting = getProactiveGreeting(userContext)
 
       // Save proactive message to database
-      const { data: savedProactive } = await supabase
-        .from('coach_messages')
+      const { data: savedProactive } = await (supabase.from('coach_messages') as any)
         .insert({
           email,
           role: 'assistant',
@@ -110,27 +108,23 @@ async function fetchUserContext(
 
   const [quizResult, todayCompletion, progressScore, inventory] =
     await Promise.all([
-      supabase
-        .from('quiz_results_v2')
+      (supabase.from('quiz_results_v2') as any)
         .select('*')
         .eq('email', email)
         .order('created_at', { ascending: false })
         .limit(1)
         .single(),
-      supabase
-        .from('user_daily_completion')
+      (supabase.from('user_daily_completion') as any)
         .select('*')
         .eq('email', email)
         .eq('date', today)
         .maybeSingle(),
-      supabase
-        .from('daily_progress_scores')
+      (supabase.from('daily_progress_scores') as any)
         .select('score')
         .eq('email', email)
         .eq('date', today)
         .maybeSingle(),
-      supabase
-        .from('testoup_inventory')
+      (supabase.from('testoup_inventory') as any)
         .select('capsules_remaining')
         .eq('email', email)
         .maybeSingle(),
