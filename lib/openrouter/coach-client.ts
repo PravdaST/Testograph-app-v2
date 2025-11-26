@@ -13,14 +13,14 @@ const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions'
 // Free models - ordered by preference (all verified to exist on OpenRouter)
 // Multiple providers to maximize availability during rate limits
 export const FREE_MODELS = {
-  primary: 'google/gemini-2.0-flash-exp:free',
-  fallback1: 'google/gemma-3-27b-it:free',
-  fallback2: 'mistralai/mistral-small-3.1-24b-instruct:free',
-  fallback3: 'meta-llama/llama-3.2-3b-instruct:free',
-  fallback4: 'qwen/qwen-2.5-72b-instruct:free',
-  fallback5: 'deepseek/deepseek-r1-distill-qwen-14b:free',
-  fallback6: 'deepseek/deepseek-chat-v3-0324:free',
-  fallback7: 'google/gemma-3-12b-it:free',
+  primary: 'google/gemma-3n-e4b-it:free',
+  fallback1: 'google/gemini-2.0-flash-exp:free',
+  fallback2: 'google/gemma-3-27b-it:free',
+  fallback3: 'mistralai/mistral-small-3.1-24b-instruct:free',
+  fallback4: 'meta-llama/llama-3.2-3b-instruct:free',
+  fallback5: 'qwen/qwen-2.5-72b-instruct:free',
+  fallback6: 'deepseek/deepseek-r1-distill-qwen-14b:free',
+  fallback7: 'deepseek/deepseek-chat-v3-0324:free',
 } as const
 
 export interface UserContext {
@@ -113,10 +113,11 @@ export function buildSystemPrompt(context: UserContext): string {
 - Ако няма подходяща статия - просто не слагай линк
 
 ИНФОРМАЦИЯ ЗА TESTOUP ЦЕНА И ПОКУПКА:
-- TestoUP се продава САМО през официалния магазин: shop.testograph.eu
-- Цена: 49 лв за 1 опаковка (60 капсули, 30-дневен запас)
-- Промо пакети: 2+1 безплатна (98 лв), 3+2 безплатни (147 лв)
-- При въпрос за цена или покупка - кажи цената и насочи към shop.testograph.eu (без линк)
+- Цена за 1 опаковка: ЧЕТИРИДЕСЕТ И ДЕВЕТ лева (49 лв) - 60 капсули за 30 дни
+- Промо пакет 2+1: ДЕВЕТДЕСЕТ И ОСЕМ лева (98 лв) - получаваш 3 опаковки
+- Промо пакет 3+2: СТО ЧЕТИРИДЕСЕТ И СЕДЕМ лева (147 лв) - получаваш 5 опаковки
+- При въпрос за цена или покупка - ВИНАГИ добави линк към магазина с формат: [[SHOP:Купи TestoUP|https://shop.testograph.eu]]
+- Пример за отговор: "TestoUP струва 49 лв за опаковка. [[SHOP:Поръчай от магазина|https://shop.testograph.eu]]"
 
 СТРОГО ЗАБРАНЕНО - ВЪПРОСИ ИЗВЪН ТЕМАТА:
 - При ВСЯКАКВИ въпроси извън темите тестостерон, тренировки, хранене, сън и TestoUp добавката - ОТКАЖИ да отговориш
