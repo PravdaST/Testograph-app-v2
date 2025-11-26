@@ -25,24 +25,50 @@ interface ArticleLink {
 /**
  * Parse content and extract article links
  * Format: [[ARTICLE:title|url]]
+ * Also handles fallback for markdown links [text](url) from testograph.eu
  */
 function parseContent(content: string): { text: string; articles: ArticleLink[] } {
-  const articleRegex = /\[\[ARTICLE:([^|]+)\|([^\]]+)\]\]/g
   const articles: ArticleLink[] = []
+  let processedContent = content
 
-  // Extract all articles
+  // 1. Extract [[ARTICLE:title|url]] format (preferred)
+  const articleRegex = /\[\[ARTICLE:([^|]+)\|([^\]]+)\]\]/g
   let match
   while ((match = articleRegex.exec(content)) !== null) {
-    articles.push({
-      title: match[1].trim(),
-      url: match[2].trim(),
-    })
+    const url = match[2].trim()
+    // Only accept testograph.eu/learn URLs
+    if (url.includes('testograph.eu/learn')) {
+      articles.push({
+        title: match[1].trim(),
+        url: url,
+      })
+    }
   }
+  processedContent = processedContent.replace(articleRegex, '')
 
-  // Remove article tags from text
-  const text = content.replace(articleRegex, '').trim()
+  // 2. Fallback: Extract markdown links [text](url) for testograph.eu/learn only
+  const markdownLinkRegex = /\[([^\]]+)\]\((https?:\/\/[^)]+testograph\.eu\/learn[^)]*)\)/g
+  while ((match = markdownLinkRegex.exec(content)) !== null) {
+    const title = match[1].trim()
+    const url = match[2].trim()
+    // Avoid duplicates
+    if (!articles.some(a => a.url === url)) {
+      articles.push({ title, url })
+    }
+  }
+  processedContent = processedContent.replace(markdownLinkRegex, '')
 
-  return { text, articles }
+  // 3. Clean up any remaining broken/invalid links (not from testograph.eu/learn)
+  // Remove markdown links to non-learn pages
+  processedContent = processedContent.replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+
+  // 4. Clean up any raw URLs that might have leaked through
+  processedContent = processedContent.replace(/https?:\/\/[^\s]+/g, '')
+
+  // 5. Clean up extra whitespace and newlines
+  processedContent = processedContent.replace(/\n{3,}/g, '\n\n').trim()
+
+  return { text: processedContent, articles }
 }
 
 /**
