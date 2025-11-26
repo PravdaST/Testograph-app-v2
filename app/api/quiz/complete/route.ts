@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
+import { createServiceClient } from '@/lib/supabase/server'
 import { createClient as createAdminClient } from '@supabase/supabase-js'
 import type { QuizResult } from '@/lib/data/quiz/types'
 import { sendWelcomeEmail } from '@/lib/email/welcome'
@@ -17,8 +17,10 @@ import crypto from 'crypto'
  * Returns: { success: boolean, result_id: string }
  */
 export async function POST(request: NextRequest) {
+  console.log('📋 Quiz Complete API called')
   try {
     const body = await request.json()
+    console.log('📦 Request body received, email:', body.email)
     const { session_id, email, result } = body as {
       session_id?: string
       email: string
@@ -40,7 +42,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const supabase = await createClient()
+    console.log('🔗 Creating Supabase service client...')
+    const supabase = createServiceClient()
+    console.log('✅ Supabase service client created')
 
     // Extract workout location from responses
     const workoutLocationResponse = result.responses.find((r) =>
