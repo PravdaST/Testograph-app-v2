@@ -253,7 +253,9 @@ export default function CategoryQuizPage({ params }: PageProps) {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to save quiz results')
+        const errorData = await response.json().catch(() => ({}))
+        console.error('API Error:', errorData)
+        throw new Error(errorData.details || errorData.error || 'Failed to save quiz results')
       }
 
       // Store result in sessionStorage for results page
@@ -270,7 +272,8 @@ export default function CategoryQuizPage({ params }: PageProps) {
       router.push(`/results?category=${category}`)
     } catch (error) {
       console.error('Error saving quiz:', error)
-      setEmailError('Грешка при запазване. Моля опитай отново.')
+      const errorMsg = error instanceof Error ? error.message : 'Unknown error'
+      setEmailError(`Грешка: ${errorMsg}. Моля опитай отново.`)
       setIsLoading(false)
     }
   }

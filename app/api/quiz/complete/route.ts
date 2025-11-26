@@ -87,9 +87,15 @@ export async function POST(request: NextRequest) {
       .single()
 
     if (resultError) {
-      console.error('Error saving quiz result:', resultError)
+      console.error('Error saving quiz result:', JSON.stringify(resultError, null, 2))
+      console.error('Email:', email)
+      console.error('Category:', result.category)
       return NextResponse.json(
-        { error: 'Failed to save quiz result' },
+        {
+          error: 'Failed to save quiz result',
+          details: resultError.message || resultError.code,
+          code: resultError.code
+        },
         { status: 500 }
       )
     }
@@ -261,9 +267,15 @@ export async function POST(request: NextRequest) {
       })
     }
   } catch (error) {
-    console.error('Unexpected error in /api/quiz/complete:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    const errorStack = error instanceof Error ? error.stack : undefined
+    console.error('Unexpected error in /api/quiz/complete:', errorMessage)
+    console.error('Stack:', errorStack)
     return NextResponse.json(
-      { error: 'Internal server error' },
+      {
+        error: 'Internal server error',
+        details: errorMessage
+      },
       { status: 500 }
     )
   }
