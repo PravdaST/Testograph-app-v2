@@ -23,6 +23,31 @@ export const FREE_MODELS = {
   fallback7: 'deepseek/deepseek-chat-v3-0324:free',
 } as const
 
+// Detailed task status for today
+export interface TodayTasksStatus {
+  meals: {
+    completed: boolean
+    count: number // How many meals completed (out of 5)
+    completedMealNumbers: number[] // Which specific meals
+  }
+  workout: {
+    completed: boolean
+    name: string | null
+    durationMinutes: number | null
+  }
+  sleep: {
+    completed: boolean
+    hours: number | null
+    quality: string | null // 'poor', 'fair', 'good', 'excellent'
+    feeling: string | null
+  }
+  testoup: {
+    completed: boolean
+    morningTaken: boolean
+    eveningTaken: boolean
+  }
+}
+
 export interface UserContext {
   firstName: string
   email: string
@@ -37,11 +62,75 @@ export interface UserContext {
   capsulesRemaining: number
   // Full program context (meals, workouts)
   programContext?: ProgramContext
+  // Current time context
+  currentHour?: number
+  // Detailed task status for today
+  todayTasks?: TodayTasksStatus
 }
 
-// Re-export ProgramContext and helper for use in API routes
-export type { ProgramContext }
+// Re-export types and helpers for use in API routes
+export type { ProgramContext, TodayTasksStatus }
 export { getProgramContext }
+
+/**
+ * Build detailed task status string for system prompt
+ */
+function buildTodayTasksPrompt(tasks: TodayTasksStatus): string {
+  const lines: string[] = ['ДНЕШЕН ПРОГРЕС НА ПОТРЕБИТЕЛЯ:']
+
+  // Meals status
+  if (tasks.meals.completed) {
+    lines.push(`- Хранене: ЗАВЪРШЕНО (${tasks.meals.count}/5 ястия отбелязани)`)
+  } else {
+    const remaining = tasks.meals.count > 0
+      ? `${tasks.meals.count}/5 ястия отбелязани`
+      : 'все още не е отбелязал храненията'
+    lines.push(`- Хранене: НЕЗАВЪРШЕНО (${remaining})`)
+  }
+
+  // Workout status
+  if (tasks.workout.completed) {
+    const duration = tasks.workout.durationMinutes ? ` за ${tasks.workout.durationMinutes} мин` : ''
+    const name = tasks.workout.name || 'тренировка'
+    lines.push(`- Тренировка: ЗАВЪРШЕНА (${name}${duration})`)
+  } else {
+    lines.push(`- Тренировка: НЕЗАВЪРШЕНА (все още не е тренирал днес)`)
+  }
+
+  // Sleep status
+  if (tasks.sleep.completed) {
+    const hours = tasks.sleep.hours ? `${tasks.sleep.hours} часа` : ''
+    const quality = tasks.sleep.quality || ''
+    const desc = [hours, quality].filter(Boolean).join(', ') || 'отбелязан'
+    lines.push(`- Сън: ОТБЕЛЯЗАН (${desc})`)
+  } else {
+    lines.push(`- Сън: НЕОТБЕЛЯЗАН (не е въвел данни за съня си)`)
+  }
+
+  // TestoUp status
+  if (tasks.testoup.completed) {
+    lines.push(`- TestoUp: ВЗЕТ (сутрин и вечер)`)
+  } else {
+    const parts: string[] = []
+    if (tasks.testoup.morningTaken) parts.push('сутрешна доза взета')
+    if (tasks.testoup.eveningTaken) parts.push('вечерна доза взета')
+    if (parts.length === 0) {
+      lines.push(`- TestoUp: НЕВЗЕТ (нито една доза за днес)`)
+    } else {
+      const missing = !tasks.testoup.morningTaken ? 'сутрешна' : 'вечерна'
+      lines.push(`- TestoUp: ЧАСТИЧНО (${parts.join(', ')}, липсва ${missing} доза)`)
+    }
+  }
+
+  lines.push('')
+  lines.push('ИЗПОЛЗВАЙ ТАЗИ ИНФОРМАЦИЯ за да:')
+  lines.push('- Похвалиш за завършени задачи')
+  lines.push('- Напомниш за незавършени задачи')
+  lines.push('- Дадеш конкретни съвети базирани на прогреса')
+  lines.push('')
+
+  return lines.join('\n')
+}
 
 export interface ChatMessage {
   role: 'user' | 'assistant' | 'system'
@@ -65,7 +154,13 @@ export function buildSystemPrompt(context: UserContext): string {
     pescatarian: 'Пескетарианска',
   }
 
+  const hour = context.currentHour ?? new Date().getHours()
+  const timeOfDay = hour < 6 ? 'нощ' : hour < 12 ? 'сутрин' : hour < 18 ? 'следобед' : 'вечер'
+  const currentTime = `${hour.toString().padStart(2, '0')}:00`
+
   return `Ти си ТестоКоуч - персонален AI коуч в приложението Testograph за оптимизиране на тестостерона.
+
+ТЕКУЩО ВРЕМЕ: ${currentTime} часа (${timeOfDay})
 
 ИНФОРМАЦИЯ ЗА ПОТРЕБИТЕЛЯ:
 - Име: ${context.firstName}
@@ -76,6 +171,13 @@ export function buildSystemPrompt(context: UserContext): string {
 - Тренировки: ${context.workoutLocation === 'gym' ? 'Фитнес' : 'Вкъщи'}
 - Диета: ${dietaryNames[context.dietaryPreference] || context.dietaryPreference}
 - TestoUp капсули: ${context.capsulesRemaining} оставащи
+
+ИЗПОЛЗВАЙ ВРЕМЕТО:
+- Когато питат "какво да ям сега" - виж кое ястие е подходящо за ${currentTime} часа
+- Сутрин (6-12) - препоръчвай закуска и сутрешни навици
+- Следобед (12-18) - фокусирай се на обяд, тренировка, следобедна закуска
+- Вечер (18-24) - вечеря, подготовка за сън, релаксация
+- Нощ (0-6) - съвети за сън, препоръчай да си легне ако е буден
 
 ТВОЯТА РОЛЯ:
 1. Мотивирай и подкрепяй потребителя в неговата програма
@@ -141,6 +243,7 @@ export function buildSystemPrompt(context: UserContext): string {
 - НЕ обещавай конкретни резултати
 - Фокусирай се върху lifestyle оптимизации
 
+${context.todayTasks ? buildTodayTasksPrompt(context.todayTasks) : ''}
 ${context.programContext ? buildProgramContextPrompt(context.programContext) : ''}
 ${buildKnowledgeBasePrompt()}`
 }

@@ -15,6 +15,7 @@ import {
   UserContext,
   ChatMessage,
   getProgramContext,
+  TodayTasksStatus,
 } from '@/lib/openrouter/coach-client'
 
 export async function POST(request: NextRequest) {
@@ -167,8 +168,8 @@ async function fetchUserContext(
 ): Promise<UserContext> {
   const today = new Date().toISOString().split('T')[0]
 
-  // Parallel queries for performance
-  const [quizResult, todayCompletion, progressScore, inventory] =
+  // Parallel queries for performance - including detailed task data
+  const [quizResult, todayCompletion, progressScore, inventory, meals, workout, sleep, testoup] =
     await Promise.all([
       (supabase.from('quiz_results_v2') as any)
         .select('*')
@@ -190,6 +191,28 @@ async function fetchUserContext(
         .select('capsules_remaining')
         .eq('email', email)
         .maybeSingle(),
+      // Detailed task data
+      (supabase.from('meal_completions') as any)
+        .select('meal_number')
+        .eq('email', email)
+        .eq('date', today)
+        .order('meal_number'),
+      (supabase.from('workout_sessions') as any)
+        .select('id, workout_name, finished_at, actual_duration_minutes')
+        .eq('email', email)
+        .eq('date', today)
+        .not('finished_at', 'is', null)
+        .maybeSingle(),
+      (supabase.from('sleep_tracking') as any)
+        .select('hours_slept, quality_rating, feeling')
+        .eq('email', email)
+        .eq('date', today)
+        .maybeSingle(),
+      (supabase.from('testoup_tracking') as any)
+        .select('morning_taken, evening_taken')
+        .eq('email', email)
+        .eq('date', today)
+        .maybeSingle(),
     ])
 
   // Calculate program day
@@ -209,6 +232,37 @@ async function fetchUserContext(
   // Get full program context (today's meals and workout)
   const programContext = getProgramContext(category, level, workoutLocation)
 
+  // Build detailed task status
+  const mealsCompleted = meals.data?.length || 0
+  const mealsStatus = mealsCompleted >= 3
+  const workoutStatus = !!workout.data
+  const sleepStatus = !!sleep.data
+  const testoUpStatus = !!(testoup.data?.morning_taken && testoup.data?.evening_taken)
+
+  const todayTasks: TodayTasksStatus = {
+    meals: {
+      completed: mealsStatus,
+      count: mealsCompleted,
+      completedMealNumbers: meals.data?.map((m: any) => m.meal_number) || [],
+    },
+    workout: {
+      completed: workoutStatus,
+      name: workout.data?.workout_name || null,
+      durationMinutes: workout.data?.actual_duration_minutes || null,
+    },
+    sleep: {
+      completed: sleepStatus,
+      hours: sleep.data?.hours_slept || null,
+      quality: sleep.data?.quality_rating || null,
+      feeling: sleep.data?.feeling || null,
+    },
+    testoup: {
+      completed: testoUpStatus,
+      morningTaken: testoup.data?.morning_taken || false,
+      eveningTaken: testoup.data?.evening_taken || false,
+    },
+  }
+
   return {
     firstName: quizResult.data?.first_name || email.split('@')[0],
     email,
@@ -222,6 +276,8 @@ async function fetchUserContext(
     dietaryPreference: quizResult.data?.dietary_preference || 'omnivor',
     capsulesRemaining: inventory.data?.capsules_remaining || 0,
     programContext, // Full program context for AI
+    currentHour: new Date().getHours(), // Current hour for time-aware responses
+    todayTasks, // Detailed task status for AI
   }
 }
 
