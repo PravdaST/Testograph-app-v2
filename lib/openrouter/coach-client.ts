@@ -6,11 +6,17 @@
 
 const OPENROUTER_API_URL = 'https://openrouter.ai/api/v1/chat/completions'
 
-// Free models - ordered by preference
+// Free models - ordered by preference (all verified to exist on OpenRouter)
+// Multiple providers to maximize availability during rate limits
 export const FREE_MODELS = {
   primary: 'google/gemini-2.0-flash-exp:free',
-  fallback1: 'deepseek/deepseek-r1:free',
-  fallback2: 'meta-llama/llama-4-scout:free',
+  fallback1: 'google/gemma-3-27b-it:free',
+  fallback2: 'mistralai/mistral-small-3.1-24b-instruct:free',
+  fallback3: 'meta-llama/llama-3.2-3b-instruct:free',
+  fallback4: 'qwen/qwen-2.5-72b-instruct:free',
+  fallback5: 'deepseek/deepseek-r1-distill-qwen-14b:free',
+  fallback6: 'deepseek/deepseek-chat-v3-0324:free',
+  fallback7: 'google/gemma-3-12b-it:free',
 } as const
 
 export interface UserContext {
@@ -63,7 +69,7 @@ export function buildSystemPrompt(context: UserContext): string {
 
 ТВОЯТА РОЛЯ:
 1. Мотивирай и подкрепяй потребителя в неговата програма
-2. Отговаряй на въпроси за тренировки, хранене, сън и добавки
+2. Отговаряй САМО на въпроси за: тестостерон, тренировки, хранене, сън и добавката TestoUp
 3. Давай конкретни, практични съвети базирани на програмата му
 4. Празнувай успехите и помагай при трудности
 5. Адаптирай съветите към локацията за тренировки и диетарните предпочитания
@@ -73,7 +79,12 @@ export function buildSystemPrompt(context: UserContext): string {
 2. Бъди приятелски и мотивиращ
 3. Давай кратки отговори (2-3 изречения обикновено, max 200 думи)
 4. Използвай emoji умерено (1-2 на съобщение)
-5. При въпроси извън темата, пренасочвай към целта на програмата
+
+СТРОГО ЗАБРАНЕНО - ВЪПРОСИ ИЗВЪН ТЕМАТА:
+- При ВСЯКАКВИ въпроси извън темите тестостерон, тренировки, хранене, сън и TestoUp добавката - ОТКАЖИ да отговориш
+- Примерен отговор при off-topic въпрос: "Съжалявам, но мога да помогна само с въпроси за тестостерон, тренировки, хранене, сън и добавката TestoUp. Имаш ли въпрос по някоя от тези теми? 💪"
+- НЕ отговаряй на въпроси за: политика, история, география, математика, програмиране, забавления, новини, или каквото и да е друго извън програмата
+- Ако потребителят настоява за off-topic въпрос, повтори че можеш да помагаш само с програмата
 
 ВАЖНО:
 - НЕ давай медицински съвети или диагнози
@@ -123,11 +134,16 @@ export async function streamCoachResponse(
     throw new Error('OPENROUTER_API_KEY is not configured')
   }
 
-  // Try models in order of preference
+  // Try models in order of preference (8 models for maximum availability)
   const modelsToTry = [
     FREE_MODELS.primary,
     FREE_MODELS.fallback1,
     FREE_MODELS.fallback2,
+    FREE_MODELS.fallback3,
+    FREE_MODELS.fallback4,
+    FREE_MODELS.fallback5,
+    FREE_MODELS.fallback6,
+    FREE_MODELS.fallback7,
   ]
 
   let lastError: Error | null = null
@@ -197,11 +213,16 @@ export async function getCoachResponse(
     throw new Error('OPENROUTER_API_KEY is not configured')
   }
 
-  // Try models in order of preference
+  // Try models in order of preference (8 models for maximum availability)
   const modelsToTry = [
     FREE_MODELS.primary,
     FREE_MODELS.fallback1,
     FREE_MODELS.fallback2,
+    FREE_MODELS.fallback3,
+    FREE_MODELS.fallback4,
+    FREE_MODELS.fallback5,
+    FREE_MODELS.fallback6,
+    FREE_MODELS.fallback7,
   ]
 
   let lastError: Error | null = null
