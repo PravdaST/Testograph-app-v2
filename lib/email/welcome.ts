@@ -1,10 +1,158 @@
 /**
- * Send welcome email with login credentials after quiz completion
+ * Email functions for Testograph
  * Uses Resend API
  */
 
 import type { QuizResult } from '@/lib/data/quiz/types'
 import { getSectionLabel, getScoreLevelDisplay } from '@/lib/utils/quiz-scoring'
+
+/**
+ * Send purchase notification email - invites user to complete quiz
+ * Called after Shopify purchase webhook when user hasn't completed quiz yet
+ */
+interface PurchaseNotificationParams {
+  email: string
+  capsulesAdded: number
+  totalCapsules: number
+  orderNumber?: string
+}
+
+export async function sendPurchaseNotificationEmail({
+  email,
+  capsulesAdded,
+  totalCapsules,
+  orderNumber,
+}: PurchaseNotificationParams): Promise<boolean> {
+  const resendApiKey = process.env.RESEND_API_KEY
+
+  if (!resendApiKey) {
+    console.error('RESEND_API_KEY not configured')
+    return false
+  }
+
+  const daysAccess = Math.floor(totalCapsules / 2) // 2 capsules per day
+
+  const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Благодарим за покупката - Testograph</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+  <div style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+    <h1 style="color: white; margin: 0; font-size: 24px; font-weight: 600;">Благодарим за покупката!</h1>
+  </div>
+
+  <div style="background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px;">
+    <p style="font-size: 16px; margin-bottom: 20px;">
+      Получихме Вашата поръчка${orderNumber ? ` #${orderNumber}` : ''} и добавихме <strong>${capsulesAdded} капсули</strong> към акаунта Ви.
+    </p>
+
+    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #10B981;">
+      <p style="margin: 0 0 10px 0; font-weight: bold;">📦 Вашият TestoUP инвентар:</p>
+      <p style="margin: 5px 0; font-size: 24px; color: #10B981; font-weight: bold;">${totalCapsules} капсули</p>
+      <p style="margin: 5px 0; color: #666;">= ${daysAccess} дни достъп до програмата</p>
+    </div>
+
+    <div style="background: #FEF3C7; border-left: 4px solid #F59E0B; padding: 20px; border-radius: 8px; margin: 20px 0;">
+      <h3 style="margin: 0 0 10px 0; color: #92400E;">⚡ Важно: Завършете теста за достъп</h3>
+      <p style="margin: 0; color: #92400E;">
+        За да получите достъп до персонализираната си програма, трябва да завършите бързия тест.
+        Той отнема само 3-5 минути и ще ни помогне да създадем план специално за Вас.
+      </p>
+    </div>
+
+    <div style="text-align: center; margin: 30px 0;">
+      <a href="https://app.testograph.eu/quiz"
+         style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 18px 50px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 18px; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
+        Започни Теста Сега
+      </a>
+    </div>
+
+    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
+      <h3 style="margin: 0 0 15px 0; font-size: 16px;">След теста ще получите:</h3>
+      <ul style="margin: 0; padding-left: 20px;">
+        <li style="margin: 10px 0;">✅ Персонализирани тренировки</li>
+        <li style="margin: 10px 0;">✅ Хранителен план с точни препоръки</li>
+        <li style="margin: 10px 0;">✅ Дневен график за TestoUP добавката</li>
+        <li style="margin: 10px 0;">✅ AI Coach за мотивация и съвети</li>
+        <li style="margin: 10px 0;">✅ Проследяване на прогреса</li>
+      </ul>
+    </div>
+
+    <p style="font-size: 14px; color: #666; margin-top: 30px; text-align: center;">
+      Имате въпроси? Свържете се с нас на support@testograph.eu
+    </p>
+  </div>
+
+  <div style="text-align: center; padding: 20px; color: #999; font-size: 12px;">
+    <p>© ${new Date().getFullYear()} Testograph. Всички права запазени.</p>
+  </div>
+</body>
+</html>
+`
+
+  const textContent = `
+Благодарим за покупката!
+
+Получихме Вашата поръчка${orderNumber ? ` #${orderNumber}` : ''} и добавихме ${capsulesAdded} капсули към акаунта Ви.
+
+📦 Вашият TestoUP инвентар:
+${totalCapsules} капсули = ${daysAccess} дни достъп до програмата
+
+⚡ ВАЖНО: Завършете теста за достъп
+
+За да получите достъп до персонализираната си програма, трябва да завършите бързия тест.
+Той отнема само 3-5 минути и ще ни помогне да създадем план специално за Вас.
+
+👉 Започнете теста сега: https://app.testograph.eu/quiz
+
+След теста ще получите:
+- Персонализирани тренировки
+- Хранителен план с точни препоръки
+- Дневен график за TestoUP добавката
+- AI Coach за мотивация и съвети
+- Проследяване на прогреса
+
+Имате въпроси? Свържете се с нас на support@testograph.eu
+`
+
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${resendApiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'Testograph <noreply@shop.testograph.eu>',
+        to: email,
+        subject: '🎉 Благодарим за покупката - Завършете теста за достъп',
+        reply_to: 'support@testograph.eu',
+        html: htmlContent,
+        text: textContent,
+        headers: {
+          'List-Unsubscribe': '<mailto:support@testograph.eu?subject=Unsubscribe>',
+          'X-Entity-Ref-ID': `purchase-notification-${Date.now()}`,
+        },
+      }),
+    })
+
+    if (!response.ok) {
+      const error = await response.text()
+      console.error('Failed to send purchase notification email:', error)
+      return false
+    }
+
+    console.log('Purchase notification email sent successfully to:', email)
+    return true
+  } catch (error) {
+    console.error('Error sending purchase notification email:', error)
+    return false
+  }
+}
 
 interface WelcomeEmailParams {
   email: string

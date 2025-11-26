@@ -69,7 +69,7 @@ export interface UserContext {
 }
 
 // Re-export types and helpers for use in API routes
-export type { ProgramContext, TodayTasksStatus }
+export type { ProgramContext }
 export { getProgramContext }
 
 /**

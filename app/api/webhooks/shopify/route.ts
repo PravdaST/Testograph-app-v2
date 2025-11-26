@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 import { verifyShopifyWebhook, parseShopifyOrder, findTestoUpProducts } from '@/lib/shopify/webhook'
+import { sendPurchaseNotificationEmail } from '@/lib/email/welcome'
 
 /**
  * POST /api/webhooks/shopify
@@ -149,6 +150,32 @@ export async function POST(request: NextRequest) {
 
     console.log(`✅ Successfully added ${totalCapsules} capsules to ${customerEmail}`)
     console.log(`   Capsules remaining: ${newCapsulesTotal}, Total received: ${newTotalCapsules} (${newBottlesTotal} bottles)`)
+
+    // Check if user has already completed quiz
+    const { data: quizResult } = await (supabase
+      .from('quiz_results_v2') as any)
+      .select('id')
+      .eq('email', customerEmail)
+      .maybeSingle()
+
+    if (!quizResult) {
+      // User hasn't completed quiz yet - send notification email
+      console.log(`📧 User ${customerEmail} hasn't completed quiz, sending notification email...`)
+      const emailSent = await sendPurchaseNotificationEmail({
+        email: customerEmail,
+        capsulesAdded: totalCapsules,
+        totalCapsules: newCapsulesTotal,
+        orderNumber: order.order_number?.toString(),
+      })
+
+      if (emailSent) {
+        console.log(`✅ Purchase notification email sent to ${customerEmail}`)
+      } else {
+        console.error(`❌ Failed to send purchase notification email to ${customerEmail}`)
+      }
+    } else {
+      console.log(`ℹ️ User ${customerEmail} has already completed quiz, skipping notification email`)
+    }
 
     return NextResponse.json({
       success: true,
