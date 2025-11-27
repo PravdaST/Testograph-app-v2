@@ -7,8 +7,12 @@ interface SocialProofGridProps {
   count: number
 }
 
-// Curated European male portrait IDs
-const avatarIds = [1, 3, 5, 7, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29, 31, 33, 35, 37, 39, 41]
+// Curated European-only male portrait IDs from randomuser.me
+const avatarIds = [
+  1, 3, 4, 5, 6, 10, 11, 14, 15, 16,
+  18, 20, 21, 22, 25, 32, 34, 40, 41, 43,
+  46, 50, 52, 53, 55, 57, 60, 62, 64, 68
+]
 
 export function SocialProofGrid({ count }: SocialProofGridProps) {
   const formattedCount = count.toLocaleString('bg-BG')
@@ -82,7 +86,7 @@ export function SocialProofGrid({ count }: SocialProofGridProps) {
         className="flex items-center gap-2 bg-muted/50 rounded-full px-4 py-2"
       >
         <div className="flex -space-x-2">
-          {[1, 3, 5].map((id) => (
+          {[1, 4, 11].map((id) => (
             <div
               key={id}
               className="relative w-6 h-6 rounded-full overflow-hidden border-2 border-background"
