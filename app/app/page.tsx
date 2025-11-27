@@ -86,6 +86,7 @@ export default function DashboardPage() {
     capsules_remaining: number
     days_remaining: number
     percentage_remaining: number
+    total_capsules: number
   } | null>(null)
 
   // Tooltip state
@@ -668,7 +669,7 @@ export default function DashboardPage() {
           </h1>
           <div className="flex flex-col items-end gap-1.5">
             <div className="px-3 py-1.5 bg-primary/10 border border-primary/30 rounded-full">
-              <span className="text-xs font-bold text-primary">Ден {currentProgramDay}/30</span>
+              <span className="text-xs font-bold text-primary">Ден {currentProgramDay}/{testoUpInventory ? Math.floor(testoUpInventory.total_capsules / 2) : 30}</span>
             </div>
           </div>
         </div>
@@ -717,7 +718,26 @@ export default function DashboardPage() {
               className="relative block bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl p-6 border border-primary/20 hover:border-primary/40 transition-all group animate-fade-in cursor-pointer overflow-hidden"
               style={{ animationDelay: '0.1s', animationFillMode: 'both' }}
             >
-              <div className="space-y-4">
+              {/* Animated Wave Background */}
+              <svg className="absolute inset-0 w-full h-full rounded-2xl pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path
+                  d="M 0,50 C 20,30 30,30 50,50 C 70,70 80,70 100,50 L 100,100 L 0,100 Z"
+                  fill={getScoreColorHSL(selectedDayScore || userProgram.total_score || 50).replace('hsl(', 'hsla(').replace(')', ', 0.08)')}
+                >
+                  <animate
+                    attributeName="d"
+                    dur="15s"
+                    repeatCount="indefinite"
+                    values="
+                      M 0,50 C 20,30 30,30 50,50 C 70,70 80,70 100,50 L 100,100 L 0,100 Z;
+                      M 0,50 C 20,70 30,70 50,50 C 70,30 80,30 100,50 L 100,100 L 0,100 Z;
+                      M 0,50 C 20,30 30,30 50,50 C 70,70 80,70 100,50 L 100,100 L 0,100 Z
+                    "
+                  />
+                </path>
+              </svg>
+
+              <div className="space-y-4 relative z-10">
                 {/* Row 1: Header */}
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
@@ -725,7 +745,7 @@ export default function DashboardPage() {
                       <Target className={`w-6 h-6 ${getScoreColorClass(selectedDayScore || userProgram.total_score || 50)}`} />
                     </div>
                     <div>
-                      <div className="text-base font-bold text-muted-foreground">Симптоми Score</div>
+                      <div className="text-base font-bold text-muted-foreground">Твоят прогрес</div>
                       <div className="text-sm text-muted-foreground/70 mt-0.5">
                         {isSelectedDateToday ? 'Днес' : selectedDate.toLocaleDateString('bg-BG', { day: 'numeric', month: 'short' })}
                       </div>

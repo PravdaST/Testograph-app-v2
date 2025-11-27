@@ -43,14 +43,15 @@ export async function GET(request: NextRequest) {
     }
 
     const daysRemaining = Math.ceil(data.capsules_remaining / 2)
-    const totalBottles = Math.ceil((data.bottles_purchased || 1) * 60 / 60) // Total bottles ever purchased
-    const bottlesRemaining = Math.ceil(data.capsules_remaining / 60) // Bottles remaining based on capsules
-    const percentageRemaining = totalBottles > 0
-      ? Math.round((data.capsules_remaining / (totalBottles * 60)) * 100)
+    const totalCapsules = data.total_capsules || 60 // Use actual DB value, default to 60
+    const totalBottles = Math.ceil(totalCapsules / 60)
+    const bottlesRemaining = Math.ceil(data.capsules_remaining / 60)
+    const percentageRemaining = totalCapsules > 0
+      ? Math.round((data.capsules_remaining / totalCapsules) * 100)
       : 0
 
     return NextResponse.json({
-      total_capsules: totalBottles * 60,
+      total_capsules: totalCapsules,
       capsules_remaining: data.capsules_remaining,
       days_remaining: daysRemaining,
       percentage_remaining: percentageRemaining,
