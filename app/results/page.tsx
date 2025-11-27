@@ -318,16 +318,16 @@ export default function ResultsPage() {
         delayChildren: 0.2,
       },
     },
-  }
+  } as const
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: 'easeOut' },
+      transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] },
     },
-  }
+  } as const
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted safe-area-inset">
