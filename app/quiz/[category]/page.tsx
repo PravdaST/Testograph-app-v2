@@ -400,26 +400,30 @@ export default function CategoryQuizPage({ params }: PageProps) {
       {/* Question Content */}
       <div className="flex-1 container-mobile py-4">
         <div className="space-y-4">
-          {/* Section Badge */}
-          <div className="inline-block px-3 py-1 rounded-full bg-accent text-xs font-medium">
-            {currentQuestion.section === 'symptoms' && 'Симптоми'}
-            {currentQuestion.section === 'nutrition' && 'Хранене'}
-            {currentQuestion.section === 'training' && 'Тренировки'}
-            {currentQuestion.section === 'sleep_recovery' && 'Сън и възстановяване'}
-            {currentQuestion.section === 'demographics' && 'Демография'}
-          </div>
+          {/* Section Badge - Hidden for transition messages */}
+          {!isTransitionMessage && (
+            <div className="inline-block px-3 py-1 rounded-full bg-accent text-xs font-medium">
+              {currentQuestion.section === 'symptoms' && 'Симптоми'}
+              {currentQuestion.section === 'nutrition' && 'Хранене'}
+              {currentQuestion.section === 'training' && 'Тренировки'}
+              {currentQuestion.section === 'sleep_recovery' && 'Сън и възстановяване'}
+              {currentQuestion.section === 'demographics' && 'Демография'}
+            </div>
+          )}
 
-          {/* Question Text */}
-          <div>
-            <h2 className="text-lg font-bold leading-tight mb-1.5">
-              {currentQuestion.question}
-            </h2>
-            {(currentQuestion.description || currentQuestion.dynamic_copy) && (
-              <p className="text-sm text-muted-foreground">
-                {getDynamicCopy(currentQuestion)}
-              </p>
-            )}
-          </div>
+          {/* Question Text - Hidden for transition messages (AnimatedTransition renders its own) */}
+          {!isTransitionMessage && (
+            <div>
+              <h2 className="text-lg font-bold leading-tight mb-1.5">
+                {currentQuestion.question}
+              </h2>
+              {(currentQuestion.description || currentQuestion.dynamic_copy) && (
+                <p className="text-sm text-muted-foreground">
+                  {getDynamicCopy(currentQuestion)}
+                </p>
+              )}
+            </div>
+          )}
 
           {/* AI Generated Image - hidden on mobile for space */}
           {currentQuestion.ai_image_prompt && (
