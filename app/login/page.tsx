@@ -81,6 +81,11 @@ export default function LoginPage() {
 
         // Redirect to intended destination (from middleware redirect param)
         router.push(redirectPath)
+        // Note: Keep loading true during navigation - will be reset by new page
+      } else {
+        // No session despite no error - unexpected state
+        setError('Неуспешно влизане. Опитай отново.')
+        setLoading(false)
       }
     } catch (err) {
       console.error('Login error:', err)
