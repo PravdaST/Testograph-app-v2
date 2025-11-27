@@ -138,7 +138,7 @@ export function AnimatedTransition({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3, duration: 0.5 }}
-        className="text-3xl md:text-4xl font-bold text-center mb-6 bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent"
+        className="text-3xl md:text-4xl font-bold text-center mb-6 text-foreground"
       >
         {question}
       </motion.h2>
@@ -148,7 +148,7 @@ export function AnimatedTransition({
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.5 }}
-        className="text-lg text-muted-foreground text-center mb-8"
+        className="text-lg text-foreground/80 text-center mb-8"
       >
         {description}
       </motion.p>
