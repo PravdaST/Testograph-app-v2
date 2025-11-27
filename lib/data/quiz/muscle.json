@@ -285,6 +285,19 @@
         "prompt": "Clean medical-style line graph chart, horizontal X-axis labeled 0-30-60-90 days, vertical Y-axis labeled 0%-100% 'Индекс на Мускулна Маса', smooth curved line starting at 40% rising to 90%, orange gradient fill (#F97316 to #FED7AA) under curve, current position marked with red dot at day 0, white background, minimal grid lines, professional clinical design, sans-serif labels, Bulgarian text 'Очакван Прогрес на Мускулната Маса' as title, 800x400px, high contrast",
         "style": "clinical",
         "size": "800x400px"
+      },
+      "animation": {
+        "type": "chart",
+        "chartType": "line",
+        "data": {
+          "xAxis": ["0", "30", "60", "90"],
+          "yAxis": [40, 60, 80, 90]
+        },
+        "style": {
+          "lineColor": "#F97316",
+          "fillColor": "rgba(249, 115, 22, 0.2)",
+          "height": "200px"
+        }
       }
     },
     {
@@ -460,7 +473,17 @@
           "condition": "healthy_habits",
           "text": "Навиците Ви са на солидно ниво. Но ако все още изпитвате проблеми с мускулния растеж, това означава, че причината може да не е в начина на живот, а в по-дълбок хормонален дисбаланс или неефективна тренировъчна стратегия."
         }
-      ]
+      ],
+      "animation": {
+        "type": "lottie",
+        "src": "/animations/healthy-lifestyle.json",
+        "loop": true,
+        "autoplay": true,
+        "style": {
+          "width": "280px",
+          "height": "280px"
+        }
+      }
     },
     {
       "id": "mus_training_frequency",
@@ -614,7 +637,19 @@
           "condition": "moderate_frustration",
           "text": "Добрата новина е, че вече правите правилната стъпка - търсите ясна и работеща система. Не догадки. Не експерименти. А реални резултати."
         }
-      ]
+      ],
+      "animation": {
+        "type": "countup",
+        "targetNumber": 8000,
+        "prefix": "Над ",
+        "suffix": " мъже",
+        "duration": 2.5,
+        "style": {
+          "fontSize": "48px",
+          "fontWeight": "bold",
+          "color": "#F97316"
+        }
+      }
     },
     {
       "id": "mus_tried_solutions",
@@ -774,7 +809,17 @@
           "condition": "preventive",
           "text": "Впечатлен съм. Малко хора вземат превантивни мерки така рано. Този подход ще Ви спести години на разочарование. Нека да видим какво Ви препоръчвам."
         }
-      ]
+      ],
+      "animation": {
+        "type": "lottie",
+        "src": "/animations/success-confetti.json",
+        "loop": false,
+        "autoplay": true,
+        "style": {
+          "width": "300px",
+          "height": "300px"
+        }
+      }
     }
   ]
 }
