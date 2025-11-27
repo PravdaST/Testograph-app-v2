@@ -518,11 +518,6 @@ export default function CategoryQuizPage({ params }: PageProps) {
                       {option.description}
                     </p>
                   )}
-                  {option.note && responses[currentQuestion.id] === option.id && (
-                    <p className="text-xs text-primary mt-1">
-                      💡 {option.note}
-                    </p>
-                  )}
                 </button>
               ))}
             </div>
@@ -530,20 +525,35 @@ export default function CategoryQuizPage({ params }: PageProps) {
         </div>
       </div>
 
-      {/* Bottom Navigation - Back Button */}
-      {!isFirstQuestion && (
+      {/* Bottom Navigation - Напред (for transitions) + Back Button */}
+      {(!isFirstQuestion || isTransitionMessage) && (
         <div className="sticky bottom-0 bg-background border-t border-border safe-area-inset-bottom">
-          <div className="container-mobile py-3">
-            <Button
-              type="button"
-              variant="outline"
-              size="lg"
-              onClick={handlePrevious}
-              fullWidth
-            >
-              <ArrowLeft className="mr-2 w-5 h-5" />
-              Назад
-            </Button>
+          <div className="container-mobile py-3 space-y-2">
+            {/* Напред button for transition messages */}
+            {isTransitionMessage && (
+              <Button
+                type="button"
+                size="lg"
+                onClick={handleNext}
+                fullWidth
+              >
+                Напред
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            )}
+            {/* Назад button */}
+            {!isFirstQuestion && (
+              <Button
+                type="button"
+                variant="outline"
+                size="lg"
+                onClick={handlePrevious}
+                fullWidth
+              >
+                <ArrowLeft className="mr-2 w-5 h-5" />
+                Назад
+              </Button>
+            )}
           </div>
         </div>
       )}
