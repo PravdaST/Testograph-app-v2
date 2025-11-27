@@ -648,6 +648,11 @@
           "fontSize": "48px",
           "fontWeight": "bold",
           "color": "#F97316"
+        },
+        "avatarAnimation": {
+          "type": "lottie",
+          "src": "/animations/team-celebration.json",
+          "loop": false
         }
       }
     },
