@@ -624,7 +624,7 @@
       "id": "mus_transition_social_proof",
       "number": 20,
       "section": "symptoms",
-      "question": "Разбирам. Не сте сам в това.",
+      "question": "Не сте сам в това.",
       "description": "Хиляди мъже в България преминават през това – и намират решение.",
       "type": "transition_message",
       "required": false,
@@ -640,7 +640,7 @@
       ],
       "animation": {
         "type": "countup",
-        "targetNumber": 8000,
+        "targetNumber": 1300,
         "prefix": "Над ",
         "suffix": " мъже",
         "duration": 2.5,
