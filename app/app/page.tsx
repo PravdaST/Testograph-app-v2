@@ -1722,7 +1722,7 @@ export default function DashboardPage() {
                   Остават {testoUpInventory.capsules_remaining} капсули ({testoUpInventory.days_remaining} дни)
                 </p>
                 <button
-                  onClick={() => window.open('https://shop.testograph.eu', '_blank')}
+                  onClick={() => window.open('https://shop.testograph.eu/products/testoup', '_blank')}
                   className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
                 >
                   Поръчай сега

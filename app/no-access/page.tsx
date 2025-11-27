@@ -180,7 +180,7 @@ export default function NoAccessPage() {
           {/* CTA Buttons */}
           <div className="flex flex-col gap-2.5">
             <a
-              href="https://shop.testograph.eu"
+              href="https://shop.testograph.eu/products/testoup"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 bg-amber-500 hover:bg-amber-600 text-black font-semibold px-4 py-3 rounded-xl transition-colors text-sm"
@@ -208,7 +208,7 @@ export default function NoAccessPage() {
           <p className="leading-relaxed">
             След покупка от{' '}
             <a
-              href="https://shop.testograph.eu"
+              href="https://shop.testograph.eu/products/testoup"
               target="_blank"
               rel="noopener noreferrer"
               className="text-amber-500 hover:underline"

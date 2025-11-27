@@ -248,7 +248,7 @@ export default function SupplementPage() {
   }
 
   const handleShopClick = () => {
-    window.open('https://shop.testograph.eu', '_blank')
+    window.open('https://shop.testograph.eu/products/testoup', '_blank')
   }
 
   if (loading) {
