@@ -16,10 +16,6 @@ interface AnimatedTransitionProps {
   description: string
   animation?: AnimationConfig
   onContinue: () => void
-  dynamicCopy?: Array<{
-    condition: string
-    text: string
-  }>
 }
 
 export function AnimatedTransition({
@@ -27,7 +23,6 @@ export function AnimatedTransition({
   description,
   animation,
   onContinue,
-  dynamicCopy,
 }: AnimatedTransitionProps) {
   const [lottieData, setLottieData] = useState<object | null>(null)
   const [avatarLottieData, setAvatarLottieData] = useState<object | null>(null)
@@ -152,20 +147,6 @@ export function AnimatedTransition({
       >
         {description}
       </motion.p>
-
-      {/* Динамично съдържание (ако има) */}
-      {dynamicCopy && dynamicCopy.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.5 }}
-          className="bg-muted/30 rounded-2xl p-6 mb-8 border border-primary/20"
-        >
-          <p className="text-base leading-relaxed">
-            {dynamicCopy[0].text}
-          </p>
-        </motion.div>
-      )}
 
       {/* Бутон за продължаване */}
       <motion.div

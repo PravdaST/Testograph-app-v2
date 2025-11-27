@@ -440,7 +440,6 @@ export default function CategoryQuizPage({ params }: PageProps) {
               description={getDynamicCopy(currentQuestion)}
               animation={currentQuestion.animation}
               onContinue={handleNext}
-              dynamicCopy={currentQuestion.dynamic_copy}
             />
           ) : currentQuestion.type === 'text_input' ? (
             // Text input with inline submit button
