@@ -237,22 +237,16 @@ export async function sendWelcomeEmail({
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   `
 
-  // Conditional CTA based on existing capsules
-  const ctaButton = hasExistingCapsules
-    ? {
-        text: 'Влез в Акаунта',
-        url: 'https://app.testograph.eu/login',
-        color: '#667eea',
-      }
-    : {
-        text: 'Виж Офертата',
-        url: 'https://shop.testograph.eu',
-        color: '#10B981',
-      }
+  // CTA button - always link to login
+  const ctaButton = {
+    text: 'Вход в Приложението',
+    url: 'https://app.testograph.eu/login',
+    color: '#667eea',
+  }
 
   const nextStepsMessage = hasExistingCapsules
     ? '🎉 <strong>Отлично!</strong> Вече имате достъп до програмата! Влезте в акаунта си и започнете веднага.'
-    : '💡 <strong>Следващи стъпки:</strong> За да получите пълен достъп и TestoUP добавката, посетете магазина и използвайте вашата отстъпка.'
+    : '💡 <strong>Следващи стъпки:</strong> Влезте в акаунта си с данните по-горе и разгледайте персонализираната си програма.'
 
   const htmlContent = `
 <!DOCTYPE html>
