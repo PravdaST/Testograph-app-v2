@@ -148,10 +148,13 @@ export default function ProfilePage() {
       if (response.ok) {
         setFirstName(nameText.trim())
         setUserName(nameText.trim())
+        updateUserProgram({ first_name: nameText.trim() })
         setIsEditingName(false)
+        toast.success('Името е запазено успешно')
       }
     } catch (error) {
       console.error('Error saving name:', error)
+      toast.error('Грешка при запазване на името')
     } finally {
       setIsSavingName(false)
     }
