@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Star, Check, ChevronDown, ChevronRight, Shield, Truck, Package, Award, Clock, Heart, Zap, Dumbbell, Brain, Smartphone, Sparkles, UtensilsCrossed, TrendingUp, Target } from 'lucide-react'
 
 // Checkout URL with discount code
-const CHECKOUT_URL = 'https://shop.testograph.eu/checkouts/cn/hWN5mYLrYhkHrMjP1upLxFD9/bg-bg?discount=QuizzOff38'
+const CHECKOUT_URL = 'https://shop.testograph.eu/cart/58614184051037:3?discount=SPECIAL10'
 
 // Product images
 const productImages = [
@@ -765,24 +765,24 @@ export default function TestoUpOfferPage() {
       </section>
 
       {/* Benefits Bar */}
-      <section className="bg-[#499167] py-6">
+      <section className="bg-[#499167] py-4 md:py-6">
         <div className="w-full md:max-w-6xl mx-auto px-2 md:px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div className="grid grid-cols-4 gap-2 md:gap-4 text-center">
             <div className="text-white">
-              <Heart className="w-8 h-8 mx-auto mb-2" />
-              <p className="font-semibold">По-добър секс</p>
+              <Heart className="w-5 h-5 md:w-8 md:h-8 mx-auto mb-1 md:mb-2" />
+              <p className="font-semibold text-[10px] md:text-base">По-добър секс</p>
             </div>
             <div className="text-white">
-              <Zap className="w-8 h-8 mx-auto mb-2" />
-              <p className="font-semibold">Повече енергия</p>
+              <Zap className="w-5 h-5 md:w-8 md:h-8 mx-auto mb-1 md:mb-2" />
+              <p className="font-semibold text-[10px] md:text-base">Повече енергия</p>
             </div>
             <div className="text-white">
-              <Dumbbell className="w-8 h-8 mx-auto mb-2" />
-              <p className="font-semibold">Повече сила</p>
+              <Dumbbell className="w-5 h-5 md:w-8 md:h-8 mx-auto mb-1 md:mb-2" />
+              <p className="font-semibold text-[10px] md:text-base">Повече сила</p>
             </div>
             <div className="text-white">
-              <Brain className="w-8 h-8 mx-auto mb-2" />
-              <p className="font-semibold">Остър фокус</p>
+              <Brain className="w-5 h-5 md:w-8 md:h-8 mx-auto mb-1 md:mb-2" />
+              <p className="font-semibold text-[10px] md:text-base">Остър фокус</p>
             </div>
           </div>
         </div>
