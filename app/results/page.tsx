@@ -595,10 +595,6 @@ export default function ResultsPage() {
                     <div>
                       <h4 className="font-bold text-lg">3x TestoUP бутилки</h4>
                       <p className="text-sm text-muted-foreground">90 дни пълна програма</p>
-                      <p className="text-sm mt-1">
-                        <span className="line-through text-muted-foreground">201 лв</span>{' '}
-                        <span className="font-bold text-primary">124.62 лв</span>
-                      </p>
                     </div>
                     <div className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-bold">
                       -38%
