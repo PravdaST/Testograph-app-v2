@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createServiceClient } from '@/lib/supabase/server'
 import { createClient as createAdminClient } from '@supabase/supabase-js'
 import type { QuizResult } from '@/lib/data/quiz/types'
-import { sendWelcomeEmail } from '@/lib/email/welcome'
+import { sendWelcomeEmail, sendPendingOrderEmail } from '@/lib/email/welcome'
 import crypto from 'crypto'
 
 /**
@@ -113,6 +113,19 @@ export async function POST(request: NextRequest) {
       .eq('email', email)
       .maybeSingle()
 
+    // Check if user has a pending order (ordered but not yet paid)
+    const { data: pendingOrder } = await (supabase
+      .from('pending_orders') as any)
+      .select('id, order_id, order_number, status, total_price')
+      .eq('email', email)
+      .eq('status', 'pending')
+      .maybeSingle()
+
+    const hasPendingOrder = !!pendingOrder
+    if (hasPendingOrder) {
+      console.log(`📦 User has pending order #${pendingOrder.order_number}`)
+    }
+
     // Prepare access data if user has capsules
     let initialAccessData: Record<string, unknown> = {}
     if (existingInventory && existingInventory.capsules_remaining > 0) {
@@ -206,13 +219,13 @@ export async function POST(request: NextRequest) {
       let generatedPassword: string | null = null
       let isNewUser = false
 
+      // Extract user name from responses
+      const nameResponse = result.responses.find((r) => r.question_id.includes('name'))
+      const userName = nameResponse && typeof nameResponse.answer === 'string' ? nameResponse.answer : undefined
+
       if (!existingUser) {
         // User doesn't exist - create new account
         generatedPassword = crypto.randomBytes(12).toString('base64')
-
-        // Extract user name from responses
-        const nameResponse = result.responses.find((r) => r.question_id.includes('name'))
-        const userName = nameResponse && typeof nameResponse.answer === 'string' ? nameResponse.answer : undefined
 
         const { data: newUser, error: createError } = await supabaseAdmin.auth.admin.createUser({
           email,
@@ -235,23 +248,55 @@ export async function POST(request: NextRequest) {
           console.log('📧 Email:', email)
           console.log('🔑 Password:', generatedPassword)
 
-          // Send welcome email with credentials
-          const hasExistingCapsules = !!(existingInventory && existingInventory.capsules_remaining > 0)
-          const emailSent = await sendWelcomeEmail({
-            email,
-            password: generatedPassword,
-            userName,
-            category: result.category,
-            result,
-            hasExistingCapsules,
-          })
-
-          if (!emailSent) {
-            console.error('Failed to send welcome email, but user was created')
+          // Send appropriate email based on order status
+          if (hasPendingOrder) {
+            // User has pending order - send pending order email
+            const emailSent = await sendPendingOrderEmail({
+              email,
+              password: generatedPassword,
+              userName,
+              category: result.category,
+              result,
+              orderNumber: pendingOrder.order_number,
+            })
+            if (!emailSent) {
+              console.error('Failed to send pending order email, but user was created')
+            }
+          } else {
+            // Normal flow - send welcome email
+            const hasExistingCapsules = !!(existingInventory && existingInventory.capsules_remaining > 0)
+            const emailSent = await sendWelcomeEmail({
+              email,
+              password: generatedPassword,
+              userName,
+              category: result.category,
+              result,
+              hasExistingCapsules,
+            })
+            if (!emailSent) {
+              console.error('Failed to send welcome email, but user was created')
+            }
           }
         }
       } else {
-        console.log('User already exists, skipping credential generation')
+        // User already exists
+        console.log('User already exists, checking for pending order...')
+
+        // If user has pending order, send them a pending order notification
+        if (hasPendingOrder) {
+          console.log('📦 Existing user with pending order - sending reminder email')
+          const emailSent = await sendPendingOrderEmail({
+            email,
+            password: null, // No password for existing users
+            userName,
+            category: result.category,
+            result,
+            orderNumber: pendingOrder.order_number,
+          })
+          if (!emailSent) {
+            console.error('Failed to send pending order email to existing user')
+          }
+        }
       }
 
       return NextResponse.json({

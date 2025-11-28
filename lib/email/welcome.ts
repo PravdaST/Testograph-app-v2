@@ -382,3 +382,219 @@ ${hasExistingCapsules
     return false
   }
 }
+
+/**
+ * Send email for users with pending orders (ordered but not yet paid)
+ * Includes login credentials and message about waiting for payment
+ */
+interface PendingOrderEmailParams {
+  email: string
+  password: string | null // null for existing users
+  userName?: string
+  category: string
+  result: QuizResult
+  orderNumber?: string
+}
+
+export async function sendPendingOrderEmail({
+  email,
+  password,
+  userName,
+  category,
+  result,
+  orderNumber,
+}: PendingOrderEmailParams): Promise<boolean> {
+  const resendApiKey = process.env.RESEND_API_KEY
+
+  if (!resendApiKey) {
+    console.error('RESEND_API_KEY not configured')
+    return false
+  }
+
+  const categoryNames: Record<string, string> = {
+    energy: 'Енергия и Виталност',
+    libido: 'Либидо и Сексуално здраве',
+    muscle: 'Мускулна маса и сила',
+  }
+
+  const programName = categoryNames[category] || 'Testograph'
+  const greeting = userName ? `${userName}, ` : ''
+
+  // Format quiz results
+  const levelDisplay = getScoreLevelDisplay(result.total_score)
+  const levelText = {
+    low: 'Ниско ниво - Нужда от подобрение',
+    normal: 'Средно ниво - Добро състояние',
+    high: 'Високо ниво - Отлично състояние',
+  }[result.determined_level]
+
+  const resultsHTML = `
+    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border: 2px solid ${levelDisplay.color};">
+      <h3 style="margin: 0 0 15px 0; font-size: 18px; color: ${levelDisplay.color};">Вашите резултати от теста</h3>
+
+      <div style="margin-bottom: 15px;">
+        <p style="margin: 5px 0;"><strong>Категория:</strong> ${programName}</p>
+        <p style="margin: 5px 0;"><strong>Обща оценка:</strong> ${result.total_score}/100</p>
+        <p style="margin: 5px 0; color: ${levelDisplay.color}; font-weight: bold;"><strong>Ниво:</strong> ${levelText}</p>
+      </div>
+
+      <div style="background: #f9f9f9; padding: 15px; border-radius: 6px;">
+        <p style="margin: 0 0 10px 0; font-weight: bold;">Детайлна разбивка:</p>
+        <ul style="margin: 0; padding-left: 20px; list-style: none;">
+          <li style="margin: 5px 0;">- ${getSectionLabel('symptoms')}: ${result.breakdown.symptoms}/10</li>
+          <li style="margin: 5px 0;">- ${getSectionLabel('nutrition')}: ${result.breakdown.nutrition}/10</li>
+          <li style="margin: 5px 0;">- ${getSectionLabel('training')}: ${result.breakdown.training}/10</li>
+          <li style="margin: 5px 0;">- ${getSectionLabel('sleep_recovery')}: ${result.breakdown.sleep_recovery}/10</li>
+          <li style="margin: 5px 0;">- ${getSectionLabel('context')}: ${result.breakdown.context}/10</li>
+        </ul>
+      </div>
+    </div>
+  `
+
+  // Credentials section - only show if password is provided (new users)
+  const credentialsHTML = password
+    ? `
+    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea;">
+      <p style="margin: 0 0 10px 0; font-weight: bold;">Вашите данни за вход:</p>
+      <p style="margin: 5px 0;"><strong>Имейл:</strong> ${email}</p>
+      <p style="margin: 5px 0;"><strong>Парола:</strong> ${password}</p>
+    </div>
+
+    <p style="font-size: 14px; color: #666; margin: 20px 0;">
+      Моля запазете тази информация на сигурно място. Препоръчваме да промените паролата си след първото влизане.
+    </p>
+    `
+    : `
+    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #667eea;">
+      <p style="margin: 0 0 10px 0; font-weight: bold;">Вход в системата:</p>
+      <p style="margin: 5px 0;">Използвайте имейла <strong>${email}</strong> и съществуващата си парола.</p>
+      <p style="margin: 5px 0; font-size: 14px; color: #666;">Забравена парола? Използвайте бутона "Забравена парола" на страницата за вход.</p>
+    </div>
+    `
+
+  const htmlContent = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Поръчката ви е приета - Testograph</title>
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+  <div style="background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%); padding: 30px; text-align: center; border-radius: 10px 10px 0 0;">
+    <h1 style="color: white; margin: 0; font-size: 24px; font-weight: 600;">Поръчката ви е приета!</h1>
+  </div>
+
+  <div style="background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px;">
+    <p style="font-size: 16px; margin-bottom: 20px;">
+      ${greeting}благодарим за завършването на теста и за поръчката${orderNumber ? ` #${orderNumber}` : ''}!
+    </p>
+
+    <div style="background: #FEF3C7; border-left: 4px solid #F59E0B; padding: 20px; border-radius: 8px; margin: 20px 0;">
+      <h3 style="margin: 0 0 10px 0; color: #92400E;">Чакаме потвърждение на плащането</h3>
+      <p style="margin: 0; color: #92400E;">
+        Веднага след като плащането бъде потвърдено, ще получите пълен достъп до вашата персонализирана програма <strong>${programName}</strong>.
+      </p>
+    </div>
+
+    ${resultsHTML}
+
+    ${credentialsHTML}
+
+    <div style="background: white; padding: 20px; border-radius: 8px; margin: 20px 0;">
+      <h3 style="margin: 0 0 15px 0; font-size: 18px;">Вашата 30-дневна програма ще включва:</h3>
+      <ul style="margin: 0; padding-left: 20px;">
+        <li style="margin: 10px 0;">Персонализирани тренировки според теста</li>
+        <li style="margin: 10px 0;">Хранителен план с точни препоръки</li>
+        <li style="margin: 10px 0;">TestoUP добавка за оптимални резултати</li>
+        <li style="margin: 10px 0;">Дневен график за оптимални резултати</li>
+        <li style="margin: 10px 0;">Проследяване на прогреса</li>
+      </ul>
+    </div>
+
+    <div style="text-align: center; margin: 30px 0;">
+      <a href="https://app.testograph.eu/login"
+         style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px 40px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 16px;">
+        Към страницата за вход
+      </a>
+    </div>
+
+    <p style="font-size: 14px; color: #666; margin-top: 30px; text-align: center;">
+      Ако имате въпроси относно поръчката или плащането, свържете се с нас на support@testograph.eu
+    </p>
+  </div>
+
+  <div style="text-align: center; padding: 20px; color: #999; font-size: 12px;">
+    <p>© ${new Date().getFullYear()} Testograph. Всички права запазени.</p>
+  </div>
+</body>
+</html>
+`
+
+  const textContent = `
+Поръчката ви е приета!
+
+${greeting}благодарим за завършването на теста и за поръчката${orderNumber ? ` #${orderNumber}` : ''}!
+
+ЧАКАМЕ ПОТВЪРЖДЕНИЕ НА ПЛАЩАНЕТО
+
+Веднага след като плащането бъде потвърдено, ще получите пълен достъп до вашата персонализирана програма ${programName}.
+
+ВАШИТЕ РЕЗУЛТАТИ:
+Категория: ${programName}
+Обща оценка: ${result.total_score}/100
+Ниво: ${levelText}
+
+${password ? `ДАННИ ЗА ВХОД:
+Имейл: ${email}
+Парола: ${password}
+
+Моля запазете тази информация на сигурно място.` : `ВХОД:
+Използвайте имейла ${email} и съществуващата си парола.`}
+
+Вашата 30-дневна програма ще включва:
+- Персонализирани тренировки според теста
+- Хранителен план с точни препоръки
+- TestoUP добавка за оптимални резултати
+- Дневен график за оптимални резултати
+- Проследяване на прогреса
+
+Страница за вход: https://app.testograph.eu/login
+
+Ако имате въпроси, свържете се с нас на support@testograph.eu
+`
+
+  try {
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${resendApiKey}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'Testograph <noreply@shop.testograph.eu>',
+        to: email,
+        subject: `Поръчката ви е приета - Чакаме плащането${orderNumber ? ` (#${orderNumber})` : ''}`,
+        reply_to: 'support@testograph.eu',
+        html: htmlContent,
+        text: textContent,
+        headers: {
+          'List-Unsubscribe': '<mailto:support@testograph.eu?subject=Unsubscribe>',
+          'X-Entity-Ref-ID': `pending-order-${Date.now()}`,
+        },
+      }),
+    })
+
+    if (!response.ok) {
+      const error = await response.text()
+      console.error('Failed to send pending order email:', error)
+      return false
+    }
+
+    console.log('Pending order email sent successfully to:', email)
+    return true
+  } catch (error) {
+    console.error('Error sending pending order email:', error)
+    return false
+  }
+}
