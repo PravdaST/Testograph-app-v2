@@ -248,9 +248,12 @@ export async function POST(request: NextRequest) {
           console.log('📧 Email:', email)
           console.log('🔑 Password:', generatedPassword)
 
-          // Send appropriate email based on order status
-          if (hasPendingOrder) {
-            // User has pending order - send pending order email
+          // Send appropriate email based on order/payment status
+          const hasExistingCapsules = !!(existingInventory && existingInventory.capsules_remaining > 0)
+
+          if (hasPendingOrder && !hasExistingCapsules) {
+            // User has pending order BUT hasn't paid yet - send pending order email
+            console.log('📧 Sending pending order email (not paid yet)')
             const emailSent = await sendPendingOrderEmail({
               email,
               password: generatedPassword,
@@ -263,8 +266,8 @@ export async function POST(request: NextRequest) {
               console.error('Failed to send pending order email, but user was created')
             }
           } else {
-            // Normal flow - send welcome email
-            const hasExistingCapsules = !!(existingInventory && existingInventory.capsules_remaining > 0)
+            // User has paid (has capsules) OR no pending order - send normal welcome email
+            console.log('📧 Sending welcome email (paid or no pending order)')
             const emailSent = await sendWelcomeEmail({
               email,
               password: generatedPassword,
@@ -282,9 +285,11 @@ export async function POST(request: NextRequest) {
         // User already exists
         console.log('User already exists, checking for pending order...')
 
-        // If user has pending order, send them a pending order notification
-        if (hasPendingOrder) {
-          console.log('📦 Existing user with pending order - sending reminder email')
+        const hasExistingCapsules = !!(existingInventory && existingInventory.capsules_remaining > 0)
+
+        // If user has pending order BUT hasn't paid, send them a pending order notification
+        if (hasPendingOrder && !hasExistingCapsules) {
+          console.log('📦 Existing user with pending order (not paid) - sending reminder email')
           const emailSent = await sendPendingOrderEmail({
             email,
             password: null, // No password for existing users
@@ -296,6 +301,9 @@ export async function POST(request: NextRequest) {
           if (!emailSent) {
             console.error('Failed to send pending order email to existing user')
           }
+        } else if (hasExistingCapsules) {
+          // User has paid - they already have access, no need for email
+          console.log('✅ Existing user with capsules - already has access, skipping email')
         }
       }
 
