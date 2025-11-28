@@ -206,7 +206,7 @@ export function ExerciseProgressChart({
                   borderRadius: '8px',
                 }}
                 labelFormatter={(label) => `Дата: ${label}`}
-                formatter={(value: number) => [`${value} kg`, 'Общ обем']}
+                formatter={(value: number) => [`${value} кг`, 'Общ обем']}
               />
               <Bar dataKey="totalVolume" fill="hsl(var(--primary))" radius={[8, 8, 0, 0]} />
             </BarChart>
@@ -228,7 +228,7 @@ export function ExerciseProgressChart({
                 }}
                 labelFormatter={(label) => `Дата: ${label}`}
                 formatter={(value: number) => [
-                  selectedMetric === 'weight' ? `${value} kg` : `${value}`,
+                  selectedMetric === 'weight' ? `${value} кг` : `${value}`,
                   selectedMetric === 'weight' ? 'Макс тежест' : 'Средно RPE',
                 ]}
               />
@@ -250,13 +250,13 @@ export function ExerciseProgressChart({
         <div className="bg-muted/30 rounded-lg p-3 border-2 border-border">
           <div className="text-xs text-muted-foreground mb-1">Макс тежест</div>
           <div className="font-bold text-lg">
-            {Math.max(...progressData.map((d) => d.maxWeight))} kg
+            {Math.max(...progressData.map((d) => d.maxWeight))} кг
           </div>
         </div>
         <div className="bg-muted/30 rounded-lg p-3 border-2 border-border">
           <div className="text-xs text-muted-foreground mb-1">Общ обем</div>
           <div className="font-bold text-lg">
-            {progressData.reduce((sum, d) => sum + d.totalVolume, 0).toLocaleString()} kg
+            {progressData.reduce((sum, d) => sum + d.totalVolume, 0).toLocaleString()} кг
           </div>
         </div>
         <div className="bg-muted/30 rounded-lg p-3 border-2 border-border">

@@ -62,6 +62,7 @@ export function ExerciseCardEnhanced({
   const [restTimeRemaining, setRestTimeRemaining] = useState(0)
   const [isRestTimerActive, setIsRestTimerActive] = useState(false)
   const [isRestTimerPaused, setIsRestTimerPaused] = useState(false)
+  const [timerJustFinished, setTimerJustFinished] = useState(false)
   const restTimerRef = useRef<NodeJS.Timeout | null>(null)
 
   // Set logs state
@@ -154,14 +155,10 @@ export function ExerciseCardEnhanced({
       restTimerRef.current = setInterval(() => {
         setRestTimeRemaining(prev => {
           if (prev <= 1) {
-            // Timer finished
+            // Timer finished - set flag instead of calling toast directly
             setIsRestTimerActive(false)
             setIsRestTimerPaused(false)
-            // Vibrate if supported
-            if (navigator.vibrate) {
-              navigator.vibrate([200, 100, 200])
-            }
-            toast.success('Почивката приключи! Готов за следващата серия 💪')
+            setTimerJustFinished(true)
             return 0
           }
           return prev - 1
@@ -175,7 +172,19 @@ export function ExerciseCardEnhanced({
         restTimerRef.current = null
       }
     }
-  }, [isRestTimerActive, isRestTimerPaused, restTimeRemaining, toast])
+  }, [isRestTimerActive, isRestTimerPaused, restTimeRemaining])
+
+  // Show toast when timer finishes (separate effect to avoid setState during render)
+  useEffect(() => {
+    if (timerJustFinished) {
+      // Vibrate if supported
+      if (navigator.vibrate) {
+        navigator.vibrate([200, 100, 200])
+      }
+      toast.success('Почивката приключи! Готов за следващата серия 💪')
+      setTimerJustFinished(false)
+    }
+  }, [timerJustFinished, toast])
 
   // Start rest timer
   const startRestTimer = () => {
@@ -203,6 +212,10 @@ export function ExerciseCardEnhanced({
     return `${mins}:${secs.toString().padStart(2, '0')}`
   }
 
+  // Detect exercise type - time-based exercises don't need weight/reps inputs
+  const repsStr = String(exercise.reps)
+  const isTimeBased = repsStr.includes('мин') || repsStr.includes('s') || repsStr.includes('сек')
+
   const handleSetComplete = async (setNumber: number) => {
     const setLog = setLogs[setNumber - 1]
 
@@ -217,15 +230,19 @@ export function ExerciseCardEnhanced({
       return
     }
 
-    // Validate input
-    const reps = parseInt(setLog.reps)
-    if (!setLog.reps || isNaN(reps) || reps < 1) {
-      setValidationErrors(prev => ({ ...prev, [setNumber]: true }))
-      toast.warning('Моля въведи брой повторения')
-      return
+    // For time-based/cardio exercises, skip reps validation
+    let reps = 1 // Default for cardio
+    if (!isTimeBased) {
+      // Validate input only for strength exercises
+      reps = parseInt(setLog.reps)
+      if (!setLog.reps || isNaN(reps) || reps < 1) {
+        setValidationErrors(prev => ({ ...prev, [setNumber]: true }))
+        toast.warning('Моля въведи брой повторения')
+        return
+      }
+      // Clear validation error
+      setValidationErrors(prev => ({ ...prev, [setNumber]: false }))
     }
-    // Clear validation error
-    setValidationErrors(prev => ({ ...prev, [setNumber]: false }))
 
     const weight = setLog.weight ? parseFloat(setLog.weight) : null
 
@@ -299,11 +316,6 @@ export function ExerciseCardEnhanced({
   const completedCount = setLogs.filter(s => s.completed).length
   const isFullyCompleted = completedCount === exercise.sets
 
-  // Detect exercise type - time-based exercises don't need weight/reps inputs
-  const repsStr = String(exercise.reps)
-  const isTimeBased = repsStr.includes('мин') || repsStr.includes('s') || repsStr.includes('сек')
-  const isCardio = isTimeBased || exercise.rest_seconds === 0
-
   // Check if exercise needs weight input (based on equipment type from exercises.json)
   const needsWeightInput = requiresWeightInput(exercise.exercisedb_id)
 
@@ -362,7 +374,7 @@ export function ExerciseCardEnhanced({
             <div className="flex gap-2 text-xs text-muted-foreground">
               {previousWorkout.slice(0, 3).map((set, i) => (
                 <span key={i}>
-                  {set.weight_kg ? `${set.weight_kg}kg` : 'BW'} × {set.actual_reps}
+                  {set.weight_kg ? `${set.weight_kg} кг` : 'BW'} × {set.actual_reps}
                 </span>
               ))}
             </div>
@@ -484,7 +496,7 @@ export function ExerciseCardEnhanced({
             if (isTimeBased) {
               completedDisplay = `${exercise.reps} завършени`
             } else if (needsWeightInput) {
-              completedDisplay = `${setLog.weight ? `${setLog.weight}kg` : 'BW'} × ${setLog.reps}`
+              completedDisplay = `${setLog.weight ? `${setLog.weight} кг` : 'BW'} × ${setLog.reps}`
             } else {
               // Bodyweight exercise - only show reps
               completedDisplay = `${setLog.reps} повт.`
@@ -569,7 +581,7 @@ export function ExerciseCardEnhanced({
                 {needsWeightInput && (
                   <div className="flex-1">
                     <label className="text-xs text-muted-foreground block mb-1">
-                      Тежест (kg)
+                      Тежест (кг)
                     </label>
                     <input
                       type="number"

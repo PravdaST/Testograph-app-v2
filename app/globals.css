@@ -138,6 +138,46 @@ body {
   }
 }
 
+/* Range input styling */
+input[type="range"].range-primary {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"].range-primary::-webkit-slider-runnable-track {
+  background: #7c3aed40;
+  height: 12px;
+  border-radius: 9999px;
+}
+
+input[type="range"].range-primary::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  background: #7c3aed;
+  border-radius: 50%;
+  margin-top: -6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+input[type="range"].range-primary::-moz-range-track {
+  background: #7c3aed40;
+  height: 12px;
+  border-radius: 9999px;
+}
+
+input[type="range"].range-primary::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  background: #7c3aed;
+  border-radius: 50%;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
 /* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
@@ -437,4 +477,168 @@ html {
 
 .animate-scroll-left-slow {
   animation: scroll-left 30s linear infinite;
+}
+
+/* ========================================
+   NEUMORPHISM STYLES
+   Soft UI with extruded elements
+   ======================================== */
+
+/* Light mode neumorphism */
+.neu-flat {
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  box-shadow:
+    6px 6px 12px #d1d1d1,
+    -6px -6px 12px #ffffff;
+  border: none;
+}
+
+.neu-pressed {
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  box-shadow:
+    inset 4px 4px 8px #d1d1d1,
+    inset -4px -4px 8px #ffffff;
+  border: none;
+}
+
+.neu-convex {
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  box-shadow:
+    8px 8px 16px #d1d1d1,
+    -8px -8px 16px #ffffff;
+  border: none;
+}
+
+.neu-concave {
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  box-shadow:
+    inset 6px 6px 12px #d1d1d1,
+    inset -6px -6px 12px #ffffff;
+  border: none;
+}
+
+/* Subtle neumorphism for smaller elements */
+.neu-subtle {
+  background: #f0f0f0;
+  box-shadow:
+    4px 4px 8px #d4d4d4,
+    -4px -4px 8px #ffffff;
+  border: none;
+}
+
+/* Neumorphic button styles */
+.neu-btn {
+  background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
+  box-shadow:
+    5px 5px 10px #d1d1d1,
+    -5px -5px 10px #ffffff;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.neu-btn:hover {
+  box-shadow:
+    3px 3px 6px #d1d1d1,
+    -3px -3px 6px #ffffff;
+}
+
+.neu-btn:active {
+  box-shadow:
+    inset 3px 3px 6px #d1d1d1,
+    inset -3px -3px 6px #ffffff;
+}
+
+/* Neumorphic progress bar */
+.neu-progress-track {
+  background: #e8e8e8;
+  box-shadow:
+    inset 2px 2px 4px #d1d1d1,
+    inset -2px -2px 4px #ffffff;
+}
+
+.neu-progress-fill {
+  background: linear-gradient(90deg, #a0a0a0, #c0c0c0);
+  box-shadow:
+    2px 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Neumorphic circle (for icons) */
+.neu-circle {
+  background: linear-gradient(145deg, #f5f5f5, #e0e0e0);
+  box-shadow:
+    4px 4px 8px #d1d1d1,
+    -4px -4px 8px #ffffff;
+}
+
+/* Dark mode neumorphism */
+.dark .neu-flat {
+  background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+  box-shadow:
+    6px 6px 12px #080808,
+    -6px -6px 12px #1f1f1f;
+}
+
+.dark .neu-pressed {
+  background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
+  box-shadow:
+    inset 4px 4px 8px #080808,
+    inset -4px -4px 8px #1f1f1f;
+}
+
+.dark .neu-convex {
+  background: linear-gradient(145deg, #1a1a1a, #0d0d0d);
+  box-shadow:
+    8px 8px 16px #080808,
+    -8px -8px 16px #1f1f1f;
+}
+
+.dark .neu-concave {
+  background: linear-gradient(145deg, #0d0d0d, #1a1a1a);
+  box-shadow:
+    inset 6px 6px 12px #080808,
+    inset -6px -6px 12px #1f1f1f;
+}
+
+.dark .neu-subtle {
+  background: #141414;
+  box-shadow:
+    4px 4px 8px #0a0a0a,
+    -4px -4px 8px #1e1e1e;
+}
+
+.dark .neu-btn {
+  background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+  box-shadow:
+    5px 5px 10px #080808,
+    -5px -5px 10px #1f1f1f;
+}
+
+.dark .neu-btn:hover {
+  box-shadow:
+    3px 3px 6px #080808,
+    -3px -3px 6px #1f1f1f;
+}
+
+.dark .neu-btn:active {
+  box-shadow:
+    inset 3px 3px 6px #080808,
+    inset -3px -3px 6px #1f1f1f;
+}
+
+.dark .neu-progress-track {
+  background: #111111;
+  box-shadow:
+    inset 2px 2px 4px #080808,
+    inset -2px -2px 4px #1a1a1a;
+}
+
+.dark .neu-progress-fill {
+  background: linear-gradient(90deg, #3a3a3a, #4a4a4a);
+}
+
+.dark .neu-circle {
+  background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+  box-shadow:
+    4px 4px 8px #080808,
+    -4px -4px 8px #1f1f1f;
 }

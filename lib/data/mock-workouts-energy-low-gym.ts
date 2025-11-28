@@ -42,7 +42,7 @@ export const ENERGY_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '7zdxRTl',
-        name_bg: 'Лег прес (лек товар)',
+        name_bg: 'Лег прес (лека тежест)',
         name_en: 'leg press',
         sets: 2,
         reps: '10-12',
@@ -51,7 +51,7 @@ export const ENERGY_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '4IKbhHV',
-        name_bg: 'Лат пулдаун (лек товар)',
+        name_bg: 'Лат пулдаун (лека тежест)',
         name_en: 'lat pulldown',
         sets: 2,
         reps: '10-12',
@@ -149,12 +149,12 @@ export const ENERGY_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: 'W9pFVv1',
-        name_bg: 'Бенч прес (лек товар)',
+        name_bg: 'Бенч прес (лека тежест)',
         name_en: 'bench press',
         sets: 2,
         reps: '10',
         rest_seconds: 90,
-        notes: 'Фокус върху техника, не товар',
+        notes: 'Фокус върху техника, не тежест',
       },
       {
         exercisedb_id: '7zdxRTl',
@@ -163,7 +163,7 @@ export const ENERGY_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 3,
         reps: '12',
         rest_seconds: 90,
-        notes: 'Постепенно увеличаване на товара',
+        notes: 'Постепенно увеличаване на тежестта',
       },
       {
         exercisedb_id: '4IKbhHV',

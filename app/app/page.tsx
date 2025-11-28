@@ -904,7 +904,7 @@ export default function DashboardPage() {
           {isSelectedDateToday && selectedDayStats.mealsCompleted < 3 ? (
             <ElectricBorder borderColor="from-orange-500 via-red-500 to-pink-500" className="col-span-1">
               <div
-                className="relative bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+                className="relative h-full rounded-lg p-4 min-h-[88px] hover:scale-105 transition-all group animate-fade-in cursor-pointer"
                 style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
                 onClick={() => router.push('/app/nutrition')}
               >
@@ -966,7 +966,7 @@ export default function DashboardPage() {
             </ElectricBorder>
           ) : (
             <div
-              className="relative col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+              className="relative col-span-1 bg-background rounded-xl p-4 min-h-[88px] border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
               style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
               onClick={() => router.push('/app/nutrition')}
             >
@@ -1031,7 +1031,7 @@ export default function DashboardPage() {
           {isSelectedDateToday && !selectedDayStats.workoutCompleted ? (
             <ElectricBorder borderColor="from-blue-500 via-cyan-500 to-teal-500" className="col-span-1">
               <div
-                className="relative bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+                className="relative h-full rounded-lg p-4 min-h-[88px] hover:scale-105 transition-all group animate-fade-in cursor-pointer"
                 style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
                 onClick={() => router.push(`/app/workout/${selectedDate.getDay() === 0 ? 7 : selectedDate.getDay()}`)}
               >
@@ -1093,7 +1093,7 @@ export default function DashboardPage() {
             </ElectricBorder>
           ) : (
             <div
-              className="relative col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+              className="relative col-span-1 bg-background rounded-xl p-4 min-h-[88px] border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
               style={{ animationDelay: '0.5s', animationFillMode: 'both' }}
               onClick={() => router.push(`/app/workout/${selectedDate.getDay() === 0 ? 7 : selectedDate.getDay()}`)}
             >
@@ -1158,7 +1158,7 @@ export default function DashboardPage() {
           {isSelectedDateToday && !selectedDayStats.sleepTracked ? (
             <ElectricBorder borderColor="from-purple-500 via-indigo-500 to-violet-500" className="col-span-1">
               <div
-                className="relative bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+                className="relative h-full rounded-lg p-4 min-h-[88px] hover:scale-105 transition-all group animate-fade-in cursor-pointer"
                 style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
                 onClick={() => router.push('/app/sleep')}
               >
@@ -1224,7 +1224,7 @@ export default function DashboardPage() {
             </ElectricBorder>
           ) : (
             <div
-              className="relative col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+              className="relative col-span-1 bg-background rounded-xl p-4 min-h-[88px] border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
               style={{ animationDelay: '0.6s', animationFillMode: 'both' }}
               onClick={() => router.push('/app/sleep')}
             >
@@ -1293,7 +1293,7 @@ export default function DashboardPage() {
           {isSelectedDateToday && (!selectedDayStats.testoUpMorning || !selectedDayStats.testoUpEvening) ? (
             <ElectricBorder borderColor="from-green-500 via-emerald-500 to-lime-500" className="col-span-1">
               <div
-                className="relative bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+                className="relative h-full rounded-lg p-4 min-h-[88px] hover:scale-105 transition-all group animate-fade-in cursor-pointer"
                 style={{ animationDelay: '0.7s', animationFillMode: 'both' }}
                 onClick={() => router.push('/app/supplement')}
               >
@@ -1357,7 +1357,7 @@ export default function DashboardPage() {
             </ElectricBorder>
           ) : (
             <div
-              className="relative col-span-1 bg-background rounded-xl p-4 border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
+              className="relative col-span-1 bg-background rounded-xl p-4 min-h-[88px] border border-border hover:border-primary/50 hover:scale-105 transition-all group animate-fade-in cursor-pointer"
               style={{ animationDelay: '0.7s', animationFillMode: 'both' }}
               onClick={() => router.push('/app/supplement')}
             >

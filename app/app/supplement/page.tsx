@@ -184,8 +184,18 @@ export default function SupplementPage() {
 
       if (timeOfDay === 'morning') {
         setMorningCompleted(true)
+        // Update weekly stats for today (index 6 = today)
+        setWeeklyStats(prev => ({
+          ...prev,
+          6: { ...prev[6], morning: true }
+        }))
       } else {
         setEveningCompleted(true)
+        // Update weekly stats for today (index 6 = today)
+        setWeeklyStats(prev => ({
+          ...prev,
+          6: { ...prev[6], evening: true }
+        }))
       }
 
       // Show undo toast
@@ -226,8 +236,18 @@ export default function SupplementPage() {
       // Update local state
       if (undoToast.period === 'morning') {
         setMorningCompleted(false)
+        // Update weekly stats for today (index 6 = today)
+        setWeeklyStats(prev => ({
+          ...prev,
+          6: { ...prev[6], morning: false }
+        }))
       } else {
         setEveningCompleted(false)
+        // Update weekly stats for today (index 6 = today)
+        setWeeklyStats(prev => ({
+          ...prev,
+          6: { ...prev[6], evening: false }
+        }))
       }
 
       // Hide toast
@@ -292,6 +312,13 @@ export default function SupplementPage() {
 
   const programName = CATEGORY_NAMES[userProgram.category]
   const bothCompleted = morningCompleted && eveningCompleted
+
+  // Check if selected date is today
+  const today = new Date()
+  const isSelectedDateToday =
+    selectedDate.getFullYear() === today.getFullYear() &&
+    selectedDate.getMonth() === today.getMonth() &&
+    selectedDate.getDate() === today.getDate()
 
   // Calculate compliance
   const totalDoses = Object.values(weeklyStats).reduce((acc, day) => {
@@ -386,10 +413,12 @@ export default function SupplementPage() {
         <div className="grid grid-cols-2 gap-3">
           <button
             onClick={() => handleDoseToggle('morning')}
-            disabled={morningCompleted}
+            disabled={morningCompleted || !isSelectedDateToday}
             className={`p-4 rounded-xl border-2 transition-all animate-fade-in shimmer-effect hover-lift ripple-effect ${
               morningCompleted
                 ? 'bg-success/10 border-success text-success'
+                : !isSelectedDateToday
+                ? 'bg-muted/30 border-border opacity-60 cursor-not-allowed'
                 : 'bg-background border-border hover:border-primary'
             }`}
             style={{ animationDelay: '0.3s', animationFillMode: 'both' }}
@@ -412,10 +441,12 @@ export default function SupplementPage() {
 
           <button
             onClick={() => handleDoseToggle('evening')}
-            disabled={eveningCompleted}
+            disabled={eveningCompleted || !isSelectedDateToday}
             className={`p-4 rounded-xl border-2 transition-all animate-fade-in shimmer-effect hover-lift ripple-effect ${
               eveningCompleted
                 ? 'bg-success/10 border-success text-success'
+                : !isSelectedDateToday
+                ? 'bg-muted/30 border-border opacity-60 cursor-not-allowed'
                 : 'bg-background border-border hover:border-primary'
             }`}
             style={{ animationDelay: '0.4s', animationFillMode: 'both' }}
@@ -436,6 +467,15 @@ export default function SupplementPage() {
             </div>
           </button>
         </div>
+
+        {/* Message when viewing past/future date */}
+        {!isSelectedDateToday && (
+          <div className="p-3 rounded-lg bg-muted/50 border border-border text-center">
+            <p className="text-xs text-muted-foreground">
+              Гледаш данни за {selectedDate.toLocaleDateString('bg-BG')}. Добавки се записват само за днес.
+            </p>
+          </div>
+        )}
 
         {/* Countdown Timer */}
         {bothCompleted && (
@@ -502,7 +542,7 @@ export default function SupplementPage() {
           >
             <TrendingUp className="w-5 h-5 text-primary mb-2" />
             <div className="text-4xl font-bold text-primary mb-1 animate-count-up">{compliance}%</div>
-            <div className="text-xs text-muted-foreground">Compliance</div>
+            <div className="text-xs text-muted-foreground">Редовност</div>
           </div>
 
           {/* Weekly Visualization (1x1) */}

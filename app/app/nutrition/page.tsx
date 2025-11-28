@@ -471,6 +471,13 @@ export default function NutritionPage() {
 
   const dateKey = selectedDate.toISOString().split('T')[0]
 
+  // Check if selected date is today
+  const todayDate = new Date()
+  const isToday =
+    selectedDate.getFullYear() === todayDate.getFullYear() &&
+    selectedDate.getMonth() === todayDate.getMonth() &&
+    selectedDate.getDate() === todayDate.getDate()
+
   // Merge AI-substituted meals
   const substitutedForToday = substitutedMeals[dateKey] || {}
   const mealsForDay: SubstitutedMeal[] = baseMeals.map(meal =>
@@ -712,6 +719,15 @@ export default function NutritionPage() {
             Твоите хранения
           </h3>
 
+          {/* Message when viewing past/future date */}
+          {!isToday && (
+            <div className="p-3 rounded-lg bg-muted/50 border border-border text-center animate-fade-in">
+              <p className="text-xs text-muted-foreground">
+                Гледаш данни за {selectedDate.toLocaleDateString('bg-BG')}. Хранения се записват само за днес.
+              </p>
+            </div>
+          )}
+
           {mealsForDay.map((meal, index) => {
             const isCompleted = completedToday.includes(meal.meal_number)
 
@@ -732,6 +748,7 @@ export default function NutritionPage() {
                   ingredients={meal.ingredients}
                   recipe={meal.recipe}
                   isCompleted={isCompleted}
+                  isLocked={!isToday}
                   onToggleComplete={() => handleMealToggle(meal.meal_number)}
                   onSubstitute={() => handleSubstitute(meal)}
                   onUndo={() => handleUndo(meal.meal_number)}

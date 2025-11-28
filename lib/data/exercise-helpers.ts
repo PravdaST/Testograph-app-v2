@@ -109,16 +109,33 @@ export function isBodyweightExercise(exerciseId: string): boolean {
 
 /**
  * Check if exercise requires weight tracking
- * Returns true for exercises that use external weights (dumbbells, barbells, etc.)
+ * Returns true for exercises that use external weights (dumbbells, barbells, machines, etc.)
+ * Uses exclusion logic - show weight input for ALL exercises EXCEPT bodyweight, cardio, and stretching
  */
 export function requiresWeightInput(exerciseId: string): boolean {
   const exercise = getExerciseById(exerciseId)
   if (!exercise) return true // Default to showing weight input
 
-  // Equipments that require weight tracking
-  const weightEquipments = ['barbell', 'dumbbell', 'kettlebell', 'ez barbell', 'olympic barbell', 'trap bar', 'weighted']
+  // Equipments that DON'T need weight tracking (bodyweight, cardio, balance, stretching)
+  const noWeightEquipments = [
+    'body weight',
+    'assisted',
+    'elliptical machine',
+    'stationary bike',
+    'stepmill machine',
+    'skierg machine',
+    'upper body ergometer',
+    'bosu ball',
+    'stability ball',
+    'roller',
+    'wheel roller',
+  ]
 
-  return exercise.equipments.some(eq =>
-    weightEquipments.some(we => eq.toLowerCase().includes(we))
+  // If ALL equipments are in the no-weight list, don't show weight input
+  const allNoWeight = exercise.equipments.every(eq =>
+    noWeightEquipments.some(nw => eq.toLowerCase() === nw.toLowerCase())
   )
+
+  // Show weight input unless all equipments are no-weight types
+  return !allNoWeight
 }

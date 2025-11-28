@@ -308,7 +308,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 4,
         reps: '20',
         rest_seconds: 45,
-        notes: 'Тежък товар',
+        notes: 'Тежка тежест',
       },
       {
         exercisedb_id: 'tZkGYZ9',
@@ -344,7 +344,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 4,
         reps: '10',
         rest_seconds: 75,
-        notes: 'Тежък товар',
+        notes: 'Тежка тежест',
       },
       {
         exercisedb_id: 'WcHl7ru',
@@ -420,7 +420,7 @@ export const MUSCLE_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
     exercises: [
       {
         exercisedb_id: '1gFNTZV',
-        name_bg: 'Клекове (умерен товар)',
+        name_bg: 'Клекове (умерена тежест)',
         name_en: 'moderate squat',
         sets: 3,
         reps: '12',

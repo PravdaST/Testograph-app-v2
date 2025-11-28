@@ -257,7 +257,7 @@ export function MeasurementsTracker({ email }: MeasurementsTrackerProps) {
                     <TrendingUp className="w-4 h-4 text-amber-600" />
                   )}
                   <span className={`text-sm font-medium ${weightTrend < 0 ? 'text-green-600' : 'text-amber-600'}`}>
-                    {weightTrend > 0 ? '+' : ''}{weightTrend.toFixed(1)} kg
+                    {weightTrend > 0 ? '+' : ''}{weightTrend.toFixed(1)} кг
                   </span>
                 </div>
               </div>
@@ -300,9 +300,9 @@ export function MeasurementsTracker({ email }: MeasurementsTrackerProps) {
                   }}
                 />
                 <Legend />
-                <Line type="monotone" dataKey="weight" stroke="#3b82f6" name="Тегло (kg)" strokeWidth={2} dot={{ r: 4 }} />
+                <Line type="monotone" dataKey="weight" stroke="#3b82f6" name="Тегло (кг)" strokeWidth={2} dot={{ r: 4 }} />
                 <Line type="monotone" dataKey="bodyFat" stroke="#f59e0b" name="Мазнини (%)" strokeWidth={2} dot={{ r: 4 }} />
-                <Line type="monotone" dataKey="waist" stroke="#10b981" name="Талия (cm)" strokeWidth={2} dot={{ r: 4 }} />
+                <Line type="monotone" dataKey="waist" stroke="#10b981" name="Талия (см)" strokeWidth={2} dot={{ r: 4 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -340,7 +340,7 @@ export function MeasurementsTracker({ email }: MeasurementsTrackerProps) {
                   {m.weight && (
                     <div>
                       <span className="text-muted-foreground">Тегло</span>
-                      <div className="font-medium">{m.weight} kg</div>
+                      <div className="font-medium">{m.weight} кг</div>
                     </div>
                   )}
                   {m.body_fat_pct && (
@@ -352,25 +352,25 @@ export function MeasurementsTracker({ email }: MeasurementsTrackerProps) {
                   {m.waist && (
                     <div>
                       <span className="text-muted-foreground">Талия</span>
-                      <div className="font-medium">{m.waist} cm</div>
+                      <div className="font-medium">{m.waist} см</div>
                     </div>
                   )}
                   {m.chest && (
                     <div>
                       <span className="text-muted-foreground">Гърди</span>
-                      <div className="font-medium">{m.chest} cm</div>
+                      <div className="font-medium">{m.chest} см</div>
                     </div>
                   )}
                   {m.arms && (
                     <div>
                       <span className="text-muted-foreground">Ръце</span>
-                      <div className="font-medium">{m.arms} cm</div>
+                      <div className="font-medium">{m.arms} см</div>
                     </div>
                   )}
                   {m.legs && (
                     <div>
                       <span className="text-muted-foreground">Крака</span>
-                      <div className="font-medium">{m.legs} cm</div>
+                      <div className="font-medium">{m.legs} см</div>
                     </div>
                   )}
                 </div>
@@ -403,12 +403,12 @@ export function MeasurementsTracker({ email }: MeasurementsTrackerProps) {
                         year: 'numeric',
                       })}
                     </td>
-                    <td className="text-right p-2">{m.weight ? `${m.weight} kg` : '-'}</td>
+                    <td className="text-right p-2">{m.weight ? `${m.weight} кг` : '-'}</td>
                     <td className="text-right p-2">{m.body_fat_pct ? `${m.body_fat_pct}%` : '-'}</td>
-                    <td className="text-right p-2">{m.waist ? `${m.waist} cm` : '-'}</td>
-                    <td className="text-right p-2">{m.chest ? `${m.chest} cm` : '-'}</td>
-                    <td className="text-right p-2">{m.arms ? `${m.arms} cm` : '-'}</td>
-                    <td className="text-right p-2">{m.legs ? `${m.legs} cm` : '-'}</td>
+                    <td className="text-right p-2">{m.waist ? `${m.waist} см` : '-'}</td>
+                    <td className="text-right p-2">{m.chest ? `${m.chest} см` : '-'}</td>
+                    <td className="text-right p-2">{m.arms ? `${m.arms} см` : '-'}</td>
+                    <td className="text-right p-2">{m.legs ? `${m.legs} см` : '-'}</td>
                     <td className="text-right p-2">
                       <button
                         onClick={() => handleDeleteMeasurement(m.id)}

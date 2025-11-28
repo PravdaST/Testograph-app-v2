@@ -56,7 +56,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 4,
         reps: '10',
         rest_seconds: 90,
-        notes: 'Максимален товар, контролирано',
+        notes: 'Максимална тежест, контролирано',
       },
       {
         exercisedb_id: '17lJ1kr',
@@ -101,7 +101,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 4,
         reps: '8-10',
         rest_seconds: 120,
-        notes: 'Тежък товар, чист',
+        notes: 'Тежка тежест, чисто изпълнение',
       },
       {
         exercisedb_id: 'u4bAmKp',
@@ -163,7 +163,7 @@ export const LIBIDO_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 4,
         reps: '15',
         rest_seconds: 90,
-        notes: 'Умерен товар, пълна амплитуда',
+        notes: 'Умерена тежест, пълна амплитуда',
       },
       {
         exercisedb_id: 'wQ2c4XD',

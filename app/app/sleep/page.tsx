@@ -399,7 +399,7 @@ export default function SleepPage() {
               step="0.5"
               value={sleepHours}
               onChange={(e) => setSleepHours(parseFloat(e.target.value))}
-              className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
+              className="w-full range-primary"
             />
 
             <div className="flex justify-between text-xs text-muted-foreground mt-2">
@@ -593,11 +593,24 @@ export default function SleepPage() {
           />
         </div>
 
+        {/* Message when viewing past/future date */}
+        {!isToday && (
+          <div className="p-3 rounded-lg bg-muted/50 border border-border text-center">
+            <p className="text-xs text-muted-foreground">
+              Гледаш данни за {selectedDate.toLocaleDateString('bg-BG')}. Сън се записва само за днес.
+            </p>
+          </div>
+        )}
+
         {/* Save Button */}
         <button
           onClick={handleSave}
-          disabled={isSaving}
-          className="w-full py-3 px-4 rounded-xl bg-primary text-primary-foreground font-semibold hover:bg-primary/90 transition-all flex items-center justify-center gap-2 animate-fade-in disabled:opacity-50 disabled:cursor-not-allowed"
+          disabled={isSaving || !isToday}
+          className={`w-full py-3 px-4 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 animate-fade-in disabled:opacity-50 disabled:cursor-not-allowed ${
+            isToday
+              ? 'bg-primary text-primary-foreground hover:bg-primary/90'
+              : 'bg-muted text-muted-foreground cursor-not-allowed'
+          }`}
           style={{ animationDelay: '0.9s', animationFillMode: 'both' }}
         >
           {isSaving ? (

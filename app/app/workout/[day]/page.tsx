@@ -718,7 +718,7 @@ export default function WorkoutPage() {
               {progressPercentage}%
             </div>
             <div className="text-xs text-muted-foreground mb-3">
-              {totalSetsCompleted} от {totalSetsNeeded} серии
+              {totalSetsCompleted} от {totalSetsNeeded} {totalSetsNeeded === 1 ? 'серия' : 'серии'}
             </div>
             <div className="h-2 bg-background/50 rounded-full overflow-hidden">
               <div

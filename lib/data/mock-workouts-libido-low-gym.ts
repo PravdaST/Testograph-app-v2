@@ -38,7 +38,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 3,
         reps: '8-10',
         rest_seconds: 120,
-        notes: 'Фокус върху форма, не товар. Стимулира тестостерон.',
+        notes: 'Фокус върху форма, не тежест. Стимулира тестостерон.',
       },
       {
         exercisedb_id: '7zdxRTl',
@@ -47,7 +47,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 3,
         reps: '10-12',
         rest_seconds: 90,
-        notes: 'Умерен товар, пълна амплитуда',
+        notes: 'Умерена тежест, пълна амплитуда',
       },
       {
         exercisedb_id: '17lJ1kr',
@@ -117,7 +117,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 2,
         reps: '10',
         rest_seconds: 90,
-        notes: 'Умерен товар',
+        notes: 'Умерена тежест',
       },
       {
         exercisedb_id: 'PQStVXH',
@@ -144,7 +144,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 3,
         reps: '10',
         rest_seconds: 90,
-        notes: 'По-лек товар от понеделник',
+        notes: 'По-лека тежест от понеделник',
       },
       {
         exercisedb_id: 'W9pFVv1',
@@ -153,7 +153,7 @@ export const LIBIDO_LOW_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 3,
         reps: '10',
         rest_seconds: 90,
-        notes: 'Умерен товар',
+        notes: 'Умерена тежест',
       },
       {
         exercisedb_id: '4IKbhHV',

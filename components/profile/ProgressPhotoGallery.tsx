@@ -512,14 +512,14 @@ export function ProgressPhotoGallery({ email, onModalChange }: ProgressPhotoGall
                       })}
                     </div>
                     {photo.weight && (
-                      <div className="text-muted-foreground">{photo.weight} kg</div>
+                      <div className="text-muted-foreground">{photo.weight} кг</div>
                     )}
                     {index === 1 && dateDiff > 0 && (
                       <div className="mt-2 p-2 bg-background/50 rounded text-xs">
                         <div>📅 {Math.floor(dateDiff)} дни разлика</div>
                         {weightDiff && (
                           <div className={parseFloat(weightDiff) < 0 ? 'text-green-600' : 'text-amber-600'}>
-                            ⚖️ {parseFloat(weightDiff) > 0 ? '+' : ''}{weightDiff} kg
+                            ⚖️ {parseFloat(weightDiff) > 0 ? '+' : ''}{weightDiff} кг
                           </div>
                         )}
                       </div>
@@ -591,7 +591,7 @@ export function ProgressPhotoGallery({ email, onModalChange }: ProgressPhotoGall
                     month: 'short',
                   })}
                 </div>
-                {photo.weight && <div>{photo.weight} kg</div>}
+                {photo.weight && <div>{photo.weight} кг</div>}
               </div>
               {compareMode && comparePhotos.find((p) => p.id === photo.id) && (
                 <div className="absolute top-1.5 right-1.5 sm:top-2 sm:right-2 w-5 h-5 sm:w-6 sm:h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-[10px] sm:text-xs font-bold">
@@ -892,7 +892,7 @@ export function ProgressPhotoGallery({ email, onModalChange }: ProgressPhotoGall
                     <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1">
                       {selectedPhoto.weight && (
                         <div className="text-xs sm:text-sm text-white/70">
-                          Тегло: {selectedPhoto.weight} kg
+                          Тегло: {selectedPhoto.weight} кг
                         </div>
                       )}
                       {selectedPhoto.body_fat_pct && (

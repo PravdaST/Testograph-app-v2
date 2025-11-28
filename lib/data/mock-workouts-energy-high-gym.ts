@@ -105,7 +105,7 @@ export const ENERGY_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
       },
       {
         exercisedb_id: '1gFNTZV',
-        name_bg: 'Барбел клекове (умерен товар)',
+        name_bg: 'Барбел клекове (умерена тежест)',
         name_en: 'barbell squat',
         sets: 4,
         reps: '12',
@@ -119,7 +119,7 @@ export const ENERGY_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 4,
         reps: '10-12',
         rest_seconds: 60,
-        notes: 'Контролирано, умерен товар',
+        notes: 'Контролирано, умерена тежест',
       },
       {
         exercisedb_id: '4IKbhHV',
@@ -218,7 +218,7 @@ export const ENERGY_HIGH_GYM_WORKOUTS: WorkoutProgram[] = [
         sets: 4,
         reps: '20m',
         rest_seconds: 60,
-        notes: 'Тежък товар, максимално усилие',
+        notes: 'Тежка тежест, максимално усилие',
       },
       {
         exercisedb_id: 'RJa4tCo',

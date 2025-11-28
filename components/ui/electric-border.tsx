@@ -18,19 +18,9 @@ export function ElectricBorder({
   animated = true,
 }: ElectricBorderProps) {
   return (
-    <div className={cn('relative group', className)}>
-      {/* Electric border */}
-      <div
-        className={cn(
-          'absolute -inset-0.5 rounded-2xl bg-gradient-to-r opacity-75 blur-sm',
-          borderColor,
-          glowColor,
-          animated && 'animate-pulse group-hover:opacity-100 transition duration-1000'
-        )}
-      />
-
-      {/* Content */}
-      <div className="relative">
+    <div className={cn('relative group h-full p-[2px] rounded-xl bg-gradient-to-r', borderColor, className, animated && 'animate-pulse')}>
+      {/* Content with background to cover the gradient */}
+      <div className="relative h-full bg-background rounded-[10px]">
         {children}
       </div>
     </div>
