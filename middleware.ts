@@ -30,6 +30,7 @@ export async function middleware(request: NextRequest) {
     '/results',
     '/no-access',
     '/mobile-only',
+    '/testoup-offer',
   ]
 
   // Check if current path is public (exact match or starts with route/)
