@@ -151,6 +151,23 @@ export async function POST(request: NextRequest) {
     console.log(`✅ Successfully added ${totalCapsules} capsules to ${customerEmail}`)
     console.log(`   Capsules remaining: ${newCapsulesTotal}, Total received: ${newTotalCapsules} (${newBottlesTotal} bottles)`)
 
+    // Update pending_orders status to 'paid'
+    const { error: pendingUpdateError } = await (supabase
+      .from('pending_orders') as any)
+      .update({
+        status: 'paid',
+        paid_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      })
+      .eq('order_id', order.id.toString())
+
+    if (pendingUpdateError) {
+      // Log but don't fail - pending_orders table might not exist or order wasn't tracked
+      console.warn('Could not update pending_orders status:', pendingUpdateError.message)
+    } else {
+      console.log(`✅ Updated pending_orders status to 'paid' for order ${order.id}`)
+    }
+
     // Check if user has already completed quiz
     const { data: quizResult } = await (supabase
       .from('quiz_results_v2') as any)

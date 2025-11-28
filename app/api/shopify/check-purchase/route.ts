@@ -3,8 +3,13 @@ import { createServiceClient } from '@/lib/supabase/server'
 
 /**
  * GET /api/shopify/check-purchase
- * Check if user has any TestoUp purchases
+ * Check if user has any TestoUp purchases OR pending orders
  * Note: Uses service client to bypass RLS since this is called from results page without session
+ *
+ * Returns hasPurchased = true if:
+ * 1. User has purchase history (paid orders)
+ * 2. User has inventory
+ * 3. User has a pending order (ordered but not yet paid)
  */
 export async function GET(request: NextRequest) {
   try {
@@ -41,14 +46,37 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Database error' }, { status: 500 })
     }
 
-    const hasPurchased =
+    // Check if user has any pending orders (ordered but not yet paid)
+    const { data: pendingOrders, error: pendingError } = await (supabase
+      .from('pending_orders') as any)
+      .select('id, order_id, order_number, status, total_price, created_at')
+      .eq('email', email)
+      .in('status', ['pending', 'paid']) // Include pending and paid, exclude cancelled/refunded
+      .order('created_at', { ascending: false })
+      .limit(1)
+
+    if (pendingError) {
+      // Table might not exist yet, log but don't fail
+      console.warn('Warning checking pending orders:', pendingError.message)
+    }
+
+    const hasPaidPurchase =
       (purchaseHistory && purchaseHistory.length > 0) ||
       (inventory && inventory.bottles_purchased > 0)
 
+    const hasPendingOrder =
+      pendingOrders && pendingOrders.length > 0 && pendingOrders[0].status === 'pending'
+
+    // hasPurchased = true if user has paid OR has pending order
+    const hasPurchased = hasPaidPurchase || hasPendingOrder
+
     return NextResponse.json({
       hasPurchased,
+      hasPaidPurchase,
+      hasPendingOrder,
       inventory: inventory || null,
       latestPurchase: purchaseHistory && purchaseHistory.length > 0 ? purchaseHistory[0] : null,
+      pendingOrder: pendingOrders && pendingOrders.length > 0 ? pendingOrders[0] : null,
     })
   } catch (error) {
     console.error('Error in check-purchase endpoint:', error)
