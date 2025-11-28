@@ -591,14 +591,9 @@ export default function ResultsPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 3.2, duration: 0.4 }}
                 >
-                  <div className="flex items-start justify-between mb-3">
-                    <div>
-                      <h4 className="font-bold text-lg">3x TestoUP бутилки</h4>
-                      <p className="text-sm text-muted-foreground">90 дни пълна програма</p>
-                    </div>
-                    <div className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-bold">
-                      -38%
-                    </div>
+                  <div className="mb-3">
+                    <h4 className="font-bold text-lg">3x TestoUP бутилки</h4>
+                    <p className="text-sm text-muted-foreground">90 дни пълна програма</p>
                   </div>
                   <a href={testoUpOfferUrl}>
                     <Button size="lg" fullWidth className="group">
