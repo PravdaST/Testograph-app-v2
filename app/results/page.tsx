@@ -241,6 +241,8 @@ export default function ResultsPage() {
   const [email, setEmail] = useState('')
   const [userName, setUserName] = useState('')
   const [hasPurchased, setHasPurchased] = useState<boolean | null>(null)
+  const [hasPaidPurchase, setHasPaidPurchase] = useState<boolean>(false)
+  const [hasPendingOrder, setHasPendingOrder] = useState<boolean>(false)
   const [checkingPurchase, setCheckingPurchase] = useState(true)
   const [timerExpired, setTimerExpired] = useState(false)
 
@@ -279,6 +281,8 @@ export default function ResultsPage() {
       if (response.ok) {
         const data = await response.json()
         setHasPurchased(data.hasPurchased)
+        setHasPaidPurchase(data.hasPaidPurchase || false)
+        setHasPendingOrder(data.hasPendingOrder || false)
       }
     } catch (error) {
       console.error('Error checking purchase:', error)
@@ -454,8 +458,8 @@ export default function ResultsPage() {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto" />
               <p className="text-sm text-muted-foreground mt-4">Проверяваме вашия статус...</p>
             </div>
-          ) : hasPurchased ? (
-            // Scenario 1: User HAS purchased - Show login button
+          ) : hasPaidPurchase ? (
+            // Scenario 1a: User HAS PAID - Show full access message
             <motion.div
               className="bg-background rounded-2xl p-6 shadow-lg border-2"
               style={{ borderColor: categoryInfo.color }}
@@ -473,10 +477,10 @@ export default function ResultsPage() {
                   <CheckCircle2 className="w-12 h-12 text-success" />
                 </motion.div>
                 <h3 className="font-bold text-2xl mb-2">
-                  {userName ? `${userName}, имаш` : 'Имаш'} активна поръчка!
+                  {userName ? `${userName}, имаш` : 'Имаш'} пълен достъп!
                 </h3>
                 <p className="text-muted-foreground">
-                  Открихме че вече си закупил TestoUP. Влез в системата за достъп до пълната програма.
+                  Твоята поръчка е потвърдена. Влез в системата за достъп до пълната програма.
                 </p>
               </div>
 
@@ -489,6 +493,42 @@ export default function ResultsPage() {
 
               <p className="text-xs text-center text-muted-foreground mt-4">
                 Ще използваш имейл: <strong>{email}</strong>
+              </p>
+            </motion.div>
+          ) : hasPendingOrder ? (
+            // Scenario 1b: User has PENDING ORDER (not paid yet) - Show waiting message
+            <motion.div
+              className="bg-background rounded-2xl p-6 shadow-lg border-2 border-amber-500"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: 2.4, duration: 0.5 }}
+            >
+              <div className="text-center mb-6">
+                <motion.div
+                  className="inline-block p-4 rounded-full bg-amber-500/20 mb-4"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 2.6, type: 'spring', stiffness: 200 }}
+                >
+                  <ShoppingCart className="w-12 h-12 text-amber-500" />
+                </motion.div>
+                <h3 className="font-bold text-2xl mb-2">
+                  {userName ? `${userName}, имаш` : 'Имаш'} активна поръчка!
+                </h3>
+                <p className="text-muted-foreground">
+                  Чакаме потвърждение на плащането. Данните за вход са изпратени на имейла ти.
+                </p>
+              </div>
+
+              <a href="https://app.testograph.eu/app" target="_blank" rel="noopener noreferrer">
+                <Button size="lg" fullWidth variant="outline" className="group border-amber-500 text-amber-600 hover:bg-amber-500/10">
+                  <LogIn className="w-5 h-5 mr-2" />
+                  Вход в системата
+                </Button>
+              </a>
+
+              <p className="text-xs text-center text-muted-foreground mt-4">
+                След плащане ще получиш пълен достъп на: <strong>{email}</strong>
               </p>
             </motion.div>
           ) : !timerExpired ? (
