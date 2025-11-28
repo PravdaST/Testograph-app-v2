@@ -310,7 +310,9 @@ export default function ResultsPage() {
 
   // Shopify prefilled cart links
   const sampleCartUrl = `https://shop.testograph.eu/cart/62500534092125:1?attributes[email]=${encodeURIComponent(email)}${userName ? `&attributes[name]=${encodeURIComponent(userName)}` : ''}`
-  const fullCartUrl = `https://shop.testograph.eu/cart/58614184051037:3?discount=QuizzOff38&attributes[email]=${encodeURIComponent(email)}${userName ? `&attributes[name]=${encodeURIComponent(userName)}` : ''}`
+
+  // TestoUP product page URL (instead of direct cart)
+  const testoUpOfferUrl = `/testoup-offer?email=${encodeURIComponent(email)}${userName ? `&name=${encodeURIComponent(userName)}` : ''}&discount=QuizzOff38`
 
   // Animation variants
   const containerVariants = {
@@ -602,10 +604,10 @@ export default function ResultsPage() {
                       -38%
                     </div>
                   </div>
-                  <a href={fullCartUrl} target="_blank" rel="noopener noreferrer">
+                  <a href={testoUpOfferUrl}>
                     <Button size="lg" fullWidth className="group">
                       <ShoppingCart className="w-5 h-5 mr-2" />
-                      Вземи за 124.62 лв (спести 76.38 лв)
+                      Виж пълната оферта
                     </Button>
                   </a>
                 </motion.div>
