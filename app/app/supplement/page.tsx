@@ -351,7 +351,7 @@ export default function SupplementPage() {
               <p className="text-sm text-muted-foreground">2× дневно</p>
               {testoUpInventory && testoUpInventory.bottles_purchased && testoUpInventory.bottles_purchased > 0 && (
                 <p className="text-xs text-primary/70 mt-1">
-                  {testoUpInventory.bottles_purchased} {testoUpInventory.bottles_purchased === 1 ? 'опаковка' : 'опаковки'} • {testoUpInventory.bottles_purchased * 60} капсули
+                  {testoUpInventory.bottles_purchased} {testoUpInventory.bottles_purchased === 1 ? 'опаковка' : 'опаковки'} • {testoUpInventory.capsules_remaining} капсули останали
                 </p>
               )}
             </div>

@@ -106,7 +106,7 @@ export function TestoUpTracker({
           {/* Bottles Info - Minimalistic */}
           {inventory && inventory.bottles_purchased && inventory.bottles_purchased > 0 && (
             <p className="text-xs text-primary/70 mt-1">
-              {inventory.bottles_purchased} {inventory.bottles_purchased === 1 ? 'опаковка' : 'опаковки'} • {inventory.bottles_purchased * 60} капсули
+              {inventory.bottles_purchased} {inventory.bottles_purchased === 1 ? 'опаковка' : 'опаковки'} • {inventory.capsules_remaining} капсули останали
             </p>
           )}
         </div>

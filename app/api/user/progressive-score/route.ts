@@ -45,7 +45,7 @@ export async function GET(request: NextRequest) {
     // 1. Get user's initial quiz score from quiz_results_v2
     const { data: quizResult, error: userError } = await (supabase
       .from('quiz_results_v2') as any)
-      .select('total_score, created_at')
+      .select('total_score, created_at, program_start_date')
       .eq('email', email)
       .order('created_at', { ascending: false })
       .limit(1)
@@ -59,7 +59,9 @@ export async function GET(request: NextRequest) {
     }
 
     const initialScore = quizResult.total_score
-    const programStartDate = new Date(quizResult.created_at.split('T')[0]) // Date only, no time
+    // Use program_start_date if set (after cycle restart), otherwise fall back to created_at
+    const startDateString = quizResult.program_start_date || quizResult.created_at
+    const programStartDate = new Date(startDateString.split('T')[0]) // Date only, no time
     const requestedDate = new Date(dateParam)
 
     // If requested date is before program start, return initial score

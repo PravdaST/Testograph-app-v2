@@ -38,13 +38,13 @@ export async function POST(request: NextRequest) {
     }
 
     // 5. Update program_start_date to today (restart cycle)
-    const today = new Date().toISOString().split('T')[0] // YYYY-MM-DD format
+    const today = new Date().toISOString() // Full timestamp
 
+    // Update quiz_results_v2 instead of users table
     const { error: updateError } = await (supabase
-      .from('users') as any)
+      .from('quiz_results_v2') as any)
       .update({
         program_start_date: today,
-        updated_at: new Date().toISOString(),
       })
       .eq('email', sessionEmail)
 

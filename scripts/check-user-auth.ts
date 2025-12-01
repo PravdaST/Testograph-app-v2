@@ -69,17 +69,19 @@ async function checkAndCreateUser(email: string, password: string) {
     console.log(`   User ID: ${newUser.user.id}`)
   }
 
-  // 2. Check if user exists in database
+  // 2. Check if user exists in quiz_results_v2
   const { data: dbUser, error: dbError } = await supabase
-    .from('users')
+    .from('quiz_results_v2')
     .select('*')
     .eq('email', email)
+    .order('created_at', { ascending: false })
+    .limit(1)
     .single()
 
   if (dbError) {
-    console.log(`⚠️  User does NOT exist in database`)
+    console.log(`⚠️  User does NOT exist in quiz_results_v2`)
   } else {
-    console.log(`✅ User exists in database (users table)`)
+    console.log(`✅ User exists in database (quiz_results_v2 table)`)
   }
 
   // 3. Test login

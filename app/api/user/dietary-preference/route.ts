@@ -23,11 +23,13 @@ export async function GET(request: NextRequest) {
 
     const supabase = createServiceClient()
 
-    // Get user's dietary preference from users table
-    const { data: user, error } = await (supabase
-      .from('users') as any)
+    // Get user's dietary preference from quiz_results_v2 table
+    const { data: quizResult, error } = await (supabase
+      .from('quiz_results_v2') as any)
       .select('dietary_preference')
       .eq('email', email)
+      .order('created_at', { ascending: false })
+      .limit(1)
       .maybeSingle()
 
     if (error) {
@@ -36,12 +38,12 @@ export async function GET(request: NextRequest) {
     }
 
     // If user not found, return default
-    if (!user) {
+    if (!quizResult) {
       return NextResponse.json({ dietary_preference: 'omnivor' })
     }
 
     return NextResponse.json({
-      dietary_preference: user.dietary_preference || 'omnivor',
+      dietary_preference: quizResult.dietary_preference || 'omnivor',
     })
   } catch (error) {
     console.error('Error in GET dietary-preference:', error)
@@ -81,20 +83,22 @@ export async function POST(request: NextRequest) {
 
     const supabase = createServiceClient()
 
-    // Check if user exists
-    const { data: existingUser } = await (supabase
-      .from('users') as any)
+    // Check if quiz result exists for user
+    const { data: existingResult } = await (supabase
+      .from('quiz_results_v2') as any)
       .select('id')
       .eq('email', email)
+      .order('created_at', { ascending: false })
+      .limit(1)
       .maybeSingle()
 
-    if (!existingUser) {
+    if (!existingResult) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 })
     }
 
-    // Update dietary preference
+    // Update dietary preference in quiz_results_v2
     const { error: updateError } = await (supabase
-      .from('users') as any)
+      .from('quiz_results_v2') as any)
       .update({ dietary_preference })
       .eq('email', email)
 

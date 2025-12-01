@@ -88,7 +88,7 @@ export async function GET(request: NextRequest) {
         context: quizResult.breakdown_context,
       },
       completed_at: quizResult.completed_at,
-      program_start_date: quizResult.created_at, // When the user started the program
+      program_start_date: quizResult.program_start_date || quizResult.created_at, // Uses program_start_date if set (after cycle restart), otherwise created_at
       profile_picture_url: quizResult.profile_picture_url,
       goal: quizResult.goal,
       program_end_date: quizResult.program_end_date,
