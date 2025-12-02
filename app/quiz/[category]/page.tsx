@@ -4,9 +4,11 @@
  * Quiz Questions Page - Dynamic category-based quiz
  * Steps 0-23: Quiz questions (24 questions)
  * Step 24: Email capture
+ *
+ * Step Tracking: Records user behavior for funnel analysis
  */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/Button'
 import { QuizSlider } from '@/components/quiz/QuizSlider'
@@ -20,6 +22,11 @@ interface PageProps {
   params: Promise<{ category: string }>
 }
 
+// Generate unique session ID
+function generateSessionId(): string {
+  return `quiz_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`
+}
+
 export default function CategoryQuizPage({ params }: PageProps) {
   const router = useRouter()
   const [category, setCategory] = useState<QuizCategory | null>(null)
@@ -31,6 +38,76 @@ export default function CategoryQuizPage({ params }: PageProps) {
   const [sessionId, setSessionId] = useState<string | null>(null)
   const [textInputErrors, setTextInputErrors] = useState<Record<string, string>>({})
 
+  // Step tracking refs
+  const stepEnteredAt = useRef<number>(Date.now())
+  const lastTrackedStep = useRef<number>(-1)
+
+  // Collect device/browser metadata once
+  const getDeviceMetadata = useCallback(() => {
+    if (typeof window === 'undefined') return {}
+
+    const ua = navigator.userAgent
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(ua)
+    const isTablet = /iPad|Android(?!.*Mobile)/i.test(ua)
+
+    // Get UTM params from URL
+    const urlParams = new URLSearchParams(window.location.search)
+    const utmSource = urlParams.get('utm_source')
+    const utmMedium = urlParams.get('utm_medium')
+    const utmCampaign = urlParams.get('utm_campaign')
+
+    return {
+      device: isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop',
+      screen_width: window.screen.width,
+      screen_height: window.screen.height,
+      viewport_width: window.innerWidth,
+      viewport_height: window.innerHeight,
+      user_agent: ua.substring(0, 200), // Truncate for storage
+      referrer: document.referrer?.substring(0, 200) || null,
+      utm_source: utmSource,
+      utm_medium: utmMedium,
+      utm_campaign: utmCampaign,
+      language: navigator.language,
+      timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    }
+  }, [])
+
+  // Track step event (non-blocking, fire-and-forget)
+  const trackStep = useCallback(async (
+    eventType: 'step_entered' | 'step_exited' | 'answer_selected' | 'back_clicked' | 'quiz_abandoned' | 'page_hidden' | 'page_visible',
+    stepNumber: number,
+    questionId?: string,
+    timeSpent?: number,
+    answerValue?: string,
+    extraMetadata?: Record<string, any>
+  ) => {
+    if (!sessionId || !category) return
+
+    // Include device metadata on first event (step_entered at step 0)
+    const metadata = eventType === 'step_entered' && stepNumber === 0
+      ? { ...getDeviceMetadata(), ...extraMetadata }
+      : extraMetadata || {}
+
+    try {
+      fetch('/api/quiz/track-step', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          session_id: sessionId,
+          category,
+          step_number: stepNumber,
+          question_id: questionId,
+          event_type: eventType,
+          time_spent_seconds: timeSpent,
+          answer_value: answerValue,
+          metadata
+        })
+      }).catch(() => {}) // Silently ignore tracking errors
+    } catch {
+      // Silently ignore tracking errors - don't affect user experience
+    }
+  }, [sessionId, category, getDeviceMetadata])
+
   // Unwrap params (Next.js 15 async params)
   useEffect(() => {
     params.then((p) => {
@@ -40,6 +117,16 @@ export default function CategoryQuizPage({ params }: PageProps) {
         return
       }
       setCategory(cat)
+
+      // Generate or restore session ID
+      const savedSessionId = localStorage.getItem(`quiz_session_${cat}`)
+      if (savedSessionId) {
+        setSessionId(savedSessionId)
+      } else {
+        const newSessionId = generateSessionId()
+        setSessionId(newSessionId)
+        localStorage.setItem(`quiz_session_${cat}`, newSessionId)
+      }
 
       // Restore quiz progress from localStorage
       const savedProgress = localStorage.getItem(`quiz_progress_${cat}`)
@@ -56,6 +143,73 @@ export default function CategoryQuizPage({ params }: PageProps) {
       setIsLoading(false)
     })
   }, [params, router])
+
+  // Track step changes
+  useEffect(() => {
+    if (!sessionId || !category || isLoading) return
+
+    const questions = getQuizForCategory(category).questions
+    const currentQuestion = currentStep < questions.length ? questions[currentStep] : null
+
+    // Track step_exited for previous step (with time spent)
+    if (lastTrackedStep.current >= 0 && lastTrackedStep.current !== currentStep) {
+      const timeSpent = Math.round((Date.now() - stepEnteredAt.current) / 1000)
+      const prevQuestion = lastTrackedStep.current < questions.length
+        ? questions[lastTrackedStep.current]
+        : null
+      trackStep('step_exited', lastTrackedStep.current, prevQuestion?.id, timeSpent)
+    }
+
+    // Track step_entered for current step
+    if (lastTrackedStep.current !== currentStep) {
+      trackStep('step_entered', currentStep, currentQuestion?.id)
+      stepEnteredAt.current = Date.now()
+      lastTrackedStep.current = currentStep
+    }
+  }, [currentStep, sessionId, category, isLoading, trackStep])
+
+  // Track page visibility changes (tab switch) and abandonment
+  useEffect(() => {
+    if (!sessionId || !category || isLoading) return
+
+    const questions = getQuizForCategory(category).questions
+    const currentQuestion = currentStep < questions.length ? questions[currentStep] : null
+
+    // Track when user switches tabs
+    const handleVisibilityChange = () => {
+      const timeSpent = Math.round((Date.now() - stepEnteredAt.current) / 1000)
+      if (document.hidden) {
+        trackStep('page_hidden', currentStep, currentQuestion?.id, timeSpent)
+      } else {
+        trackStep('page_visible', currentStep, currentQuestion?.id)
+        stepEnteredAt.current = Date.now() // Reset timer when they come back
+      }
+    }
+
+    // Track when user tries to leave (close tab/browser)
+    const handleBeforeUnload = () => {
+      const timeSpent = Math.round((Date.now() - stepEnteredAt.current) / 1000)
+      // Use sendBeacon for reliable tracking on page unload
+      const data = JSON.stringify({
+        session_id: sessionId,
+        category,
+        step_number: currentStep,
+        question_id: currentQuestion?.id,
+        event_type: 'quiz_abandoned',
+        time_spent_seconds: timeSpent,
+        metadata: { abandoned_at: new Date().toISOString() }
+      })
+      navigator.sendBeacon('/api/quiz/track-step', data)
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+    window.addEventListener('beforeunload', handleBeforeUnload)
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+      window.removeEventListener('beforeunload', handleBeforeUnload)
+    }
+  }, [sessionId, category, currentStep, isLoading, trackStep])
 
   // Save quiz progress to localStorage whenever responses or currentStep changes
   useEffect(() => {
@@ -94,6 +248,9 @@ export default function CategoryQuizPage({ params }: PageProps) {
       ...prev,
       [currentQuestion.id]: value,
     }))
+
+    // Track answer selection
+    trackStep('answer_selected', currentStep, currentQuestion.id, undefined, String(value))
 
     // Then validate text inputs and show errors (but don't block input)
     if (currentQuestion.type === 'text_input' && typeof value === 'string') {
@@ -217,6 +374,8 @@ export default function CategoryQuizPage({ params }: PageProps) {
 
   const handlePrevious = () => {
     if (currentStep > 0) {
+      // Track back click
+      trackStep('back_clicked', currentStep, currentQuestion?.id)
       setCurrentStep((prev) => prev - 1)
     }
   }
@@ -265,8 +424,9 @@ export default function CategoryQuizPage({ params }: PageProps) {
       // Save email to localStorage for future use
       localStorage.setItem('quizEmail', email)
 
-      // Clear quiz progress from localStorage (quiz completed successfully)
+      // Clear quiz progress and session from localStorage (quiz completed successfully)
       localStorage.removeItem(`quiz_progress_${category}`)
+      localStorage.removeItem(`quiz_session_${category}`)
 
       // Navigate to results
       router.push(`/results?category=${category}`)
