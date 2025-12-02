@@ -15,7 +15,9 @@ const VALID_EVENT_TYPES = [
   'quiz_abandoned',
   'page_hidden',
   'page_visible',
-  'quiz_completed'
+  'quiz_completed',
+  'results_viewed',
+  'offer_clicked'
 ]
 
 interface TrackStepRequest {

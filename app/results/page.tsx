@@ -245,6 +245,41 @@ export default function ResultsPage() {
   const [hasPendingOrder, setHasPendingOrder] = useState<boolean>(false)
   const [checkingPurchase, setCheckingPurchase] = useState(true)
   const [timerExpired, setTimerExpired] = useState(false)
+  const [sessionId, setSessionId] = useState<string | null>(null)
+
+  // Track step events
+  const trackStep = async (
+    eventType: string,
+    stepNumber: number,
+    questionId: string | undefined,
+    category: string,
+    sessionIdValue: string,
+    answerValue?: string
+  ) => {
+    try {
+      await fetch('/api/quiz/track-step', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          session_id: sessionIdValue,
+          category,
+          step_number: stepNumber,
+          question_id: questionId,
+          event_type: eventType,
+          answer_value: answerValue,
+        }),
+      })
+    } catch (error) {
+      // Silently ignore tracking errors
+    }
+  }
+
+  // Track offer clicks
+  const handleOfferClick = (offerType: 'testoup_3months' | 'free_sample_7days' | 'login_app') => {
+    if (sessionId && result) {
+      trackStep('offer_clicked', 27, 'offer_selection', result.category, sessionId, offerType)
+    }
+  }
 
   useEffect(() => {
     // Load quiz result from sessionStorage
@@ -259,6 +294,14 @@ export default function ResultsPage() {
 
     const parsed = JSON.parse(storedResult) as QuizResult
     setResult(parsed)
+
+    // Get session ID from localStorage
+    const storedSessionId = localStorage.getItem(`quiz_session_${parsed.category}`)
+    if (storedSessionId) {
+      setSessionId(storedSessionId)
+      // Track results_viewed event (step 27)
+      trackStep('results_viewed', 27, 'results', parsed.category, storedSessionId)
+    }
 
     if (storedEmail) {
       setEmail(storedEmail)
@@ -486,7 +529,7 @@ export default function ResultsPage() {
                 </p>
               </div>
 
-              <a href="https://app.testograph.eu/app" target="_blank" rel="noopener noreferrer">
+              <a href="https://app.testograph.eu/app" target="_blank" rel="noopener noreferrer" onClick={() => handleOfferClick('login_app')}>
                 <Button size="lg" fullWidth className="group">
                   <LogIn className="w-5 h-5 mr-2" />
                   Вход в системата
@@ -522,7 +565,7 @@ export default function ResultsPage() {
                 </p>
               </div>
 
-              <a href="https://app.testograph.eu/app" target="_blank" rel="noopener noreferrer">
+              <a href="https://app.testograph.eu/app" target="_blank" rel="noopener noreferrer" onClick={() => handleOfferClick('login_app')}>
                 <Button size="lg" fullWidth variant="outline" className="group border-amber-500 text-amber-600 hover:bg-amber-500/10">
                   <LogIn className="w-5 h-5 mr-2" />
                   Вход в системата
@@ -595,7 +638,7 @@ export default function ResultsPage() {
                     <h4 className="font-bold text-lg">3x TestoUP бутилки</h4>
                     <p className="text-sm text-muted-foreground">90 дни пълна програма</p>
                   </div>
-                  <a href={testoUpOfferUrl}>
+                  <a href={testoUpOfferUrl} onClick={() => handleOfferClick('testoup_3months')}>
                     <Button size="lg" fullWidth className="group">
                       <ShoppingCart className="w-5 h-5 mr-2" />
                       Виж пълната оферта
@@ -619,7 +662,7 @@ export default function ResultsPage() {
                       БЕЗПЛАТНО
                     </div>
                   </div>
-                  <a href={sampleCartUrl} target="_blank" rel="noopener noreferrer">
+                  <a href={sampleCartUrl} target="_blank" rel="noopener noreferrer" onClick={() => handleOfferClick('free_sample_7days')}>
                     <Button size="lg" fullWidth variant="outline" className="group">
                       <ShoppingCart className="w-5 h-5 mr-2" />
                       Вземи безплатна проба за 7 дни
