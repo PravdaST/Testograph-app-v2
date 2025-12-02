@@ -421,7 +421,9 @@ export default function CategoryQuizPage({ params }: PageProps) {
       sessionStorage.setItem('quizResult', JSON.stringify(result))
       sessionStorage.setItem('quizEmail', email)
       // Store session_id in sessionStorage for offer tracking on results page
-      sessionStorage.setItem('quizSessionId', sessionId)
+      if (sessionId) {
+        sessionStorage.setItem('quizSessionId', sessionId)
+      }
 
       // Save email to localStorage for future use
       localStorage.setItem('quizEmail', email)
