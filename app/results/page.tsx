@@ -274,10 +274,20 @@ export default function ResultsPage() {
     }
   }
 
-  // Track offer clicks
+  // Track offer clicks using sendBeacon for reliable tracking on navigation
   const handleOfferClick = (offerType: 'testoup_3months' | 'free_sample_7days' | 'login_app') => {
     if (sessionId && result) {
-      trackStep('offer_clicked', 27, 'offer_selection', result.category, sessionId, offerType)
+      // Use sendBeacon for reliable tracking when navigating away
+      // sendBeacon sends as text/plain which track-step API supports
+      const data = JSON.stringify({
+        session_id: sessionId,
+        category: result.category,
+        step_number: 27,
+        question_id: 'offer_selection',
+        event_type: 'offer_clicked',
+        answer_value: offerType,
+      })
+      navigator.sendBeacon('/api/quiz/track-step', data)
     }
   }
 
@@ -295,8 +305,8 @@ export default function ResultsPage() {
     const parsed = JSON.parse(storedResult) as QuizResult
     setResult(parsed)
 
-    // Get session ID from localStorage
-    const storedSessionId = localStorage.getItem(`quiz_session_${parsed.category}`)
+    // Get session ID from sessionStorage (stored by quiz completion before localStorage clear)
+    const storedSessionId = sessionStorage.getItem('quizSessionId')
     if (storedSessionId) {
       setSessionId(storedSessionId)
       // Track results_viewed event (step 27)
