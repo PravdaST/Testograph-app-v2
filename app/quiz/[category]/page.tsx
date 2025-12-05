@@ -272,13 +272,13 @@ export default function CategoryQuizPage({ params }: PageProps) {
   }
 
   // Track text input answer (called ONLY when proceeding to next step - not on blur to avoid mobile keyboard issues)
-  const trackTextAnswer = useCallback(() => {
+  const trackTextAnswer = () => {
     if (!currentQuestion || currentQuestion.type !== 'text_input') return
     const value = responses[currentQuestion.id]
     if (value) {
       trackStep('answer_selected', currentStep, currentQuestion.id, undefined, String(value))
     }
-  }, [currentQuestion, currentStep, responses, trackStep])
+  }
 
   // Validate text input fields
   const validateTextInput = (value: string, questionId: string): string | null => {
