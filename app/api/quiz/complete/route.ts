@@ -147,22 +147,18 @@ export async function POST(request: NextRequest) {
       console.log(`   Type: ${accessType}`)
     }
 
-    // Create record in quiz_results table WITH access data if applicable
-    const { error: quizResultsError } = await (supabase
-      .from('quiz_results') as any)
-      .insert({
-        email,
-        first_name: firstName,
-        ...initialAccessData,
-      })
-      .select()
-      .single()
+    // Update quiz_results_v2 WITH access data if applicable (user already exists from insert above)
+    if (Object.keys(initialAccessData).length > 0) {
+      const { error: updateAccessError } = await (supabase
+        .from('quiz_results_v2') as any)
+        .update(initialAccessData)
+        .eq('email', email)
 
-    if (quizResultsError && quizResultsError.code !== '23505') {
-      // Ignore duplicate key errors (user already exists)
-      console.error('Error creating quiz_results record:', quizResultsError)
-    } else if (Object.keys(initialAccessData).length > 0) {
-      console.log('✅ Access granted on quiz completion!')
+      if (updateAccessError) {
+        console.error('Error updating access data in quiz_results_v2:', updateAccessError)
+      } else {
+        console.log('✅ Access granted on quiz completion!')
+      }
     }
 
     // Save individual responses

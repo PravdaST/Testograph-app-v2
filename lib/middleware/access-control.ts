@@ -16,9 +16,9 @@ export async function checkUserAccess(email: string): Promise<UserAccess> {
   // Use service client to bypass RLS for inventory checks
   const supabase = createServiceClient()
 
-  // Get user access info from quiz_results
+  // Get user access info from quiz_results_v2
   const { data: userAccess } = await (supabase
-    .from('quiz_results') as any)
+    .from('quiz_results_v2') as any)
     .select('has_active_access, access_type, access_end_date')
     .eq('email', email)
     .single()

@@ -271,14 +271,14 @@ export default function CategoryQuizPage({ params }: PageProps) {
     }
   }
 
-  // Track text input answer (called on blur or when proceeding to next)
-  const trackTextAnswer = () => {
+  // Track text input answer (called ONLY when proceeding to next step - not on blur to avoid mobile keyboard issues)
+  const trackTextAnswer = useCallback(() => {
     if (!currentQuestion || currentQuestion.type !== 'text_input') return
     const value = responses[currentQuestion.id]
     if (value) {
       trackStep('answer_selected', currentStep, currentQuestion.id, undefined, String(value))
     }
-  }
+  }, [currentQuestion, currentStep, responses, trackStep])
 
   // Validate text input fields
   const validateTextInput = (value: string, questionId: string): string | null => {
@@ -619,7 +619,8 @@ export default function CategoryQuizPage({ params }: PageProps) {
             />
           ) : currentQuestion.type === 'text_input' ? (
             // Text input with inline submit button
-            // Note: skipTracking=true to avoid tracking every keystroke, track on blur instead
+            // Note: skipTracking=true to avoid tracking every keystroke
+            // Tracking happens ONLY when user explicitly advances (Enter or arrow button click)
             <div className="space-y-2">
               <div className="relative">
                 <input
@@ -627,7 +628,6 @@ export default function CategoryQuizPage({ params }: PageProps) {
                   placeholder={currentQuestion.placeholder || 'Въведи отговор...'}
                   value={(responses[currentQuestion.id] as string) || ''}
                   onChange={(e) => handleAnswer(e.target.value, true)}
-                  onBlur={trackTextAnswer}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && hasAnswer && !hasValidationError) {
                       trackTextAnswer()
