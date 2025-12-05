@@ -3,9 +3,12 @@
 /**
  * Quiz Slider Component
  * For age and sleep hours questions
+ *
+ * NOTE: Uses onMouseUp/onTouchEnd to only fire onChange when user releases slider
+ * This prevents spam of tracking events while dragging
  */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
 
 interface QuizSliderProps {
@@ -19,17 +22,27 @@ interface QuizSliderProps {
 
 export function QuizSlider({ min, max, step, value, unit, onChange }: QuizSliderProps) {
   const [currentValue, setCurrentValue] = useState(value || min)
+  const lastReportedValue = useRef<number | null>(value)
 
   useEffect(() => {
     if (value !== null) {
       setCurrentValue(value)
+      lastReportedValue.current = value
     }
   }, [value])
 
+  // Update visual display while dragging (no tracking)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newValue = Number(e.target.value)
     setCurrentValue(newValue)
-    onChange(newValue)
+  }
+
+  // Only fire onChange (and trigger tracking) when user releases slider
+  const handleRelease = () => {
+    if (currentValue !== lastReportedValue.current) {
+      lastReportedValue.current = currentValue
+      onChange(currentValue)
+    }
   }
 
   const percentage = ((currentValue - min) / (max - min)) * 100
@@ -53,6 +66,8 @@ export function QuizSlider({ min, max, step, value, unit, onChange }: QuizSlider
           step={step}
           value={currentValue}
           onChange={handleChange}
+          onMouseUp={handleRelease}
+          onTouchEnd={handleRelease}
           className="w-full h-3 bg-muted rounded-lg appearance-none cursor-pointer slider"
           style={{
             background: `linear-gradient(to right, rgb(0 0 0) 0%, rgb(0 0 0) ${percentage}%, rgb(var(--muted)) ${percentage}%, rgb(var(--muted)) 100%)`,
