@@ -1,6 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+/**
+ * BMI Input Component
+ *
+ * NOTE: Uses onMouseUp/onTouchEnd to only fire onChange when user releases slider
+ * This prevents spam of tracking events while dragging
+ */
+
+import { useState, useEffect, useRef, useCallback } from 'react'
 
 interface BMIInputProps {
   value: { height: number; weight: number; bmi: number } | null
@@ -11,20 +18,31 @@ export function BMIInput({ value, onChange }: BMIInputProps) {
   const [height, setHeight] = useState(value?.height || 170)
   const [weight, setWeight] = useState(value?.weight || 70)
   const [bmi, setBmi] = useState(value?.bmi || 0)
+  const hasReportedRef = useRef(false)
 
-  // Calculate BMI when height or weight changes
+  // Calculate BMI when height or weight changes (visual only, no tracking)
   useEffect(() => {
     if (height > 0 && weight > 0) {
       const heightInMeters = height / 100
       const calculatedBMI = weight / (heightInMeters * heightInMeters)
       const roundedBMI = Math.round(calculatedBMI * 10) / 10
       setBmi(roundedBMI)
+    }
+  }, [height, weight])
+
+  // Only report to parent (trigger tracking) when user releases slider
+  const handleRelease = useCallback(() => {
+    if (height > 0 && weight > 0) {
+      const heightInMeters = height / 100
+      const calculatedBMI = weight / (heightInMeters * heightInMeters)
+      const roundedBMI = Math.round(calculatedBMI * 10) / 10
 
       onChange({
         height,
         weight,
         bmi: roundedBMI,
       })
+      hasReportedRef.current = true
     }
   }, [height, weight, onChange])
 
@@ -52,6 +70,8 @@ export function BMIInput({ value, onChange }: BMIInputProps) {
           step="1"
           value={height}
           onChange={(e) => setHeight(Number(e.target.value))}
+          onMouseUp={handleRelease}
+          onTouchEnd={handleRelease}
           className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
         />
         <div className="flex justify-between text-xs text-muted-foreground">
@@ -72,6 +92,8 @@ export function BMIInput({ value, onChange }: BMIInputProps) {
           step="1"
           value={weight}
           onChange={(e) => setWeight(Number(e.target.value))}
+          onMouseUp={handleRelease}
+          onTouchEnd={handleRelease}
           className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-primary"
         />
         <div className="flex justify-between text-xs text-muted-foreground">
