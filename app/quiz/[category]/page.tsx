@@ -240,7 +240,8 @@ export default function CategoryQuizPage({ params }: PageProps) {
   const currentQuestion: QuizQuestion | null = !isEmailStep ? questions[currentStep] : null
 
   // Handle answer selection
-  const handleAnswer = (value: number | string) => {
+  // skipTracking=true for text inputs where we track on blur/next instead of every keystroke
+  const handleAnswer = (value: number | string, skipTracking = false) => {
     if (!currentQuestion) return
 
     // Always save the value first
@@ -249,8 +250,10 @@ export default function CategoryQuizPage({ params }: PageProps) {
       [currentQuestion.id]: value,
     }))
 
-    // Track answer selection
-    trackStep('answer_selected', currentStep, currentQuestion.id, undefined, String(value))
+    // Track answer selection (skip for text inputs - they track on blur/next)
+    if (!skipTracking) {
+      trackStep('answer_selected', currentStep, currentQuestion.id, undefined, String(value))
+    }
 
     // Then validate text inputs and show errors (but don't block input)
     if (currentQuestion.type === 'text_input' && typeof value === 'string') {
@@ -265,6 +268,15 @@ export default function CategoryQuizPage({ params }: PageProps) {
           return newErrors
         })
       }
+    }
+  }
+
+  // Track text input answer (called on blur or when proceeding to next)
+  const trackTextAnswer = () => {
+    if (!currentQuestion || currentQuestion.type !== 'text_input') return
+    const value = responses[currentQuestion.id]
+    if (value) {
+      trackStep('answer_selected', currentStep, currentQuestion.id, undefined, String(value))
     }
   }
 
@@ -607,15 +619,18 @@ export default function CategoryQuizPage({ params }: PageProps) {
             />
           ) : currentQuestion.type === 'text_input' ? (
             // Text input with inline submit button
+            // Note: skipTracking=true to avoid tracking every keystroke, track on blur instead
             <div className="space-y-2">
               <div className="relative">
                 <input
                   type="text"
                   placeholder={currentQuestion.placeholder || 'Въведи отговор...'}
                   value={(responses[currentQuestion.id] as string) || ''}
-                  onChange={(e) => handleAnswer(e.target.value)}
+                  onChange={(e) => handleAnswer(e.target.value, true)}
+                  onBlur={trackTextAnswer}
                   onKeyDown={(e) => {
                     if (e.key === 'Enter' && hasAnswer && !hasValidationError) {
+                      trackTextAnswer()
                       handleNext()
                     }
                   }}
@@ -625,7 +640,7 @@ export default function CategoryQuizPage({ params }: PageProps) {
                   autoFocus
                 />
                 <button
-                  onClick={handleNext}
+                  onClick={() => { trackTextAnswer(); handleNext(); }}
                   disabled={!hasAnswer || hasValidationError}
                   className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-md bg-primary text-primary-foreground disabled:opacity-30 disabled:cursor-not-allowed transition-all hover:bg-primary/90"
                 >
